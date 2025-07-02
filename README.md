@@ -1,5 +1,13 @@
 # omechu-server
-
+## 브랜치 전략  : git flow 전략
+```
+main         ← 🔵 배포용 (실서비스 운영)
+│
+└── develop   ← 🟢 개발 통합 브랜치
+    ├── feature/login-ui
+    ├── feature/api-endpoint
+    └── ...
+```
 ## ⭐️ 브랜치(Branch) 컨벤션
 
 1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
