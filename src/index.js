@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 import express from "express";
 import { handleRecommendMenu } from "./controllers/menu.controller.js";
 import { testDatabaseConnection} from "./repositories/menu.repository.js";
-
+import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 데이터베이스 연결 및 테이블 생성
+// 데이터베이스 연결
 async function initializeDatabase() {
     try {
         console.log("Initializing database...");
@@ -32,7 +32,7 @@ app.use(express.json()); // request의 본문을 json으로 해석할 수 있도
 app.use(express.urlencoded({ extended: false })); // 단순 객체 문자열 형태로 본문 데이터 해석
 
 app.get("/recommend", handleRecommendMenu);
-
+app.get("/fetch-places", handleFetchKakaoPlaces);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

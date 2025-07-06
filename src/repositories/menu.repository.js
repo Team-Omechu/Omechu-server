@@ -21,6 +21,10 @@ export const testDatabaseConnection = async () => {
 
 // 메뉴가 데이터베이스에 존재하는지 확인
 export const checkMenuExists = async (menuName) => {
+    if(menuName === undefined || menuName === null) {
+        console.error("Menu name is undefined or null");
+        return true;
+    }
     try {
         const [rows] = await pool.execute(
             'SELECT * FROM menu WHERE name = ?',
@@ -37,7 +41,7 @@ export const checkMenuExists = async (menuName) => {
 export const addMenuToDatabase = async (menuData) => {
     try {
         const { menuName, description, calories, carbs, protein, fat, sodium, vitamins, allergyInfo } = menuData;
-        
+
         const [result] = await pool.execute(
             `INSERT INTO menu (name, description, calory, carbo, protein, fat, vitamin, allergic, sodium) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -53,7 +57,7 @@ export const addMenuToDatabase = async (menuData) => {
                 sodium
             ]
         );
-        
+
         console.log("Menu added to database:", menuName);
         return result;
     } catch (error) {
@@ -77,8 +81,8 @@ export const recommendMenu = async (choice) => {
         // bigint -> 자연어 매핑
         const mealTimeText = {
             1: "아침 식사: 속이 편한 음식, 자극적이지 않고 간단한 조리 가능",
-            2: "점심 식사: 활동을 위한 에너지를 줄 수 있는 한 끼 식사",
-            3: "저녁 식사: 가족이나 친구와 함께 먹기 좋은 따뜻한 요리, 포만감 높은 식사",
+            2: "점심 식사: 활동을 위한 에너지를 줄 수 있는 먹을거",
+            3: "저녁 식사: 포만감 높은 먹을거",
             4: "야식: 부담이 적고 간편하거나 입맛 당기는 음식"
         }[meal_time] || "식사";
 
@@ -103,15 +107,15 @@ export const recommendMenu = async (choice) => {
             3: "친구들 : 공유 가능한 양 많거나 취향 다양한 메뉴",
             4: "가족들 : 따뜻하고 밥반찬 구성"
         }[withWhom] || "";
-        
+
 
         const budgetText = {
-            1 : "1만원 미만 : 분식, 편의점, 간단한 한 끼",
-            2 : "1만 원 ~ 3만 원 : 보통 외식 1~2인 기준",
-            3 : "3만 원 초과 : 다인용 세트, 고급 메뉴",
+            1: "0원 이상 1만원 미만",
+            2: "0원 이상 3만 원 이하",
+            3: "가격 제한 없음",
         }[budget] || "";
         console.log("Meal Time:", mealTimeText);
-        console.log("Purpose:", purposeText);  
+        console.log("Purpose:", purposeText);
         console.log("Mood:", moodText);
         console.log("With:", withText);
         console.log("Budget:", budgetText);
@@ -122,19 +126,20 @@ export const recommendMenu = async (choice) => {
             messages: [
                 {
                     role: "user",
-                    content: `그 동안 나온거 제외하고 한 끼 식사 메뉴 하나를 추천해줘.
+                    content: `그 동안 나온거 제외하고 먹을 거 하나를 추천해줘.
                         다음은 메뉴 추천을 할 때 참고할 정보들이야.
-                        식사 시간: ${mealTimeText}
+                        먹는 시간: ${mealTimeText}
                         목적: ${purposeText}
                         기분: ${moodText}
                         함께하는 사람: ${withText}
                         예산: ${budgetText}
-                        각각의 정보들에 딱 들어 맞을 필요까지는 없지만, 최대한 참고해줘.
+                        제외할 것: ${choice.exceptions ? choice.exceptions : "없음"}
+                        각각의 정보들에 딱 들어 맞을 필요까지는 없고, 5가지 요소를 최대한 반영해줘.
                         그리고 추천해 줄 때 메뉴명을 띄어쓰기 없는 간결한 단어로 말해줘야해.
                         ex) 한우 숙성 꽃등심 스테이크는 적절하지 않고, 스테이크는 맞아.
                         ex) 비리아 타코는 적절하지 않고, 타코는 맞아.
                         또, 카카오 맵에 검색했을 때 나오는 메뉴 이름이면 가산점이야.
-                        추천할 때 아래 형식의 JSON으로 답해줘(마크다운 없이):
+                        추천할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
                         {
                             "menu": "짜장면",
                             "description": "간장 소스로 볶은 중화풍 면 요리",
@@ -146,56 +151,20 @@ export const recommendMenu = async (choice) => {
                             "vitamins": ["A", "B1", "B2", "C"],
                             "allergies": ["밀", "대두"]
                         }
+                         
                             `
                 },
             ],
         });
 
-        const rawText = completion.choices[0].message.content;
+        const rawText = completion.choices[0].message.content.trim();
+        console.log("Raw response from GPT:", rawText);
 
-        const parsed = JSON.parse(rawText);
-        const menuName = parsed.menu;
-        const description = parsed.description;
-        const calories = parsed.calories;
-        const carbs = parsed.carbohydrates;
-        const protein = parsed.protein;
-        const fat = parsed.fat;
-        const sodium = parsed.sodium;
-        const vitamins = parsed.vitamins;
-        const allergyInfo = parsed.allergies;
+        // JSON 배열로 파싱
+        const parsedArray = JSON.parse(rawText);
 
 
-        // 데이터베이스에 메뉴가 존재하는지 확인
-        const menuExists = await checkMenuExists(menuName);
-
-        // 메뉴가 존재하지 않으면 데이터베이스에 추가
-        if (!menuExists) {
-            await addMenuToDatabase({
-                menuName,
-                description,
-                calories,
-                carbs,
-                protein,
-                fat,
-                sodium,
-                vitamins,
-                allergyInfo
-            });
-        } else {
-            console.log(`Menu already exists in the database: ${menuName}`);
-        }
-
-        return {
-            menuName,
-            description,
-            calories,
-            carbs,
-            protein,
-            fat,
-            sodium,
-            vitamins,
-            allergyInfo
-        };
+        return parsedArray;
     } catch (error) {
         console.error("Error handling GPT request:", error);
         throw error;
