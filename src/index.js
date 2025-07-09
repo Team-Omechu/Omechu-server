@@ -5,11 +5,26 @@ import express from "express";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
 import { handleUserSignUp } from "./controllers/auth.controller.js";
+import swaggerAutogen from "swagger-autogen";
+import swaggerUiExpress from "swagger-ui-express";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use((req, res, next) => {
+  res.success = (success) => {
+    return res.json({ resultType: "SUCCESS", error: null, success });
+  };
+
+  res.error = ({ errorCode = "unknown", reason = null, data = null }) => {
+    return res.json({
+      resultType: "FAIL",
+      error: { errorCode, reason, data },
+    });
+  };
+});
 
 // MySQL 세션 저장소 설정
 const MySQLSession = MySQLStore(session);
@@ -23,10 +38,10 @@ const sessionStore = new MySQLSession({
 // 세션 미들웨어 등록
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,  
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: sessionStore,                  // 세션을 DB에 저장
+    store: sessionStore, // 세션을 DB에 저장
     cookie: {
       httpOnly: true,
       maxAge: 1000 * 60 * 60, // 1시간
@@ -34,8 +49,41 @@ app.use(
   })
 );
 
+// swagger 미들웨어 등록
+app.use(
+  "/docs",
+  swaggerUiExpress.serve,
+  swaggerUiExpress.setup(
+    {},
+    {
+      swaggerOptions: {
+        url: "/openapi.json",
+      },
+    }
+  )
+);
+
+app.get("/openapi.json", async (req, res, next) => {
+  const options = {
+    openapi: "3.0.0",
+    disableLogs: true,
+    writeOutputFile: false,
+  };
+  const outputFile = "/dev/null";
+  const routes = ["./src/index.js"];
+  const doc = {
+    info: {
+      title: "Omechu",
+      description: "Umc 8th Omech 데모데이 프로젝트",
+    },
+    host: "localhost:3000",
+  };
+  const result = await swaggerAutogen(options)(outputFile, routes, doc);
+  res.json(result ? result.data : null);
+});
+
 // 기타 미들웨어
-app.use(cors());
+app.use(cors({ origin: ["http://localhost:3000"] }));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -48,8 +96,18 @@ app.get("/", (req, res) => {
 // 회원가입 라우터 (POST /auth/signup)
 app.post("/auth/signup", handleUserSignUp);
 
+// 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+  }
+  res.status(res.statusCode || 500).error({
+    errorCode: err.errorCode || "C001",
+    reason: err.reason || err.message || "서버가 응답하지 못했습니다",
+    data: err.data || null,
+  });
+});
 
-// 맛집 사진 등록 presigned Url 생성 API 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
