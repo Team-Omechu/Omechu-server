@@ -48,6 +48,8 @@ app.get("/", (req, res) => {
 // 회원가입 라우터 (POST /auth/signup)
 app.post("/auth/signup", handleUserSignUp);
 
+
+// 맛집 사진 등록 presigned Url 생성 API 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
