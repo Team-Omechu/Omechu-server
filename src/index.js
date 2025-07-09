@@ -7,6 +7,7 @@ import MySQLStore from "express-mysql-session";
 import { handleUserSignUp } from "./controllers/auth.controller.js";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
+import { generatePresignedUrl } from "./controllers/image.uploader.js";
 
 dotenv.config();
 
@@ -22,8 +23,10 @@ app.use((req, res, next) => {
     return res.json({
       resultType: "FAIL",
       error: { errorCode, reason, data },
+      success: null,
     });
   };
+  next();
 });
 
 // MySQL 세션 저장소 설정
@@ -95,6 +98,9 @@ app.get("/", (req, res) => {
 
 // 회원가입 라우터 (POST /auth/signup)
 app.post("/auth/signup", handleUserSignUp);
+
+// 프로필 이미지 presigned url 생성 API
+app.post("/image/upload/profiles", generatePresignedUrl);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
