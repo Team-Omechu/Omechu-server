@@ -13,6 +13,19 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+  res.success = (success) => {
+    return res.json({ resultType: "SUCCESS", error: null, success });
+  };
+
+  res.error = ({ errorCode = "unknown", reason = null, data = null }) => {
+    return res.json({
+      resultType: "FAIL",
+      error: { errorCode, reason, data },
+    });
+  };
+});
+
 // MySQL 세션 저장소 설정
 const MySQLSession = MySQLStore(session);
 const sessionStore = new MySQLSession({
@@ -35,6 +48,7 @@ app.use(
     },
   })
 );
+
 // swagger 미들웨어 등록
 app.use(
   "/docs",
@@ -48,6 +62,7 @@ app.use(
     }
   )
 );
+
 app.get("/openapi.json", async (req, res, next) => {
   const options = {
     openapi: "3.0.0",
@@ -80,6 +95,18 @@ app.get("/", (req, res) => {
 
 // 회원가입 라우터 (POST /auth/signup)
 app.post("/auth/signup", handleUserSignUp);
+
+// 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    next(err);
+  }
+  res.status(res.statusCode || 500).error({
+    errorCode: err.errorCode || "C001",
+    reason: err.reason || err.message || "서버가 응답하지 못했습니다",
+    data: err.data || null,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
