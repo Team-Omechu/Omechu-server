@@ -54,6 +54,7 @@ app.use(
     },
   })
 );
+
 // swagger 미들웨어 등록
 app.use(
   "/docs",
@@ -67,6 +68,7 @@ app.use(
     }
   )
 );
+
 
 app.get("/openapi.json", async (req, res, next) => {
   const options = {
