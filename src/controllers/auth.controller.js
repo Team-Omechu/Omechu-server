@@ -8,13 +8,15 @@ export const handleUserSignUp = async (req, res, next) => {
 
   const user = await userSignUp(bodyToUser(req.body));
 
-  // 세션에 로그인 정보 저장
   req.session.user = {
-    id: user.id, 
+    id: Number(user.id), 
     email: user.email,
   };
 
-  console.log(req.session)
+  console.log(req.session);
 
-  res.status(StatusCodes.OK).json({ result: user });
+  res.status(StatusCodes.OK).success({
+    ...user,
+    id: Number(user.id),
+  });
 };
