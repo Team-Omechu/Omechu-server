@@ -24,6 +24,7 @@ model menu {
   vitamin          String?            @db.Text
   allergic         String?            @db.Text
   sodium           BigInt?
+  image_link       String?
   mukburim         mukburim[]
   recommend_except recommend_except[]
   rest_menu        rest_menu[]
@@ -146,12 +147,12 @@ model user {
   body_type        user_body_type?
   gender           user_gender?
   exercise         user_exercise?
-  prefer           String?            @db.Text
-  allergic         String?            @db.Text
   password         String             @db.VarChar(50)
   created_at       DateTime?          @default(now()) @db.DateTime(0)
   updated_at       DateTime?          @default(now()) @db.DateTime(0)
+  allergy          allergy[]
   mukburim         mukburim[]
+  prefer           prefer[]
   recommend_except recommend_except[]
   report           report[]
   review           review[]
@@ -170,20 +171,54 @@ model zzim {
   @@index([user_id], map: "user_id")
 }
 
+model allergy {
+  id      Int             @id @default(autoincrement())
+  userId  BigInt
+  allergy allergy_allergy
+  user    user            @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "allergy_userId_fkey")
+}
+
+model prefer {
+  id     Int           @id @default(autoincrement())
+  userId BigInt
+  prefer prefer_prefer
+  user   user          @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "prefer_userId_fkey")
+}
+
 enum user_body_type {
-  cold @map("감기")
+  cold        @map("감기")
   indigestion @map("소화불량")
-  heat_type @map("더위잘탐")
-  cold_type @map("추위잘탐")
+  heat_type   @map("더위잘탐")
+  cold_type   @map("추위잘탐")
 }
 
 enum user_gender {
-  male @map("남성")
+  male   @map("남성")
   female @map("여성")
 }
 
 enum user_exercise {
-  diet @map("다이어트 중")
-  bulk @map("중량 중")
+  diet     @map("다이어트 중")
+  bulk     @map("중량 중")
   maintain @map("유지 중")
+}
+
+enum allergy_allergy {
+  egg       @map("달걀(난류) 알레르기")
+  milk      @map("우유 알레르기")
+  shellfish @map("갑각류 알레르기")
+  seafood   @map("해산물 알레르기")
+  nuts      @map("견과류 알레르기")
+}
+
+enum prefer_prefer {
+  korean   @map("한식")
+  western  @map("양식")
+  chinese  @map("중식")
+  japanese @map("일식")
+  other    @map("다른나라")
 }
