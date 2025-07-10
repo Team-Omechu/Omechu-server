@@ -8,7 +8,7 @@ import { handleUserSignUp } from "./controllers/auth.controller.js";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 import { handleRecommendMenu } from "./controllers/menu.controller.js";
-import { testDatabaseConnection} from "./repositories/menu.repository.js";
+import { testDatabaseConnection } from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 
@@ -16,7 +16,6 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use((req, res, next) => {
   res.success = (success) => {
@@ -70,7 +69,6 @@ app.use(
   )
 );
 
-
 app.get("/openapi.json", async (req, res, next) => {
   const options = {
     openapi: "3.0.0",
@@ -96,7 +94,6 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
 // 기본 라우터
 app.get("/", (req, res) => {
   res.send("Hello Omechu!");
@@ -107,9 +104,8 @@ app.post("/auth/signup", handleUserSignUp);
 app.get("/recommend", handleRecommendMenu);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 
-
 // 프로필 이미지 presigned url 생성 API
-app.post("/image/upload/profiles", generatePresignedUrl);
+app.post("/image/upload", generatePresignedUrl);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
@@ -123,22 +119,25 @@ app.use((err, req, res, next) => {
   });
 });
 
-
 // 데이터베이스 연결
 async function initializeDatabase() {
-    try {
-        console.log("Initializing database...");
-        const connectionTest = await testDatabaseConnection();
-        
-        if (connectionTest) {
-            console.log("Database initialization completed successfully");
-        } else {
-            console.error("Database connection failed. Please check your AWS RDS settings.");
-        }
-    } catch (error) {
-        console.error("Error initializing database:", error);
-        console.error("Server will continue running, but database operations may fail.");
+  try {
+    console.log("Initializing database...");
+    const connectionTest = await testDatabaseConnection();
+
+    if (connectionTest) {
+      console.log("Database initialization completed successfully");
+    } else {
+      console.error(
+        "Database connection failed. Please check your AWS RDS settings."
+      );
     }
+  } catch (error) {
+    console.error("Error initializing database:", error);
+    console.error(
+      "Server will continue running, but database operations may fail."
+    );
+  }
 }
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
