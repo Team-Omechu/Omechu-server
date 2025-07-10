@@ -1,59 +1,40 @@
-import { pool } from "../db.config.js";
+import { PrismaClient } from '../generated/prisma/index.js'
+const prisma = new PrismaClient();
 
-// User 데이터 삽입
 export const addUser = async (data) => {
-  const conn = await pool.getConnection();
-
   try {
-    const [confirm] = await pool.query(
-      `SELECT EXISTS(SELECT 1 FROM user WHERE email = ?) as isExistEmail;`,
-      data.email
-    );
+    const existingUser = await prisma.user.findFirst({
+      where: { email: data.email },
+    });
 
-    if (confirm[0].isExistEmail) {
+    if (existingUser) {
       return null;
     }
 
-    const [result] = await pool.query(
-      `INSERT INTO user (email, password, phone_num, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW());`,
-      [
-        data.email,
-        data.password,
-        data.phoneNumber,
-      ]
-    );
+    const user = await prisma.user.create({
+      data: {
+        email: data.email,
+        password: data.password,
+        phone_num: data.phoneNumber,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    });
 
-    return result.insertId;
+    return user.id;
   } catch (err) {
-    throw new Error(
-      `오류가 발생했어요. 요청 파라미터를 확인해주세요. (${err})`
-    );
-  } finally {
-    conn.release();
+    throw new Error(`오류가 발생했어요. (${err.message})`);
   }
 };
 
-// 사용자 정보 얻기
 export const getUser = async (userId) => {
-  const conn = await pool.getConnection();
-
   try {
-    const [user] = await pool.query(`SELECT * FROM user WHERE id = ?;`, userId);
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
 
-    console.log(user);
-
-    if (user.length == 0) {
-      return null;
-    }
-
-    return user[0];
+    return user;
   } catch (err) {
-    throw new Error(
-      `오류가 발생했어요. 요청 파라미터를 확인해주세요. (${err})`
-    );
-  } finally {
-    conn.release();
+    throw new Error(`오류가 발생했어요. (${err.message})`);
   }
 };
-
-
