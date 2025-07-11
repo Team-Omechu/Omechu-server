@@ -135,7 +135,7 @@ model review_image {
 model sessions {
   session_id String  @id @db.VarChar(128)
   expires    Int     @db.UnsignedInt
-  data       String? @db.Text
+  data       String? @db.MediumText
 }
 
 model user {
@@ -157,6 +157,24 @@ model user {
   report           report[]
   review           review[]
   zzim             zzim[]
+}
+
+model allergy {
+  id      Int          @id @default(autoincrement())
+  userId  BigInt
+  allergy allergy_type
+  user    user         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "allergy_ibfk_1")
+
+  @@index([userId], map: "userId")
+}
+
+model prefer {
+  id     Int         @id @default(autoincrement())
+  userId BigInt
+  prefer prefer_type
+  user   user        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "prefer_ibfk_1")
+
+  @@index([userId], map: "userId")
 }
 
 model zzim {
@@ -207,7 +225,8 @@ enum user_exercise {
   maintain @map("유지 중")
 }
 
-enum allergy_allergy {
+
+enum allergy_type {
   egg       @map("달걀(난류) 알레르기")
   milk      @map("우유 알레르기")
   shellfish @map("갑각류 알레르기")
@@ -215,7 +234,8 @@ enum allergy_allergy {
   nuts      @map("견과류 알레르기")
 }
 
-enum prefer_prefer {
+
+enum prefer_type {
   korean   @map("한식")
   western  @map("양식")
   chinese  @map("중식")
