@@ -45,7 +45,7 @@ export const handleUserLogin = async (req, res) => {
           type: "object",
           properties: {
             resultType: { 
-              type: "string", ㄴ
+              type: "string", 
               example: "SUCCESS" 
             },
             error: { 
