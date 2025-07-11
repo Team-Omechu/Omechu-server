@@ -1,5 +1,4 @@
 export const bodyToUser = (body) => {
-
   return {
     email: body.email,
     password: body.password,
@@ -7,8 +6,8 @@ export const bodyToUser = (body) => {
   };
 };
 
-export const responseFromUser = (user) => {
 
+export const responseFromUser = (user) => {
   return {
     id: user.id,
     email: user.email,
