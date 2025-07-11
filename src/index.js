@@ -122,6 +122,8 @@ app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
 
+// app.post("/place/review");
+
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
