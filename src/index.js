@@ -56,6 +56,17 @@ app.use(
   })
 );
 
+// 사용자 세션 검증 미들웨어
+const isLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res
+      .status(401)
+      .error({ errorCode: "AUTH_REQUIRED", reason: "로그인이 필요합니다" });
+  }
+};
+
 // swagger 미들웨어 등록
 app.use(
   "/docs",
