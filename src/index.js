@@ -10,6 +10,8 @@ import swaggerUiExpress from "swagger-ui-express";
 import { handleRecommendMenu } from "./controllers/menu.controller.js";
 import { testDatabaseConnection } from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
+import { generatePresignedUrl } from "./controllers/image.uploader.js";
+import { handleUserLogin } from "./controllers/login.controller.js";
 
 dotenv.config();
 
@@ -25,9 +27,9 @@ app.use((req, res, next) => {
     return res.json({
       resultType: "FAIL",
       error: { errorCode, reason, data },
+      success: null,
     });
   };
-
   next();
 });
 
@@ -102,13 +104,16 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp);
 app.get("/recommend", handleRecommendMenu);
 app.get("/fetch-places", handleFetchKakaoPlaces);
+// 프로필 이미지 presigned url 생성 API
+app.post("/image/upload", generatePresignedUrl);
+app.post("/auth/login", handleUserLogin);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
-    next(err);
+    return next(err);
   }
-  res.status(res.statusCode || 500).error({
+  res.status(err.statusCode || 500).error({
     errorCode: err.errorCode || "C001",
     reason: err.reason || err.message || "서버가 응답하지 못했습니다",
     data: err.data || null,
