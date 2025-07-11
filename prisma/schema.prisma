@@ -135,7 +135,7 @@ model review_image {
 model sessions {
   session_id String  @id @db.VarChar(128)
   expires    Int     @db.UnsignedInt
-  data       String? @db.MediumText
+  data       String? @db.Text
 }
 
 model user {
@@ -163,18 +163,18 @@ model allergy {
   id      Int          @id @default(autoincrement())
   userId  BigInt
   allergy allergy_type
-  user    user         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "allergy_ibfk_1")
+  user    user         @relation(fields: [userId], references: [id], map: "allergy_ibfk_1")
 
-  @@index([userId], map: "userId")
+  @@index([userId], map: "allergy_userId_fkey")
 }
 
 model prefer {
   id     Int         @id @default(autoincrement())
   userId BigInt
   prefer prefer_type
-  user   user        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "prefer_ibfk_1")
+  user   user        @relation(fields: [userId], references: [id], map: "prefer_ibfk_1")
 
-  @@index([userId], map: "userId")
+  @@index([userId], map: "prefer_userId_fkey")
 }
 
 model zzim {
@@ -187,24 +187,6 @@ model zzim {
 
   @@index([rest_id], map: "rest_id")
   @@index([user_id], map: "user_id")
-}
-
-model allergy {
-  id      Int             @id @default(autoincrement())
-  userId  BigInt
-  allergy allergy_allergy
-  user    user            @relation(fields: [userId], references: [id])
-
-  @@index([userId], map: "allergy_userId_fkey")
-}
-
-model prefer {
-  id     Int           @id @default(autoincrement())
-  userId BigInt
-  prefer prefer_prefer
-  user   user          @relation(fields: [userId], references: [id])
-
-  @@index([userId], map: "prefer_userId_fkey")
 }
 
 enum user_body_type {
@@ -225,7 +207,6 @@ enum user_exercise {
   maintain @map("유지 중")
 }
 
-
 enum allergy_type {
   egg       @map("달걀(난류) 알레르기")
   milk      @map("우유 알레르기")
@@ -233,7 +214,6 @@ enum allergy_type {
   seafood   @map("해산물 알레르기")
   nuts      @map("견과류 알레르기")
 }
-
 
 enum prefer_type {
   korean   @map("한식")
