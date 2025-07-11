@@ -117,7 +117,6 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 // 프로필 이미지 presigned url 생성 API
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
-
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
