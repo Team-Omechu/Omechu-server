@@ -15,3 +15,47 @@ export class InCorrectPasswd extends Error {
     this.data = data;
   }
 }
+
+export class NoReviewData extends Error {
+  errorCode = "C003";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class NoUserData extends Error {
+  errorCode = "C003";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class NoRestData extends Error {
+  errorCode = "C004";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+export class NoImageUrl extends Error {
+  errorCode = "C004";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class FailToAddReview extends Error {
+  errorCode = "C004";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
