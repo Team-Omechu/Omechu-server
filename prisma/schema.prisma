@@ -111,9 +111,8 @@ model review {
   user_id      BigInt
   rest_id      BigInt
   rating       BigInt?
-  tag          String?        @db.Text
+  tag          Json?
   text         String?        @db.VarChar(900)
-  field        String?        @db.VarChar(255)
   report       report[]
   user         user           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_1")
   restaurant   restaurant     @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_2")
@@ -150,6 +149,7 @@ model user {
   password         String             @db.VarChar(50)
   created_at       DateTime?          @default(now()) @db.DateTime(0)
   updated_at       DateTime?          @default(now()) @db.DateTime(0)
+  profileImageUrl  String?            @db.VarChar(255)
   allergy          allergy[]
   mukburim         mukburim[]
   prefer           prefer[]
