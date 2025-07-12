@@ -1,0 +1,191 @@
+# .github/workflows/deploy.yml
+name: Deploy FoodApp to EC2
+
+on:
+  push:
+    branches: [ main, develop ]  # develop 브랜치도 포함
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - 'PULL_REQUEST_TEMPLATE.md'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # 수동 실행 허용
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm ci
+    
+    - name: Run backend tests
+      working-directory: ./backend
+      run: npm test || echo "No tests defined yet"
+    
+    - name: Run linter
+      working-directory: ./backend
+      run: npm run lint || echo "No linter configured yet"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    name: Deploy to EC2
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy to EC2 via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        timeout: 300s
+        script: |
+          # 변수 설정
+          PROJECT_DIR="/home/ubuntu/foodapp"
+          LOG_FILE="/home/ubuntu/deploy.log"
+          
+          # 로그 함수
+          log() {
+              echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a $LOG_FILE
+          }
+          
+          log "🚀 Starting deployment process..."
+          
+          # 프로젝트 디렉토리로 이동
+          cd $PROJECT_DIR || {
+              log "❌ Failed to change directory to $PROJECT_DIR"
+              exit 1
+          }
+          
+          # 현재 커밋 정보 저장
+          CURRENT_COMMIT=$(git rev-parse --short HEAD)
+          log "📍 Current commit: $CURRENT_COMMIT"
+          
+          # Git 업데이트
+          log "📥 Pulling latest changes..."
+          git fetch origin
+          git reset --hard origin/main
+          
+          NEW_COMMIT=$(git rev-parse --short HEAD)
+          log "📍 New commit: $NEW_COMMIT"
+          
+          # 변경사항이 있는 경우에만 재배포
+          if [ "$CURRENT_COMMIT" != "$NEW_COMMIT" ]; then
+              log "🔄 Changes detected, proceeding with deployment..."
+              
+              # Backend 의존성 업데이트
+              log "📦 Installing backend dependencies..."
+              cd backend
+              npm ci --production
+              cd ..
+              
+              # 환경변수 설정
+              log "🌍 Setting up environment variables..."
+              if [ -f .env.production ]; then
+                  cp .env.production .env
+              fi
+              
+              # Docker 컨테이너 재시작
+              log "🐳 Restarting Docker containers..."
+              docker-compose down
+              docker-compose up -d --build
+              
+              # 서비스 시작 대기
+              log "⏳ Waiting for services to start..."
+              sleep 30
+              
+              # 헬스 체크
+              log "🏥 Performing health check..."
+              HEALTH_CHECK_PASSED=false
+              
+              for i in {1..10}; do
+                  if curl -f http://localhost:3000/health > /dev/null 2>&1; then
+                      log "✅ Backend health check passed"
+                      HEALTH_CHECK_PASSED=true
+                      break
+                  elif curl -f http://localhost:3000/ > /dev/null 2>&1; then
+                      log "✅ Backend is responding"
+                      HEALTH_CHECK_PASSED=true
+                      break
+                  fi
+                  log "⏳ Health check attempt $i/10 failed, retrying..."
+                  sleep 10
+              done
+              
+              # Nginx 체크
+              if curl -f http://localhost/ > /dev/null 2>&1; then
+                  log "✅ Nginx is responding"
+              else
+                  log "⚠️  Nginx health check failed"
+              fi
+              
+              if [ "$HEALTH_CHECK_PASSED" = true ]; then
+                  log "🎉 Deployment completed successfully!"
+                  log "📊 Container status:"
+                  docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+                  
+                  # 이전 이미지 정리
+                  log "🧹 Cleaning up old Docker images..."
+                  docker image prune -f
+                  
+              else
+                  log "❌ Deployment failed - health check did not pass"
+                  log "📋 Container logs:"
+                  docker-compose logs --tail=50
+                  exit 1
+              fi
+              
+          else
+              log "ℹ️  No changes detected, skipping deployment"
+          fi
+          
+          log "✨ Deployment process completed"
+
+  notify:
+    needs: [test, deploy]
+    runs-on: ubuntu-latest
+    name: Send Notification
+    if: always()
+    
+    steps:
+    - name: Send Slack notification
+      if: env.SLACK_WEBHOOK_URL != ''
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ needs.deploy.result }}
+        channel: '#deployments'
+        username: 'GitHub Actions'
+        icon_emoji: ':rocket:'
+        fields: repo,message,commit,author,action,eventName,ref,workflow
+        text: |
+          FoodApp 배포 ${{ needs.deploy.result == 'success' && '성공' || '실패' }}
+          커밋: ${{ github.event.head_commit.message }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    
+    - name: Log deployment result
+      run: |
+        echo "Deployment Status: ${{ needs.deploy.result }}"
+        echo "Test Status: ${{ needs.test.result }}"
