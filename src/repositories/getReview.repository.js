@@ -1,5 +1,7 @@
 import { prisma } from "../db.config.js";
 
+import { prisma } from "../db.config.js";
+
 export const getReviewData = async (data) => {
   if (
     !data ||
