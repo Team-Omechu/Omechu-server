@@ -59,3 +59,29 @@ export class FailToAddReview extends Error {
     this.data = data;
   }
 }
+
+export class FailToChangeLike extends Error {
+  errorCode = "C005";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+export class NoInCorrectParmas extends Error {
+  errorCode = "C006";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class NoInCorrectData extends Error {
+  errorCode = "C007";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
