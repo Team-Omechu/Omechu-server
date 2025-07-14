@@ -13,7 +13,7 @@ import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
-
+import { handleAddReview } from "./controllers/addReview.controller.js";
 
 dotenv.config();
 
@@ -57,7 +57,7 @@ app.use(
     },
   })
 );
-
+// 세션 검증 미들웨어
 const isLoggedIn = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -121,6 +121,7 @@ app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
 // 프로필 이미지 presigned url 생성 API
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
+app.post("/place/review/:id", isLoggedIn, handleAddReview);
 
 // app.post("/place/review");
 
@@ -156,6 +157,7 @@ async function initializeDatabase() {
     );
   }
 }
+
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
   await initializeDatabase();
