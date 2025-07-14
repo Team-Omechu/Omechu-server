@@ -13,6 +13,7 @@ import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleRenewSession } from "./controllers/session.controller.js";
+import { handleAddReview } from "./controllers/addReview.controller.js";
 
 dotenv.config();
 
@@ -56,7 +57,7 @@ app.use(
     },
   })
 );
-
+// 세션 검증 미들웨어
 const isLoggedIn = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -124,7 +125,9 @@ app.post("/auth/login", handleUserLogin);
 // 세션 재발급 API
 app.post("/auth/reissue", isLoggedIn, handleRenewSession)
 
-// app.post("/place/review");
+app.post("/place/review/:id", isLoggedIn, handleAddReview);
+
+
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
@@ -157,6 +160,7 @@ async function initializeDatabase() {
     );
   }
 }
+
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
   await initializeDatabase();
