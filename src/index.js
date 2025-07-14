@@ -12,6 +12,7 @@ import { testDatabaseConnection } from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
+import { handleRenewSession } from "./controllers/session.controller.js";
 
 dotenv.config();
 
@@ -100,7 +101,10 @@ app.get("/openapi.json", async (req, res, next) => {
 });
 
 // 기타 미들웨어
-app.use(cors({ origin: ["http://localhost:3000"] }));
+app.use(cors({ 
+  origin: ["http://localhost:3000"],
+  credentials: true,
+ }));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -117,6 +121,8 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 // 프로필 이미지 presigned url 생성 API
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
+// 세션 재발급 API
+app.post("/auth/reissue", isLoggedIn, handleRenewSession)
 
 // app.post("/place/review");
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
