@@ -13,6 +13,7 @@ import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
+import { handleUserLogout } from "./controllers/logout.controller.js";
 dotenv.config();
 
 const app = express();
@@ -118,6 +119,7 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
+app.post("/auth/logout", isLoggedIn, handleUserLogout);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {

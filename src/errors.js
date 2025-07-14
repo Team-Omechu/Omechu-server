@@ -59,3 +59,30 @@ export class FailToAddReview extends Error {
     this.data = data;
   }
 }
+
+export class SessionNotFoundError extends Error {
+  errorCode = "S001";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class SessionDestroyError extends Error {
+  errorCode = "S001";
+   constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class SessionRegenerateError extends Error {
+  errorCode = "S001";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
