@@ -20,7 +20,7 @@ export const recommendMenuService = async (choice) => {
             const sodium = item.sodium;
             const vitamins = item.vitamins;
             const allergies = item.allergies;
-
+            const imageLink = item.image_link || ""; 
             console.log(`✅ [${index + 1}] ${menuName}`);
             console.log(`   - 설명: ${description}`);
             console.log(`   - 칼로리: ${calories} kcal`);
@@ -30,7 +30,7 @@ export const recommendMenuService = async (choice) => {
             console.log(`   - 나트륨: ${sodium}mg`);
             console.log(`   - 비타민: ${vitamins.join(", ")}`);
             console.log(`   - 알레르기: ${allergies.join(", ")}`);
-
+            console.log(`   - 이미지 링크: ${imageLink}`);
             // 데이터베이스에 메뉴가 존재하는지 확인
             const menuExists = await checkMenuExists(menuName);
 
@@ -46,7 +46,8 @@ export const recommendMenuService = async (choice) => {
                         fat,
                         sodium,
                         vitamins,
-                        allergyInfo: allergies
+                        allergyInfo: allergies,
+                        imageLink: imageLink
                     });
                     console.log(`💾 Menu saved to database: ${menuName}`);
                 } catch (dbError) {

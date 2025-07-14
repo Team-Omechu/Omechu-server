@@ -40,11 +40,11 @@ export const checkMenuExists = async (menuName) => {
 // 새로운 메뉴를 데이터베이스에 추가
 export const addMenuToDatabase = async (menuData) => {
     try {
-        const { menuName, description, calories, carbs, protein, fat, sodium, vitamins, allergyInfo } = menuData;
+        const { menuName, description, calories, carbs, protein, fat, sodium, vitamins, allergyInfo, imageLink } = menuData;
 
         const [result] = await pool.execute(
-            `INSERT INTO menu (name, description, calory, carbo, protein, fat, vitamin, allergic, sodium) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO menu (name, description, calory, carbo, protein, fat, vitamin, allergic, sodium, image_link) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 menuName,
                 description,
@@ -54,7 +54,8 @@ export const addMenuToDatabase = async (menuData) => {
                 fat,
                 JSON.stringify(vitamins),
                 JSON.stringify(allergyInfo),
-                sodium
+                sodium,
+                imageLink
             ]
         );
 
@@ -67,6 +68,22 @@ export const addMenuToDatabase = async (menuData) => {
 };
 
 //req.body.choice
+
+//request body 예시
+// {
+// "meal_time" : 3,
+// "purpose" : 3,
+// "mood" : 3,
+// "with" : 1,
+// "budget" : 1,
+// "exceptions" : ["중식", "면"],
+// "gender" : 1,
+// "exercise" : 3,
+// "prefer" : ["한식","양식"],
+// "body_type" : 4,
+// "allergy" : ["갑각류"]
+// "weather" : "맑음"
+// }
 export const recommendMenu = async (choice) => {
     try {
         console.log("Received request for GPT processing");
@@ -76,7 +93,7 @@ export const recommendMenu = async (choice) => {
         });
         console.log("OpenAI client initialized successfully");
 
-        const { meal_time, purpose, mood, with: withWhom, budget } = choice;
+        const { meal_time, purpose, mood, with: withWhom, budget, exceptions, gender, exercise, prefer, body_type, allergy } = choice;
 
         // bigint -> 자연어 매핑
         const mealTimeText = {
@@ -114,11 +131,33 @@ export const recommendMenu = async (choice) => {
             2: "0원 이상 3만 원 이하",
             3: "가격 제한 없음",
         }[budget] || "";
+
+        const genderText = {
+            1: "여성",
+            2: "남성",
+        }
+
+        const exerciseText = {
+            1: "다이어트 중",
+            2: "벌크업 중",
+            3: "상관 없음",
+        }[exercise] || "";
+
+        const bodyTypeText = {
+            1: "감기에 잘 걸리는 편",
+            2: "소화가 잘 안 되는 편",
+            3: "열이 많아서 더위를 잘 타는 편",
+            4: "추위를 잘 타고 몸이 쉽게 차가워지는 편"
+        }[body_type] || "";
+
         console.log("Meal Time:", mealTimeText);
-        console.log("Purpose:", purposeText);
+        console.log("Purpose:", purposeText);  
         console.log("Mood:", moodText);
         console.log("With:", withText);
         console.log("Budget:", budgetText);
+        console.log("Gender:", genderText);
+        console.log("Exercise:", exerciseText);
+        console.log("Body Type:", bodyTypeText);
 
         const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini",
@@ -134,11 +173,18 @@ export const recommendMenu = async (choice) => {
                         함께하는 사람: ${withText}
                         예산: ${budgetText}
                         제외할 것: ${choice.exceptions ? choice.exceptions : "없음"}
+                        성별: ${genderText}
+                        체중 증량, 감량 여부: ${exerciseText}
+                        선호하는 음식 종류: ${choice.prefer ? choice.prefer.join(", ") : "없음"}
+                        체질: ${bodyTypeText}
+                        사용자의 알레르기: ${choice.allergy ? choice.allergy.join(", ") : "없음"}
+                        현재 날씨: ${choice.weather}
                         각각의 정보들에 딱 들어 맞을 필요까지는 없고, 5가지 요소를 최대한 반영해줘.
                         그리고 추천해 줄 때 메뉴명을 띄어쓰기 없는 간결한 단어로 말해줘야해.
                         ex) 한우 숙성 꽃등심 스테이크는 적절하지 않고, 스테이크는 맞아.
                         ex) 비리아 타코는 적절하지 않고, 타코는 맞아.
                         또, 카카오 맵에 검색했을 때 나오는 메뉴 이름이면 가산점이야.
+                        이미지링크도 같이 추천해줘.
                         추천할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
                         {
                             "menu": "짜장면",
@@ -149,7 +195,8 @@ export const recommendMenu = async (choice) => {
                             "fat": 30,
                             "sodium": 1200,
                             "vitamins": ["A", "B1", "B2", "C"],
-                            "allergies": ["밀", "대두"]
+                            "allergies": ["밀", "대두"],
+                            "image_link": "https://tse1.mm.bing.net/th/id/OIP.bXsxjBFXljh17VmNtOZv4gHaHa?pid=Api"
                         }
                          
                             `
