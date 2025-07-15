@@ -14,8 +14,12 @@ import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
+<<<<<<< HEAD
+import { handleLike } from "./controllers/like.controller.js";
+=======
 import { handleGetReview } from "./controllers/getReview.controller.js";
 
+>>>>>>> 4ea0b22b991530e0b312ff94950269899e1f6da9
 dotenv.config();
 
 const app = express();
@@ -123,9 +127,13 @@ app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
+<<<<<<< HEAD
+app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
+=======
 app.get("/place/review/:id", isLoggedIn, handleGetReview);
 
 // app.post("/place/review");
+>>>>>>> 4ea0b22b991530e0b312ff94950269899e1f6da9
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
