@@ -14,6 +14,7 @@ import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
+import { handleGetReview } from "./controllers/getReview.controller.js";
 
 dotenv.config();
 
@@ -122,6 +123,7 @@ app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
+app.get("/place/review/:id", isLoggedIn, handleGetReview);
 
 // app.post("/place/review");
 
