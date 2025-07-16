@@ -217,3 +217,27 @@ export const recommendMenu = async (choice) => {
         throw error;
     }
 }
+
+export const findRelatedMenu = async (menuName) => {
+    const openai = new OpenAI({
+            apiKey: key
+        });
+    const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        store: true,
+        messages: [
+            {
+                role: "user",
+                content: `다음 메뉴와 관련된 메뉴를 추천해줘. 
+                        메뉴 이름: ${menuName}
+                        해당 메뉴 이름은 현재 구글 맵에서 관련된 음식점을 찾을 수 없는 메뉴 이름이야.
+                        따라서 구글맵에 검색했을 때 음식점이 나올만한 메뉴 중 일반적인 메뉴 한개를 응답해주면 돼.
+                        그냥 단어 한개만 응답하면돼.
+                        `
+            },
+        ],
+    }); 
+    const rawText = completion.choices[0].message.content.trim();
+    console.log("Raw response from GPT:", rawText);
+    return rawText;
+}

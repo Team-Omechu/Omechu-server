@@ -8,6 +8,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model allergy {
+  id      Int             @id @default(autoincrement())
+  userId  BigInt
+  allergy allergy_allergy
+  user    user            @relation(fields: [userId], references: [id], map: "allergy_ibfk_1")
+
+  @@index([userId], map: "allergy_userId_fkey")
+}
+
 model choice {
   id          BigInt  @id @default(autoincrement())
   description String? @db.VarChar(150)
@@ -40,6 +49,15 @@ model mukburim {
 
   @@index([menu_id], map: "menu_id")
   @@index([user_id], map: "user_id")
+}
+
+model prefer {
+  id     Int           @id @default(autoincrement())
+  userId BigInt
+  prefer prefer_prefer
+  user   user          @relation(fields: [userId], references: [id], map: "prefer_ibfk_1")
+
+  @@index([userId], map: "prefer_userId_fkey")
 }
 
 model recommend_except {
@@ -88,18 +106,19 @@ model rest_menu {
 
 model restaurant {
   id             BigInt       @id @default(autoincrement())
-  location1      String?      @db.VarChar(20)
-  location2      String?      @db.VarChar(20)
-  location3      String?      @db.VarChar(20)
+  locaton        String?      @db.VarChar(20)
   name           String?      @db.VarChar(60)
   repre_menu     String?      @db.VarChar(50)
-  close_day      String?      @db.Text
-  start_time     String?      @db.VarChar(4)
-  end_time       String?      @db.VarChar(4)
   address        String?      @db.VarChar(60)
   detail_address String?      @db.VarChar(60)
   rating         Float?       @db.Float
-  day_open_time  String?      @db.Text
+  monday         String?      @db.Text
+  tuesday        String?      @db.Text
+  wednesday      String?      @db.Text
+  thursday       String?      @db.Text
+  friday         String?      @db.Text
+  saturday       String?      @db.Text
+  sunday         String?      @db.Text
   rest_image     rest_image[]
   rest_menu      rest_menu[]
   review         review[]
@@ -173,54 +192,36 @@ model zzim {
   @@index([user_id], map: "user_id")
 }
 
-model allergy {
-  id      Int             @id @default(autoincrement())
-  userId  BigInt
-  allergy allergy_allergy
-  user    user            @relation(fields: [userId], references: [id], map: "allergy_ibfk_1")
-
-  @@index([userId], map: "allergy_userId_fkey")
-}
-
-model prefer {
-  id     Int           @id @default(autoincrement())
-  userId BigInt
-  prefer prefer_prefer
-  user   user          @relation(fields: [userId], references: [id], map: "prefer_ibfk_1")
-
-  @@index([userId], map: "prefer_userId_fkey")
-}
-
-enum user_body_type {
-  cold        @map("감기")
-  indigestion @map("소화불량")
-  heat_type   @map("더위잘탐")
-  cold_type   @map("추위잘탐")
-}
-
-enum user_gender {
-  male   @map("남성")
-  female @map("여성")
-}
-
-enum user_exercise {
-  diet     @map("다이어트 중")
-  bulk     @map("중량 중")
-  maintain @map("유지 중")
+enum prefer_prefer {
+  // 한식 @map("한식")
+  // 양식 @map("양식")
+  // 중식 @map("중식")
+  // 일식 @map("일식")
+  // 다른나라 @map("다른나라")
 }
 
 enum allergy_allergy {
-  egg       @map("달걀(난류) 알레르기")
-  milk      @map("우유 알레르기")
-  shellfish @map("갑각류 알레르기")
-  seafood   @map("해산물 알레르기")
-  nuts      @map("견과류 알레르기")
+  // 달걀(난류) 알레르기 @map("달걀(난류) 알레르기")
+  // 우유 알레르기 @map("우유 알레르기")
+  // 갑각류 알레르기 @map("갑각류 알레르기")
+  // 해산물 알레르기 @map("해산물 알레르기")
+  // 견과류 알레르기 @map("견과류 알레르기")
 }
 
-enum prefer_prefer {
-  korean   @map("한식")
-  western  @map("양식")
-  chinese  @map("중식")
-  japanese @map("일식")
-  other    @map("다른나라")
+enum user_body_type {
+  // 감기 @map("감기")
+  // 소화불량 @map("소화불량")
+  // 더위잘탐 @map("더위잘탐")
+  // 추위잘탐 @map("추위잘탐")
+}
+
+enum user_gender {
+  // 남성 @map("남성")
+  // 여성 @map("여성")
+}
+
+enum user_exercise {
+  // 다이어트 중 @map("다이어트 중")
+  // 중량 중 @map("중량 중")
+  // 유지 중 @map("유지 중")
 }

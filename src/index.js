@@ -7,9 +7,10 @@ import MySQLStore from "express-mysql-session";
 import { handleUserSignUp } from "./controllers/auth.controller.js";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
-import { handleRecommendMenu } from "./controllers/menu.controller.js";
+import { handleRecommendMenu, handleFindRelatedMenu } from "./controllers/menu.controller.js";
 import { testDatabaseConnection} from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
+import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
 
 dotenv.config();
 
@@ -105,7 +106,8 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp);
 app.get("/recommend", handleRecommendMenu);
 app.get("/fetch-places", handleFetchKakaoPlaces);
-
+app.get("/fetch-google-places", handleFetchGooglePlaces);
+app.get("/find-related-menu", handleFindRelatedMenu);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
