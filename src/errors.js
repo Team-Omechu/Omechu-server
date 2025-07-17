@@ -89,6 +89,7 @@ export class NoRestData extends Error {
     this.data = data;
   }
 }
+
 export class NoImageUrl extends Error {
   errorCode = "C004";
   constructor(reason, data) {
@@ -107,23 +108,7 @@ export class FailToAddReview extends Error {
   }
 }
 
-export class NoParams extends Error {
-  errorCode = "C005";
-  constructor(reason, data) {
-    super(reason);
-    this.reason = reason;
-    this.data = data;
-  }
-}
 
-export class FailToChangeLike extends Error {
-  errorCode = "C005";
-  constructor(reason, data) {
-    super(reason);
-    this.reason = reason;
-    this.data = data;
-  }
-}
 export class NoInCorrectParmas extends Error {
   errorCode = "C006";
   constructor(reason, data) {
@@ -133,11 +118,17 @@ export class NoInCorrectParmas extends Error {
   }
 }
 
+
 export class NoInCorrectData extends Error {
   errorCode = "C007";
+
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
     this.data = data;
   }
+
 }
+
+
+
