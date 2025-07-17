@@ -16,6 +16,15 @@ export class InCorrectPasswd extends Error {
   }
 }
 
+export class SessionNotFoundError extends Error {
+  errorCode = "S001";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
 export class LoginRequiredError extends Error {
   errorCode = "C003";
   constructor(reason, data) {
@@ -34,6 +43,16 @@ export class NoReviewData extends Error {
   }
 }
 
+
+export class SessionDestroyError extends Error {
+  errorCode = "S001";
+   constructor(reason, data) {
+     super(reason);
+     this.reason = reason;
+     this.data = data;
+  }
+}
+
 export class UserUpdateFailedError extends Error {
   errorCode = "C003";
   constructor(reason, data) {
@@ -45,6 +64,16 @@ export class UserUpdateFailedError extends Error {
 
 export class NoUserData extends Error {
   errorCode = "C003";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+
+export class SessionRegenerateError extends Error {
+  errorCode = "S001";
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
