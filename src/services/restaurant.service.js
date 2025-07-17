@@ -1,5 +1,5 @@
 import { fetchKakaoPlaces, fetchGooglePlaces, addRestaurantToDatabase, checkRestaurantExists } from "../repositories/restaurant.repository.js";
-
+import { fetchPlaceDetail } from "../repositories/restaurant.repository.js";
 export const fetchKakaoPlacesService = async (info) => {
     console.log("Service called with info:", info);
     const documents = await fetchKakaoPlaces(info);
@@ -19,10 +19,21 @@ export const fetchGooglePlacesService = async (info) => {
 
 
     await Promise.all(response.places.map(async (place) => {
-        const exists = await checkRestaurantExists(place.displayName.text);
+        const exists = await checkRestaurantExists(place.id);
         if (!exists) {
             await addRestaurantToDatabase(place, info.keyword);
         }
     }));
     return response.places;
 };
+
+export const fetchPlaceDetailService = async (placeId) => {
+    console.log("Fetching Google Place detail for ID:", placeId);
+    const placeDetail = await fetchPlaceDetail(placeId);
+    if (!placeDetail) {
+        console.error("No place detail found for ID:", placeId);
+        return null;
+    }
+    console.log("Fetched place detail from service:", placeDetail);
+    return placeDetail;
+}

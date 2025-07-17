@@ -8,15 +8,21 @@ import { handleUserSignUp } from "./controllers/auth.controller.js";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 import { handleRecommendMenu, handleFindRelatedMenu } from "./controllers/menu.controller.js";
-import { testDatabaseConnection} from "./repositories/menu.repository.js";
+import { testDatabaseConnection } from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
+import { generatePresignedUrl } from "./controllers/image.uploader.js";
+import { handleUserLogin } from "./controllers/login.controller.js";
+import { handleUpdateUserInfo } from "./controllers/user.controller.js";
+import { handleAddReview } from "./controllers/addReview.controller.js";
+import { handleLike } from "./controllers/like.controller.js";
+import { handleGetReview } from "./controllers/getReview.controller.js";
+import { handleFetchPlaceDetail } from "./controllers/restaurant.controller.js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 app.use((req, res, next) => {
   res.success = (success) => {
@@ -27,9 +33,9 @@ app.use((req, res, next) => {
     return res.json({
       resultType: "FAIL",
       error: { errorCode, reason, data },
+      success: null,
     });
   };
-
   next();
 });
 
@@ -55,6 +61,16 @@ app.use(
     },
   })
 );
+// 세션 검증 미들웨어
+const isLoggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res
+      .status(401)
+      .error({ errorCode: "AUTH_REQUIRED", reason: "로그인이 필요합니다" });
+  }
+};
 
 // swagger 미들웨어 등록
 app.use(
@@ -69,7 +85,6 @@ app.use(
     }
   )
 );
-
 
 app.get("/openapi.json", async (req, res, next) => {
   const options = {
@@ -96,7 +111,6 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
 // 기본 라우터
 app.get("/", (req, res) => {
   res.send("Hello Omechu!");
@@ -107,37 +121,50 @@ app.post("/auth/signup", handleUserSignUp);
 app.get("/recommend", handleRecommendMenu);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.get("/fetch-google-places", handleFetchGooglePlaces);
+app.get("/place-detail/:id", handleFetchPlaceDetail);
 app.get("/find-related-menu", handleFindRelatedMenu);
+app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
+
+// 프로필 이미지 presigned url 생성 API
+app.post("/image/upload", generatePresignedUrl);
+app.post("/auth/login", handleUserLogin);
+app.post("/place/review/:id", isLoggedIn, handleAddReview);
+app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
+app.get("/place/review/:id", isLoggedIn, handleGetReview);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
-    next(err);
+    return next(err);
   }
-  res.status(res.statusCode || 500).error({
+  res.status(err.statusCode || 500).error({
     errorCode: err.errorCode || "C001",
     reason: err.reason || err.message || "서버가 응답하지 못했습니다",
     data: err.data || null,
   });
 });
 
-
 // 데이터베이스 연결
 async function initializeDatabase() {
-    try {
-        console.log("Initializing database...");
-        const connectionTest = await testDatabaseConnection();
-        
-        if (connectionTest) {
-            console.log("Database initialization completed successfully");
-        } else {
-            console.error("Database connection failed. Please check your AWS RDS settings.");
-        }
-    } catch (error) {
-        console.error("Error initializing database:", error);
-        console.error("Server will continue running, but database operations may fail.");
+  try {
+    console.log("Initializing database...");
+    const connectionTest = await testDatabaseConnection();
+
+    if (connectionTest) {
+      console.log("Database initialization completed successfully");
+    } else {
+      console.error(
+        "Database connection failed. Please check your AWS RDS settings."
+      );
     }
+  } catch (error) {
+    console.error("Error initializing database:", error);
+    console.error(
+      "Server will continue running, but database operations may fail."
+    );
+  }
 }
+
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
   await initializeDatabase();

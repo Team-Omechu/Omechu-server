@@ -1,10 +1,12 @@
 import { StatusCodes } from "http-status-codes";
 import {bodyToChoice} from "../dtos/choice.dto.js";
+import { getUserIdBySession } from "../repositories/user.repository.js";
 import {recommendMenuService,findRelatedMenuService } from "../services/menu.service.js";
 export const handleRecommendMenu = async (req, res) => {
     const choice = bodyToChoice(req.body);
-    
-    const newRecommendation = await recommendMenuService(choice);
+    const userId = await getUserIdBySession(req.body.session);
+    console.log("User ID:", userId);
+    const newRecommendation = await recommendMenuService(choice,userId);
     if (newRecommendation) {
         res.status(StatusCodes.OK).json(newRecommendation);
     } else {

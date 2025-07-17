@@ -1,3 +1,4 @@
+//메뉴 추천시 사용자 응답 dto
 export const bodyToChoice = (body) => {
     return {
         meal_time: body.meal_time,
@@ -5,12 +6,7 @@ export const bodyToChoice = (body) => {
         mood: body.mood,
         with: body.with,
         budget: body.budget,
-        exceptions: body.exceptions || [], // 예외사항이 있다면 추가
-        gender: body.gender,
-        exercise: body.exercise,
-        prefer: body.prefer || [], // 선호하는 음식 종류가 있다면 추가
-        body_type: body.body_type,
-        allergy: body.allergy || [], // 알레르기가 있다면 추가
+        exceptions2: body.exceptions || [],
         weather: body.weather || "맑음" // 날씨 정보가 있다면 추가, 기본값은 "맑음"
     };
 }

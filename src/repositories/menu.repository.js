@@ -1,7 +1,6 @@
 import { OpenAI } from 'openai';
 import dotenv from "dotenv";
 import { pool } from "../db.config.js";
-
 dotenv.config();
 const key = process.env.OPENAI_API_KEY;
 
@@ -21,7 +20,7 @@ export const testDatabaseConnection = async () => {
 
 // 메뉴가 데이터베이스에 존재하는지 확인
 export const checkMenuExists = async (menuName) => {
-    if(menuName === undefined || menuName === null) {
+    if (menuName === undefined || menuName === null) {
         console.error("Menu name is undefined or null");
         return true;
     }
@@ -40,11 +39,12 @@ export const checkMenuExists = async (menuName) => {
 // 새로운 메뉴를 데이터베이스에 추가
 export const addMenuToDatabase = async (menuData) => {
     try {
-        const { menuName, description, calories, carbs, protein, fat, sodium, vitamins, allergyInfo, imageLink } = menuData;
+        console.log("Adding menu to database:", menuData);
+        const { menuName, description, calories, carbs, protein, fat, sodium, vitamins, allergyInfo } = menuData;
 
         const [result] = await pool.execute(
-            `INSERT INTO menu (name, description, calory, carbo, protein, fat, vitamin, allergic, sodium, image_link) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO menu (name, description, calory, carbo, protein, fat, vitamin, allergic, sodium) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 menuName,
                 description,
@@ -55,7 +55,6 @@ export const addMenuToDatabase = async (menuData) => {
                 JSON.stringify(vitamins),
                 JSON.stringify(allergyInfo),
                 sodium,
-                imageLink
             ]
         );
 
@@ -93,8 +92,8 @@ export const recommendMenu = async (choice) => {
         });
         console.log("OpenAI client initialized successfully");
 
-        const { meal_time, purpose, mood, with: withWhom, budget, exceptions, gender, exercise, prefer, body_type, allergy } = choice;
-
+        const { meal_time, purpose, mood, with: withWhom, budget, exceptions, exceptions2, gender, exercise, prefer, body_type, allergy } = choice;
+        console.log("Received choice data:", choice);
         // bigint -> 자연어 매핑
         const mealTimeText = {
             1: "아침 식사: 속이 편한 음식, 자극적이지 않고 간단한 조리 가능",
@@ -135,7 +134,7 @@ export const recommendMenu = async (choice) => {
         const genderText = {
             1: "여성",
             2: "남성",
-        }
+        }[gender] || "";
 
         const exerciseText = {
             1: "다이어트 중",
@@ -151,13 +150,30 @@ export const recommendMenu = async (choice) => {
         }[body_type] || "";
 
         console.log("Meal Time:", mealTimeText);
-        console.log("Purpose:", purposeText);  
+        console.log("Purpose:", purposeText);
         console.log("Mood:", moodText);
         console.log("With:", withText);
         console.log("Budget:", budgetText);
         console.log("Gender:", genderText);
         console.log("Exercise:", exerciseText);
         console.log("Body Type:", bodyTypeText);
+        const exceptionsString = exceptions && exceptions.length > 0
+            ? exceptions.map(item => item.name).join(", ")
+            : "없음";
+        console.log("exceptionsString:", exceptionsString);
+        const preferencesString = prefer && prefer.length > 0
+            ? prefer.join(", ")
+            : "없음";
+        console.log("preferencesString: ", preferencesString);
+        const allergyString = allergy && allergy.length > 0
+            ? allergy.join(", ")
+            : "없음";
+        console.log("allergyString:", allergyString);
+
+        const exceptedMenus2String = exceptions2 && exceptions2.length > 0
+            ? exceptions2.join(", ")
+            : "없음";
+        console.log("exceptedMenus2String:", exceptedMenus2String);
 
         const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini",
@@ -172,12 +188,12 @@ export const recommendMenu = async (choice) => {
                         기분: ${moodText}
                         함께하는 사람: ${withText}
                         예산: ${budgetText}
-                        제외할 것: ${choice.exceptions ? choice.exceptions : "없음"}
+                        제외하는 음식 종류: ${exceptionsString}
                         성별: ${genderText}
                         체중 증량, 감량 여부: ${exerciseText}
-                        선호하는 음식 종류: ${choice.prefer ? choice.prefer.join(", ") : "없음"}
+                        선호하는 음식 종류: ${preferencesString} ( 조금만 참고 해줘도 돼. )
                         체질: ${bodyTypeText}
-                        사용자의 알레르기: ${choice.allergy ? choice.allergy.join(", ") : "없음"}
+                        사용자의 알레르기: ${allergyString}
                         현재 날씨: ${choice.weather}
                         각각의 정보들에 딱 들어 맞을 필요까지는 없고, 5가지 요소를 최대한 반영해줘.
                         그리고 추천해 줄 때 메뉴명을 띄어쓰기 없는 간결한 단어로 말해줘야해.
@@ -196,7 +212,6 @@ export const recommendMenu = async (choice) => {
                             "sodium": 1200,
                             "vitamins": ["A", "B1", "B2", "C"],
                             "allergies": ["밀", "대두"],
-                            "image_link": "https://tse1.mm.bing.net/th/id/OIP.bXsxjBFXljh17VmNtOZv4gHaHa?pid=Api"
                         }
                          
                             `
@@ -205,7 +220,6 @@ export const recommendMenu = async (choice) => {
         });
 
         const rawText = completion.choices[0].message.content.trim();
-        console.log("Raw response from GPT:", rawText);
 
         // JSON 배열로 파싱
         const parsedArray = JSON.parse(rawText);
@@ -220,8 +234,8 @@ export const recommendMenu = async (choice) => {
 
 export const findRelatedMenu = async (menuName) => {
     const openai = new OpenAI({
-            apiKey: key
-        });
+        apiKey: key
+    });
     const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         store: true,
@@ -236,7 +250,7 @@ export const findRelatedMenu = async (menuName) => {
                         `
             },
         ],
-    }); 
+    });
     const rawText = completion.choices[0].message.content.trim();
     console.log("Raw response from GPT:", rawText);
     return rawText;
