@@ -18,6 +18,8 @@ import { handleAddReview } from "./controllers/addReview.controller.js";
 import { handleUserLogout } from "./controllers/logout.controller.js";
 import { handleLike } from "./controllers/like.controller.js";
 import { handleGetReview } from "./controllers/getReview.controller.js";
+import { handleSendEmailCode } from "./controllers/email.controller.js";
+import { handleVerifyEmailCode } from "./controllers/email.controller.js";
 
 dotenv.config();
 
@@ -137,6 +139,9 @@ app.post("/auth/logout", isLoggedIn, handleUserLogout);
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.get("/place/review/:id", isLoggedIn, handleGetReview);
 
+// 이메일 전송 API
+app.post("/auth/send", handleSendEmailCode);
+app.post("/auth/verify", handleVerifyEmailCode);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
