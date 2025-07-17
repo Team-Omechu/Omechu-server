@@ -22,20 +22,21 @@ export const handleUserLogin = async (req, res) => {
   console.log(req.headers.cookie);
   console.log(req.session);
   /*
-  #swagger.tags= ["auth"]
+  #swagger.tags= ["Auth"]
   #swagger.summary= "로그인"
   #swagger.description= "로그인 API입니다. 이메일과 비밀번호를 포함해서 요청해야합니다",
-  #swagger.requestBody={
-    required:true,
-    content:{
-    'application/json' : {
-    schema:{
-    type:'object',
-    properties:{
-        email:{type:'string',example:'email@email.com'},
-        password: {type:'string',example:"password"}
-       }
-     }
+  #swagger.requestBody = {
+  required: true,
+  content: {
+    'application/json': {
+      schema: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          email: { type: 'string', example: 'email@email.com' },
+          password: { type: 'string', example: 'password' }
+        }
+      }
     }
   }
 }
@@ -93,7 +94,7 @@ export const handleUserLogin = async (req, res) => {
               } }
             }
           },
-          success: { type: "string", example: "null" }
+          success: { type: "string", example: null }
         }
       }
     }
@@ -123,7 +124,7 @@ export const handleUserLogin = async (req, res) => {
               }
             }
           },
-          success: { type: "string", example: "null" }
+          success: { type: "string", example: null }
         }
       }
     }
@@ -140,7 +141,7 @@ export const handleUserLogin = async (req, res) => {
           error: {
             type: "object",
             properties: {
-              errorCode: { type: "string" },
+              errorCode: { type: "string", example:"SERVER_ERROR" },
               reason: {
                 type: "string",
                 example: "서버 오류"
@@ -154,7 +155,7 @@ export const handleUserLogin = async (req, res) => {
               }
             }
           },
-          success: { type: "string", example: "null" }
+          success: { type: "string", example: null }
         }
       }
     }

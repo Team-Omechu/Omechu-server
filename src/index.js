@@ -15,6 +15,8 @@ import { handleUserLogin } from "./controllers/login.controller.js";
 import { handleRenewSession } from "./controllers/session.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
+import { handleLike } from "./controllers/like.controller.js";
+import { handleGetReview } from "./controllers/getReview.controller.js";
 
 dotenv.config();
 
@@ -129,8 +131,8 @@ app.post("/auth/login", handleUserLogin);
 app.post("/auth/reissue", isLoggedIn, handleRenewSession)
 
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
-
-// app.post("/place/review");
+app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
+app.get("/place/review/:id", isLoggedIn, handleGetReview);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {

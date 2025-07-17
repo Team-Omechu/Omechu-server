@@ -43,6 +43,7 @@ export class NoReviewData extends Error {
   }
 }
 
+
 export class SessionDestroyError extends Error {
   errorCode = "S001";
    constructor(reason, data) {
@@ -104,6 +105,39 @@ export class FailToAddReview extends Error {
     this.reason = reason;
     this.data = data;
   }
-
 }
 
+export class NoParams extends Error {
+  errorCode = "C005";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class FailToChangeLike extends Error {
+  errorCode = "C005";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+export class NoInCorrectParmas extends Error {
+  errorCode = "C006";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class NoInCorrectData extends Error {
+  errorCode = "C007";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
