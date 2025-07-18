@@ -132,3 +132,19 @@ export class NoInCorrectData extends Error {
 
 
 
+export class FailToChangeLike extends Error {
+  errorCode = "C005";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+export class NoParams extends Error {
+  errorCode = "C005";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
