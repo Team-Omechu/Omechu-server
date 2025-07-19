@@ -13,8 +13,10 @@ import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLogin } from "./controllers/login.controller.js";
+import { handleRenewSession } from "./controllers/session.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
+import { handleUserLogout } from "./controllers/logout.controller.js";
 import { handleLike } from "./controllers/like.controller.js";
 import { handleGetReview } from "./controllers/getReview.controller.js";
 import { handleFetchPlaceDetail } from "./controllers/restaurant.controller.js";
@@ -106,7 +108,10 @@ app.get("/openapi.json", async (req, res, next) => {
 });
 
 // 기타 미들웨어
-app.use(cors({ origin: ["http://localhost:3000"] }));
+app.use(cors({ 
+  origin: ["http://localhost:3000"],
+  credentials: true,
+ }));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -128,9 +133,15 @@ app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo);
 // 프로필 이미지 presigned url 생성 API
 app.post("/image/upload", generatePresignedUrl);
 app.post("/auth/login", handleUserLogin);
+// 세션 재발급 API
+app.post("/auth/reissue", isLoggedIn, handleRenewSession)
+
 app.post("/place/review/:id", isLoggedIn, handleAddReview);
+app.post("/auth/logout", isLoggedIn, handleUserLogout);
+
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.get("/place/review/:id", isLoggedIn, handleGetReview);
+
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
