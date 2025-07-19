@@ -1,6 +1,18 @@
-import { recommendMenu,checkMenuExists,addMenuToDatabase } from "../repositories/menu.repository.js";
+import { recommendMenu,checkMenuExists,addMenuToDatabase, findRelatedMenu } from "../repositories/menu.repository.js";
 import { fetchKakaoPlaces } from "../repositories/restaurant.repository.js";
-export const recommendMenuService = async (choice) => {
+import { getUserExceptedMenus, getUserAllergies, getUserInfoForMenu, getUserPreferences } from '../repositories/user.repository.js';
+export const recommendMenuService = async (choice, userId) => {
+    const exceptedMenus = await getUserExceptedMenus(userId);
+    const allergies = await getUserAllergies(userId);
+    const userInfo = await getUserInfoForMenu(userId);
+    console.log("User Info for Menu from service:", userInfo);
+    const preferences = await getUserPreferences(userId);
+    choice.exceptions = exceptedMenus;
+    choice.allergy = allergies;
+    choice.gender = userInfo.gender;
+    choice.exercise = userInfo.exercise;
+    choice.body_type = userInfo.body_type;
+    choice.prefer = preferences;
     const menus = await recommendMenu(choice);
     console.log("Menu recommendation from service:", menus);
     if (!menus) {
@@ -20,7 +32,6 @@ export const recommendMenuService = async (choice) => {
             const sodium = item.sodium;
             const vitamins = item.vitamins;
             const allergies = item.allergies;
-
             console.log(`✅ [${index + 1}] ${menuName}`);
             console.log(`   - 설명: ${description}`);
             console.log(`   - 칼로리: ${calories} kcal`);
@@ -30,7 +41,6 @@ export const recommendMenuService = async (choice) => {
             console.log(`   - 나트륨: ${sodium}mg`);
             console.log(`   - 비타민: ${vitamins.join(", ")}`);
             console.log(`   - 알레르기: ${allergies.join(", ")}`);
-
             // 데이터베이스에 메뉴가 존재하는지 확인
             const menuExists = await checkMenuExists(menuName);
 
@@ -46,7 +56,7 @@ export const recommendMenuService = async (choice) => {
                         fat,
                         sodium,
                         vitamins,
-                        allergyInfo: allergies
+                        allergyInfo: allergies,
                     });
                     console.log(`💾 Menu saved to database: ${menuName}`);
                 } catch (dbError) {
@@ -59,4 +69,15 @@ export const recommendMenuService = async (choice) => {
 
     // 카카오 API를 통해 장소 정보를 가져옴
     return menus;
+}
+
+export const findRelatedMenuService = async (menuName) => {
+    console.log("Finding related menu for:", menuName);
+    const relatedMenus = await findRelatedMenu(menuName);
+    if (!relatedMenus || relatedMenus.length === 0) {
+        console.error("No related menus found for:", menuName);
+        return [];
+    }
+    console.log("Related menus found:", relatedMenus);
+    return relatedMenus;
 }
