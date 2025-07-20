@@ -1,4 +1,4 @@
-import { recommendMenu,checkMenuExists,addMenuToDatabase } from "../repositories/menu.repository.js";
+import { recommendMenu,checkMenuExists,addMenuToDatabase,findRelatedMenu } from "../repositories/menu.repository.js";
 import { fetchKakaoPlaces } from "../repositories/restaurant.repository.js";
 export const recommendMenuService = async (choice) => {
     const menus = await recommendMenu(choice);
