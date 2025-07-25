@@ -179,20 +179,26 @@ app.patch("/place/detail/:id/edit", isLoggedIn, handleEditRestaurant);
 app.post("/auth/send", handleSendEmailCode);
 app.post("/auth/verify", handleVerifyEmailCode);
 
-// 🆕 마이페이지 라우터들 추가
-app.get("/mypage/profile", isLoggedIn, handleGetUserProfile);
-app.patch("/mypage/profile/edit", isLoggedIn, handleUpdateUserProfile);
-app.get("/mypage/restaurants", isLoggedIn, handleGetMyRestaurants);
-app.patch(
-  "/mypage/restaurant/:restaurantId/edit",
-  isLoggedIn,
-  handleUpdateRestaurant
-);
-app.post("/mypage/zzim", isLoggedIn, handleAddZzim);
-app.patch("/mypage/zzim", isLoggedIn, handleRemoveZzim);
-app.get("/mypage/zzim", isLoggedIn, handleGetZzimList);
+//  기존 마이페이지 라우터들 테스트 하려고 주석처리 했습니다
+// app.patch("/profile/edit", isLoggedIn, handleUpdateUserProfile);        // 프로필 정보 수정
+// app.get("/profile/me", isLoggedIn, handleGetUserProfile);               // 내 프로필 조회
+// app.patch("/place/:id/edit", isLoggedIn, handleUpdateRestaurant);       // 특정 맛집 정보 수정하기
+// app.get("/place/:id", isLoggedIn, handleGetMyRestaurants);              // 내가 등록한 맛집 가져오기
+// app.post("/heart", isLoggedIn, handleAddZzim);                          // 찜 등록하기
+// app.patch("/heart", isLoggedIn, handleRemoveZzim);                      // 찜 상태 변경하기
+// app.get("/heart/:id", isLoggedIn, handleGetZzimList);                   // 찜 목록 가져오기
 
-// 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
+// 로그인 없이 쿼리 파라미터로 조회 가능한 라우터입니다
+app.patch("/profile/edit", handleUpdateUserProfile);        // 프로필 정보 수정 
+app.get("/profile/me", handleGetUserProfile);               // 내 프로필 조회 
+app.patch("/place/:id/edit", handleUpdateRestaurant);       // 특정 맛집 정보 수정하기 
+app.get("/place/:id", handleGetMyRestaurants);              // 내가 등록한 맛집 가져오기 
+app.post("/heart", handleAddZzim);                          // 찜 등록하기
+app.patch("/heart", handleRemoveZzim);                      // 찜 상태 변경하기 
+app.get("/heart/:id", handleGetZzimList);                   // 찜 목록 가져오기 
+
+
+// 에러 처리 미들웨어
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);

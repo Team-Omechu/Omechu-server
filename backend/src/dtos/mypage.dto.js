@@ -9,9 +9,9 @@ export const bodyToProfileUpdate = (body, userId) => {
     email: body.email,
     phone_num: body.phone_num || body.phoneNumber,
     nickname: body.nickname,
-    body_type: body.body_type,
-    gender: body.gender,
-    exercise: body.exercise || body.state,
+    body_type: convertBodyTypeToInt(body.body_type), // 🔥 문자열을 숫자로 변환
+    gender: convertGenderToInt(body.gender),        // 🔥 문자열을 숫자로 변환
+    exercise: convertExerciseToInt(body.exercise || body.state), // 🔥 문자열을 숫자로 변환
     prefer: body.prefer,
     allergic: body.allergic || body.allergy,
     profileImageUrl: body.profileImageUrl
@@ -42,15 +42,17 @@ export const bodyToRestaurantUpdate = (body, restaurantId, userId) => {
     restaurantId: restaurantId,
     userId: userId,
     name: body.name,
-    location1: body.location1,
-    location2: body.location2,
-    location3: body.location3,
+    location: body.location,
     address: body.address,
-    detail_address: body.detail_address,
-    repre_menu: body.repre_menu,
-    close_day: body.close_day,
-    start_time: body.start_time,
-    end_time: body.end_time
+    rest_image: body.rest_image,
+    // 요일별 영업시간
+    monday: body.monday,
+    tuesday: body.tuesday,
+    wednesday: body.wednesday,
+    thursday: body.thursday,
+    friday: body.friday,
+    saturday: body.saturday,
+    sunday: body.sunday
   };
 };
 
@@ -59,20 +61,19 @@ export const responseFromRestaurant = (restaurant) => {
   return {
     id: restaurant.id.toString(),
     name: restaurant.name,
-    location1: restaurant.location1,
-    location2: restaurant.location2,
-    location3: restaurant.location3,
+    location: restaurant.location,
     address: restaurant.address,
-    detail_address: restaurant.detail_address,
-    repre_menu: restaurant.repre_menu,
-    close_day: restaurant.close_day,
-    start_time: restaurant.start_time,
-    end_time: restaurant.end_time,
+    rest_image: restaurant.rest_image,
     rating: restaurant.rating,
-    images: restaurant.rest_image?.map(img => ({
-      id: img.id.toString(),
-      link: img.link
-    })) || []
+    // 요일별 영업시간
+    monday: restaurant.monday,
+    tuesday: restaurant.tuesday,
+    wednesday: restaurant.wednesday,
+    thursday: restaurant.thursday,
+    friday: restaurant.friday,
+    saturday: restaurant.saturday,
+    sunday: restaurant.sunday,
+    google_place_id: restaurant.google_place_id
   };
 };
 
@@ -117,11 +118,53 @@ export const responseFromRestaurantList = (restaurants, hasNextPage, nextCursor)
   };
 };
 
-// Enum 변환 함수들 (기존 user.dto.js 스타일 따름)
+// 🔥 새로 추가: 문자열을 숫자로 변환하는 함수들
+function convertGenderToInt(gender) {
+  if (typeof gender === 'number') return gender;
+  const map = {
+    "남성": 1,
+    "여성": 2,
+    "male": 1,
+    "female": 2
+  };
+  return map[gender] ?? gender;
+}
+
+function convertExerciseToInt(exercise) {
+  if (typeof exercise === 'number') return exercise;
+  const map = {
+    "다이어트 중": 1,
+    "중량 중": 2,
+    "유지 중": 3,
+    "diet": 1,
+    "bulk": 2,
+    "maintain": 3
+  };
+  return map[exercise] ?? exercise;
+}
+
+function convertBodyTypeToInt(bodyType) {
+  if (typeof bodyType === 'number') return bodyType;
+  const map = {
+    "감기": 1,
+    "소화불량": 2,
+    "더위잘탐": 3,
+    "추위잘탐": 4,
+    "cold": 1,
+    "indigestion": 2,
+    "heat_type": 3,
+    "cold_type": 4
+  };
+  return map[bodyType] ?? bodyType;
+}
+
+// 기존 변환 함수들 (숫자를 문자열로)
 function convertGender(gender) {
   const map = {
-    male: "남성",
-    female: "여성",
+    1: "남성",
+    2: "여성",
+    "male": "남성",
+    "female": "여성",
     "남성": "남성",
     "여성": "여성"
   };
@@ -130,9 +173,12 @@ function convertGender(gender) {
 
 function convertExercise(exercise) {
   const map = {
-    diet: "다이어트 중",
-    bulk: "중량 중", 
-    maintain: "유지 중",
+    1: "다이어트 중",
+    2: "중량 중",
+    3: "유지 중",
+    "diet": "다이어트 중",
+    "bulk": "중량 중",
+    "maintain": "유지 중",
     "다이어트 중": "다이어트 중",
     "중량 중": "중량 중",
     "유지 중": "유지 중"
@@ -142,10 +188,14 @@ function convertExercise(exercise) {
 
 function convertBodyType(bodyType) {
   const map = {
-    cold: "감기",
-    indigestion: "소화불량", 
-    heat_type: "더위잘탐",
-    cold_type: "추위잘탐",
+    1: "감기",
+    2: "소화불량",
+    3: "더위잘탐",
+    4: "추위잘탐",
+    "cold": "감기",
+    "indigestion": "소화불량",
+    "heat_type": "더위잘탐",
+    "cold_type": "추위잘탐",
     "감기": "감기",
     "소화불량": "소화불량",
     "더위잘탐": "더위잘탐",

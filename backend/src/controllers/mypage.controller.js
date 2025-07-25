@@ -83,13 +83,36 @@ export const handleGetUserProfile = async (req, res, next) => {
   }
   */
 
-  try {
-    const { userId } = req.query;
+  //이 주석들은 실제 코드.
+//   try {
+//     const { userId } = req.query;
 
+//     if (!userId) {
+//       return res.status(StatusCodes.BAD_REQUEST).error({
+//         errorCode: "C006",
+//         reason: "사용자 ID가 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     const userProfile = await getUserProfile(parseInt(userId));
+//     const responseData = responseFromProfile(userProfile);
+
+//     res.status(StatusCodes.OK).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+  try {
+    // 테스트용: 쿼리에서 userId 받기, 없으면 세션에서
+    const userId = req.query.userId || req.session.user?.id;
+    
     if (!userId) {
-      return res.status(StatusCodes.BAD_REQUEST).error({
-        errorCode: "C006",
-        reason: "사용자 ID가 필요합니다.",
+      return res.status(StatusCodes.UNAUTHORIZED).error({
+        errorCode: "AUTH_REQUIRED",
+        reason: "로그인이 필요하거나 userId 파라미터가 필요합니다.",
         data: null
       });
     }
@@ -174,13 +197,34 @@ export const handleUpdateUserProfile = async (req, res, next) => {
     }
   }
   */
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
 
+//     const profileData = bodyToProfileUpdate(req.body, userId);
+//     const updatedProfile = await updateUserProfileService(parseInt(userId), profileData);
+//     const responseData = responseFromProfile(updatedProfile);
+
+//     res.status(StatusCodes.OK).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
   try {
-    const userId = req.session.user?.id;
+    //  테스트용: 쿼리에서 userId 받기, 없으면 세션에서
+    const userId = req.query.userId || req.session.user?.id;
+    
     if (!userId) {
       return res.status(StatusCodes.UNAUTHORIZED).error({
         errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
+        reason: "로그인이 필요하거나 userId 파라미터가 필요합니다.",
         data: null
       });
     }
@@ -251,12 +295,35 @@ export const handleGetMyRestaurants = async (req, res, next) => {
   }
   */
 
+  //실 코드
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     const { limit = 10, cursor } = req.query;
+//     const result = await getMyRestaurants(parseInt(userId), parseInt(limit), cursor);
+//     const responseData = responseFromRestaurantList(result.data, result.hasNextPage, result.nextCursor);
+
+//     res.status(StatusCodes.OK).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
   try {
-    const userId = req.session.user?.id;
+    // 경로의 id 또는 쿼리의 userId 사용
+    const userId = req.params.id !== 'any' ? req.params.id : req.query.userId;
+    
     if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).error({
-        errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "C006",
+        reason: "사용자 ID가 필요합니다.",
         data: null
       });
     }
@@ -271,6 +338,7 @@ export const handleGetMyRestaurants = async (req, res, next) => {
     next(error);
   }
 };
+
 
 /**
  * 특정 맛집 정보 수정
@@ -327,34 +395,64 @@ export const handleUpdateRestaurant = async (req, res, next) => {
     }
   }
   */
+//실 코드
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
 
-  try {
-    const userId = req.session.user?.id;
-    if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).error({
-        errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
-        data: null
-      });
+//     const { restaurantId } = req.params;
+//     const restaurantData = bodyToRestaurantUpdate(req.body, restaurantId, userId);
+    
+//     const updatedRestaurant = await updateRestaurantService(
+//       parseInt(restaurantId), 
+//       parseInt(userId), 
+//       restaurantData
+//     );
+    
+//     const responseData = responseFromRestaurant(updatedRestaurant);
+
+//     res.status(StatusCodes.OK).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+    try {
+      //테스트용: 쿼리에서 userId 받기, 없으면 세션에서
+      const userId = req.query.userId || req.session.user?.id;
+      
+      if (!userId) {
+        return res.status(StatusCodes.UNAUTHORIZED).error({
+          errorCode: "AUTH_REQUIRED",
+          reason: "로그인이 필요하거나 userId 파라미터가 필요합니다.",
+          data: null
+        });
+      }
+
+      const { id: restaurantId } = req.params;
+      const restaurantData = bodyToRestaurantUpdate(req.body, restaurantId, userId);
+      
+      const updatedRestaurant = await updateRestaurantService(
+        parseInt(restaurantId), 
+        parseInt(userId), 
+        restaurantData
+      );
+      
+      const responseData = responseFromRestaurant(updatedRestaurant);
+
+      res.status(StatusCodes.OK).success(responseData);
+
+    } catch (error) {
+      next(error);
     }
-
-    const { restaurantId } = req.params;
-    const restaurantData = bodyToRestaurantUpdate(req.body, restaurantId, userId);
-    
-    const updatedRestaurant = await updateRestaurantService(
-      parseInt(restaurantId), 
-      parseInt(userId), 
-      restaurantData
-    );
-    
-    const responseData = responseFromRestaurant(updatedRestaurant);
-
-    res.status(StatusCodes.OK).success(responseData);
-
-  } catch (error) {
-    next(error);
-  }
-};
+  };
 
 /**
  * 찜 등록
@@ -421,13 +519,43 @@ export const handleAddZzim = async (req, res, next) => {
     }
   }
   */
+    //실 코드
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
 
+//     const { restaurantId } = req.body;
+//     if (!restaurantId) {
+//       return res.status(StatusCodes.BAD_REQUEST).error({
+//         errorCode: "C006",
+//         reason: "맛집 ID가 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     const newZzim = await addZzimService(parseInt(userId), parseInt(restaurantId));
+//     const responseData = responseFromZzim(newZzim);
+
+//     res.status(StatusCodes.CREATED).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
   try {
-    const userId = req.session.user?.id;
+    // 🆕 테스트용: 쿼리에서 userId 받기, 없으면 세션에서
+    const userId = req.query.userId || req.session.user?.id;
+    
     if (!userId) {
       return res.status(StatusCodes.UNAUTHORIZED).error({
         errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
+        reason: "로그인이 필요하거나 userId 파라미터가 필요합니다.",
         data: null
       });
     }
@@ -450,6 +578,7 @@ export const handleAddZzim = async (req, res, next) => {
     next(error);
   }
 };
+
 
 /**
  * 찜 해제
@@ -480,13 +609,45 @@ export const handleRemoveZzim = async (req, res, next) => {
     description: "찜한 맛집을 찾을 수 없는 경우"
   }
   */
+  //실 코드
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     const { restaurantId } = req.body;
+//     if (!restaurantId) {
+//       return res.status(StatusCodes.BAD_REQUEST).error({
+//         errorCode: "C006",
+//         reason: "맛집 ID가 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     await removeZzimService(parseInt(userId), parseInt(restaurantId));
+
+//     res.status(StatusCodes.OK).success({
+//       message: "찜이 성공적으로 해제되었습니다."
+//     });
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
   try {
-    const userId = req.session.user?.id;
+    // 🆕 테스트용: 쿼리에서 userId 받기, 없으면 세션에서
+    const userId = req.query.userId || req.session.user?.id;
+    
     if (!userId) {
       return res.status(StatusCodes.UNAUTHORIZED).error({
         errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
+        reason: "로그인이 필요하거나 userId 파라미터가 필요합니다.",
         data: null
       });
     }
@@ -510,6 +671,7 @@ export const handleRemoveZzim = async (req, res, next) => {
     next(error);
   }
 };
+
 
 /**
  * 찜 목록 조회
@@ -571,12 +733,35 @@ export const handleGetZzimList = async (req, res, next) => {
   }
   */
 
+ //실 코드
+//   try {
+//     const userId = req.session.user?.id;
+//     if (!userId) {
+//       return res.status(StatusCodes.UNAUTHORIZED).error({
+//         errorCode: "AUTH_REQUIRED",
+//         reason: "로그인이 필요합니다.",
+//         data: null
+//       });
+//     }
+
+//     const { limit = 10, cursor } = req.query;
+//     const result = await getZzimList(parseInt(userId), parseInt(limit), cursor);
+//     const responseData = responseFromZzimList(result.data, result.hasNextPage, result.nextCursor);
+
+//     res.status(StatusCodes.OK).success(responseData);
+
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
   try {
-    const userId = req.session.user?.id;
+    const { id: userId } = req.params;
+    
     if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).error({
-        errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "C006",
+        reason: "사용자 ID가 필요합니다.",
         data: null
       });
     }
