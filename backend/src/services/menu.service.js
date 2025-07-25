@@ -9,7 +9,7 @@ export const recommendMenuService = async (choice) => {
         return null;
     }
    // 배열 순회하면서 각 항목 처리 및 데이터베이스 저장 (최대 3개만)
-        for (let i = 0; i < Math.min(3, menus.length); i++) {
+        for (let i = 0; i < menus.length; i++) {
             const item = menus[i];
             const index = i;
             const menuName = item.menu;

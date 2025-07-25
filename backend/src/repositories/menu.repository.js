@@ -287,8 +287,11 @@ export const recommendMenu = async (choice) => {
             messages: [
                 {
                     role: "user",
-                    content: `그 동안 나온거 제외하고 먹을 거 하나를 추천해줘.
+                    content: 
+                    `
+                        메뉴를 추천해줘.
                         다음은 메뉴 추천을 할 때 참고할 정보들이야.
+                        방금 추천한건 제외해줘.
                         먹는 시간: ${mealTimeText}
                         목적: ${purposeText}
                         기분: ${moodText}
@@ -304,7 +307,7 @@ export const recommendMenu = async (choice) => {
                         각각의 정보들에 딱 들어 맞을 필요까지는 없고, 각 요소를 최대한 반영해줘.
                         추천은 다음 목록 안에서 이루어져야해.
                         ${menuList}
-                        추천할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
+                        생성할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
                         {
                             "menu": "짜장면",
                             "description": "간장 소스로 볶은 중화풍 면 요리",
