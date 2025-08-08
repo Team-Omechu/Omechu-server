@@ -107,18 +107,25 @@ export const handleGetUserProfile = async (req, res, next) => {
   }
 }
   */
-  const userId = req.user.id;
-  if (!userId) {
-    return res.status(StatusCodes.BAD_REQUEST).error({
-      errorCode: "C006",
-      reason: "사용자 ID가 필요합니다.",
-      data: null,
-    });
-  }
+  try {
+    const userId = req.user?.id;
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+    
+    if (!userId) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "C006",
+        reason: "사용자 ID가 필요합니다.",
+        data: null,
+      });
+    }
 
-  const userProfile = await getUserProfile(parseInt(userId));
-  const responseData = responseFromProfile(userProfile);
-  res.status(StatusCodes.OK).success(responseData);
+    const userProfile = await getUserProfile(parseInt(userId));
+    const responseData = responseFromProfile(userProfile);
+    res.status(StatusCodes.OK).success(responseData);
+  } catch (error) {
+    console.error("프로필 조회 에러:", error);
+    next(error);
+  }
 };
 
 export const handleUpdateUserProfile = async (req, res, next) => {
@@ -233,23 +240,30 @@ export const handleUpdateUserProfile = async (req, res, next) => {
   }
 }
   */
-  const userId = req.user.id;
-  if (!userId) {
-    return res.status(StatusCodes.BAD_REQUEST).error({
-      errorCode: "C006",
-      reason: "사용자 ID가 필요합니다.",
-      data: null,
-    });
+  try {
+    const userId = req.user?.id;
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+    
+    if (!userId) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "C006",
+        reason: "사용자 ID가 필요합니다.",
+        data: null,
+      });
+    }
+
+    const profileData = bodyToProfileUpdate(req.body, parseInt(userId));
+    const updatedProfile = await updateUserProfileService(
+      parseInt(userId),
+      profileData
+    );
+    const responseData = responseFromProfile(updatedProfile);
+
+    res.status(StatusCodes.OK).success(responseData);
+  } catch (error) {
+    console.error("프로필 업데이트 에러:", error);
+    next(error);
   }
-
-  const profileData = bodyToProfileUpdate(req.body, parseInt(userId));
-  const updatedProfile = await updateUserProfileService(
-    parseInt(userId),
-    profileData
-  );
-  const responseData = responseFromProfile(updatedProfile);
-
-  res.status(StatusCodes.OK).success(responseData);
 };
 
 export const handleGetRestaurantDetail = async (req, res, next) => {
@@ -264,20 +278,20 @@ export const handleGetRestaurantDetail = async (req, res, next) => {
     type: 'string'
   }
   */
+  try {
+    // 구현 필요
+    res.status(StatusCodes.OK).success({ message: "구현 예정" });
+  } catch (error) {
+    console.error("맛집 상세 조회 에러:", error);
+    next(error);
+  }
 };
 
 export const handleGetMyRestaurants = async (req, res, next) => {
-  const result = await getMyRestaurants({
-    userId: parseInt(req.user.id),
-    cursor: parseInt(req.query.cursor),
-    limit: parseInt(req.query.limit),
-  });
-  res.status(StatusCodes.OK).success(result);
-
   /*
   #swagger.tags = ["MyPage"]
   #swagger.summary = "내가 등록한 모든 맛집 조회"
-  #swagger.description = "사용자 ID만으로 등록한 모든 맛집을 조회합니다."
+  #swagger.description = "사용자가 등록한 모든 맛집을 조회합니다. (삭제되지 않은 맛집만)"
   #swagger.parameters['limit'] = {
     in: 'query',
     required: false,
@@ -292,7 +306,7 @@ export const handleGetMyRestaurants = async (req, res, next) => {
   }
 
   #swagger.responses[200] = {
-    description: "추천 레스토랑 목록 조회 성공",
+    description: "등록된 맛집 목록 조회 성공",
     content: {
       "application/json": {
         schema: {
@@ -310,6 +324,7 @@ export const handleGetMyRestaurants = async (req, res, next) => {
                     properties: {
                       id: { type: "string", example: "1" },
                       rest_image: { type: "string", example: "https://s3.amazonaws.com/img4.jpg" },
+                      name: { type: "string", example: "맛있는 식당" },
                       address: { type: "string", example: "서울특별시 강남구 언주로164길 17 지하 1층" },
                       rating: { type: "number", example: 4.6 },
                       repre_menu: {
@@ -363,6 +378,29 @@ export const handleGetMyRestaurants = async (req, res, next) => {
     }
   }
 */
+  try {
+    const userId = req.user?.id;
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+
+    if (!userId) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "C006",
+        reason: "사용자 ID가 필요합니다.",
+        data: null,
+      });
+    }
+
+    const result = await getMyRestaurants({
+      userId: parseInt(userId),
+      cursor: req.query.cursor ? parseInt(req.query.cursor) : null,
+      limit: req.query.limit ? parseInt(req.query.limit) : 10,
+    });
+    
+    res.status(StatusCodes.OK).success(result);
+  } catch (error) {
+    console.error("내 맛집 목록 조회 에러:", error);
+    next(error);
+  }
 };
 
 export const handleUpdateRestaurant = async (req, res, next) => {
@@ -383,7 +421,6 @@ export const handleUpdateRestaurant = async (req, res, next) => {
         schema: {
           type: 'object',
           properties: {
-            userId: { type: 'number', example: 1, description: '테스트용: 수정 권한 확인용 사용자 ID' },
             name: { type: 'string', example: '수정된 맛집 이름' },
             address: { type: 'string', example: '서울시 강남구 테헤란로' },
             repre_menu: { type: 'string', example: '대표메뉴' }
@@ -394,8 +431,11 @@ export const handleUpdateRestaurant = async (req, res, next) => {
   }
   */
   try {
+    const userId = req.user?.id;
     const { id: restaurantId } = req.params;
-    const { userId } = req.body;
+
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+    console.log("수정할 맛집 ID:", restaurantId);
 
     if (!restaurantId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
@@ -408,7 +448,7 @@ export const handleUpdateRestaurant = async (req, res, next) => {
     const restaurantData = bodyToRestaurantUpdate(
       req.body,
       restaurantId,
-      userId
+      parseInt(userId)
     );
 
     const updatedRestaurant = await updateRestaurantService(
@@ -421,6 +461,7 @@ export const handleUpdateRestaurant = async (req, res, next) => {
 
     res.status(StatusCodes.OK).success(responseData);
   } catch (error) {
+    console.error("맛집 정보 수정 에러:", error);
     next(error);
   }
 };
@@ -432,7 +473,8 @@ export const handleGetZzimList = async (req, res, next) => {
   #swagger.description = "사용자의 모든 찜 목록을 조회합니다."
   */
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
+    console.log("JWT 토큰에서 추출된 userId:", userId);
 
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
@@ -447,6 +489,7 @@ export const handleGetZzimList = async (req, res, next) => {
 
     res.status(StatusCodes.OK).success(responseData);
   } catch (error) {
+    console.error("찜 목록 조회 에러:", error);
     next(error);
   }
 };
@@ -472,9 +515,19 @@ export const handleAddZzim = async (req, res, next) => {
   }
   */
   try {
-    // 🔥 JWT 방식으로 수정
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { restaurantId } = req.body;
+
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+    console.log("찜할 맛집 ID:", restaurantId);
+
+    if (!userId) {
+      return res.status(StatusCodes.UNAUTHORIZED).error({
+        errorCode: "AUTH_REQUIRED",
+        reason: "로그인이 필요합니다.",
+        data: null,
+      });
+    }
 
     if (!restaurantId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
@@ -492,6 +545,7 @@ export const handleAddZzim = async (req, res, next) => {
 
     res.status(StatusCodes.CREATED).success(responseData);
   } catch (error) {
+    console.error("찜 등록 에러:", error);
     next(error);
   }
 };
@@ -517,9 +571,19 @@ export const handleRemoveZzim = async (req, res, next) => {
   }
   */
   try {
-    // 🔥 JWT 방식으로 수정
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { restaurantId } = req.body;
+
+    console.log("JWT 토큰에서 추출된 userId:", userId);
+    console.log("찜 해제할 맛집 ID:", restaurantId);
+
+    if (!userId) {
+      return res.status(StatusCodes.UNAUTHORIZED).error({
+        errorCode: "AUTH_REQUIRED",
+        reason: "로그인이 필요합니다.",
+        data: null,
+      });
+    }
 
     if (!restaurantId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
@@ -535,6 +599,7 @@ export const handleRemoveZzim = async (req, res, next) => {
       message: "찜이 성공적으로 해제되었습니다.",
     });
   } catch (error) {
+    console.error("찜 해제 에러:", error);
     next(error);
   }
 };
@@ -546,7 +611,8 @@ export const handleGetUserReviews = async (req, res, next) => {
   #swagger.description = "사용자가 작성한 모든 리뷰를 조회합니다."
   */
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
+    console.log("JWT 토큰에서 추출된 userId:", userId);
 
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
@@ -566,6 +632,7 @@ export const handleGetUserReviews = async (req, res, next) => {
       nextCursor: result.nextCursor,
     });
   } catch (error) {
+    console.error("사용자 리뷰 조회 에러:", error);
     next(error);
   }
 };
