@@ -462,9 +462,8 @@ export const handleAddZzim = async (req, res, next) => {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['userId', 'restaurantId'],
+          required: ['restaurantId'],
           properties: {
-            userId: { type: 'number', example: 1 },
             restaurantId: { type: 'number', example: 1 }
           }
         }
@@ -473,12 +472,14 @@ export const handleAddZzim = async (req, res, next) => {
   }
   */
   try {
-    const { userId, restaurantId } = req.body;
+    // 🔥 JWT 방식으로 수정
+    const userId = req.user.id;
+    const { restaurantId } = req.body;
 
-    if (!userId || !restaurantId) {
+    if (!restaurantId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
-        reason: "사용자 ID와 맛집 ID가 필요합니다.",
+        reason: "맛집 ID가 필요합니다.",
         data: null,
       });
     }
@@ -506,9 +507,8 @@ export const handleRemoveZzim = async (req, res, next) => {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['userId', 'restaurantId'],
+          required: ['restaurantId'],
           properties: {
-            userId: { type: 'number', example: 1 },
             restaurantId: { type: 'number', example: 1 }
           }
         }
@@ -517,12 +517,14 @@ export const handleRemoveZzim = async (req, res, next) => {
   }
   */
   try {
-    const { userId, restaurantId } = req.body;
+    // 🔥 JWT 방식으로 수정
+    const userId = req.user.id;
+    const { restaurantId } = req.body;
 
-    if (!userId || !restaurantId) {
+    if (!restaurantId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
-        reason: "사용자 ID와 맛집 ID가 필요합니다.",
+        reason: "맛집 ID가 필요합니다.",
         data: null,
       });
     }
