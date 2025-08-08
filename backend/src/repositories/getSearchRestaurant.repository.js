@@ -7,7 +7,6 @@ export const searchRestaurant = async (
   cursor,
   limit
 ) => {
-  console.log("menu", menu.length);
   const isFirstPage = cursor == 0;
   const locationFilters = Array.isArray(location)
     ? location?.map((loc) => ({
@@ -60,24 +59,25 @@ export const searchRestaurant = async (
                 },
               },
             }
-          : {
+          : tagFilters.length > 0
+          ? {
               rest_tag: {
                 some: {
                   tag: tagFilters.tag,
                 },
               },
-            },
-        menu.length > 0
-          ? {
-              repre_menu: {
-                some: {
-                  menu: {
-                    contains: menu,
-                  },
-                },
-              },
             }
           : {},
+
+        {
+          repre_menu: {
+            some: {
+              menu: {
+                contains: menu,
+              },
+            },
+          },
+        },
         location.length > 0 ? { OR: locationFilters } : {},
       ],
     },
@@ -90,7 +90,7 @@ export const searchRestaurant = async (
   const newRestData = restData.map((data) => {
     return { ...data, zzim: data.zzim.length > 0 };
   });
-  console.log("restData", restData);
+
   const hasNextPage = newRestData.length > limit;
   const lastData = hasNextPage
     ? newRestData[limit - 1].id.toString()
