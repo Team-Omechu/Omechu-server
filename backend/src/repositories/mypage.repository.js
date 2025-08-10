@@ -652,6 +652,75 @@ export const findUserReviews = async (userId, limit, cursor) => {
   }
 };
 
+/**
+ * 리뷰 ID로 리뷰 조회
+ */
+export const findReviewById = async (reviewId) => {
+  try {
+    console.log("findReviewById 레포지토리 - reviewId:", reviewId);
+    
+    const review = await prisma.review.findUnique({
+      where: { id: BigInt(reviewId) },
+      select: {
+        id: true,
+        user_id: true,
+        rest_id: true,
+        rating: true,
+        tag: true,
+        text: true,
+        created_at: true
+      }
+    });
+
+    if (!review) return null;
+
+    return {
+      ...review,
+      id: review.id.toString(),
+      user_id: review.user_id.toString(),
+      rest_id: review.rest_id.toString()
+    };
+
+  } catch (error) {
+    console.error('리뷰 조회 오류:', error);
+    throw error;
+  }
+};
+
+/**
+ * 리뷰 삭제 (관련 이미지도 함께 삭제)
+ */
+export const deleteReview = async (reviewId) => {
+  try {
+    console.log("deleteReview 레포지토리 - reviewId:", reviewId);
+    
+    // 트랜잭션으로 리뷰와 관련 데이터 모두 삭제
+    await prisma.$transaction(async (tx) => {
+      // 1. 리뷰 이미지 삭제
+      await tx.review_image.deleteMany({
+        where: { review_id: BigInt(reviewId) }
+      });
+
+      // 2. 리뷰 신고 기록 삭제 (있다면)
+      await tx.report.deleteMany({
+        where: { review_id: BigInt(reviewId) }
+      });
+
+      // 3. 리뷰 삭제
+      await tx.review.delete({
+        where: { id: BigInt(reviewId) }
+      });
+    });
+
+    console.log("리뷰 삭제 완료 - reviewId:", reviewId);
+    return { success: true };
+
+  } catch (error) {
+    console.error('리뷰 삭제 오류:', error);
+    throw error;
+  }
+};
+
 // ============= Enum 변환 함수들 =============
 
 function convertPreferToEnum(prefer) {

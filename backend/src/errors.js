@@ -164,13 +164,13 @@ export class NoRestaurantPermission extends Error {
 
 export class AlreadyZzimmed extends Error {
   errorCode = "M004";
+  statusCode = 409; 
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
     this.data = data;
   }
 }
-
 export class NoZzimData extends Error {
   errorCode = "M005";
   constructor(reason, data) {
@@ -400,3 +400,14 @@ export class BearerTokenServerError extends Error {
     this.data = data;
   }
 }
+
+export class NotYourReview extends Error {
+  errorCode = "C010";
+  statusCode = 403;
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+

@@ -1,3 +1,4 @@
+
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -41,6 +42,7 @@ import {
   handleRemoveZzim,
   handleGetZzimList,
   handleGetUserReviews,
+  handleDeleteReview,
 } from "./controllers/mypage.controller.js";
 
 //마이페이지의 먹부림 조회
@@ -255,13 +257,17 @@ app.post("/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
 
 // 내 활동 내역 - JWT 형식으로 변경 (userId 제거)
 app.get("/reviews", isLoggedIn, handleGetUserReviews);
+app.delete("/reviews/:reviewId", isLoggedIn, handleDeleteReview);
 
 // 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  res.status(err.statusCode || 500).error({
+  
+  const statusCode = err.statusCode || 500;  
+  
+  res.status(statusCode).error({
     errorCode: err.errorCode || "C001",
     reason: err.reason || err.message || "서버가 응답하지 못했습니다",
     data: err.data || null,
