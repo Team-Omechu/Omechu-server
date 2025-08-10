@@ -283,6 +283,13 @@ exports.Prisma.Agreement_consentScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Menu_view_timeScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  menu_name: 'menu_name',
+  time: 'time'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -381,6 +388,10 @@ exports.Prisma.password_reset_tokenOrderByRelevanceFieldEnum = {
 exports.Prisma.repre_menuOrderByRelevanceFieldEnum = {
   menu: 'menu'
 };
+
+exports.Prisma.menu_view_timeOrderByRelevanceFieldEnum = {
+  menu_name: 'menu_name'
+};
 exports.user_body_type = exports.$Enums.user_body_type = {
   cold: 'cold',
   indigestion: 'indigestion',
@@ -435,7 +446,8 @@ exports.Prisma.ModelName = {
   password_reset_token: 'password_reset_token',
   repre_menu: 'repre_menu',
   user_rest: 'user_rest',
-  agreement_consent: 'agreement_consent'
+  agreement_consent: 'agreement_consent',
+  menu_view_time: 'menu_view_time'
 };
 
 /**

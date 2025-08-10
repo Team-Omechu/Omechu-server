@@ -8,8 +8,8 @@ export const handleInsertMukburim = async (req, res) => {
     const mukburimData = {
       menu_name,
     };
-    console.log(req.session.user);
-    mukburimData.user_id = req.session.user.id;
+    console.log(req.user);
+    mukburimData.user_id = req.user.id;
     console.log("User ID from session:", mukburimData.user_id);
     const now = new Date();
     const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000); // UTC 기준 +9시간
