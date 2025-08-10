@@ -20,7 +20,7 @@ import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleAddReview } from "./controllers/addReview.controller.js";
-import { handleUserLogout } from "./controllers/logout.controller.js";
+import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
 import { handleLike } from "./controllers/like.controller.js";
 import { handleGetReview } from "./controllers/getReview.controller.js";
 import { handleSendEmailCode } from "./controllers/email.controller.js";
@@ -79,7 +79,7 @@ import {
   BearerTokenError,
   BearerTokenServerError,
 } from "./errors.js";
-
+import { handleSuggestion } from "./controllers/suggestions.controller.js";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -140,9 +140,12 @@ app.get("/openapi.json", async (req, res, next) => {
       title: "Omechu",
       description: "Umc 8th Omechu 데모데이 프로젝트",
     },
-    host: "omechu-api.log8.kr",
-    schemes: ["https"],
-    basePath: "/",
+    servers: [
+      {
+        url: "http://localhost:3000",
+        description: "로컬 서버",
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -197,10 +200,10 @@ app.post("/auth/reset-request", handleResetRequest);
 app.patch("/reset-passwd", handleResetPassword);
 app.post("/auth/login", handleUserLoginJWT);
 app.post("/auth/reissue", handleRenewToken);
-app.post("/auth/logout", isLoggedIn, handleUserLogout);
+app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT);
 app.post("/auth/send", handleSendEmailCode);
 app.post("/auth/verify", handleVerifyEmailCode);
-app.patch("/auth/change-passwd", handleChangePassword);
+app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 app.post("/agreements/consent", isLoggedIn, handleAgreementConsent);
 app.get("/agreements/consent", isLoggedIn, getAgreementConsent);
 
@@ -236,7 +239,7 @@ app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
 app.get("/place/search", isLoggedIn, handleSearchRestaurant);
-
+app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
 app.post("/image/upload", generatePresignedUrl);
 
