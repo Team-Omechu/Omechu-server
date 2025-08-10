@@ -411,3 +411,11 @@ export class NotYourReview extends Error {
   }
 }
 
+export class NoMenuData extends Error {
+  errorCode = "C009";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}

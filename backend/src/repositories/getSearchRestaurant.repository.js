@@ -1,7 +1,31 @@
 import { prisma } from "../db.config.js";
-
-export const getRestData = async (userId, cursor, limit) => {
+export const searchRestaurant = async (
+  menu,
+  location,
+  tag,
+  userId,
+  cursor,
+  limit
+) => {
   const isFirstPage = cursor == 0;
+  const locationFilters = Array.isArray(location)
+    ? location?.map((loc) => ({
+        location: { contains: loc },
+      }))
+    : [
+        {
+          location: { contains: location },
+        },
+      ];
+  const tagFilters = Array.isArray(tag)
+    ? tag.map((cat) => ({
+        tag: { contains: cat },
+      }))
+    : [
+        {
+          tag: { contains: tag },
+        },
+      ];
   const restData = await prisma.restaurant.findMany({
     select: {
       id: true,
@@ -25,6 +49,38 @@ export const getRestData = async (userId, cursor, limit) => {
         select: { review: true },
       },
     },
+    where: {
+      AND: [
+        tagFilters.length > 1
+          ? {
+              rest_tag: {
+                some: {
+                  OR: tagFilters,
+                },
+              },
+            }
+          : tagFilters.length > 0
+          ? {
+              rest_tag: {
+                some: {
+                  tag: tagFilters.tag,
+                },
+              },
+            }
+          : {},
+
+        {
+          repre_menu: {
+            some: {
+              menu: {
+                contains: menu,
+              },
+            },
+          },
+        },
+        location.length > 0 ? { OR: locationFilters } : {},
+      ],
+    },
     take: limit + 1,
     ...(isFirstPage ? {} : { cursor: { id: BigInt(cursor) }, skip: 1 }),
   });
@@ -44,6 +100,7 @@ export const getRestData = async (userId, cursor, limit) => {
     ...rest,
     id: rest.id.toString(),
   }));
+
   return {
     restData: sliceRestData,
     hasNextPage: hasNextPage,
