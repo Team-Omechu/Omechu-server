@@ -113,6 +113,11 @@ export type user_rest = $Result.DefaultSelection<Prisma.$user_restPayload>
  * 
  */
 export type agreement_consent = $Result.DefaultSelection<Prisma.$agreement_consentPayload>
+/**
+ * Model menu_view_time
+ * 
+ */
+export type menu_view_time = $Result.DefaultSelection<Prisma.$menu_view_timePayload>
 
 /**
  * Enums
@@ -512,6 +517,16 @@ export class PrismaClient<
     * ```
     */
   get agreement_consent(): Prisma.agreement_consentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.menu_view_time`: Exposes CRUD operations for the **menu_view_time** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Menu_view_times
+    * const menu_view_times = await prisma.menu_view_time.findMany()
+    * ```
+    */
+  get menu_view_time(): Prisma.menu_view_timeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -971,7 +986,8 @@ export namespace Prisma {
     password_reset_token: 'password_reset_token',
     repre_menu: 'repre_menu',
     user_rest: 'user_rest',
-    agreement_consent: 'agreement_consent'
+    agreement_consent: 'agreement_consent',
+    menu_view_time: 'menu_view_time'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -990,7 +1006,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "choice" | "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent"
+      modelProps: "choice" | "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent" | "menu_view_time"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2314,6 +2330,72 @@ export namespace Prisma {
           }
         }
       }
+      menu_view_time: {
+        payload: Prisma.$menu_view_timePayload<ExtArgs>
+        fields: Prisma.menu_view_timeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.menu_view_timeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.menu_view_timeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          findFirst: {
+            args: Prisma.menu_view_timeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.menu_view_timeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          findMany: {
+            args: Prisma.menu_view_timeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>[]
+          }
+          create: {
+            args: Prisma.menu_view_timeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          createMany: {
+            args: Prisma.menu_view_timeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.menu_view_timeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          update: {
+            args: Prisma.menu_view_timeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          deleteMany: {
+            args: Prisma.menu_view_timeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.menu_view_timeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.menu_view_timeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_view_timePayload>
+          }
+          aggregate: {
+            args: Prisma.Menu_view_timeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMenu_view_time>
+          }
+          groupBy: {
+            args: Prisma.menu_view_timeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Menu_view_timeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.menu_view_timeCountArgs<ExtArgs>
+            result: $Utils.Optional<Menu_view_timeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2418,6 +2500,7 @@ export namespace Prisma {
     repre_menu?: repre_menuOmit
     user_rest?: user_restOmit
     agreement_consent?: agreement_consentOmit
+    menu_view_time?: menu_view_timeOmit
   }
 
   /* Types for Logging */
@@ -2679,6 +2762,7 @@ export namespace Prisma {
   export type UserCountOutputType = {
     agreement_consent: number
     allergy: number
+    menu_view_time: number
     mukburim: number
     prefer: number
     recommend_except: number
@@ -2691,6 +2775,7 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     agreement_consent?: boolean | UserCountOutputTypeCountAgreement_consentArgs
     allergy?: boolean | UserCountOutputTypeCountAllergyArgs
+    menu_view_time?: boolean | UserCountOutputTypeCountMenu_view_timeArgs
     mukburim?: boolean | UserCountOutputTypeCountMukburimArgs
     prefer?: boolean | UserCountOutputTypeCountPreferArgs
     recommend_except?: boolean | UserCountOutputTypeCountRecommend_exceptArgs
@@ -2723,6 +2808,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAllergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: allergyWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMenu_view_timeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_view_timeWhereInput
   }
 
   /**
@@ -13030,6 +13122,7 @@ export namespace Prisma {
     profileImageUrl?: boolean
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     allergy?: boolean | user$allergyArgs<ExtArgs>
+    menu_view_time?: boolean | user$menu_view_timeArgs<ExtArgs>
     mukburim?: boolean | user$mukburimArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
     recommend_except?: boolean | user$recommend_exceptArgs<ExtArgs>
@@ -13059,6 +13152,7 @@ export namespace Prisma {
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     allergy?: boolean | user$allergyArgs<ExtArgs>
+    menu_view_time?: boolean | user$menu_view_timeArgs<ExtArgs>
     mukburim?: boolean | user$mukburimArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
     recommend_except?: boolean | user$recommend_exceptArgs<ExtArgs>
@@ -13074,6 +13168,7 @@ export namespace Prisma {
     objects: {
       agreement_consent: Prisma.$agreement_consentPayload<ExtArgs>[]
       allergy: Prisma.$allergyPayload<ExtArgs>[]
+      menu_view_time: Prisma.$menu_view_timePayload<ExtArgs>[]
       mukburim: Prisma.$mukburimPayload<ExtArgs>[]
       prefer: Prisma.$preferPayload<ExtArgs>[]
       recommend_except: Prisma.$recommend_exceptPayload<ExtArgs>[]
@@ -13435,6 +13530,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     agreement_consent<T extends user$agreement_consentArgs<ExtArgs> = {}>(args?: Subset<T, user$agreement_consentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$agreement_consentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     allergy<T extends user$allergyArgs<ExtArgs> = {}>(args?: Subset<T, user$allergyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    menu_view_time<T extends user$menu_view_timeArgs<ExtArgs> = {}>(args?: Subset<T, user$menu_view_timeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mukburim<T extends user$mukburimArgs<ExtArgs> = {}>(args?: Subset<T, user$mukburimArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     prefer<T extends user$preferArgs<ExtArgs> = {}>(args?: Subset<T, user$preferArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     recommend_except<T extends user$recommend_exceptArgs<ExtArgs> = {}>(args?: Subset<T, user$recommend_exceptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -13869,6 +13965,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * user.menu_view_time
+   */
+  export type user$menu_view_timeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    where?: menu_view_timeWhereInput
+    orderBy?: menu_view_timeOrderByWithRelationInput | menu_view_timeOrderByWithRelationInput[]
+    cursor?: menu_view_timeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_view_timeScalarFieldEnum | Menu_view_timeScalarFieldEnum[]
   }
 
   /**
@@ -22577,6 +22697,981 @@ export namespace Prisma {
 
 
   /**
+   * Model menu_view_time
+   */
+
+  export type AggregateMenu_view_time = {
+    _count: Menu_view_timeCountAggregateOutputType | null
+    _avg: Menu_view_timeAvgAggregateOutputType | null
+    _sum: Menu_view_timeSumAggregateOutputType | null
+    _min: Menu_view_timeMinAggregateOutputType | null
+    _max: Menu_view_timeMaxAggregateOutputType | null
+  }
+
+  export type Menu_view_timeAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type Menu_view_timeSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+  }
+
+  export type Menu_view_timeMinAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    menu_name: string | null
+    time: Date | null
+  }
+
+  export type Menu_view_timeMaxAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    menu_name: string | null
+    time: Date | null
+  }
+
+  export type Menu_view_timeCountAggregateOutputType = {
+    id: number
+    user_id: number
+    menu_name: number
+    time: number
+    _all: number
+  }
+
+
+  export type Menu_view_timeAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type Menu_view_timeSumAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type Menu_view_timeMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_name?: true
+    time?: true
+  }
+
+  export type Menu_view_timeMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_name?: true
+    time?: true
+  }
+
+  export type Menu_view_timeCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_name?: true
+    time?: true
+    _all?: true
+  }
+
+  export type Menu_view_timeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_view_time to aggregate.
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_view_times to fetch.
+     */
+    orderBy?: menu_view_timeOrderByWithRelationInput | menu_view_timeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: menu_view_timeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_view_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_view_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned menu_view_times
+    **/
+    _count?: true | Menu_view_timeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Menu_view_timeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Menu_view_timeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Menu_view_timeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Menu_view_timeMaxAggregateInputType
+  }
+
+  export type GetMenu_view_timeAggregateType<T extends Menu_view_timeAggregateArgs> = {
+        [P in keyof T & keyof AggregateMenu_view_time]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMenu_view_time[P]>
+      : GetScalarType<T[P], AggregateMenu_view_time[P]>
+  }
+
+
+
+
+  export type menu_view_timeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_view_timeWhereInput
+    orderBy?: menu_view_timeOrderByWithAggregationInput | menu_view_timeOrderByWithAggregationInput[]
+    by: Menu_view_timeScalarFieldEnum[] | Menu_view_timeScalarFieldEnum
+    having?: menu_view_timeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Menu_view_timeCountAggregateInputType | true
+    _avg?: Menu_view_timeAvgAggregateInputType
+    _sum?: Menu_view_timeSumAggregateInputType
+    _min?: Menu_view_timeMinAggregateInputType
+    _max?: Menu_view_timeMaxAggregateInputType
+  }
+
+  export type Menu_view_timeGroupByOutputType = {
+    id: bigint
+    user_id: bigint | null
+    menu_name: string | null
+    time: Date | null
+    _count: Menu_view_timeCountAggregateOutputType | null
+    _avg: Menu_view_timeAvgAggregateOutputType | null
+    _sum: Menu_view_timeSumAggregateOutputType | null
+    _min: Menu_view_timeMinAggregateOutputType | null
+    _max: Menu_view_timeMaxAggregateOutputType | null
+  }
+
+  type GetMenu_view_timeGroupByPayload<T extends menu_view_timeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Menu_view_timeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Menu_view_timeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Menu_view_timeGroupByOutputType[P]>
+            : GetScalarType<T[P], Menu_view_timeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type menu_view_timeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    menu_name?: boolean
+    time?: boolean
+    user?: boolean | menu_view_time$userArgs<ExtArgs>
+  }, ExtArgs["result"]["menu_view_time"]>
+
+
+
+  export type menu_view_timeSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    menu_name?: boolean
+    time?: boolean
+  }
+
+  export type menu_view_timeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "menu_name" | "time", ExtArgs["result"]["menu_view_time"]>
+  export type menu_view_timeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | menu_view_time$userArgs<ExtArgs>
+  }
+
+  export type $menu_view_timePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "menu_view_time"
+    objects: {
+      user: Prisma.$userPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      user_id: bigint | null
+      menu_name: string | null
+      time: Date | null
+    }, ExtArgs["result"]["menu_view_time"]>
+    composites: {}
+  }
+
+  type menu_view_timeGetPayload<S extends boolean | null | undefined | menu_view_timeDefaultArgs> = $Result.GetResult<Prisma.$menu_view_timePayload, S>
+
+  type menu_view_timeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<menu_view_timeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Menu_view_timeCountAggregateInputType | true
+    }
+
+  export interface menu_view_timeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_view_time'], meta: { name: 'menu_view_time' } }
+    /**
+     * Find zero or one Menu_view_time that matches the filter.
+     * @param {menu_view_timeFindUniqueArgs} args - Arguments to find a Menu_view_time
+     * @example
+     * // Get one Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends menu_view_timeFindUniqueArgs>(args: SelectSubset<T, menu_view_timeFindUniqueArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Menu_view_time that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {menu_view_timeFindUniqueOrThrowArgs} args - Arguments to find a Menu_view_time
+     * @example
+     * // Get one Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends menu_view_timeFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_view_timeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_view_time that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeFindFirstArgs} args - Arguments to find a Menu_view_time
+     * @example
+     * // Get one Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends menu_view_timeFindFirstArgs>(args?: SelectSubset<T, menu_view_timeFindFirstArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_view_time that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeFindFirstOrThrowArgs} args - Arguments to find a Menu_view_time
+     * @example
+     * // Get one Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends menu_view_timeFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_view_timeFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Menu_view_times that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Menu_view_times
+     * const menu_view_times = await prisma.menu_view_time.findMany()
+     * 
+     * // Get first 10 Menu_view_times
+     * const menu_view_times = await prisma.menu_view_time.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const menu_view_timeWithIdOnly = await prisma.menu_view_time.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends menu_view_timeFindManyArgs>(args?: SelectSubset<T, menu_view_timeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Menu_view_time.
+     * @param {menu_view_timeCreateArgs} args - Arguments to create a Menu_view_time.
+     * @example
+     * // Create one Menu_view_time
+     * const Menu_view_time = await prisma.menu_view_time.create({
+     *   data: {
+     *     // ... data to create a Menu_view_time
+     *   }
+     * })
+     * 
+     */
+    create<T extends menu_view_timeCreateArgs>(args: SelectSubset<T, menu_view_timeCreateArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Menu_view_times.
+     * @param {menu_view_timeCreateManyArgs} args - Arguments to create many Menu_view_times.
+     * @example
+     * // Create many Menu_view_times
+     * const menu_view_time = await prisma.menu_view_time.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends menu_view_timeCreateManyArgs>(args?: SelectSubset<T, menu_view_timeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Menu_view_time.
+     * @param {menu_view_timeDeleteArgs} args - Arguments to delete one Menu_view_time.
+     * @example
+     * // Delete one Menu_view_time
+     * const Menu_view_time = await prisma.menu_view_time.delete({
+     *   where: {
+     *     // ... filter to delete one Menu_view_time
+     *   }
+     * })
+     * 
+     */
+    delete<T extends menu_view_timeDeleteArgs>(args: SelectSubset<T, menu_view_timeDeleteArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Menu_view_time.
+     * @param {menu_view_timeUpdateArgs} args - Arguments to update one Menu_view_time.
+     * @example
+     * // Update one Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends menu_view_timeUpdateArgs>(args: SelectSubset<T, menu_view_timeUpdateArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Menu_view_times.
+     * @param {menu_view_timeDeleteManyArgs} args - Arguments to filter Menu_view_times to delete.
+     * @example
+     * // Delete a few Menu_view_times
+     * const { count } = await prisma.menu_view_time.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends menu_view_timeDeleteManyArgs>(args?: SelectSubset<T, menu_view_timeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Menu_view_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Menu_view_times
+     * const menu_view_time = await prisma.menu_view_time.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends menu_view_timeUpdateManyArgs>(args: SelectSubset<T, menu_view_timeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Menu_view_time.
+     * @param {menu_view_timeUpsertArgs} args - Arguments to update or create a Menu_view_time.
+     * @example
+     * // Update or create a Menu_view_time
+     * const menu_view_time = await prisma.menu_view_time.upsert({
+     *   create: {
+     *     // ... data to create a Menu_view_time
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Menu_view_time we want to update
+     *   }
+     * })
+     */
+    upsert<T extends menu_view_timeUpsertArgs>(args: SelectSubset<T, menu_view_timeUpsertArgs<ExtArgs>>): Prisma__menu_view_timeClient<$Result.GetResult<Prisma.$menu_view_timePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Menu_view_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeCountArgs} args - Arguments to filter Menu_view_times to count.
+     * @example
+     * // Count the number of Menu_view_times
+     * const count = await prisma.menu_view_time.count({
+     *   where: {
+     *     // ... the filter for the Menu_view_times we want to count
+     *   }
+     * })
+    **/
+    count<T extends menu_view_timeCountArgs>(
+      args?: Subset<T, menu_view_timeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Menu_view_timeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Menu_view_time.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Menu_view_timeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Menu_view_timeAggregateArgs>(args: Subset<T, Menu_view_timeAggregateArgs>): Prisma.PrismaPromise<GetMenu_view_timeAggregateType<T>>
+
+    /**
+     * Group by Menu_view_time.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_view_timeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends menu_view_timeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: menu_view_timeGroupByArgs['orderBy'] }
+        : { orderBy?: menu_view_timeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, menu_view_timeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_view_timeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the menu_view_time model
+   */
+  readonly fields: menu_view_timeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for menu_view_time.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__menu_view_timeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends menu_view_time$userArgs<ExtArgs> = {}>(args?: Subset<T, menu_view_time$userArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the menu_view_time model
+   */
+  interface menu_view_timeFieldRefs {
+    readonly id: FieldRef<"menu_view_time", 'BigInt'>
+    readonly user_id: FieldRef<"menu_view_time", 'BigInt'>
+    readonly menu_name: FieldRef<"menu_view_time", 'String'>
+    readonly time: FieldRef<"menu_view_time", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * menu_view_time findUnique
+   */
+  export type menu_view_timeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_view_time to fetch.
+     */
+    where: menu_view_timeWhereUniqueInput
+  }
+
+  /**
+   * menu_view_time findUniqueOrThrow
+   */
+  export type menu_view_timeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_view_time to fetch.
+     */
+    where: menu_view_timeWhereUniqueInput
+  }
+
+  /**
+   * menu_view_time findFirst
+   */
+  export type menu_view_timeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_view_time to fetch.
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_view_times to fetch.
+     */
+    orderBy?: menu_view_timeOrderByWithRelationInput | menu_view_timeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_view_times.
+     */
+    cursor?: menu_view_timeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_view_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_view_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_view_times.
+     */
+    distinct?: Menu_view_timeScalarFieldEnum | Menu_view_timeScalarFieldEnum[]
+  }
+
+  /**
+   * menu_view_time findFirstOrThrow
+   */
+  export type menu_view_timeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_view_time to fetch.
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_view_times to fetch.
+     */
+    orderBy?: menu_view_timeOrderByWithRelationInput | menu_view_timeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_view_times.
+     */
+    cursor?: menu_view_timeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_view_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_view_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_view_times.
+     */
+    distinct?: Menu_view_timeScalarFieldEnum | Menu_view_timeScalarFieldEnum[]
+  }
+
+  /**
+   * menu_view_time findMany
+   */
+  export type menu_view_timeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_view_times to fetch.
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_view_times to fetch.
+     */
+    orderBy?: menu_view_timeOrderByWithRelationInput | menu_view_timeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing menu_view_times.
+     */
+    cursor?: menu_view_timeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_view_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_view_times.
+     */
+    skip?: number
+    distinct?: Menu_view_timeScalarFieldEnum | Menu_view_timeScalarFieldEnum[]
+  }
+
+  /**
+   * menu_view_time create
+   */
+  export type menu_view_timeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a menu_view_time.
+     */
+    data?: XOR<menu_view_timeCreateInput, menu_view_timeUncheckedCreateInput>
+  }
+
+  /**
+   * menu_view_time createMany
+   */
+  export type menu_view_timeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many menu_view_times.
+     */
+    data: menu_view_timeCreateManyInput | menu_view_timeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * menu_view_time update
+   */
+  export type menu_view_timeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a menu_view_time.
+     */
+    data: XOR<menu_view_timeUpdateInput, menu_view_timeUncheckedUpdateInput>
+    /**
+     * Choose, which menu_view_time to update.
+     */
+    where: menu_view_timeWhereUniqueInput
+  }
+
+  /**
+   * menu_view_time updateMany
+   */
+  export type menu_view_timeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update menu_view_times.
+     */
+    data: XOR<menu_view_timeUpdateManyMutationInput, menu_view_timeUncheckedUpdateManyInput>
+    /**
+     * Filter which menu_view_times to update
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * Limit how many menu_view_times to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_view_time upsert
+   */
+  export type menu_view_timeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the menu_view_time to update in case it exists.
+     */
+    where: menu_view_timeWhereUniqueInput
+    /**
+     * In case the menu_view_time found by the `where` argument doesn't exist, create a new menu_view_time with this data.
+     */
+    create: XOR<menu_view_timeCreateInput, menu_view_timeUncheckedCreateInput>
+    /**
+     * In case the menu_view_time was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<menu_view_timeUpdateInput, menu_view_timeUncheckedUpdateInput>
+  }
+
+  /**
+   * menu_view_time delete
+   */
+  export type menu_view_timeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+    /**
+     * Filter which menu_view_time to delete.
+     */
+    where: menu_view_timeWhereUniqueInput
+  }
+
+  /**
+   * menu_view_time deleteMany
+   */
+  export type menu_view_timeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_view_times to delete
+     */
+    where?: menu_view_timeWhereInput
+    /**
+     * Limit how many menu_view_times to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_view_time.user
+   */
+  export type menu_view_time$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user
+     */
+    select?: userSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user
+     */
+    omit?: userOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: userInclude<ExtArgs> | null
+    where?: userWhereInput
+  }
+
+  /**
+   * menu_view_time without action
+   */
+  export type menu_view_timeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_view_time
+     */
+    select?: menu_view_timeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_view_time
+     */
+    omit?: menu_view_timeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_view_timeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22813,6 +23908,16 @@ export namespace Prisma {
   export type Agreement_consentScalarFieldEnum = (typeof Agreement_consentScalarFieldEnum)[keyof typeof Agreement_consentScalarFieldEnum]
 
 
+  export const Menu_view_timeScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    menu_name: 'menu_name',
+    time: 'time'
+  };
+
+  export type Menu_view_timeScalarFieldEnum = (typeof Menu_view_timeScalarFieldEnum)[keyof typeof Menu_view_timeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -22964,6 +24069,13 @@ export namespace Prisma {
   };
 
   export type repre_menuOrderByRelevanceFieldEnum = (typeof repre_menuOrderByRelevanceFieldEnum)[keyof typeof repre_menuOrderByRelevanceFieldEnum]
+
+
+  export const menu_view_timeOrderByRelevanceFieldEnum: {
+    menu_name: 'menu_name'
+  };
+
+  export type menu_view_timeOrderByRelevanceFieldEnum = (typeof menu_view_timeOrderByRelevanceFieldEnum)[keyof typeof menu_view_timeOrderByRelevanceFieldEnum]
 
 
   /**
@@ -23730,6 +24842,7 @@ export namespace Prisma {
     profileImageUrl?: StringNullableFilter<"user"> | string | null
     agreement_consent?: Agreement_consentListRelationFilter
     allergy?: AllergyListRelationFilter
+    menu_view_time?: Menu_view_timeListRelationFilter
     mukburim?: MukburimListRelationFilter
     prefer?: PreferListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
@@ -23752,6 +24865,7 @@ export namespace Prisma {
     profileImageUrl?: SortOrderInput | SortOrder
     agreement_consent?: agreement_consentOrderByRelationAggregateInput
     allergy?: allergyOrderByRelationAggregateInput
+    menu_view_time?: menu_view_timeOrderByRelationAggregateInput
     mukburim?: mukburimOrderByRelationAggregateInput
     prefer?: preferOrderByRelationAggregateInput
     recommend_except?: recommend_exceptOrderByRelationAggregateInput
@@ -23778,6 +24892,7 @@ export namespace Prisma {
     profileImageUrl?: StringNullableFilter<"user"> | string | null
     agreement_consent?: Agreement_consentListRelationFilter
     allergy?: AllergyListRelationFilter
+    menu_view_time?: Menu_view_timeListRelationFilter
     mukburim?: MukburimListRelationFilter
     prefer?: PreferListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
@@ -24292,6 +25407,59 @@ export namespace Prisma {
     location_service?: BoolWithAggregatesFilter<"agreement_consent"> | boolean
     is_over14?: BoolWithAggregatesFilter<"agreement_consent"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"agreement_consent"> | Date | string
+  }
+
+  export type menu_view_timeWhereInput = {
+    AND?: menu_view_timeWhereInput | menu_view_timeWhereInput[]
+    OR?: menu_view_timeWhereInput[]
+    NOT?: menu_view_timeWhereInput | menu_view_timeWhereInput[]
+    id?: BigIntFilter<"menu_view_time"> | bigint | number
+    user_id?: BigIntNullableFilter<"menu_view_time"> | bigint | number | null
+    menu_name?: StringNullableFilter<"menu_view_time"> | string | null
+    time?: DateTimeNullableFilter<"menu_view_time"> | Date | string | null
+    user?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
+  }
+
+  export type menu_view_timeOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    menu_name?: SortOrderInput | SortOrder
+    time?: SortOrderInput | SortOrder
+    user?: userOrderByWithRelationInput
+    _relevance?: menu_view_timeOrderByRelevanceInput
+  }
+
+  export type menu_view_timeWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: menu_view_timeWhereInput | menu_view_timeWhereInput[]
+    OR?: menu_view_timeWhereInput[]
+    NOT?: menu_view_timeWhereInput | menu_view_timeWhereInput[]
+    user_id?: BigIntNullableFilter<"menu_view_time"> | bigint | number | null
+    menu_name?: StringNullableFilter<"menu_view_time"> | string | null
+    time?: DateTimeNullableFilter<"menu_view_time"> | Date | string | null
+    user?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
+  }, "id">
+
+  export type menu_view_timeOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    menu_name?: SortOrderInput | SortOrder
+    time?: SortOrderInput | SortOrder
+    _count?: menu_view_timeCountOrderByAggregateInput
+    _avg?: menu_view_timeAvgOrderByAggregateInput
+    _max?: menu_view_timeMaxOrderByAggregateInput
+    _min?: menu_view_timeMinOrderByAggregateInput
+    _sum?: menu_view_timeSumOrderByAggregateInput
+  }
+
+  export type menu_view_timeScalarWhereWithAggregatesInput = {
+    AND?: menu_view_timeScalarWhereWithAggregatesInput | menu_view_timeScalarWhereWithAggregatesInput[]
+    OR?: menu_view_timeScalarWhereWithAggregatesInput[]
+    NOT?: menu_view_timeScalarWhereWithAggregatesInput | menu_view_timeScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"menu_view_time"> | bigint | number
+    user_id?: BigIntNullableWithAggregatesFilter<"menu_view_time"> | bigint | number | null
+    menu_name?: StringNullableWithAggregatesFilter<"menu_view_time"> | string | null
+    time?: DateTimeNullableWithAggregatesFilter<"menu_view_time"> | Date | string | null
   }
 
   export type choiceCreateInput = {
@@ -24949,6 +26117,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -24971,6 +26140,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -24993,6 +26163,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -25015,6 +26186,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -25481,6 +26653,54 @@ export namespace Prisma {
     location_service?: BoolFieldUpdateOperationsInput | boolean
     is_over14?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type menu_view_timeCreateInput = {
+    id?: bigint | number
+    menu_name?: string | null
+    time?: Date | string | null
+    user?: userCreateNestedOneWithoutMenu_view_timeInput
+  }
+
+  export type menu_view_timeUncheckedCreateInput = {
+    id?: bigint | number
+    user_id?: bigint | number | null
+    menu_name?: string | null
+    time?: Date | string | null
+  }
+
+  export type menu_view_timeUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: userUpdateOneWithoutMenu_view_timeNestedInput
+  }
+
+  export type menu_view_timeUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type menu_view_timeCreateManyInput = {
+    id?: bigint | number
+    user_id?: bigint | number | null
+    menu_name?: string | null
+    time?: Date | string | null
+  }
+
+  export type menu_view_timeUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type menu_view_timeUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -26344,6 +27564,12 @@ export namespace Prisma {
     none?: allergyWhereInput
   }
 
+  export type Menu_view_timeListRelationFilter = {
+    every?: menu_view_timeWhereInput
+    some?: menu_view_timeWhereInput
+    none?: menu_view_timeWhereInput
+  }
+
   export type MukburimListRelationFilter = {
     every?: mukburimWhereInput
     some?: mukburimWhereInput
@@ -26361,6 +27587,10 @@ export namespace Prisma {
   }
 
   export type allergyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type menu_view_timeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26833,6 +28063,48 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: userWhereInput | null
+    isNot?: userWhereInput | null
+  }
+
+  export type menu_view_timeOrderByRelevanceInput = {
+    fields: menu_view_timeOrderByRelevanceFieldEnum | menu_view_timeOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type menu_view_timeCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_name?: SortOrder
+    time?: SortOrder
+  }
+
+  export type menu_view_timeAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type menu_view_timeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_name?: SortOrder
+    time?: SortOrder
+  }
+
+  export type menu_view_timeMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_name?: SortOrder
+    time?: SortOrder
+  }
+
+  export type menu_view_timeSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
   }
 
   export type BigIntFieldUpdateOperationsInput = {
@@ -27521,6 +28793,13 @@ export namespace Prisma {
     connect?: allergyWhereUniqueInput | allergyWhereUniqueInput[]
   }
 
+  export type menu_view_timeCreateNestedManyWithoutUserInput = {
+    create?: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput> | menu_view_timeCreateWithoutUserInput[] | menu_view_timeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: menu_view_timeCreateOrConnectWithoutUserInput | menu_view_timeCreateOrConnectWithoutUserInput[]
+    createMany?: menu_view_timeCreateManyUserInputEnvelope
+    connect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+  }
+
   export type mukburimCreateNestedManyWithoutUserInput = {
     create?: XOR<mukburimCreateWithoutUserInput, mukburimUncheckedCreateWithoutUserInput> | mukburimCreateWithoutUserInput[] | mukburimUncheckedCreateWithoutUserInput[]
     connectOrCreate?: mukburimCreateOrConnectWithoutUserInput | mukburimCreateOrConnectWithoutUserInput[]
@@ -27582,6 +28861,13 @@ export namespace Prisma {
     connectOrCreate?: allergyCreateOrConnectWithoutUserInput | allergyCreateOrConnectWithoutUserInput[]
     createMany?: allergyCreateManyUserInputEnvelope
     connect?: allergyWhereUniqueInput | allergyWhereUniqueInput[]
+  }
+
+  export type menu_view_timeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput> | menu_view_timeCreateWithoutUserInput[] | menu_view_timeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: menu_view_timeCreateOrConnectWithoutUserInput | menu_view_timeCreateOrConnectWithoutUserInput[]
+    createMany?: menu_view_timeCreateManyUserInputEnvelope
+    connect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
   }
 
   export type mukburimUncheckedCreateNestedManyWithoutUserInput = {
@@ -27671,6 +28957,20 @@ export namespace Prisma {
     update?: allergyUpdateWithWhereUniqueWithoutUserInput | allergyUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: allergyUpdateManyWithWhereWithoutUserInput | allergyUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: allergyScalarWhereInput | allergyScalarWhereInput[]
+  }
+
+  export type menu_view_timeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput> | menu_view_timeCreateWithoutUserInput[] | menu_view_timeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: menu_view_timeCreateOrConnectWithoutUserInput | menu_view_timeCreateOrConnectWithoutUserInput[]
+    upsert?: menu_view_timeUpsertWithWhereUniqueWithoutUserInput | menu_view_timeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: menu_view_timeCreateManyUserInputEnvelope
+    set?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    disconnect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    delete?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    connect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    update?: menu_view_timeUpdateWithWhereUniqueWithoutUserInput | menu_view_timeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: menu_view_timeUpdateManyWithWhereWithoutUserInput | menu_view_timeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: menu_view_timeScalarWhereInput | menu_view_timeScalarWhereInput[]
   }
 
   export type mukburimUpdateManyWithoutUserNestedInput = {
@@ -27797,6 +29097,20 @@ export namespace Prisma {
     update?: allergyUpdateWithWhereUniqueWithoutUserInput | allergyUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: allergyUpdateManyWithWhereWithoutUserInput | allergyUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: allergyScalarWhereInput | allergyScalarWhereInput[]
+  }
+
+  export type menu_view_timeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput> | menu_view_timeCreateWithoutUserInput[] | menu_view_timeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: menu_view_timeCreateOrConnectWithoutUserInput | menu_view_timeCreateOrConnectWithoutUserInput[]
+    upsert?: menu_view_timeUpsertWithWhereUniqueWithoutUserInput | menu_view_timeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: menu_view_timeCreateManyUserInputEnvelope
+    set?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    disconnect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    delete?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    connect?: menu_view_timeWhereUniqueInput | menu_view_timeWhereUniqueInput[]
+    update?: menu_view_timeUpdateWithWhereUniqueWithoutUserInput | menu_view_timeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: menu_view_timeUpdateManyWithWhereWithoutUserInput | menu_view_timeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: menu_view_timeScalarWhereInput | menu_view_timeScalarWhereInput[]
   }
 
   export type mukburimUncheckedUpdateManyWithoutUserNestedInput = {
@@ -28037,6 +29351,22 @@ export namespace Prisma {
     upsert?: userUpsertWithoutAgreement_consentInput
     connect?: userWhereUniqueInput
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutAgreement_consentInput, userUpdateWithoutAgreement_consentInput>, userUncheckedUpdateWithoutAgreement_consentInput>
+  }
+
+  export type userCreateNestedOneWithoutMenu_view_timeInput = {
+    create?: XOR<userCreateWithoutMenu_view_timeInput, userUncheckedCreateWithoutMenu_view_timeInput>
+    connectOrCreate?: userCreateOrConnectWithoutMenu_view_timeInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type userUpdateOneWithoutMenu_view_timeNestedInput = {
+    create?: XOR<userCreateWithoutMenu_view_timeInput, userUncheckedCreateWithoutMenu_view_timeInput>
+    connectOrCreate?: userCreateOrConnectWithoutMenu_view_timeInput
+    upsert?: userUpsertWithoutMenu_view_timeInput
+    disconnect?: userWhereInput | boolean
+    delete?: userWhereInput | boolean
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutMenu_view_timeInput, userUpdateWithoutMenu_view_timeInput>, userUncheckedUpdateWithoutMenu_view_timeInput>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -28541,6 +29871,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
     report?: reportCreateNestedManyWithoutUserInput
@@ -28562,6 +29893,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
     report?: reportUncheckedCreateNestedManyWithoutUserInput
@@ -28599,6 +29931,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
     report?: reportUpdateManyWithoutUserNestedInput
@@ -28620,6 +29953,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
     report?: reportUncheckedUpdateManyWithoutUserNestedInput
@@ -28676,6 +30010,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     report?: reportCreateNestedManyWithoutUserInput
@@ -28697,6 +30032,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     report?: reportUncheckedCreateNestedManyWithoutUserInput
@@ -28775,6 +30111,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     report?: reportUpdateManyWithoutUserNestedInput
@@ -28796,6 +30133,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     report?: reportUncheckedUpdateManyWithoutUserNestedInput
@@ -28817,6 +30155,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -28838,6 +30177,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -28904,6 +30244,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -28925,6 +30266,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -29518,6 +30860,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -29539,6 +30882,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -29675,6 +31019,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -29696,6 +31041,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -29996,6 +31342,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type menu_view_timeCreateWithoutUserInput = {
+    id?: bigint | number
+    menu_name?: string | null
+    time?: Date | string | null
+  }
+
+  export type menu_view_timeUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    menu_name?: string | null
+    time?: Date | string | null
+  }
+
+  export type menu_view_timeCreateOrConnectWithoutUserInput = {
+    where: menu_view_timeWhereUniqueInput
+    create: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput>
+  }
+
+  export type menu_view_timeCreateManyUserInputEnvelope = {
+    data: menu_view_timeCreateManyUserInput | menu_view_timeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type mukburimCreateWithoutUserInput = {
     id?: bigint | number
     menu_name: string
@@ -30211,6 +31579,32 @@ export namespace Prisma {
     allergy?: Enumallergy_typeFilter<"allergy"> | $Enums.allergy_type
   }
 
+  export type menu_view_timeUpsertWithWhereUniqueWithoutUserInput = {
+    where: menu_view_timeWhereUniqueInput
+    update: XOR<menu_view_timeUpdateWithoutUserInput, menu_view_timeUncheckedUpdateWithoutUserInput>
+    create: XOR<menu_view_timeCreateWithoutUserInput, menu_view_timeUncheckedCreateWithoutUserInput>
+  }
+
+  export type menu_view_timeUpdateWithWhereUniqueWithoutUserInput = {
+    where: menu_view_timeWhereUniqueInput
+    data: XOR<menu_view_timeUpdateWithoutUserInput, menu_view_timeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type menu_view_timeUpdateManyWithWhereWithoutUserInput = {
+    where: menu_view_timeScalarWhereInput
+    data: XOR<menu_view_timeUpdateManyMutationInput, menu_view_timeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type menu_view_timeScalarWhereInput = {
+    AND?: menu_view_timeScalarWhereInput | menu_view_timeScalarWhereInput[]
+    OR?: menu_view_timeScalarWhereInput[]
+    NOT?: menu_view_timeScalarWhereInput | menu_view_timeScalarWhereInput[]
+    id?: BigIntFilter<"menu_view_time"> | bigint | number
+    user_id?: BigIntNullableFilter<"menu_view_time"> | bigint | number | null
+    menu_name?: StringNullableFilter<"menu_view_time"> | string | null
+    time?: DateTimeNullableFilter<"menu_view_time"> | Date | string | null
+  }
+
   export type mukburimUpsertWithWhereUniqueWithoutUserInput = {
     where: mukburimWhereUniqueInput
     update: XOR<mukburimUpdateWithoutUserInput, mukburimUncheckedUpdateWithoutUserInput>
@@ -30354,6 +31748,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -30375,6 +31770,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -30412,6 +31808,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -30433,6 +31830,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -30455,6 +31853,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
     report?: reportCreateNestedManyWithoutUserInput
@@ -30476,6 +31875,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
     report?: reportUncheckedCreateNestedManyWithoutUserInput
@@ -30513,6 +31913,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
     report?: reportUpdateManyWithoutUserNestedInput
@@ -30534,6 +31935,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
     report?: reportUncheckedUpdateManyWithoutUserNestedInput
@@ -30555,6 +31957,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -30576,6 +31979,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -30664,6 +32068,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -30685,6 +32090,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -31030,6 +32436,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -31051,6 +32458,7 @@ export namespace Prisma {
     profileImageUrl?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -31145,6 +32553,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -31166,6 +32575,7 @@ export namespace Prisma {
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
@@ -31186,6 +32596,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     profileImageUrl?: string | null
     allergy?: allergyCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeCreateNestedManyWithoutUserInput
     mukburim?: mukburimCreateNestedManyWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
@@ -31207,6 +32618,7 @@ export namespace Prisma {
     updated_at?: Date | string | null
     profileImageUrl?: string | null
     allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    menu_view_time?: menu_view_timeUncheckedCreateNestedManyWithoutUserInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
@@ -31244,6 +32656,7 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     allergy?: allergyUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUpdateManyWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
@@ -31264,6 +32677,111 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
+    menu_view_time?: menu_view_timeUncheckedUpdateManyWithoutUserNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
+    prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
+    report?: reportUncheckedUpdateManyWithoutUserNestedInput
+    review?: reviewUncheckedUpdateManyWithoutUserNestedInput
+    user_rest?: user_restUncheckedUpdateManyWithoutUserNestedInput
+    zzim?: zzimUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type userCreateWithoutMenu_view_timeInput = {
+    id?: bigint | number
+    email?: string | null
+    nickname?: string | null
+    body_type?: $Enums.user_body_type | null
+    gender?: $Enums.user_gender | null
+    exercise?: $Enums.user_exercise | null
+    password: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    profileImageUrl?: string | null
+    agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
+    allergy?: allergyCreateNestedManyWithoutUserInput
+    mukburim?: mukburimCreateNestedManyWithoutUserInput
+    prefer?: preferCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
+    report?: reportCreateNestedManyWithoutUserInput
+    review?: reviewCreateNestedManyWithoutUserInput
+    user_rest?: user_restCreateNestedManyWithoutUserInput
+    zzim?: zzimCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutMenu_view_timeInput = {
+    id?: bigint | number
+    email?: string | null
+    nickname?: string | null
+    body_type?: $Enums.user_body_type | null
+    gender?: $Enums.user_gender | null
+    exercise?: $Enums.user_exercise | null
+    password: string
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    profileImageUrl?: string | null
+    agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
+    allergy?: allergyUncheckedCreateNestedManyWithoutUserInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutUserInput
+    prefer?: preferUncheckedCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
+    report?: reportUncheckedCreateNestedManyWithoutUserInput
+    review?: reviewUncheckedCreateNestedManyWithoutUserInput
+    user_rest?: user_restUncheckedCreateNestedManyWithoutUserInput
+    zzim?: zzimUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutMenu_view_timeInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutMenu_view_timeInput, userUncheckedCreateWithoutMenu_view_timeInput>
+  }
+
+  export type userUpsertWithoutMenu_view_timeInput = {
+    update: XOR<userUpdateWithoutMenu_view_timeInput, userUncheckedUpdateWithoutMenu_view_timeInput>
+    create: XOR<userCreateWithoutMenu_view_timeInput, userUncheckedCreateWithoutMenu_view_timeInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutMenu_view_timeInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutMenu_view_timeInput, userUncheckedUpdateWithoutMenu_view_timeInput>
+  }
+
+  export type userUpdateWithoutMenu_view_timeInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
+    gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
+    allergy?: allergyUpdateManyWithoutUserNestedInput
+    mukburim?: mukburimUpdateManyWithoutUserNestedInput
+    prefer?: preferUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
+    report?: reportUpdateManyWithoutUserNestedInput
+    review?: reviewUpdateManyWithoutUserNestedInput
+    user_rest?: user_restUpdateManyWithoutUserNestedInput
+    zzim?: zzimUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutMenu_view_timeInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
+    gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
     allergy?: allergyUncheckedUpdateManyWithoutUserNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
@@ -31552,6 +33070,12 @@ export namespace Prisma {
     allergy: $Enums.allergy_type
   }
 
+  export type menu_view_timeCreateManyUserInput = {
+    id?: bigint | number
+    menu_name?: string | null
+    time?: Date | string | null
+  }
+
   export type mukburimCreateManyUserInput = {
     id?: bigint | number
     menu_name: string
@@ -31635,6 +33159,24 @@ export namespace Prisma {
   export type allergyUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     allergy?: Enumallergy_typeFieldUpdateOperationsInput | $Enums.allergy_type
+  }
+
+  export type menu_view_timeUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type menu_view_timeUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type menu_view_timeUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type mukburimUpdateWithoutUserInput = {

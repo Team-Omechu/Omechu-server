@@ -1,6 +1,5 @@
 import { StatusCodes } from "http-status-codes";
 import { bodyToChoice } from "../dtos/choice.dto.js";
-import { getUserIdBySession } from "../repositories/user.repository.js";
 import {
   recommendMenuService,
   findRelatedMenuService,
@@ -11,7 +10,7 @@ import {
 } from "../services/menu.service.js";
 export const handleRecommendMenu = async (req, res) => {
   const choice = bodyToChoice(req.body);
-  const userId = req.session?.user?.id;
+  const userId = req.user?.id;
   console.log("User ID:", userId);
   const newRecommendation = await recommendMenuService(choice, userId);
   if (newRecommendation) {
@@ -292,39 +291,23 @@ export const handleGetMenu = async (req, res) => {
     #swagger.responses[200] = {
       description: "메뉴 목록 조회 성공",
       content: {
-        'application/json': {
-          schema: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                id: { type: 'number', example: 1 },
-                name: { type: 'string', example: '짜장면' },
-                description: { type: 'string', example: '간장 소스로 볶은 중화풍 면 요리' },
-                calory: { type: 'number', example: 800 },
-                carbo: { type: 'number', example: 90 },
-                protein: { type: 'number', example: 20 },
-                fat: { type: 'number', example: 30 },
-                sodium: { type: 'number', example: 1200 },
-                vitamin: {
-                  type: 'array',
-                  items: { type: 'string' },
-                  example: ['A', 'B1', 'B2', 'C']
-                },
-                allergic: {
-                  type: 'array',
-                  items: { type: 'string' },
-                  example: ['밀', '대두']
-                },
-                image_link: { 
-                  type: 'string', 
-                  example: 'https://example.com/image.jpg' 
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string', example: '회' },
+                  image_link: { 
+                    type: 'string', 
+                    nullable: true,
+                    example: null 
+                  }
                 }
               }
             }
           }
         }
-      }
     }
 
     #swagger.responses[404] = {
