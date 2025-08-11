@@ -7,6 +7,12 @@ export const searchRestaurant = async (
   cursor,
   limit
 ) => {
+  console.log("menu: " , menu);
+  //메뉴가 빈배열이면 null로 변경
+  if (Array.isArray(menu) && menu.length === 0) {
+  menu = null;
+}
+  console.log("location: " , location);
   const isFirstPage = cursor == 0;
   const locationFilters = Array.isArray(location)
     ? location?.map((loc) => ({
@@ -68,8 +74,7 @@ export const searchRestaurant = async (
               },
             }
           : {},
-
-        {
+        menu ? {
           repre_menu: {
             some: {
               menu: {
@@ -77,7 +82,7 @@ export const searchRestaurant = async (
               },
             },
           },
-        },
+        } : {},
         location.length > 0 ? { OR: locationFilters } : {},
       ],
     },
