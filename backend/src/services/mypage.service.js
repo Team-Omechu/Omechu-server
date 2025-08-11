@@ -10,7 +10,9 @@ import {
   deleteZzim,
   countUserZzims,
   findUserZzims,
-  findUserReviews
+  findUserReviews,
+  findReviewById,
+  deleteReview
 } from '../repositories/mypage.repository.js';
 
 import {
@@ -20,7 +22,9 @@ import {
   NoRestaurantPermission,
   AlreadyZzimmed,
   NoZzimData,
-  InvalidProfileData
+  InvalidProfileData,
+  NoReviewData,
+  NotYourReview
 } from '../errors.js';
 
 /**
@@ -74,7 +78,7 @@ export const getMyRestaurants = async ({ userId, limit = 10, cursor = null }) =>
   console.log("getMyRestaurants 서비스 - userId:", userId, "limit:", limit, "cursor:", cursor);
   
   try {
-    const result = await findUserRestaurants(userId, limit, cursor);
+    const result = await findUserRestaurants(userId, cursor, limit);
     console.log("getMyRestaurants 결과:", result);
     return result;
   } catch (error) {
@@ -124,7 +128,7 @@ export const updateRestaurantService = async (restaurantId, userId, data) => {
 };
 
 /**
- * 찜 등록 (맛집 존재 확인 제거)
+ * 찜 등록 (409 에러 처리 추가)
  */
 export const addZzimService = async (userId, restaurantId) => {
   console.log("addZzimService - userId:", userId, "restaurantId:", restaurantId);
@@ -141,10 +145,14 @@ export const addZzimService = async (userId, restaurantId) => {
   //   throw new NoRestData("맛집을 찾을 수 없습니다.", { restaurantId });
   // }
 
-  // 이미 찜했는지 확인
+  // 이미 찜했는지 확인 - 409 에러로 처리
   const existingZzim = await findZzim(userId, restaurantId);
   if (existingZzim) {
-    throw new AlreadyZzimmed("이미 찜한 맛집입니다.", { userId, restaurantId });
+    console.log("이미 찜한 맛집 - userId:", userId, "restaurantId:", restaurantId);
+    // 409 Conflict 에러 던지기
+    const error = new AlreadyZzimmed("이미 찜한 맛집입니다.", { userId, restaurantId });
+    error.statusCode = 409; // 명시적으로 409 상태 코드 설정
+    throw error;
   }
 
   try {
@@ -218,5 +226,38 @@ export const getUserReviews = async (userId, limit = 10, cursor = null) => {
       hasNextPage: false,
       nextCursor: null
     };
+  }
+};
+
+/**
+ * 사용자 리뷰 삭제 서비스
+ */
+export const deleteUserReviewService = async (userId, reviewId) => {
+  console.log("deleteUserReviewService - userId:", userId, "reviewId:", reviewId);
+  
+  // 1. 리뷰 존재 확인
+  const review = await findReviewById(reviewId);
+  if (!review) {
+    throw new NoReviewData("삭제할 리뷰를 찾을 수 없습니다.", { reviewId });
+  }
+
+  // 2. 리뷰 작성자 확인
+  if (review.user_id.toString() !== userId.toString()) {
+    throw new NotYourReview("본인이 작성한 리뷰만 삭제할 수 있습니다.", { 
+      userId, 
+      reviewId,
+      reviewOwnerId: review.user_id.toString()
+    });
+  }
+
+  try {
+    // 3. 리뷰 삭제 (관련 이미지도 함께 삭제)
+    await deleteReview(reviewId);
+    console.log("리뷰 삭제 성공 - reviewId:", reviewId);
+    
+    return { success: true, deletedReviewId: reviewId };
+  } catch (error) {
+    console.error('리뷰 삭제 상세 오류:', error);
+    throw new Error("리뷰 삭제에 실패했습니다.");
   }
 };
