@@ -225,7 +225,6 @@ app.get("/menu", handleGetMenu);
 app.get("/menu/random",handleGetMenuRandom);
 app.get("/menu/recent",isLoggedIn, handleGetMenuRecent);
 app.post("/menu-info", handleGetMenuInfo);
-app.post("/mukburim", handleInsertMukburim);
 app.post("/menu/view", isLoggedIn, handleInsertMenuViewTime); // 메뉴 조회 시간 기록
 // Mukburim 기본 기능
 app.post("/mukburim", isLoggedIn, handleInsertMukburim);
