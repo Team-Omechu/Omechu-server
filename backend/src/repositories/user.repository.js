@@ -5,11 +5,12 @@ export const findUserByEmail = async (email) => {
   return prisma.user.findUnique({ where: { email } });
 };
 
-export const createUser = async ({ email, kakao_id }) => {
+export const createUser = async ({ email, password, kakao_id }) => {
   return await prisma.user.create({
     data: {
       email,
-      kakao_id,
+      password,
+      kakao_id: kakao_id ? String(kakao_id) : null,
     },
   });
 };
