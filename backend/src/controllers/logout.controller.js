@@ -67,14 +67,10 @@ export const handleUserLogoutJWT = async (req, res, next) => {
   */
 
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    const userId = req?.user?.id;
+    if(!userId){
       throw new NoBearerToken("인증 토큰이 없습니다.");
     }
-
-    const refreshToken = authHeader.split(" ")[1];
-    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-    const userId = decoded.payload;
 
     // Redis에서 Refresh Token 삭제
     await redisClient.del(`refresh:${userId}`);
