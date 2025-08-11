@@ -2,6 +2,11 @@ import { StatusCodes } from "http-status-codes";
 import { bodyToUser } from "../dtos/auth.dto.js";
 import { userSignUp } from "../services/auth.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js"; 
+import { createClient } from "redis";
+
+const redisClient = createClient({
+  url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+});
 
 export const handleUserSignUp = async (req, res, next) => {
   /*
@@ -109,10 +114,15 @@ export const handleUserSignUp = async (req, res, next) => {
     const user = await userSignUp(bodyToUser(req.body));
 
     // JWT 발급
-    const accessToken = generateAccessToken({ id: user.id });
-    const refreshToken = generateRefreshToken({ id: user.id });
+    const payload = user.id.toString();
+    const accessToken = generateAccessToken({ payload });
+    const refreshToken = generateRefreshToken({ payload });
 
-    // JWT만 응답에 포함
+    await redisClient.set(`refresh:${payload}`, refreshToken, {
+      EX: 60 * 60 * 24 * 7,
+    });
+
+    // 응답
     res.status(StatusCodes.OK).success({
       ...user,
       accessToken,
