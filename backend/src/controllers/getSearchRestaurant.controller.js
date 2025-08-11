@@ -181,7 +181,6 @@ export const handleSearchRestaurant = async (req, res) => {
   const restData = await getSearchRestaurant(
     BodyToSearchRestaurant(
       req.query,
-      req.user.id,
       req.query.cursor,
       req.query.limit
     )

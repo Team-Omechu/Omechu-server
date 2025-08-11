@@ -239,12 +239,12 @@ app.post("/place/review/:restId", isLoggedIn, handleAddReview);
 app.get("/place/review/:restId", isLoggedIn, handleGetReview);
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.post("/place", isLoggedIn, handleAddRestaurant);
-app.get("/place", isLoggedIn, handleGetRestaurant);
+app.get("/place", handleGetRestaurant);
 app.get("/place/detail/:restId", isLoggedIn, handleGetPlaceDetail);
 app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
-app.get("/place/search", isLoggedIn, handleSearchRestaurant);
+app.get("/place/search", handleSearchRestaurant);
 app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
 app.post("/image/upload", generatePresignedUrl);
