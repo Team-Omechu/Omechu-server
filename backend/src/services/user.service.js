@@ -12,6 +12,8 @@ import {
   convertAllergyToEnum,
 } from "../dtos/user.dto.js";
 
+const toArray = (v) => (Array.isArray(v) ? v : v == null ? [] : [v]);
+
 export const patchUserProfileService = async (userId, body) => {
   try {
     const userData = bodyToUserInfo(body, userId);
@@ -19,17 +21,15 @@ export const patchUserProfileService = async (userId, body) => {
 
     await updateUserInfo(userId, userData);
 
-    if (body.prefer?.length) {
-      const preferEnums = body.prefer
-        .map((p) => convertPreferToEnum(p))
-        .filter(Boolean);
+    const preferArr = toArray(body.prefer);
+    if (preferArr.length) {
+      const preferEnums = preferArr.map(convertPreferToEnum).filter(Boolean);
       await createUserPreferences(userId, preferEnums);
     }
 
-    if (body.allergy?.length) {
-      const allergyEnums = body.allergy
-        .map((a) => convertAllergyToEnum(a))
-        .filter(Boolean);
+    const allergyArr = toArray(body.allergy);
+    if (allergyArr.length) {
+      const allergyEnums = allergyArr.map(convertAllergyToEnum).filter(Boolean);
       await createUserAllergies(userId, allergyEnums);
     }
 
