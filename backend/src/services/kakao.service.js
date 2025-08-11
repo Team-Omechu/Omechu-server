@@ -49,7 +49,7 @@ export const findOrCreateKakaoUserService = async ({ email, id }) => {
   try {
     let user = await findUserByEmail(email);
     if (!user) {
-      user = await createUser({ email, kakao_id: id });
+      user = await createUser({ email, password: null, kakao_id: id });
     }
     return user;
   } catch (err) {
