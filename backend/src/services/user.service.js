@@ -5,7 +5,12 @@ import {
   createUserAllergies,
 } from "../repositories/user.repository.js";
 
-import { bodyToUserInfo, responseFromUser } from "../dtos/user.dto.js";
+import {
+  bodyToUserInfo,
+  responseFromUser,
+  convertPreferToEnum,
+  convertAllergyToEnum,
+} from "../dtos/user.dto.js";
 
 export const patchUserProfileService = async (userId, body) => {
   try {
@@ -15,12 +20,16 @@ export const patchUserProfileService = async (userId, body) => {
     await updateUserInfo(userId, userData);
 
     if (body.prefer?.length) {
-      const preferEnums = body.prefer;
+      const preferEnums = body.prefer
+        .map((p) => convertPreferToEnum(p))
+        .filter(Boolean);
       await createUserPreferences(userId, preferEnums);
     }
 
     if (body.allergy?.length) {
-      const allergyEnums = body.allergy;
+      const allergyEnums = body.allergy
+        .map((a) => convertAllergyToEnum(a))
+        .filter(Boolean);
       await createUserAllergies(userId, allergyEnums);
     }
 

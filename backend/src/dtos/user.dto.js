@@ -29,6 +29,30 @@ export const responseFromUser = (user) => {
   };
 };
 
+// 프론트에서 한국어 라벨을 보낼 때, Prisma enum 값으로 변환
+export function convertPreferToEnum(preferKo) {
+  const map = {
+    한식: "korean",
+    양식: "western",
+    중식: "chinese",
+    일식: "japanese",
+    다른나라: "other",
+    "다른나라 음식": "other",
+  };
+  return map[preferKo] ?? null;
+}
+
+export function convertAllergyToEnum(allergyKo) {
+  const map = {
+    "달걀(난류) 알레르기": "egg",
+    "우유 알레르기": "milk",
+    "갑각류 알레르기": "shellfish",
+    "해산물 알레르기": "seafood",
+    "견과류 알레르기": "nuts",
+  };
+  return map[allergyKo] ?? null;
+}
+
 function convertGenderToEnum(gender) {
   const map = {
     남성: "male",
