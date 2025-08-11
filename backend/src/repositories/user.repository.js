@@ -5,15 +5,18 @@ export const findUserByEmail = async (email) => {
   return prisma.user.findUnique({ where: { email } });
 };
 
-export const createUser = async ({ email, password, kakao_id }) => {
-  return await prisma.user.create({
-    data: {
-      email,
-      password,
-      kakao_id: kakao_id ? String(kakao_id) : null,
-    },
-  });
-};
+export const createUser = async ({ email, password }) => {
+    const data = {
+      email: email ?? null,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+    if (password) {
+      // 이미 상위 서비스에서 해시했다면 그대로 대입, 아니라면 여기서 해시
+      data.password = password;
+    }
+    return prisma.user.create({ data });
+  };
 
 export const findUserById = async (userId) => {
   return await prisma.user.findUnique({
