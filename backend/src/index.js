@@ -1,4 +1,3 @@
-
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -90,6 +89,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// 요청 로깅 미들웨어 (간단하게)
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
+
 app.use((req, res, next) => {
   res.success = (success) => {
     return res.json({ resultType: "SUCCESS", error: null, success });
@@ -114,10 +119,18 @@ const sessionStore = new MySQLSession({
   database: process.env.DB_NAME,
 });
 
+// CORS 설정 개선 (기존 설정에 추가)
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://omechu.log8.kr"],
+    origin: [
+      "http://localhost:3000", 
+      "http://localhost:3001",
+      "http://127.0.0.1:3000",
+      "https://omechu.log8.kr"
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Origin'],
   })
 );
 
@@ -167,7 +180,7 @@ app.get("/openapi.json", async (req, res, next) => {
   res.json(result ? result.data : null);
 });
 
-// 토큰 검증 미들웨어
+// 토큰 검증 미들웨어 (에러 처리만 개선)
 export const isLoggedIn = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -177,8 +190,10 @@ export const isLoggedIn = (req, res, next) => {
   try {
     const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
     req.user = { id: decoded.payload };
+    console.log(`토큰 검증 성공: userId=${decoded.payload}`);
     next();
   } catch (err) {
+    console.error('토큰 검증 오류:', err.message);
     if (err.name === "TokenExpiredError") {
       throw new ExpireToken("액세스 토큰이 만료되었습니다.");
     } else if (err.name === "JsonWebTokenError") {
@@ -214,8 +229,8 @@ app.post("/agreements/consent", isLoggedIn, handleAgreementConsent);
 app.get("/agreements/consent", isLoggedIn, getAgreementConsent);
 
 // 카카오 로그인
-app.get("/auth/kakao", handleKakaoRedirect); // 인가코드 받기
-app.get("/auth/kakao/callback", handleKakaoCallback); // 토큰 → 사용자 정보 → 세션 저장
+app.get("/auth/kakao", handleKakaoRedirect);
+app.get("/auth/kakao/callback", handleKakaoCallback);
 
 //메인페이지 관련
 app.post("/recommend", handleRecommendMenu);
@@ -270,13 +285,32 @@ app.post("/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
 app.get("/reviews", isLoggedIn, handleGetUserReviews);
 app.delete("/reviews/:reviewId", isLoggedIn, handleDeleteReview);
 
-// 에러 처리 미들웨어 ( 미들웨어 중 가장 아래에 배치 )
+// 에러 처리 미들웨어 개선 ( 미들웨어 중 가장 아래에 배치 )
 app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
   
-  const statusCode = err.statusCode || 500;  
+  // 에러 로깅 추가
+  console.error('에러 발생:', {
+    error: err.message,
+    url: req.url,
+    method: req.method,
+    userId: req.user?.id,
+    errorCode: err.errorCode
+  });
+
+  // HTTP 상태 코드 매핑
+  const getStatusCode = (errorCode) => {
+    const statusMap = {
+      'T001': 401, 'T002': 401, 'T003': 401, // 토큰 관련
+      'MK001': 404, 'MK002': 400, 'MK003': 400, 'MK004': 400, 'MK005': 500, // 먹부림
+      'P001': 400, // 파라미터
+    };
+    return statusMap[errorCode] || 500;
+  };
+  
+  const statusCode = err.statusCode || getStatusCode(err.errorCode) || 500;  
   
   res.status(statusCode).error({
     errorCode: err.errorCode || "C001",
