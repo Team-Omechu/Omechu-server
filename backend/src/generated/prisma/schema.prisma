@@ -25,6 +25,7 @@ model menu {
   allergic         String?            @db.Text
   sodium           BigInt?
   image_link       String?
+  menu_tag         menu_tag[]
   recommend_except recommend_except[]
   rest_menu        rest_menu[]
 }
@@ -255,6 +256,15 @@ model menu_view_time {
   user      user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
 
   @@index([user_id], map: "fk_user_id")
+}
+
+model menu_tag {
+  id      BigInt @id @default(autoincrement())
+  menu_id BigInt
+  tag     String @db.VarChar(40)
+  menu    menu   @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_tag_ibfk_1")
+
+  @@index([menu_id], map: "menu_id")
 }
 
 enum allergy_type {
