@@ -358,16 +358,10 @@ export const recommendMenu = async (choice, userId) => {
                         다음 리스트의 메뉴 이름을 그대로 사용해줘.
                         ${menuList}
                         추천할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
+                        이번엔 첫번째로 갈비탕 포함해서 추천해줘
                         {
                             "menu": "짜장면",
                             "description": "간장 소스로 볶은 중화풍 면 요리",
-                            "calories": 800,
-                            "carbohydrates": 90,
-                            "protein": 20,
-                            "fat": 30,
-                            "sodium": 1200,
-                            "vitamins": ["A", "B1", "B2", "C"],
-                            "allergies": ["밀", "대두"],
                         }
                          
                             `,
@@ -379,8 +373,29 @@ export const recommendMenu = async (choice, userId) => {
 
     // JSON 배열로 파싱
     const parsedArray = JSON.parse(rawText);
-
-    return parsedArray;
+    const menuWithImages = await Promise.all(
+      parsedArray.map(async (menuItem) => {
+        try {
+          const menuData = await prisma.menu.findFirst({
+            where: { name: menuItem.menu },
+            select: { image_link: true }
+          });
+          
+          return {
+            ...menuItem,
+            image_link: menuData?.image_link || null
+          };
+        } catch (error) {
+          console.error(`Error fetching image for menu ${menuItem.menu}:`, error);
+          return {
+            ...menuItem,
+            image_link: null
+          };
+        }
+      })
+    );
+    console.log("Menu with images:", menuWithImages);
+    return menuWithImages;
   } catch (error) {
     console.error("Error handling GPT request:", error);
     throw error;

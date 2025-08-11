@@ -76,9 +76,79 @@ export const getMenuRecent = async (userId) => {
         const mappedMenu = recentMenu.map(item => ({
             name: item.menu_name
         }));
-        return mappedMenu;
+        const menuWithImages = await Promise.all(
+      mappedMenu.map(async (menuItem) => {
+        try {
+          const menuData = await prisma.menu.findFirst({
+            where: { name: menuItem.name },
+            select: { image_link: true }
+          });
+          
+          return {
+            ...menuItem,
+            image_link: menuData?.image_link || null
+          };
+        } catch (error) {
+          console.error(`Error fetching image for menu ${menuItem.menu}:`, error);
+          return {
+            ...menuItem,
+            image_link: null
+          };
+        }
+      })
+    );
+        return menuWithImages;
     } catch (error) {
         console.error("Error fetching recent menu:", error);
         throw error; // 에러를 상위로 전달
+    }
+}
+
+export const getMenuFiltered = async (tags) => {
+    try {
+        console.log("Fetching filtered menu from repository with tags:", tags);
+        
+        // 각 태그별로 해당하는 menu_id들을 조회
+        const menuIdSets = await Promise.all(
+            tags.map(async (tag) => {
+                const menuTags = await prisma.menu_tag.findMany({
+                    where: { tag: tag },
+                    select: { menu_id: true }
+                });
+                return new Set(menuTags.map(mt => mt.menu_id));
+            })
+        );
+        
+        // 모든 태그에 공통으로 포함된 menu_id들 찾기 (교집합)
+        let commonMenuIds = menuIdSets[0];
+        for (let i = 1; i < menuIdSets.length; i++) {
+            commonMenuIds = new Set([...commonMenuIds].filter(id => menuIdSets[i].has(id)));
+        }
+        
+        // 교집합이 없으면 빈 배열 반환
+        if (commonMenuIds.size === 0) {
+            console.log("No menu found with all tags");
+            return [];
+        }
+        
+        // 공통 menu_id들을 이용해서 menu 테이블에서 데이터 조회
+        const filteredMenu = await prisma.menu.findMany({
+            where: {
+                id: {
+                    in: Array.from(commonMenuIds)
+                }
+            },
+            select: {
+                id: true,
+                name: true,
+                image_link: true
+            }
+        });
+        
+        console.log("Filtered menu from repository:", filteredMenu);
+        return filteredMenu;
+    } catch (error) {
+        console.error("Error fetching filtered menu:", error);
+        throw error;
     }
 }
