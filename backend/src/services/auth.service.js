@@ -3,7 +3,6 @@ import {
   createUser,
   findUserByEmail,
 } from "../repositories/user.repository.js";
-import { responseFromUser } from "../dtos/auth.dto.js";
 
 export const userSignUp = async ({ email, password }) => {
   const existingUser = await findUserByEmail(email);
