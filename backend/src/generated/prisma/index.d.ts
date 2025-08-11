@@ -13204,7 +13204,7 @@ export namespace Prisma {
     body_type: $Enums.user_body_type | null
     gender: $Enums.user_gender | null
     exercise: $Enums.user_exercise | null
-    password: string
+    password: string | null
     created_at: Date | null
     updated_at: Date | null
     profileImageUrl: string | null
@@ -13304,7 +13304,7 @@ export namespace Prisma {
       body_type: $Enums.user_body_type | null
       gender: $Enums.user_gender | null
       exercise: $Enums.user_exercise | null
-      password: string
+      password: string | null
       created_at: Date | null
       updated_at: Date | null
       profileImageUrl: string | null
@@ -13915,7 +13915,7 @@ export namespace Prisma {
     /**
      * The data needed to create a user.
      */
-    data: XOR<userCreateInput, userUncheckedCreateInput>
+    data?: XOR<userCreateInput, userUncheckedCreateInput>
   }
 
   /**
@@ -25920,7 +25920,7 @@ export namespace Prisma {
     body_type?: Enumuser_body_typeNullableFilter<"user"> | $Enums.user_body_type | null
     gender?: Enumuser_genderNullableFilter<"user"> | $Enums.user_gender | null
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
-    password?: StringFilter<"user"> | string
+    password?: StringNullableFilter<"user"> | string | null
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
     profileImageUrl?: StringNullableFilter<"user"> | string | null
@@ -25943,7 +25943,7 @@ export namespace Prisma {
     body_type?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
     exercise?: SortOrderInput | SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     profileImageUrl?: SortOrderInput | SortOrder
@@ -25970,7 +25970,7 @@ export namespace Prisma {
     body_type?: Enumuser_body_typeNullableFilter<"user"> | $Enums.user_body_type | null
     gender?: Enumuser_genderNullableFilter<"user"> | $Enums.user_gender | null
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
-    password?: StringFilter<"user"> | string
+    password?: StringNullableFilter<"user"> | string | null
     created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"user"> | Date | string | null
     profileImageUrl?: StringNullableFilter<"user"> | string | null
@@ -25993,7 +25993,7 @@ export namespace Prisma {
     body_type?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
     exercise?: SortOrderInput | SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     updated_at?: SortOrderInput | SortOrder
     profileImageUrl?: SortOrderInput | SortOrder
@@ -26014,7 +26014,7 @@ export namespace Prisma {
     body_type?: Enumuser_body_typeNullableWithAggregatesFilter<"user"> | $Enums.user_body_type | null
     gender?: Enumuser_genderNullableWithAggregatesFilter<"user"> | $Enums.user_gender | null
     exercise?: Enumuser_exerciseNullableWithAggregatesFilter<"user"> | $Enums.user_exercise | null
-    password?: StringWithAggregatesFilter<"user"> | string
+    password?: StringNullableWithAggregatesFilter<"user"> | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
     updated_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
     profileImageUrl?: StringNullableWithAggregatesFilter<"user"> | string | null
@@ -27247,7 +27247,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -27270,7 +27270,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -27293,7 +27293,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27316,7 +27316,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27339,7 +27339,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -27352,7 +27352,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27365,7 +27365,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31187,7 +31187,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31209,7 +31209,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31247,7 +31247,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31269,7 +31269,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31328,7 +31328,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31350,7 +31350,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31431,7 +31431,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31453,7 +31453,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31475,7 +31475,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31497,7 +31497,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -31564,7 +31564,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31586,7 +31586,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32184,7 +32184,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -32206,7 +32206,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -32343,7 +32343,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -32365,7 +32365,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33073,7 +33073,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33095,7 +33095,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33133,7 +33133,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33155,7 +33155,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33177,7 +33177,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33199,7 +33199,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33237,7 +33237,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33259,7 +33259,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33281,7 +33281,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33303,7 +33303,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33392,7 +33392,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33414,7 +33414,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33760,7 +33760,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33782,7 +33782,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33877,7 +33877,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33899,7 +33899,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33921,7 +33921,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33943,7 +33943,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -33981,7 +33981,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34003,7 +34003,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34025,7 +34025,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -34047,7 +34047,7 @@ export namespace Prisma {
     body_type?: $Enums.user_body_type | null
     gender?: $Enums.user_gender | null
     exercise?: $Enums.user_exercise | null
-    password: string
+    password?: string | null
     created_at?: Date | string | null
     updated_at?: Date | string | null
     profileImageUrl?: string | null
@@ -34085,7 +34085,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34107,7 +34107,7 @@ export namespace Prisma {
     body_type?: NullableEnumuser_body_typeFieldUpdateOperationsInput | $Enums.user_body_type | null
     gender?: NullableEnumuser_genderFieldUpdateOperationsInput | $Enums.user_gender | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profileImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
