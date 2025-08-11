@@ -118,6 +118,11 @@ export type agreement_consent = $Result.DefaultSelection<Prisma.$agreement_conse
  * 
  */
 export type menu_view_time = $Result.DefaultSelection<Prisma.$menu_view_timePayload>
+/**
+ * Model menu_tag
+ * 
+ */
+export type menu_tag = $Result.DefaultSelection<Prisma.$menu_tagPayload>
 
 /**
  * Enums
@@ -527,6 +532,16 @@ export class PrismaClient<
     * ```
     */
   get menu_view_time(): Prisma.menu_view_timeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.menu_tag`: Exposes CRUD operations for the **menu_tag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Menu_tags
+    * const menu_tags = await prisma.menu_tag.findMany()
+    * ```
+    */
+  get menu_tag(): Prisma.menu_tagDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -987,7 +1002,8 @@ export namespace Prisma {
     repre_menu: 'repre_menu',
     user_rest: 'user_rest',
     agreement_consent: 'agreement_consent',
-    menu_view_time: 'menu_view_time'
+    menu_view_time: 'menu_view_time',
+    menu_tag: 'menu_tag'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1006,7 +1022,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "choice" | "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent" | "menu_view_time"
+      modelProps: "choice" | "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent" | "menu_view_time" | "menu_tag"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2396,6 +2412,72 @@ export namespace Prisma {
           }
         }
       }
+      menu_tag: {
+        payload: Prisma.$menu_tagPayload<ExtArgs>
+        fields: Prisma.menu_tagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.menu_tagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.menu_tagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          findFirst: {
+            args: Prisma.menu_tagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.menu_tagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          findMany: {
+            args: Prisma.menu_tagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>[]
+          }
+          create: {
+            args: Prisma.menu_tagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          createMany: {
+            args: Prisma.menu_tagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.menu_tagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          update: {
+            args: Prisma.menu_tagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          deleteMany: {
+            args: Prisma.menu_tagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.menu_tagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.menu_tagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          aggregate: {
+            args: Prisma.Menu_tagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMenu_tag>
+          }
+          groupBy: {
+            args: Prisma.menu_tagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Menu_tagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.menu_tagCountArgs<ExtArgs>
+            result: $Utils.Optional<Menu_tagCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2501,6 +2583,7 @@ export namespace Prisma {
     user_rest?: user_restOmit
     agreement_consent?: agreement_consentOmit
     menu_view_time?: menu_view_timeOmit
+    menu_tag?: menu_tagOmit
   }
 
   /* Types for Logging */
@@ -2595,11 +2678,13 @@ export namespace Prisma {
    */
 
   export type MenuCountOutputType = {
+    menu_tag: number
     recommend_except: number
     rest_menu: number
   }
 
   export type MenuCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_tag?: boolean | MenuCountOutputTypeCountMenu_tagArgs
     recommend_except?: boolean | MenuCountOutputTypeCountRecommend_exceptArgs
     rest_menu?: boolean | MenuCountOutputTypeCountRest_menuArgs
   }
@@ -2613,6 +2698,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the MenuCountOutputType
      */
     select?: MenuCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MenuCountOutputType without action
+   */
+  export type MenuCountOutputTypeCountMenu_tagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_tagWhereInput
   }
 
   /**
@@ -4020,6 +4112,7 @@ export namespace Prisma {
     allergic?: boolean
     sodium?: boolean
     image_link?: boolean
+    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     recommend_except?: boolean | menu$recommend_exceptArgs<ExtArgs>
     rest_menu?: boolean | menu$rest_menuArgs<ExtArgs>
     _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
@@ -4043,6 +4136,7 @@ export namespace Prisma {
 
   export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "vitamin" | "allergic" | "sodium" | "image_link", ExtArgs["result"]["menu"]>
   export type menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     recommend_except?: boolean | menu$recommend_exceptArgs<ExtArgs>
     rest_menu?: boolean | menu$rest_menuArgs<ExtArgs>
     _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
@@ -4051,6 +4145,7 @@ export namespace Prisma {
   export type $menuPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "menu"
     objects: {
+      menu_tag: Prisma.$menu_tagPayload<ExtArgs>[]
       recommend_except: Prisma.$recommend_exceptPayload<ExtArgs>[]
       rest_menu: Prisma.$rest_menuPayload<ExtArgs>[]
     }
@@ -4406,6 +4501,7 @@ export namespace Prisma {
    */
   export interface Prisma__menuClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu_tag<T extends menu$menu_tagArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_tagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     recommend_except<T extends menu$recommend_exceptArgs<ExtArgs> = {}>(args?: Subset<T, menu$recommend_exceptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rest_menu<T extends menu$rest_menuArgs<ExtArgs> = {}>(args?: Subset<T, menu$rest_menuArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$rest_menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -4788,6 +4884,30 @@ export namespace Prisma {
      * Limit how many menus to delete.
      */
     limit?: number
+  }
+
+  /**
+   * menu.menu_tag
+   */
+  export type menu$menu_tagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    where?: menu_tagWhereInput
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    cursor?: menu_tagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
   }
 
   /**
@@ -23672,6 +23792,951 @@ export namespace Prisma {
 
 
   /**
+   * Model menu_tag
+   */
+
+  export type AggregateMenu_tag = {
+    _count: Menu_tagCountAggregateOutputType | null
+    _avg: Menu_tagAvgAggregateOutputType | null
+    _sum: Menu_tagSumAggregateOutputType | null
+    _min: Menu_tagMinAggregateOutputType | null
+    _max: Menu_tagMaxAggregateOutputType | null
+  }
+
+  export type Menu_tagAvgAggregateOutputType = {
+    id: number | null
+    menu_id: number | null
+  }
+
+  export type Menu_tagSumAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+  }
+
+  export type Menu_tagMinAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    tag: string | null
+  }
+
+  export type Menu_tagMaxAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    tag: string | null
+  }
+
+  export type Menu_tagCountAggregateOutputType = {
+    id: number
+    menu_id: number
+    tag: number
+    _all: number
+  }
+
+
+  export type Menu_tagAvgAggregateInputType = {
+    id?: true
+    menu_id?: true
+  }
+
+  export type Menu_tagSumAggregateInputType = {
+    id?: true
+    menu_id?: true
+  }
+
+  export type Menu_tagMinAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+  }
+
+  export type Menu_tagMaxAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+  }
+
+  export type Menu_tagCountAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+    _all?: true
+  }
+
+  export type Menu_tagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_tag to aggregate.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned menu_tags
+    **/
+    _count?: true | Menu_tagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Menu_tagAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Menu_tagSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Menu_tagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Menu_tagMaxAggregateInputType
+  }
+
+  export type GetMenu_tagAggregateType<T extends Menu_tagAggregateArgs> = {
+        [P in keyof T & keyof AggregateMenu_tag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMenu_tag[P]>
+      : GetScalarType<T[P], AggregateMenu_tag[P]>
+  }
+
+
+
+
+  export type menu_tagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_tagWhereInput
+    orderBy?: menu_tagOrderByWithAggregationInput | menu_tagOrderByWithAggregationInput[]
+    by: Menu_tagScalarFieldEnum[] | Menu_tagScalarFieldEnum
+    having?: menu_tagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Menu_tagCountAggregateInputType | true
+    _avg?: Menu_tagAvgAggregateInputType
+    _sum?: Menu_tagSumAggregateInputType
+    _min?: Menu_tagMinAggregateInputType
+    _max?: Menu_tagMaxAggregateInputType
+  }
+
+  export type Menu_tagGroupByOutputType = {
+    id: bigint
+    menu_id: bigint
+    tag: string
+    _count: Menu_tagCountAggregateOutputType | null
+    _avg: Menu_tagAvgAggregateOutputType | null
+    _sum: Menu_tagSumAggregateOutputType | null
+    _min: Menu_tagMinAggregateOutputType | null
+    _max: Menu_tagMaxAggregateOutputType | null
+  }
+
+  type GetMenu_tagGroupByPayload<T extends menu_tagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Menu_tagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Menu_tagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
+            : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type menu_tagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    menu_id?: boolean
+    tag?: boolean
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["menu_tag"]>
+
+
+
+  export type menu_tagSelectScalar = {
+    id?: boolean
+    menu_id?: boolean
+    tag?: boolean
+  }
+
+  export type menu_tagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_id" | "tag", ExtArgs["result"]["menu_tag"]>
+  export type menu_tagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }
+
+  export type $menu_tagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "menu_tag"
+    objects: {
+      menu: Prisma.$menuPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      menu_id: bigint
+      tag: string
+    }, ExtArgs["result"]["menu_tag"]>
+    composites: {}
+  }
+
+  type menu_tagGetPayload<S extends boolean | null | undefined | menu_tagDefaultArgs> = $Result.GetResult<Prisma.$menu_tagPayload, S>
+
+  type menu_tagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<menu_tagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Menu_tagCountAggregateInputType | true
+    }
+
+  export interface menu_tagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_tag'], meta: { name: 'menu_tag' } }
+    /**
+     * Find zero or one Menu_tag that matches the filter.
+     * @param {menu_tagFindUniqueArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends menu_tagFindUniqueArgs>(args: SelectSubset<T, menu_tagFindUniqueArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Menu_tag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {menu_tagFindUniqueOrThrowArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends menu_tagFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_tagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_tag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindFirstArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends menu_tagFindFirstArgs>(args?: SelectSubset<T, menu_tagFindFirstArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_tag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindFirstOrThrowArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends menu_tagFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_tagFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Menu_tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Menu_tags
+     * const menu_tags = await prisma.menu_tag.findMany()
+     * 
+     * // Get first 10 Menu_tags
+     * const menu_tags = await prisma.menu_tag.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const menu_tagWithIdOnly = await prisma.menu_tag.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends menu_tagFindManyArgs>(args?: SelectSubset<T, menu_tagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Menu_tag.
+     * @param {menu_tagCreateArgs} args - Arguments to create a Menu_tag.
+     * @example
+     * // Create one Menu_tag
+     * const Menu_tag = await prisma.menu_tag.create({
+     *   data: {
+     *     // ... data to create a Menu_tag
+     *   }
+     * })
+     * 
+     */
+    create<T extends menu_tagCreateArgs>(args: SelectSubset<T, menu_tagCreateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Menu_tags.
+     * @param {menu_tagCreateManyArgs} args - Arguments to create many Menu_tags.
+     * @example
+     * // Create many Menu_tags
+     * const menu_tag = await prisma.menu_tag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends menu_tagCreateManyArgs>(args?: SelectSubset<T, menu_tagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Menu_tag.
+     * @param {menu_tagDeleteArgs} args - Arguments to delete one Menu_tag.
+     * @example
+     * // Delete one Menu_tag
+     * const Menu_tag = await prisma.menu_tag.delete({
+     *   where: {
+     *     // ... filter to delete one Menu_tag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends menu_tagDeleteArgs>(args: SelectSubset<T, menu_tagDeleteArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Menu_tag.
+     * @param {menu_tagUpdateArgs} args - Arguments to update one Menu_tag.
+     * @example
+     * // Update one Menu_tag
+     * const menu_tag = await prisma.menu_tag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends menu_tagUpdateArgs>(args: SelectSubset<T, menu_tagUpdateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Menu_tags.
+     * @param {menu_tagDeleteManyArgs} args - Arguments to filter Menu_tags to delete.
+     * @example
+     * // Delete a few Menu_tags
+     * const { count } = await prisma.menu_tag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends menu_tagDeleteManyArgs>(args?: SelectSubset<T, menu_tagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Menu_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Menu_tags
+     * const menu_tag = await prisma.menu_tag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends menu_tagUpdateManyArgs>(args: SelectSubset<T, menu_tagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Menu_tag.
+     * @param {menu_tagUpsertArgs} args - Arguments to update or create a Menu_tag.
+     * @example
+     * // Update or create a Menu_tag
+     * const menu_tag = await prisma.menu_tag.upsert({
+     *   create: {
+     *     // ... data to create a Menu_tag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Menu_tag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends menu_tagUpsertArgs>(args: SelectSubset<T, menu_tagUpsertArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Menu_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagCountArgs} args - Arguments to filter Menu_tags to count.
+     * @example
+     * // Count the number of Menu_tags
+     * const count = await prisma.menu_tag.count({
+     *   where: {
+     *     // ... the filter for the Menu_tags we want to count
+     *   }
+     * })
+    **/
+    count<T extends menu_tagCountArgs>(
+      args?: Subset<T, menu_tagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Menu_tagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Menu_tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Menu_tagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Menu_tagAggregateArgs>(args: Subset<T, Menu_tagAggregateArgs>): Prisma.PrismaPromise<GetMenu_tagAggregateType<T>>
+
+    /**
+     * Group by Menu_tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends menu_tagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: menu_tagGroupByArgs['orderBy'] }
+        : { orderBy?: menu_tagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, menu_tagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_tagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the menu_tag model
+   */
+  readonly fields: menu_tagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for menu_tag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__menu_tagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the menu_tag model
+   */
+  interface menu_tagFieldRefs {
+    readonly id: FieldRef<"menu_tag", 'BigInt'>
+    readonly menu_id: FieldRef<"menu_tag", 'BigInt'>
+    readonly tag: FieldRef<"menu_tag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * menu_tag findUnique
+   */
+  export type menu_tagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag findUniqueOrThrow
+   */
+  export type menu_tagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag findFirst
+   */
+  export type menu_tagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_tags.
+     */
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag findFirstOrThrow
+   */
+  export type menu_tagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_tags.
+     */
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag findMany
+   */
+  export type menu_tagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tags to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag create
+   */
+  export type menu_tagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a menu_tag.
+     */
+    data: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
+  }
+
+  /**
+   * menu_tag createMany
+   */
+  export type menu_tagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many menu_tags.
+     */
+    data: menu_tagCreateManyInput | menu_tagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * menu_tag update
+   */
+  export type menu_tagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a menu_tag.
+     */
+    data: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
+    /**
+     * Choose, which menu_tag to update.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag updateMany
+   */
+  export type menu_tagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update menu_tags.
+     */
+    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyInput>
+    /**
+     * Filter which menu_tags to update
+     */
+    where?: menu_tagWhereInput
+    /**
+     * Limit how many menu_tags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_tag upsert
+   */
+  export type menu_tagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the menu_tag to update in case it exists.
+     */
+    where: menu_tagWhereUniqueInput
+    /**
+     * In case the menu_tag found by the `where` argument doesn't exist, create a new menu_tag with this data.
+     */
+    create: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
+    /**
+     * In case the menu_tag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
+  }
+
+  /**
+   * menu_tag delete
+   */
+  export type menu_tagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter which menu_tag to delete.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag deleteMany
+   */
+  export type menu_tagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_tags to delete
+     */
+    where?: menu_tagWhereInput
+    /**
+     * Limit how many menu_tags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_tag without action
+   */
+  export type menu_tagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -23918,6 +24983,15 @@ export namespace Prisma {
   export type Menu_view_timeScalarFieldEnum = (typeof Menu_view_timeScalarFieldEnum)[keyof typeof Menu_view_timeScalarFieldEnum]
 
 
+  export const Menu_tagScalarFieldEnum: {
+    id: 'id',
+    menu_id: 'menu_id',
+    tag: 'tag'
+  };
+
+  export type Menu_tagScalarFieldEnum = (typeof Menu_tagScalarFieldEnum)[keyof typeof Menu_tagScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -24078,6 +25152,13 @@ export namespace Prisma {
   export type menu_view_timeOrderByRelevanceFieldEnum = (typeof menu_view_timeOrderByRelevanceFieldEnum)[keyof typeof menu_view_timeOrderByRelevanceFieldEnum]
 
 
+  export const menu_tagOrderByRelevanceFieldEnum: {
+    tag: 'tag'
+  };
+
+  export type menu_tagOrderByRelevanceFieldEnum = (typeof menu_tagOrderByRelevanceFieldEnum)[keyof typeof menu_tagOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -24232,6 +25313,7 @@ export namespace Prisma {
     allergic?: StringNullableFilter<"menu"> | string | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
+    menu_tag?: Menu_tagListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
     rest_menu?: Rest_menuListRelationFilter
   }
@@ -24248,6 +25330,7 @@ export namespace Prisma {
     allergic?: SortOrderInput | SortOrder
     sodium?: SortOrderInput | SortOrder
     image_link?: SortOrderInput | SortOrder
+    menu_tag?: menu_tagOrderByRelationAggregateInput
     recommend_except?: recommend_exceptOrderByRelationAggregateInput
     rest_menu?: rest_menuOrderByRelationAggregateInput
     _relevance?: menuOrderByRelevanceInput
@@ -24268,6 +25351,7 @@ export namespace Prisma {
     allergic?: StringNullableFilter<"menu"> | string | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
+    menu_tag?: Menu_tagListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
     rest_menu?: Rest_menuListRelationFilter
   }, "id" | "name">
@@ -25462,6 +26546,54 @@ export namespace Prisma {
     time?: DateTimeNullableWithAggregatesFilter<"menu_view_time"> | Date | string | null
   }
 
+  export type menu_tagWhereInput = {
+    AND?: menu_tagWhereInput | menu_tagWhereInput[]
+    OR?: menu_tagWhereInput[]
+    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
+    id?: BigIntFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringFilter<"menu_tag"> | string
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }
+
+  export type menu_tagOrderByWithRelationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+    menu?: menuOrderByWithRelationInput
+    _relevance?: menu_tagOrderByRelevanceInput
+  }
+
+  export type menu_tagWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: menu_tagWhereInput | menu_tagWhereInput[]
+    OR?: menu_tagWhereInput[]
+    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringFilter<"menu_tag"> | string
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }, "id">
+
+  export type menu_tagOrderByWithAggregationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+    _count?: menu_tagCountOrderByAggregateInput
+    _avg?: menu_tagAvgOrderByAggregateInput
+    _max?: menu_tagMaxOrderByAggregateInput
+    _min?: menu_tagMinOrderByAggregateInput
+    _sum?: menu_tagSumOrderByAggregateInput
+  }
+
+  export type menu_tagScalarWhereWithAggregatesInput = {
+    AND?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
+    OR?: menu_tagScalarWhereWithAggregatesInput[]
+    NOT?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
+    tag?: StringWithAggregatesFilter<"menu_tag"> | string
+  }
+
   export type choiceCreateInput = {
     id?: bigint | number
     description?: string | null
@@ -25509,6 +26641,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
   }
@@ -25525,6 +26658,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
   }
@@ -25541,6 +26675,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
   }
@@ -25557,6 +26692,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
   }
@@ -26703,6 +27839,47 @@ export namespace Prisma {
     time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type menu_tagCreateInput = {
+    id?: bigint | number
+    tag: string
+    menu: menuCreateNestedOneWithoutMenu_tagInput
+  }
+
+  export type menu_tagUncheckedCreateInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    tag: string
+  }
+
+  export type menu_tagUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+    menu?: menuUpdateOneRequiredWithoutMenu_tagNestedInput
+  }
+
+  export type menu_tagUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type menu_tagCreateManyInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    tag: string
+  }
+
+  export type menu_tagUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type menu_tagUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+  }
+
   export type BigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -26823,6 +28000,12 @@ export namespace Prisma {
     not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
+  export type Menu_tagListRelationFilter = {
+    every?: menu_tagWhereInput
+    some?: menu_tagWhereInput
+    none?: menu_tagWhereInput
+  }
+
   export type Recommend_exceptListRelationFilter = {
     every?: recommend_exceptWhereInput
     some?: recommend_exceptWhereInput
@@ -26833,6 +28016,10 @@ export namespace Prisma {
     every?: rest_menuWhereInput
     some?: rest_menuWhereInput
     none?: rest_menuWhereInput
+  }
+
+  export type menu_tagOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type recommend_exceptOrderByRelationAggregateInput = {
@@ -28107,6 +29294,40 @@ export namespace Prisma {
     user_id?: SortOrder
   }
 
+  export type menu_tagOrderByRelevanceInput = {
+    fields: menu_tagOrderByRelevanceFieldEnum | menu_tagOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type menu_tagCountOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagAvgOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+  }
+
+  export type menu_tagMaxOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagMinOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagSumOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+  }
+
   export type BigIntFieldUpdateOperationsInput = {
     set?: bigint | number
     increment?: bigint | number
@@ -28117,6 +29338,13 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type menu_tagCreateNestedManyWithoutMenuInput = {
+    create?: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput> | menu_tagCreateWithoutMenuInput[] | menu_tagUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: menu_tagCreateOrConnectWithoutMenuInput | menu_tagCreateOrConnectWithoutMenuInput[]
+    createMany?: menu_tagCreateManyMenuInputEnvelope
+    connect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
   }
 
   export type recommend_exceptCreateNestedManyWithoutMenuInput = {
@@ -28131,6 +29359,13 @@ export namespace Prisma {
     connectOrCreate?: rest_menuCreateOrConnectWithoutMenuInput | rest_menuCreateOrConnectWithoutMenuInput[]
     createMany?: rest_menuCreateManyMenuInputEnvelope
     connect?: rest_menuWhereUniqueInput | rest_menuWhereUniqueInput[]
+  }
+
+  export type menu_tagUncheckedCreateNestedManyWithoutMenuInput = {
+    create?: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput> | menu_tagCreateWithoutMenuInput[] | menu_tagUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: menu_tagCreateOrConnectWithoutMenuInput | menu_tagCreateOrConnectWithoutMenuInput[]
+    createMany?: menu_tagCreateManyMenuInputEnvelope
+    connect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
   }
 
   export type recommend_exceptUncheckedCreateNestedManyWithoutMenuInput = {
@@ -28159,6 +29394,20 @@ export namespace Prisma {
     divide?: bigint | number
   }
 
+  export type menu_tagUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput> | menu_tagCreateWithoutMenuInput[] | menu_tagUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: menu_tagCreateOrConnectWithoutMenuInput | menu_tagCreateOrConnectWithoutMenuInput[]
+    upsert?: menu_tagUpsertWithWhereUniqueWithoutMenuInput | menu_tagUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: menu_tagCreateManyMenuInputEnvelope
+    set?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    disconnect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    delete?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    connect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    update?: menu_tagUpdateWithWhereUniqueWithoutMenuInput | menu_tagUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: menu_tagUpdateManyWithWhereWithoutMenuInput | menu_tagUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
+  }
+
   export type recommend_exceptUpdateManyWithoutMenuNestedInput = {
     create?: XOR<recommend_exceptCreateWithoutMenuInput, recommend_exceptUncheckedCreateWithoutMenuInput> | recommend_exceptCreateWithoutMenuInput[] | recommend_exceptUncheckedCreateWithoutMenuInput[]
     connectOrCreate?: recommend_exceptCreateOrConnectWithoutMenuInput | recommend_exceptCreateOrConnectWithoutMenuInput[]
@@ -28185,6 +29434,20 @@ export namespace Prisma {
     update?: rest_menuUpdateWithWhereUniqueWithoutMenuInput | rest_menuUpdateWithWhereUniqueWithoutMenuInput[]
     updateMany?: rest_menuUpdateManyWithWhereWithoutMenuInput | rest_menuUpdateManyWithWhereWithoutMenuInput[]
     deleteMany?: rest_menuScalarWhereInput | rest_menuScalarWhereInput[]
+  }
+
+  export type menu_tagUncheckedUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput> | menu_tagCreateWithoutMenuInput[] | menu_tagUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: menu_tagCreateOrConnectWithoutMenuInput | menu_tagCreateOrConnectWithoutMenuInput[]
+    upsert?: menu_tagUpsertWithWhereUniqueWithoutMenuInput | menu_tagUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: menu_tagCreateManyMenuInputEnvelope
+    set?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    disconnect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    delete?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    connect?: menu_tagWhereUniqueInput | menu_tagWhereUniqueInput[]
+    update?: menu_tagUpdateWithWhereUniqueWithoutMenuInput | menu_tagUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: menu_tagUpdateManyWithWhereWithoutMenuInput | menu_tagUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
   }
 
   export type recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput = {
@@ -29369,6 +30632,20 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutMenu_view_timeInput, userUpdateWithoutMenu_view_timeInput>, userUncheckedUpdateWithoutMenu_view_timeInput>
   }
 
+  export type menuCreateNestedOneWithoutMenu_tagInput = {
+    create?: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMenu_tagInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type menuUpdateOneRequiredWithoutMenu_tagNestedInput = {
+    create?: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMenu_tagInput
+    upsert?: menuUpsertWithoutMenu_tagInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMenu_tagInput, menuUpdateWithoutMenu_tagInput>, menuUncheckedUpdateWithoutMenu_tagInput>
+  }
+
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -29765,6 +31042,26 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type menu_tagCreateWithoutMenuInput = {
+    id?: bigint | number
+    tag: string
+  }
+
+  export type menu_tagUncheckedCreateWithoutMenuInput = {
+    id?: bigint | number
+    tag: string
+  }
+
+  export type menu_tagCreateOrConnectWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_tagCreateManyMenuInputEnvelope = {
+    data: menu_tagCreateManyMenuInput | menu_tagCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
   export type recommend_exceptCreateWithoutMenuInput = {
     id?: bigint | number
     bit?: boolean | null
@@ -29805,6 +31102,31 @@ export namespace Prisma {
   export type rest_menuCreateManyMenuInputEnvelope = {
     data: rest_menuCreateManyMenuInput | rest_menuCreateManyMenuInput[]
     skipDuplicates?: boolean
+  }
+
+  export type menu_tagUpsertWithWhereUniqueWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    update: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
+    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_tagUpdateWithWhereUniqueWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    data: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type menu_tagUpdateManyWithWhereWithoutMenuInput = {
+    where: menu_tagScalarWhereInput
+    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type menu_tagScalarWhereInput = {
+    AND?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
+    OR?: menu_tagScalarWhereInput[]
+    NOT?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
+    id?: BigIntFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringFilter<"menu_tag"> | string
   }
 
   export type recommend_exceptUpsertWithWhereUniqueWithoutMenuInput = {
@@ -29974,6 +31296,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
   }
 
@@ -29989,6 +31312,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
   }
 
@@ -30069,6 +31393,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
   }
 
@@ -30084,6 +31409,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
   }
 
@@ -30322,6 +31648,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
   }
 
@@ -30337,6 +31664,7 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
   }
 
@@ -30419,6 +31747,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
   }
 
@@ -30434,6 +31763,7 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
   }
 
@@ -32792,6 +34122,91 @@ export namespace Prisma {
     zzim?: zzimUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type menuCreateWithoutMenu_tagInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    vitamin?: string | null
+    allergic?: string | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
+    rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutMenu_tagInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    vitamin?: string | null
+    allergic?: string | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
+    rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutMenu_tagInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+  }
+
+  export type menuUpsertWithoutMenu_tagInput = {
+    update: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
+    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutMenu_tagInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
+  }
+
+  export type menuUpdateWithoutMenu_tagInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergic?: NullableStringFieldUpdateOperationsInput | string | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
+    rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutMenu_tagInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+    allergic?: NullableStringFieldUpdateOperationsInput | string | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
+    rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menu_tagCreateManyMenuInput = {
+    id?: bigint | number
+    tag: string
+  }
+
   export type recommend_exceptCreateManyMenuInput = {
     id?: bigint | number
     user_id: bigint | number
@@ -32801,6 +34216,21 @@ export namespace Prisma {
   export type rest_menuCreateManyMenuInput = {
     id?: bigint | number
     rest_id: bigint | number
+  }
+
+  export type menu_tagUpdateWithoutMenuInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type menu_tagUncheckedUpdateWithoutMenuInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type menu_tagUncheckedUpdateManyWithoutMenuInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: StringFieldUpdateOperationsInput | string
   }
 
   export type recommend_exceptUpdateWithoutMenuInput = {
