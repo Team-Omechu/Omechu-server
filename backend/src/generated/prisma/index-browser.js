@@ -290,6 +290,12 @@ exports.Prisma.Menu_view_timeScalarFieldEnum = {
   time: 'time'
 };
 
+exports.Prisma.Menu_tagScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  tag: 'tag'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -392,6 +398,10 @@ exports.Prisma.repre_menuOrderByRelevanceFieldEnum = {
 exports.Prisma.menu_view_timeOrderByRelevanceFieldEnum = {
   menu_name: 'menu_name'
 };
+
+exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
+  tag: 'tag'
+};
 exports.user_body_type = exports.$Enums.user_body_type = {
   cold: 'cold',
   indigestion: 'indigestion',
@@ -447,7 +457,8 @@ exports.Prisma.ModelName = {
   repre_menu: 'repre_menu',
   user_rest: 'user_rest',
   agreement_consent: 'agreement_consent',
-  menu_view_time: 'menu_view_time'
+  menu_view_time: 'menu_view_time',
+  menu_tag: 'menu_tag'
 };
 
 /**

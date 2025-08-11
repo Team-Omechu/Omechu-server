@@ -2,7 +2,8 @@ import { StatusCodes } from "http-status-codes";
 import { 
     getMenuRandomService, 
     insertMenuViewTimeService,
-    getMenuRecentService
+    getMenuRecentService,
+    getMenuFilteredService
  } from "../services/sortMenu.service.js";
 export const handleGetMenuRandom = async (req, res) => {
     try {
@@ -304,6 +305,119 @@ export const handleGetMenuRecent = async (req, res) => {
               properties: {
                 errorCode: { type: 'string', example: 'M005' },
                 reason: { type: 'string', example: '최근 메뉴 조회 중 오류 발생' },
+                data: { type: 'null', example: null }
+              }
+            },
+            success: { type: 'null', example: null }
+          }
+        }
+      }
+    }
+  }
+  */
+}
+
+export const handleGetMenuFiltered = async (req, res) => {
+  try {
+    const tags = req.query.tags ? req.query.tags.split(',') : [];
+    console.log("Fetching filtered menu with tags:", tags);
+
+    // 서비스 호출
+    const filteredMenu = await getMenuFilteredService(tags);
+
+    if (!filteredMenu) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        resultType: "FAIL",
+        error: {
+          errorCode: "M006",
+          reason: "필터링된 메뉴를 찾을 수 없습니다.",
+          data: null,
+        },
+      });
+    }
+
+    res.status(StatusCodes.OK).json(filteredMenu);
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      resultType: "FAIL",
+      error: {
+        errorCode: "M007",
+        reason: "필터링된 메뉴 조회 중 오류 발생",
+        data: null,
+      },
+    });
+  }
+  /*
+  #swagger.tags = ["Menu"]
+  #swagger.summary = "태그별 필터링된 메뉴 목록 API"
+  #swagger.description = "특정 태그들을 모두 포함하는 메뉴 목록을 조회하는 API입니다."
+
+  #swagger.parameters["tags"] = {
+    in: 'query',
+    description: '메뉴를 필터링할 태그들 (쉼표로 구분)',
+    required: true,
+    example: '점심,친구들,3만원 초과'
+  }
+
+  #swagger.responses[200] = {
+    description: "필터링된 메뉴 목록 조회 성공",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', example: '55' },
+              name: { type: 'string', example: '초밥' },
+              image_link: { 
+                type: 'string', 
+                nullable: true,
+                example: null 
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #swagger.responses[404] = {
+    description: "필터링된 메뉴를 찾을 수 없음",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            resultType: { type: 'string', example: 'FAIL' },
+            error: {
+              type: 'object',
+              properties: {
+                errorCode: { type: 'string', example: 'M006' },
+                reason: { type: 'string', example: '필터링된 메뉴를 찾을 수 없습니다.' },
+                data: { type: 'null', example: null }
+              }
+            },
+            success: { type: 'null', example: null }
+          }
+        }
+      }
+    }
+  }
+
+  #swagger.responses[500] = {
+    description: "서버 내부 오류",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            resultType: { type: 'string', example: 'FAIL' },
+            error: {
+              type: 'object',
+              properties: {
+                errorCode: { type: 'string', example: 'M007' },
+                reason: { type: 'string', example: '필터링된 메뉴 조회 중 오류 발생' },
                 data: { type: 'null', example: null }
               }
             },
