@@ -38,6 +38,7 @@ import {
   handleGetMenuRandom,
   handleInsertMenuViewTime,
   handleGetMenuRecent,
+  handleGetMenuFiltered
 } from "./controllers/sortMenu.controller.js";
 import {
   handleGetUserProfile,
@@ -224,6 +225,7 @@ app.post("/find-related-menu", handleFindRelatedMenu);
 app.get("/menu", handleGetMenu);
 app.get("/menu/random",handleGetMenuRandom);
 app.get("/menu/recent",isLoggedIn, handleGetMenuRecent);
+app.get("/menu/filtered", handleGetMenuFiltered);
 app.post("/menu-info", handleGetMenuInfo);
 app.post("/menu/view", isLoggedIn, handleInsertMenuViewTime); // 메뉴 조회 시간 기록
 // Mukburim 기본 기능

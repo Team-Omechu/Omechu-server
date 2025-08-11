@@ -1,4 +1,6 @@
-import { getMenuRandom, insertMenuViewTime, getMenuRecent} from "../repositories/sortMenu.repository.js";
+import { 
+  getMenuRandom, insertMenuViewTime, getMenuRecent, getMenuFiltered} 
+  from "../repositories/sortMenu.repository.js";
 
 export const getMenuRandomService = async () => {
   try {
@@ -41,6 +43,26 @@ export const getMenuRecentService = async (userId) => {
         return recentMenu;
     } catch (error) {
         console.error("Error fetching recent menu:", error);
+        throw error; // 에러를 상위로 전달
+    }
+}
+
+export const getMenuFilteredService = async (tags) => {
+    try {
+        console.log("Fetching filtered menu from service with tags:", tags);
+        const filteredMenu = await getMenuFiltered(tags);
+        if (!filteredMenu) {
+            return null; // 필터링된 메뉴가 없으면 null 반환
+        }
+        //filteredMenu의 id를 전부 string으로 변환
+        const stringifiedMenu = filteredMenu.map(item => ({
+            ...item,
+            id: item.id.toString()
+        }));
+        console.log("Filtered menu from service:", stringifiedMenu);
+        return stringifiedMenu;
+    } catch (error) {
+        console.error("Error fetching filtered menu:", error);
         throw error; // 에러를 상위로 전달
     }
 }
