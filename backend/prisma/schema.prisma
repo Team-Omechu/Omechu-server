@@ -82,6 +82,8 @@ model restaurant {
   location        String?        @db.VarChar(20)
   name            String?        @db.VarChar(60)
   address         String?        @db.VarChar(60)
+  address_jibeon  String?        @db.VarChar(50)
+  postal_code     String?        @db.VarChar(50)
   rating          Float?         @default(0) @db.Float
   monday          String?        @default("휴무") @db.VarChar(20)
   tuesday         String?        @default("휴뮤") @db.VarChar(20)
