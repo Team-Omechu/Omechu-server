@@ -27,11 +27,6 @@ export const addRestData = async (restData) => {
         headers: { Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}` },
       }
     );
-    console.log(
-      "data",
-      data.documents[0].road_address.zone_no,
-      data.documents[0].address.address_name
-    );
 
     if (data.documents.length == 0) {
       return { error: "WRONG_ADDRESS" };
@@ -45,8 +40,8 @@ export const addRestData = async (restData) => {
         location: location,
         name: restData.name,
         address: restData.address,
-        address_jibeon: data.documents[0].address.address_name,
-        postal_code: data.documents[0].road_address.zone_no,
+        address_jibeon: data.documents[0]?.address?.address_name,
+        postal_code: data.documents[0]?.road_address?.zone_no,
         monday: restData.opening_hour.monday,
         tuesday: restData.opening_hour.tuesday,
         wednesday: restData.opening_hour.wednesday,
@@ -56,7 +51,7 @@ export const addRestData = async (restData) => {
         sunday: restData.opening_hour.sunday,
       },
     });
-    // console.log("restId", restId);
+
     if (!restId || !restId.id) {
       return { error: "CANT_ADD_REST" };
     }
@@ -74,7 +69,7 @@ export const addRestData = async (restData) => {
     const addUserRestData = await prisma.user_rest.create({
       data: { user_id: restData.userId, rest_id: restId.id },
     });
-    console.log("addUserRestData", addUserRestData);
+
     return restId;
   } else {
     return { error: "DUPLICATED_REST" };

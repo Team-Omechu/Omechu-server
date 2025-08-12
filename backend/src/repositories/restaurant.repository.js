@@ -257,7 +257,7 @@ export const getPlaceDetail = async (restId) => {
       id: placeId.id.toString(),
       name: displayName.text,
       address: roadFromCoord,
-      address_jibeon: data.documents[0].address.address_name,
+      address_jibeon: jibeonFromCoord,
       postal_code: postalCode,
       rating: rating,
       currentOpeningHours: currentOpeningHours.weekdayDescriptions,
