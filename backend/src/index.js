@@ -9,6 +9,7 @@ import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 import {
   handleRecommendMenu,
+  handleRecommendRandom,
   handleFindRelatedMenu,
 } from "./controllers/menu.controller.js";
 import { testDatabaseConnection } from "./repositories/menu.repository.js";
@@ -240,6 +241,7 @@ app.get("/auth/kakao/callback", handleKakaoCallback);
 
 //메인페이지 관련
 app.post("/recommend", handleRecommendMenu);
+app.post("/recommend/random", handleRecommendRandom);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.post("/find-related-menu", handleFindRelatedMenu);
