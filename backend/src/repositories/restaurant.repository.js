@@ -180,6 +180,8 @@ export const getPlaceDetail = async (restId) => {
       id: placeId.id.toString(),
       name: placeId.name,
       address: placeId.address,
+      address_jibeon: placeId.address_jibeon,
+      postal_code: placeId.postal_code,
       rating: placeId.rating,
       monday: placeId.monday,
       tuesday: placeId.tuesday,
@@ -194,40 +196,69 @@ export const getPlaceDetail = async (restId) => {
     };
   } else {
     const url = `https://places.googleapis.com/v1/places/${placeId.google_place_id}?languageCode=ko`;
-
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
         "X-Goog-FieldMask":
-          "currentOpeningHours.weekdayDescriptions,displayName,formattedAddress,location,rating,photos",
+          "currentOpeningHours.weekdayDescriptions,displayName,formattedAddress,location,rating,photos,postalAddress,addressComponents",
       },
     });
     if (!response.ok) {
       console.error("Google Places API 요청 실패:", response.statusText);
       return null;
     }
-
-    const { location, displayName, currentOpeningHours, rating, photos } =
-      await response.json();
+    const {
+      location,
+      displayName,
+      currentOpeningHours,
+      rating,
+      photos,
+      addressComponents,
+      postalAddress,
+      formattedAddress,
+    } = await response.json();
     const reviewImage = photos.map((image, index) => {
       return { [`name${index}`]: image.name };
     });
-
+    const postalCode =
+      postalAddress?.postalCode ||
+      addressComponents?.find((c) => c.types?.includes("postal_code"))
+        ?.longText ||
+      null;
     const newUrl = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location.longitude}&y=${location.latitude}`;
 
-    const response2 = await fetch(newUrl, {
+    const responseData = await fetch(newUrl, {
       method: "GET",
       headers: {
         Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
       },
     });
-    const data = await response2.json();
+
+    const data = await responseData.json();
+    let roadFromCoord = data?.documents?.[0].road_address?.address_name ?? null;
+    const jibeonFromCoord = data?.documents?.[0].address?.address_name ?? null;
+    if (roadFromCoord === null && jibeonFromCoord) {
+      const addrUrl = `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
+        jibeonFromCoord
+      )}`;
+      const addrRes = await fetch(addrUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
+        },
+      });
+      const addrJson = await addrRes.json();
+      roadFromCoord = addrJson.documents?.[0]?.road_address?.address_name;
+    }
+
     return {
       id: placeId.id.toString(),
       name: displayName.text,
-      address: data.documents[0].road_address.address_name,
+      address: roadFromCoord,
+      address_jibeon: data.documents[0].address.address_name,
+      postal_code: postalCode,
       rating: rating,
       currentOpeningHours: currentOpeningHours.weekdayDescriptions,
       googlePlaceId: placeId.google_place_id,
@@ -235,7 +266,6 @@ export const getPlaceDetail = async (restId) => {
     };
   }
 };
-
 
 export const googlePlaceIdtoId = async (googlePlaceId) => {
   try {
@@ -251,4 +281,4 @@ export const googlePlaceIdtoId = async (googlePlaceId) => {
     console.error("Error fetching restaurant by Google Place ID:", error);
     throw error;
   }
-}
+};
