@@ -37,7 +37,7 @@ import {
   handleGetMenuRandom,
   handleInsertMenuViewTime,
   handleGetMenuRecent,
-  handleGetMenuFiltered
+  handleGetMenuFiltered,
 } from "./controllers/sortMenu.controller.js";
 import {
   handleGetUserProfile,
@@ -123,14 +123,20 @@ const sessionStore = new MySQLSession({
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", 
+      "http://localhost:3000",
       "http://localhost:3001",
       "http://127.0.0.1:3000",
-      "https://omechu.log8.kr"
+      "https://omechu.log8.kr",
     ],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Origin'],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "X-Requested-With",
+      "Origin",
+    ],
   })
 );
 
@@ -193,7 +199,7 @@ export const isLoggedIn = (req, res, next) => {
     console.log(`토큰 검증 성공: userId=${decoded.payload}`);
     next();
   } catch (err) {
-    console.error('토큰 검증 오류:', err.message);
+    console.error("토큰 검증 오류:", err.message);
     if (err.name === "TokenExpiredError") {
       throw new ExpireToken("액세스 토큰이 만료되었습니다.");
     } else if (err.name === "JsonWebTokenError") {
@@ -238,8 +244,8 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.post("/find-related-menu", handleFindRelatedMenu);
 app.get("/menu", handleGetMenu);
-app.get("/menu/random",handleGetMenuRandom);
-app.get("/menu/recent",isLoggedIn, handleGetMenuRecent);
+app.get("/menu/random", handleGetMenuRandom);
+app.get("/menu/recent", isLoggedIn, handleGetMenuRecent);
 app.get("/menu/filtered", handleGetMenuFiltered);
 app.post("/menu-info", handleGetMenuInfo);
 app.post("/menu/view", isLoggedIn, handleInsertMenuViewTime); // 메뉴 조회 시간 기록
@@ -256,12 +262,12 @@ app.post("/place/review/:restId", isLoggedIn, handleAddReview);
 app.get("/place/review/:restId", isLoggedIn, handleGetReview);
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.post("/place", isLoggedIn, handleAddRestaurant);
-app.get("/place", handleGetRestaurant);
+app.get("/place", isLoggedIn, handleGetRestaurant);
 app.get("/place/detail/:restId", isLoggedIn, handleGetPlaceDetail);
 app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
-app.get("/place/search", handleSearchRestaurant);
+app.get("/place/search", isLoggedIn, handleSearchRestaurant);
 app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
 app.post("/image/upload", generatePresignedUrl);
@@ -290,28 +296,34 @@ app.use((err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  
+
   // 에러 로깅 추가
-  console.error('에러 발생:', {
+  console.error("에러 발생:", {
     error: err.message,
     url: req.url,
     method: req.method,
     userId: req.user?.id,
-    errorCode: err.errorCode
+    errorCode: err.errorCode,
   });
 
   // HTTP 상태 코드 매핑
   const getStatusCode = (errorCode) => {
     const statusMap = {
-      'T001': 401, 'T002': 401, 'T003': 401, // 토큰 관련
-      'MK001': 404, 'MK002': 400, 'MK003': 400, 'MK004': 400, 'MK005': 500, // 먹부림
-      'P001': 400, // 파라미터
+      T001: 401,
+      T002: 401,
+      T003: 401, // 토큰 관련
+      MK001: 404,
+      MK002: 400,
+      MK003: 400,
+      MK004: 400,
+      MK005: 500, // 먹부림
+      P001: 400, // 파라미터
     };
     return statusMap[errorCode] || 500;
   };
-  
-  const statusCode = err.statusCode || getStatusCode(err.errorCode) || 500;  
-  
+
+  const statusCode = err.statusCode || getStatusCode(err.errorCode) || 500;
+
   res.status(statusCode).error({
     errorCode: err.errorCode || "C001",
     reason: err.reason || err.message || "서버가 응답하지 못했습니다",
