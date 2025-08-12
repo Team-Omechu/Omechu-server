@@ -27,6 +27,11 @@ export const addRestData = async (restData) => {
         headers: { Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}` },
       }
     );
+    console.log(
+      "data",
+      data.documents[0].road_address.zone_no,
+      data.documents[0].address.address_name
+    );
 
     if (data.documents.length == 0) {
       return { error: "WRONG_ADDRESS" };
@@ -40,6 +45,8 @@ export const addRestData = async (restData) => {
         location: location,
         name: restData.name,
         address: restData.address,
+        address_jibeon: data.documents[0].address.address_name,
+        postal_code: data.documents[0].road_address.zone_no,
         monday: restData.opening_hour.monday,
         tuesday: restData.opening_hour.tuesday,
         wednesday: restData.opening_hour.wednesday,
