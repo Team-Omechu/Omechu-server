@@ -83,6 +83,8 @@ export const responseFromGetRestData = (data) => {
     id: data.id,
     name: data.name,
     address: data.address,
+    address_jibeon: data.address_jibeon,
+    postal_code: data.postal_code,
     rating: data.rating,
     currentOpeningHours: currentOpeningHours,
     googlePlaceId: data.googlePlaceId,

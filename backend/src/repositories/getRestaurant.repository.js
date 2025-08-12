@@ -8,6 +8,7 @@ export const getRestData = async (userId, cursor, limit) => {
       rest_image: true,
       name: true,
       address: true,
+      address_jibeon: true,
       rating: true,
       rest_tag: {
         select: { tag: true, count: true },
