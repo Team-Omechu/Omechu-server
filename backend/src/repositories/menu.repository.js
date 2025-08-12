@@ -488,5 +488,68 @@ export const getMenuInfo = async (menuName) => {
 
 
 
+export const recommendRandom = async (addition) => {
+  try {
 
+    const openai = new OpenAI({
+      apiKey: key,
+    });
+    console.log("OpenAI client initialized successfully");
+    // 사용자 정보 가져오기
+    
+    
+  
+
+    const additionString =
+      addition && addition.length > 0 ? addition.join(", ") : "없음";
+    console.log("additionString:", additionString);
+   
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4.1-mini",
+      store: true,
+      messages: [
+        {
+          role: "user",
+          content: `이전 질문과 전전 질문에서 나온거 제외하고 다음 104개의 메뉴 중 하나를 랜덤으로 추천해줘.
+                        (중요)현재 사용자가 원하는 키워드와 연관된 메뉴를 랜덤적으로! 추천해줘 : 
+                        [${additionString}]
+
+                        (중요)추천은 다음 목록 안에서 이루어져야해.
+                        (중요)다음 리스트의 메뉴 이름을 그대로 사용해줘.
+                        ${menuList}
+                        추천할 때 아래 형식의 JSON으로 1개의 메뉴를 1개의 json 으로 답해줘(마크다운 없이):
+                        {
+                            "menu": "짜장면",
+                        }
+                         
+                            `,
+        },
+      ],
+    });
+
+    const rawText = completion.choices[0].message.content.trim();
+
+    // JSON 배열로 파싱
+    const menu = JSON.parse(rawText);
+    console.log("menu in repository : ", menu);
+      const menuData = await prisma.menu.findFirst({
+        where: { name: menu.menu },
+        select: { image_link: true }
+      });
+      
+      const menuWithImage = {
+        name: menu.menu,
+        image_link: menuData?.image_link || null
+      };
+      
+      console.log("Menu with image:", menuWithImage);
+      return menuWithImage;
+    
+    console.log("Menu with images:", menuWithImages);
+    return menuWithImages;
+  } catch (error) {
+    console.error("Error handling GPT request:", error);
+    throw error;
+  }
+};
 
