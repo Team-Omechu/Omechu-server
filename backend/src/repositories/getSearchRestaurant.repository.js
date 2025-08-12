@@ -7,12 +7,10 @@ export const searchRestaurant = async (
   cursor,
   limit
 ) => {
-  console.log("menu: " , menu);
   //메뉴가 빈배열이면 null로 변경
   if (Array.isArray(menu) && menu.length === 0) {
-  menu = null;
-}
-  console.log("location: " , location);
+    menu = null;
+  }
   const isFirstPage = cursor == 0;
   const locationFilters = Array.isArray(location)
     ? location?.map((loc) => ({
@@ -69,26 +67,29 @@ export const searchRestaurant = async (
           ? {
               rest_tag: {
                 some: {
-                  tag: tagFilters.tag,
+                  tag: tagFilters[0].tag,
                 },
               },
             }
           : {},
-        menu ? {
-          repre_menu: {
-            some: {
-              menu: {
-                contains: menu,
+        menu
+          ? {
+              repre_menu: {
+                some: {
+                  menu: {
+                    contains: menu,
+                  },
+                },
               },
-            },
-          },
-        } : {},
+            }
+          : {},
         location.length > 0 ? { OR: locationFilters } : {},
       ],
     },
     take: limit + 1,
     ...(isFirstPage ? {} : { cursor: { id: BigInt(cursor) }, skip: 1 }),
   });
+  console.log("newRestData", restData);
   if (restData.length == 0) {
     return { error: "NO_DATA" };
   }
