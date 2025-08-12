@@ -99,7 +99,8 @@ export const addMenuToDatabase = async (menuData) => {
 // "allergy" : ["갑각류"]
 // "weather" : "맑음"
 // }
-const menuList = `초코무스
+const menuList = `메뉴 리스트 : 
+초코무스
 불고기
 리조토
 라면
@@ -333,43 +334,31 @@ export const recommendMenu = async (choice, userId) => {
         : "없음";
     console.log("exceptedMenus2String:", exceptedMenus2String);
 
-    const completion = await openai.chat.completions.create({
+    const completion = await openai.responses.create({
       model: "gpt-4.1",
       store: true,
-      messages: [
-        {
-          role: "user",
-          content: `그 동안 나온거 제외하고 먹을 거 하나를 추천해줘.
-                        다음은 메뉴 추천을 할 때 참고할 정보들이야.
-                        먹는 시간: ${mealTimeText}
-                        목적: ${purposeText}
-                        기분: ${moodText}
-                        함께하는 사람: ${withText}
-                        예산: ${budgetText}
-                        제외하는 음식 종류: ${exceptionsString}
-                        성별: ${genderText}
-                        체중 증량, 감량 여부: ${exerciseText}
-                        선호하는 음식 종류: ${preferencesString} ( 조금만 참고 해줘도 돼. )
-                        체질: ${bodyTypeText}
-                        사용자의 알레르기: ${allergyString}
-                        현재 날씨: ${choice.weather}
-                        각각의 정보들에 딱 들어 맞을 필요까지는 없고, 각 요소를 최대한 반영해줘.
-                        추천은 다음 목록 안에서 이루어져야해.
-                        다음 리스트의 메뉴 이름을 그대로 사용해줘.
-                        ${menuList}
-                        추천할 때 아래 형식의 JSON으로 3개의 메뉴를 3개의 json 배열로 답해줘(마크다운 없이):
-                        이번엔 첫번째로 갈비탕 포함해서 추천해줘
-                        {
-                            "menu": "짜장면",
-                            "description": "간장 소스로 볶은 중화풍 면 요리",
-                        }
-                         
-                            `,
-        },
-      ],
+      prompt: {
+        id: "pmpt_689b3e9906e88196a3e8ebd71fbd9a9f0d5b975c1f5335da",
+        version: "1"
+      },
+      input: `
+      먹는 시간: ${mealTimeText}
+목적: ${purposeText}
+기분: ${moodText}
+함께하는 사람: ${withText}
+예산: ${budgetText}
+제외하는 음식 종류: ${exceptionsString}
+성별: ${genderText}
+체중 증량, 감량 여부: ${exerciseText}
+선호하는 음식 종류: ${preferencesString}
+체질: ${bodyTypeText}
+사용자의 알레르기: ${allergyString}
+최근에 먹지 않을 메뉴: ${exceptedMenus2String}
+현재 날씨: ${choice.weather}
+메뉴 리스트: ${menuList}`
     });
-
-    const rawText = completion.choices[0].message.content.trim();
+    console.log("GPT response received:", completion);
+    const rawText = completion.output_text || completion.response || completion.content;
 
     // JSON 배열로 파싱
     const parsedArray = JSON.parse(rawText);
@@ -380,7 +369,7 @@ export const recommendMenu = async (choice, userId) => {
             where: { name: menuItem.menu },
             select: { image_link: true }
           });
-          
+
           return {
             ...menuItem,
             image_link: menuData?.image_link || null
@@ -496,3 +485,8 @@ export const getMenuInfo = async (menuName) => {
     throw error;
   }
 };
+
+
+
+
+
