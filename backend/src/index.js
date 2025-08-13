@@ -269,7 +269,7 @@ app.get("/place/detail/:restId", handleGetPlaceDetail);
 app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
-app.get("/place/search", handleSearchRestaurant);
+app.get("/place/search", isLoggedIn, handleSearchRestaurant);
 app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
 app.post("/image/upload", generatePresignedUrl);
