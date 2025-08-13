@@ -1,12 +1,20 @@
 import { StatusCodes } from "http-status-codes";
 import { bodyToUser } from "../dtos/auth.dto.js";
 import { userSignUp } from "../services/auth.service.js";
-import { generateAccessToken, generateRefreshToken } from "../utils/token.js"; 
+import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
 
+// Redis 클라이언트 생성
 const redisClient = createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
+
+// Redis 연결 상태 로그
+redisClient.on("error", (err) => {
+  console.error("[Redis] error:", err?.message || err);
+});
+redisClient.on("connect", () => console.log("[Redis] connecting..."));
+redisClient.on("ready", () => console.log("[Redis] ready"));
 
 export const handleUserSignUp = async (req, res, next) => {
   /*
@@ -111,20 +119,31 @@ export const handleUserSignUp = async (req, res, next) => {
   try {
     console.log("회원가입 요청:", req.body);
 
+    // 유저 생성
     const user = await userSignUp(bodyToUser(req.body));
 
-    // JWT 발급
+    // 토큰 발급
     const payload = user.id.toString();
     const accessToken = generateAccessToken({ payload });
     const refreshToken = generateRefreshToken({ payload });
 
-    await redisClient.set(`refresh:${payload}`, refreshToken, {
-      EX: 60 * 60 * 24 * 7,
-    });
+    // Redis에 refresh token 저장 (연결 보장)
+    try {
+      if (!redisClient.isOpen) {
+        await redisClient.connect();
+      }
+      await redisClient.set(`refresh:${payload}`, refreshToken, {
+        EX: 60 * 60 * 24 * 7, // 7일
+      });
+    } catch (redisErr) {
+      console.error("[Redis] set 실패:", redisErr?.message || redisErr);
+      // Redis 실패해도 회원가입은 계속 진행
+    }
 
     // 응답
     res.status(StatusCodes.OK).success({
-      ...user,
+      id: user.id.toString(),    
+      email: user.email,
       accessToken,
       refreshToken,
     });
