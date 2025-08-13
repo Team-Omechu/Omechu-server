@@ -9,7 +9,6 @@ const redisClient = createClient({
 
 await redisClient.connect();
 export const handleUserLoginJWT = async (req, res) => {
-  console.log(req.body);
   const loginUser = await findUser(req.body);
   if (loginUser) {
     const accessToken = generateAccessToken({
