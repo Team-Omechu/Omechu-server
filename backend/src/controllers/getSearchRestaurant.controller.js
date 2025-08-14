@@ -178,11 +178,12 @@ export const handleSearchRestaurant = async (req, res) => {
   }
 }
     */
-  console.log(req.user);
+
   const restData = await getSearchRestaurant(
     BodyToSearchRestaurant(
       req.query,
       req.user.id,
+      req.user.role,
       req.query.cursor,
       req.query.limit
     )

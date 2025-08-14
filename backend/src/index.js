@@ -187,6 +187,25 @@ app.get("/openapi.json", async (req, res, next) => {
   res.json(result ? result.data : null);
 });
 
+function verifyTokenOrThrow(accessToken) {
+  try {
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+    // 네 코드가 decoded.payload를 쓰고 있어서 우선 그걸 우선시
+    const id = decoded.payload ?? decoded.userId ?? decoded.sub;
+    if (!id) throw new BearerTokenError("유효하지 않은 토큰 페이로드입니다.");
+    const role = decoded.role ?? "member";
+    return { id, role };
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      throw new ExpireToken("액세스 토큰이 만료되었습니다.");
+    } else if (err.name === "JsonWebTokenError") {
+      throw new BearerTokenError("유효하지 않은 액세스 토큰입니다.");
+    } else {
+      throw new BearerTokenServerError("토큰 검증 중 서버 오류");
+    }
+  }
+}
+
 // 토큰 검증 미들웨어 (에러 처리만 개선)
 export const isLoggedIn = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -194,21 +213,25 @@ export const isLoggedIn = (req, res, next) => {
     throw new NoBearerToken("인증 토큰이 없습니다.");
   }
   const accessToken = authHeader.split(" ")[1];
-  try {
-    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-    req.user = { id: decoded.payload };
-    console.log(`토큰 검증 성공: userId=${decoded.payload}`);
-    next();
-  } catch (err) {
-    console.error("토큰 검증 오류:", err.message);
-    if (err.name === "TokenExpiredError") {
-      throw new ExpireToken("액세스 토큰이 만료되었습니다.");
-    } else if (err.name === "JsonWebTokenError") {
-      throw new BearerTokenError("액세스 토큰이 만료되었습니다.");
-    } else {
-      throw new BearerTokenServerError("토큰 검증 중 서버 오류");
-    }
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
+};
+
+// 로그인 / 비로그인 검증 미들웨어
+export const optionalAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    req.user = { id: null, role: "guest" };
+    return next();
   }
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw new NoBearerToken("인증 토큰이 없습니다.");
+  }
+  const accessToken = authHeader.split(" ")[1];
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
 };
 
 // 기타 미들웨어
@@ -264,12 +287,12 @@ app.post("/place/review/:restId", isLoggedIn, handleAddReview);
 app.get("/place/review/:restId", handleGetReview);
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.post("/place", isLoggedIn, handleAddRestaurant);
-app.get("/place", handleGetRestaurant);
+app.get("/place", optionalAuth, handleGetRestaurant);
 app.get("/place/detail/:restId", handleGetPlaceDetail);
 app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
-app.get("/place/search", isLoggedIn, handleSearchRestaurant);
+app.get("/place/search", optionalAuth, handleSearchRestaurant);
 app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
 app.post("/image/upload", generatePresignedUrl);
