@@ -8,6 +8,7 @@ import {
   findUserByEmail,
 } from "../repositories/passwordReset.repository.js";
 import { InvalidOrExpiredTokenError, UserNotFoundError } from "../errors.js";
+import bcrypt from "bcrypt";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -65,6 +66,7 @@ export const validatePasswordResetTokenService = async (token) => {
 };
 
 export const resetUserPasswordService = async (email, newPassword, token) => {
-  await updateUserPasswordByEmail(email, newPassword);
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  await updateUserPasswordByEmail(email, hashedPassword);
   await deletePasswordResetToken(token);
 };
