@@ -9,7 +9,6 @@ export const handleAddReview = async (req, res, next) => {
       userId: req.user.id,
     })
   );
-  console.log(review);
   res.status(StatusCodes.OK).success({
     id: review.id.toString(),
     userId: review.user_id.toString(),
