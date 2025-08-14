@@ -1,9 +1,10 @@
+import { NoRestData } from "../errors.js";
 import {
   fetchKakaoPlaces,
   fetchGooglePlaces,
   addRestaurantToDatabase,
   checkRestaurantExists,
-  googlePlaceIdtoId
+  googlePlaceIdtoId,
 } from "../repositories/restaurant.repository.js";
 import { getPlaceDetail } from "../repositories/restaurant.repository.js";
 export const fetchKakaoPlacesService = async (info) => {
@@ -14,8 +15,6 @@ export const fetchKakaoPlacesService = async (info) => {
   console.log("Fetched places from service:", places);
   return places;
 };
-
-
 
 export const fetchGooglePlacesService = async (info) => {
   console.log("Service called with info:", info);
@@ -43,13 +42,14 @@ export const fetchGooglePlacesService = async (info) => {
   return response.places;
 };
 
-export const getPlaceDetailService = async (restId) => {
+export const getPlaceDetailService = async (restId, role, userId) => {
   console.log("Get Google Place detail for ID:", restId);
-  const placeDetail = await getPlaceDetail(restId);
-  console.log("placeDetail", placeDetail);
-  if (!placeDetail) {
-    console.error("No place detail found for ID:", restId);
-    return null;
+  const placeDetail = await getPlaceDetail(restId, role, userId);
+  if (placeDetail.error === "NO_DATA") {
+    throw new NoRestData("해당 가게 정보가 없습니다", {
+      restId: restId.toString(),
+    });
   }
+
   return placeDetail;
 };
