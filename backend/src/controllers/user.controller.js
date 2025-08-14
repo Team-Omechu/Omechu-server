@@ -83,13 +83,37 @@ export const handleUpdateUserInfo = async (req, res, next) => {
     console.log("회원 정보 수정을 요청했습니다!");
     console.log("body:", req.body);
 
-    const userId = req.user?.id;
+    // 1) 기본적으로 미들웨어가 넣어준 id 사용
+    let userId = req.user?.id;
+
+    // 2) 없으면 Authorization 헤더에서 직접 복구
     if (!userId) {
-      throw new LoginRequiredError("로그인이 필요한 서비스입니다.");
+      const h = req.headers.authorization || "";
+      const m = /^Bearer\s+(.+)$/.exec(h);
+      if (!m) throw new LoginRequiredError("로그인이 필요한 서비스입니다.");
+
+      let decoded;
+      try {
+        decoded = jwt.verify(m[1], process.env.JWT_SECRET);
+      } catch (e) {
+        throw new LoginRequiredError("토큰이 유효하지 않거나 만료되었습니다.");
+      }
+
+      // 토큰 페이로드 모양이 제각각이어도 흡수
+      userId = Number(
+        decoded?.id ??
+        decoded?.sub ??
+        decoded?.userId ??
+        decoded?.payload ??
+        decoded
+      );
+
+      if (!userId) {
+        throw new LoginRequiredError("토큰에 사용자 정보가 없습니다.");
+      }
     }
 
     const updatedUserInfo = await patchUserProfileService(userId, req.body);
-
     res.status(StatusCodes.OK).success(updatedUserInfo);
   } catch (error) {
     next(new UserUpdateFailedError("회원 정보 수정 중 오류 발생", error));
