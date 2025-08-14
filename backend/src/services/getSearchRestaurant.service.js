@@ -5,6 +5,7 @@ export const getSearchRestaurant = async ({
   location,
   tag,
   userId,
+  role,
   cursor,
   limit,
 }) => {
@@ -13,6 +14,7 @@ export const getSearchRestaurant = async ({
     location,
     tag,
     userId,
+    role,
     cursor,
     limit
   );

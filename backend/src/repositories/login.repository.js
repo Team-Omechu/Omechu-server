@@ -5,7 +5,7 @@ export const userLogin = async (data) => {
   if (user === null) {
     return { error: "NO_USER" };
   }
-  const isMatch = bcrypt.compare(data.password, user.password);
+  const isMatch = await bcrypt.compare(data.password, user.password);
   if (!isMatch) {
     return { error: "IN_CORRECT_PASSWORD" };
   } else {
