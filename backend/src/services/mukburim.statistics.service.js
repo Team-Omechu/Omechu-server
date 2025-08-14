@@ -66,13 +66,43 @@ const validateDateString = (dateString) => {
 };
 
 /**
- * 먹부림 통계 조회 서비스
+ * 메뉴 통계 정렬 함수
+ */
+const sortMenuStatistics = (menuStatistics, sortBy = "count") => {
+  switch (sortBy) {
+    case "recent":
+    case "latest":
+    case "last_eaten":
+      // 최근 먹은 순 (날짜 내림차순)
+      return menuStatistics.sort((a, b) => new Date(b.last_eaten_at) - new Date(a.last_eaten_at));
+    
+    case "oldest":
+    case "first_eaten":
+      // 오래된 순 (날짜 오름차순)
+      return menuStatistics.sort((a, b) => new Date(a.last_eaten_at) - new Date(b.last_eaten_at));
+    
+    case "count":
+    case "frequency":
+    default:
+      // 먹은 횟수 순 (기본값)
+      return menuStatistics.sort((a, b) => b.count - a.count);
+    
+    case "name":
+    case "alphabetical":
+      // 메뉴명 알파벳 순
+      return menuStatistics.sort((a, b) => a.menu_name.localeCompare(b.menu_name, 'ko-KR'));
+  }
+};
+
+/**
+ * 먹부림 통계 조회 서비스 (정렬 기능 추가)
  */
 export const getMukburimStatisticsService = async (
   userId,
   period,
   startDate,
-  endDate
+  endDate,
+  sortBy = "count" // 새로운 파라미터: 정렬 기준
 ) => {
   // 필수 파라미터 검증
   if (!userId) {
@@ -135,7 +165,7 @@ export const getMukburimStatisticsService = async (
       period = "1개월";
     }
 
-    console.log(`먹부림 통계 조회: userId=${userId}, period=${period}`, {
+    console.log(`먹부림 통계 조회: userId=${userId}, period=${period}, sortBy=${sortBy}`, {
       startDate: calculatedStartDate.toISOString().split("T")[0],
       endDate: calculatedEndDate.toISOString().split("T")[0],
     });
@@ -159,12 +189,16 @@ export const getMukburimStatisticsService = async (
       });
     }
 
+    // 정렬 적용
+    const sortedMenuStatistics = sortMenuStatistics(statistics.menuStatistics, sortBy);
+
     // 기간 계산 (일수)
     const daysDiff = Math.ceil((calculatedEndDate - calculatedStartDate) / (1000 * 60 * 60 * 24)) + 1;
     const averagePerDay = daysDiff > 0 ? Math.round((statistics.totalRecords / daysDiff) * 10) / 10 : 0;
 
-    return {
+    const result = {
       period: period || "커스텀",
+      sortBy: sortBy,
       dateRange: {
         startDate: calculatedStartDate.toISOString().split("T")[0],
         endDate: calculatedEndDate.toISOString().split("T")[0],
@@ -175,8 +209,21 @@ export const getMukburimStatisticsService = async (
         uniqueMenus: statistics.uniqueMenus,
         averagePerDay: averagePerDay,
       },
-      menuStatistics: statistics.menuStatistics,
+      menuStatistics: sortedMenuStatistics,
     };
+
+    console.log(`통계 조회 완료:`, {
+      period: result.period,
+      sortBy: result.sortBy,
+      totalRecords: result.summary.totalRecords,
+      topMenus: result.menuStatistics.slice(0, 3).map(menu => ({
+        name: menu.menu_name,
+        count: menu.count,
+        lastEaten: menu.last_eaten_display
+      }))
+    });
+
+    return result;
 
   } catch (error) {
     // 이미 커스텀 에러인 경우 그대로 전파
@@ -198,6 +245,7 @@ export const getMukburimStatisticsService = async (
         period,
         startDate,
         endDate,
+        sortBy,
         error: error.message,
       }
     );
@@ -205,7 +253,7 @@ export const getMukburimStatisticsService = async (
 };
 
 /**
- * 먹부림 캘린더 조회 서비스
+ * 먹부림 캘린더 조회 서비스 - 기존과 동일
  */
 export const getMukburimCalendarService = async (userId, year, month) => {
   if (!userId || !year || !month) {
@@ -281,7 +329,7 @@ export const getMukburimCalendarService = async (userId, year, month) => {
 };
 
 /**
- * 특정 날짜 먹부림 조회 서비스
+ * 특정 날짜 먹부림 조회 서비스 - 기존과 동일
  */
 export const getMukburimByDateService = async (userId, targetDate) => {
   if (!userId || !targetDate) {
