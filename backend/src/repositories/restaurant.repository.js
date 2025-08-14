@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { prisma } from "../db.config.js";
 dotenv.config();
 import { OpenAI } from "openai";
+import { error } from "console";
 
 // {
 // "y" : "37.4895246",
@@ -156,11 +157,84 @@ export const addressToLocation = async (address) => {
   }
 };
 
-export const getPlaceDetail = async (restId) => {
-  const placeId = await prisma.restaurant.findFirst({
-    where: { id: restId },
-  });
-  console.log("placeId", placeId);
+export const getPlaceDetail = async (restId, role, userId) => {
+  let placeId;
+  if (role === "guest") {
+    placeId = await prisma.restaurant.findFirst({
+      select: {
+        id: true,
+        name: true,
+        address: true,
+        address_jibeon: true,
+        postal_code: true,
+        rating: true,
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: true,
+        sunday: true,
+        google_place_id: true,
+        rest_tag: {
+          select: { tag: true, count: true },
+          take: 3,
+          orderBy: { count: "desc" },
+        },
+        repre_menu: {
+          select: { menu: true },
+        },
+        review_image: {
+          select: { link: true },
+          where: { rest_id: restId },
+        },
+      },
+      where: { id: restId },
+    });
+  } else {
+    placeId = await prisma.restaurant.findFirst({
+      select: {
+        id: true,
+        name: true,
+        address: true,
+        address_jibeon: true,
+        postal_code: true,
+        rating: true,
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: true,
+        sunday: true,
+        google_place_id: true,
+        rest_tag: {
+          select: { tag: true, count: true },
+          take: 3,
+          orderBy: { count: "desc" },
+        },
+        repre_menu: {
+          select: { menu: true },
+        },
+        review_image: {
+          select: { link: true },
+          where: { rest_id: restId },
+        },
+        zzim: {
+          select: { id: true, rest_id: true },
+          where: { user_id: userId },
+        },
+      },
+      where: { id: restId },
+    });
+  }
+  if (!placeId) {
+    return { error: "NO_DATA" };
+  }
+  if (role === "member") {
+    placeId = { ...placeId, zzim: placeId.zzim.length > 0 };
+  }
+
   if (placeId.google_place_id === null) {
     const restData = await prisma.rest_tag.findMany({
       where: { rest_id: restId },
@@ -175,7 +249,6 @@ export const getPlaceDetail = async (restId) => {
     const reviewImageToInt = await reviewImage.map((data) => {
       return { ...data, id: data.id.toString() };
     });
-
     return {
       id: placeId.id.toString(),
       name: placeId.name,
@@ -191,6 +264,7 @@ export const getPlaceDetail = async (restId) => {
       saturday: placeId.saturday,
       sunday: placeId.sunday,
       googlePlaceId: placeId.google_place_id,
+      zzim: placeId?.zzim,
       restTag: restData,
       reviewImage: reviewImageToInt,
     };
@@ -263,6 +337,7 @@ export const getPlaceDetail = async (restId) => {
       currentOpeningHours: currentOpeningHours.weekdayDescriptions,
       googlePlaceId: placeId.google_place_id,
       reviewImage: reviewImage,
+      zzim: placeId?.zzim,
     };
   }
 };
