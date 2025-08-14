@@ -39,6 +39,7 @@ import {
   handleInsertMenuViewTime,
   handleGetMenuRecent,
   handleGetMenuFiltered,
+  handleGetMenuSearch,
 } from "./controllers/sortMenu.controller.js";
 import {
   handleGetUserProfile,
@@ -268,6 +269,7 @@ app.post("/recommend/random", handleRecommendRandom);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.post("/find-related-menu", handleFindRelatedMenu);
+app.get("/menu/search", handleGetMenuSearch);
 app.get("/menu", handleGetMenu);
 app.get("/menu/random", handleGetMenuRandom);
 app.get("/menu/recent", isLoggedIn, handleGetMenuRecent);

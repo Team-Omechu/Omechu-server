@@ -408,6 +408,18 @@ export const handleGetMenuInfo = async (req, res) => {
               image_link: { 
                 type: 'string', 
                 example: 'https://example.com/image.jpg' 
+              },
+              recipe_link: {
+                type: 'string',
+                example: 'https://www.youtube.com/watch?v=YMbnuHN_TfE'
+              },
+              recipe_link_source: {
+                type: 'string',
+                example: '김대석 셰프TV'
+              },
+              recipe_video_name: {
+                type: 'string',
+                example: '전문점 뺨치는 짜장면 비밀레시피 공개합니다'
               }
             }
           }

@@ -136,7 +136,10 @@ exports.Prisma.MenuScalarFieldEnum = {
   vitamin: 'vitamin',
   allergic: 'allergic',
   sodium: 'sodium',
-  image_link: 'image_link'
+  image_link: 'image_link',
+  recipe_link: 'recipe_link',
+  recipe_link_source: 'recipe_link_source',
+  recipe_video_name: 'recipe_video_name'
 };
 
 exports.Prisma.MukburimScalarFieldEnum = {
@@ -322,7 +325,10 @@ exports.Prisma.menuOrderByRelevanceFieldEnum = {
   description: 'description',
   vitamin: 'vitamin',
   allergic: 'allergic',
-  image_link: 'image_link'
+  image_link: 'image_link',
+  recipe_link: 'recipe_link',
+  recipe_link_source: 'recipe_link_source',
+  recipe_video_name: 'recipe_video_name'
 };
 
 exports.Prisma.mukburimOrderByRelevanceFieldEnum = {
