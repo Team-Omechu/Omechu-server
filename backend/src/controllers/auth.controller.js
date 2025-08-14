@@ -116,23 +116,23 @@ export const handleUserSignUp = async (req, res, next) => {
   }
 */
 
-  try {
+   try {
     console.log("회원가입 요청:", req.body);
 
-    // 유저 생성
+    // 1) 유저 생성
     const user = await userSignUp(bodyToUser(req.body));
+    const uid = Number(user.id); 
 
-    // 토큰 발급
-    const payload = user.id.toString();
-    const accessToken = generateAccessToken({ payload });
-    const refreshToken = generateRefreshToken({ payload });
+    // 2) 토큰 발급 (id 키로 표준화)
+    const accessToken = generateAccessToken({ id: uid });
+    const refreshToken = generateRefreshToken({ id: uid });
 
-    // Redis에 refresh token 저장 (연결 보장)
+    // 3) Refresh Token 저장 (payload → uid 로 수정)
     try {
       if (!redisClient.isOpen) {
         await redisClient.connect();
       }
-      await redisClient.set(`refresh:${payload}`, refreshToken, {
+      await redisClient.set(`refresh:${uid}`, refreshToken, {
         EX: 60 * 60 * 24 * 7, // 7일
       });
     } catch (redisErr) {
@@ -140,9 +140,9 @@ export const handleUserSignUp = async (req, res, next) => {
       // Redis 실패해도 회원가입은 계속 진행
     }
 
-    // 응답
+    // 4) 응답
     res.status(StatusCodes.OK).success({
-      id: user.id.toString(),    
+      id: uid.toString(),
       email: user.email,
       accessToken,
       refreshToken,
