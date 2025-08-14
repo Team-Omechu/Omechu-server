@@ -3888,6 +3888,9 @@ export namespace Prisma {
     allergic: string | null
     sodium: bigint | null
     image_link: string | null
+    recipe_link: string | null
+    recipe_link_source: string | null
+    recipe_video_name: string | null
   }
 
   export type MenuMaxAggregateOutputType = {
@@ -3902,6 +3905,9 @@ export namespace Prisma {
     allergic: string | null
     sodium: bigint | null
     image_link: string | null
+    recipe_link: string | null
+    recipe_link_source: string | null
+    recipe_video_name: string | null
   }
 
   export type MenuCountAggregateOutputType = {
@@ -3916,6 +3922,9 @@ export namespace Prisma {
     allergic: number
     sodium: number
     image_link: number
+    recipe_link: number
+    recipe_link_source: number
+    recipe_video_name: number
     _all: number
   }
 
@@ -3950,6 +3959,9 @@ export namespace Prisma {
     allergic?: true
     sodium?: true
     image_link?: true
+    recipe_link?: true
+    recipe_link_source?: true
+    recipe_video_name?: true
   }
 
   export type MenuMaxAggregateInputType = {
@@ -3964,6 +3976,9 @@ export namespace Prisma {
     allergic?: true
     sodium?: true
     image_link?: true
+    recipe_link?: true
+    recipe_link_source?: true
+    recipe_video_name?: true
   }
 
   export type MenuCountAggregateInputType = {
@@ -3978,6 +3993,9 @@ export namespace Prisma {
     allergic?: true
     sodium?: true
     image_link?: true
+    recipe_link?: true
+    recipe_link_source?: true
+    recipe_video_name?: true
     _all?: true
   }
 
@@ -4079,6 +4097,9 @@ export namespace Prisma {
     allergic: string | null
     sodium: bigint | null
     image_link: string | null
+    recipe_link: string | null
+    recipe_link_source: string | null
+    recipe_video_name: string | null
     _count: MenuCountAggregateOutputType | null
     _avg: MenuAvgAggregateOutputType | null
     _sum: MenuSumAggregateOutputType | null
@@ -4112,6 +4133,9 @@ export namespace Prisma {
     allergic?: boolean
     sodium?: boolean
     image_link?: boolean
+    recipe_link?: boolean
+    recipe_link_source?: boolean
+    recipe_video_name?: boolean
     menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     recommend_except?: boolean | menu$recommend_exceptArgs<ExtArgs>
     rest_menu?: boolean | menu$rest_menuArgs<ExtArgs>
@@ -4132,9 +4156,12 @@ export namespace Prisma {
     allergic?: boolean
     sodium?: boolean
     image_link?: boolean
+    recipe_link?: boolean
+    recipe_link_source?: boolean
+    recipe_video_name?: boolean
   }
 
-  export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "vitamin" | "allergic" | "sodium" | "image_link", ExtArgs["result"]["menu"]>
+  export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "vitamin" | "allergic" | "sodium" | "image_link" | "recipe_link" | "recipe_link_source" | "recipe_video_name", ExtArgs["result"]["menu"]>
   export type menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     recommend_except?: boolean | menu$recommend_exceptArgs<ExtArgs>
@@ -4161,6 +4188,9 @@ export namespace Prisma {
       allergic: string | null
       sodium: bigint | null
       image_link: string | null
+      recipe_link: string | null
+      recipe_link_source: string | null
+      recipe_video_name: string | null
     }, ExtArgs["result"]["menu"]>
     composites: {}
   }
@@ -4544,6 +4574,9 @@ export namespace Prisma {
     readonly allergic: FieldRef<"menu", 'String'>
     readonly sodium: FieldRef<"menu", 'BigInt'>
     readonly image_link: FieldRef<"menu", 'String'>
+    readonly recipe_link: FieldRef<"menu", 'String'>
+    readonly recipe_link_source: FieldRef<"menu", 'String'>
+    readonly recipe_video_name: FieldRef<"menu", 'String'>
   }
     
 
@@ -24791,7 +24824,10 @@ export namespace Prisma {
     vitamin: 'vitamin',
     allergic: 'allergic',
     sodium: 'sodium',
-    image_link: 'image_link'
+    image_link: 'image_link',
+    recipe_link: 'recipe_link',
+    recipe_link_source: 'recipe_link_source',
+    recipe_video_name: 'recipe_video_name'
   };
 
   export type MenuScalarFieldEnum = (typeof MenuScalarFieldEnum)[keyof typeof MenuScalarFieldEnum]
@@ -25052,7 +25088,10 @@ export namespace Prisma {
     description: 'description',
     vitamin: 'vitamin',
     allergic: 'allergic',
-    image_link: 'image_link'
+    image_link: 'image_link',
+    recipe_link: 'recipe_link',
+    recipe_link_source: 'recipe_link_source',
+    recipe_video_name: 'recipe_video_name'
   };
 
   export type menuOrderByRelevanceFieldEnum = (typeof menuOrderByRelevanceFieldEnum)[keyof typeof menuOrderByRelevanceFieldEnum]
@@ -25339,6 +25378,9 @@ export namespace Prisma {
     allergic?: StringNullableFilter<"menu"> | string | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
+    recipe_link?: StringNullableFilter<"menu"> | string | null
+    recipe_link_source?: StringNullableFilter<"menu"> | string | null
+    recipe_video_name?: StringNullableFilter<"menu"> | string | null
     menu_tag?: Menu_tagListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
     rest_menu?: Rest_menuListRelationFilter
@@ -25356,6 +25398,9 @@ export namespace Prisma {
     allergic?: SortOrderInput | SortOrder
     sodium?: SortOrderInput | SortOrder
     image_link?: SortOrderInput | SortOrder
+    recipe_link?: SortOrderInput | SortOrder
+    recipe_link_source?: SortOrderInput | SortOrder
+    recipe_video_name?: SortOrderInput | SortOrder
     menu_tag?: menu_tagOrderByRelationAggregateInput
     recommend_except?: recommend_exceptOrderByRelationAggregateInput
     rest_menu?: rest_menuOrderByRelationAggregateInput
@@ -25377,6 +25422,9 @@ export namespace Prisma {
     allergic?: StringNullableFilter<"menu"> | string | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
+    recipe_link?: StringNullableFilter<"menu"> | string | null
+    recipe_link_source?: StringNullableFilter<"menu"> | string | null
+    recipe_video_name?: StringNullableFilter<"menu"> | string | null
     menu_tag?: Menu_tagListRelationFilter
     recommend_except?: Recommend_exceptListRelationFilter
     rest_menu?: Rest_menuListRelationFilter
@@ -25394,6 +25442,9 @@ export namespace Prisma {
     allergic?: SortOrderInput | SortOrder
     sodium?: SortOrderInput | SortOrder
     image_link?: SortOrderInput | SortOrder
+    recipe_link?: SortOrderInput | SortOrder
+    recipe_link_source?: SortOrderInput | SortOrder
+    recipe_video_name?: SortOrderInput | SortOrder
     _count?: menuCountOrderByAggregateInput
     _avg?: menuAvgOrderByAggregateInput
     _max?: menuMaxOrderByAggregateInput
@@ -25416,6 +25467,9 @@ export namespace Prisma {
     allergic?: StringNullableWithAggregatesFilter<"menu"> | string | null
     sodium?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
     image_link?: StringNullableWithAggregatesFilter<"menu"> | string | null
+    recipe_link?: StringNullableWithAggregatesFilter<"menu"> | string | null
+    recipe_link_source?: StringNullableWithAggregatesFilter<"menu"> | string | null
+    recipe_video_name?: StringNullableWithAggregatesFilter<"menu"> | string | null
   }
 
   export type mukburimWhereInput = {
@@ -26677,6 +26731,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
@@ -26694,6 +26751,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
@@ -26711,6 +26771,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
@@ -26728,6 +26791,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
@@ -26745,6 +26811,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
   }
 
   export type menuUpdateManyMutationInput = {
@@ -26759,6 +26828,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type menuUncheckedUpdateManyInput = {
@@ -26773,6 +26845,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type mukburimCreateInput = {
@@ -28098,6 +28173,9 @@ export namespace Prisma {
     allergic?: SortOrder
     sodium?: SortOrder
     image_link?: SortOrder
+    recipe_link?: SortOrder
+    recipe_link_source?: SortOrder
+    recipe_video_name?: SortOrder
   }
 
   export type menuAvgOrderByAggregateInput = {
@@ -28121,6 +28199,9 @@ export namespace Prisma {
     allergic?: SortOrder
     sodium?: SortOrder
     image_link?: SortOrder
+    recipe_link?: SortOrder
+    recipe_link_source?: SortOrder
+    recipe_video_name?: SortOrder
   }
 
   export type menuMinOrderByAggregateInput = {
@@ -28135,6 +28216,9 @@ export namespace Prisma {
     allergic?: SortOrder
     sodium?: SortOrder
     image_link?: SortOrder
+    recipe_link?: SortOrder
+    recipe_link_source?: SortOrder
+    recipe_video_name?: SortOrder
   }
 
   export type menuSumOrderByAggregateInput = {
@@ -31352,6 +31436,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
   }
@@ -31368,6 +31455,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
   }
@@ -31449,6 +31539,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
   }
@@ -31465,6 +31558,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
   }
@@ -31704,6 +31800,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
   }
@@ -31720,6 +31819,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
   }
@@ -31807,6 +31909,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
   }
@@ -31823,6 +31928,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
   }
@@ -34246,6 +34354,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     recommend_except?: recommend_exceptCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuCreateNestedManyWithoutMenuInput
   }
@@ -34262,6 +34373,9 @@ export namespace Prisma {
     allergic?: string | null
     sodium?: bigint | number | null
     image_link?: string | null
+    recipe_link?: string | null
+    recipe_link_source?: string | null
+    recipe_video_name?: string | null
     recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutMenuInput
     rest_menu?: rest_menuUncheckedCreateNestedManyWithoutMenuInput
   }
@@ -34294,6 +34408,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     recommend_except?: recommend_exceptUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUpdateManyWithoutMenuNestedInput
   }
@@ -34310,6 +34427,9 @@ export namespace Prisma {
     allergic?: NullableStringFieldUpdateOperationsInput | string | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_link_source?: NullableStringFieldUpdateOperationsInput | string | null
+    recipe_video_name?: NullableStringFieldUpdateOperationsInput | string | null
     recommend_except?: recommend_exceptUncheckedUpdateManyWithoutMenuNestedInput
     rest_menu?: rest_menuUncheckedUpdateManyWithoutMenuNestedInput
   }
