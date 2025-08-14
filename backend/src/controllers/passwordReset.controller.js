@@ -114,11 +114,40 @@ export const handleResetPassword = async (req, res, next) => {
     const { token } = req.query;
     const { newPassword } = bodyToResetPasswordDto(req.body);
 
+    if (!token || !newPassword) {
+     return res.status(400).error({
+       errorCode: "INVALID_INPUT",
+       reason: "token과 newPassword가 필요합니다.",
+     });
+   }
+   if (typeof newPassword !== "string" || newPassword.trim().length < 8) {
+     return res.status(400).error({
+       errorCode: "INVALID_INPUT",
+       reason: "새 비밀번호는 8자 이상이어야 합니다.",
+     });
+   }
+
     const email = await validatePasswordResetTokenService(token);
     await resetUserPasswordService(email, newPassword, token);
 
     res.success("비밀번호가 성공적으로 변경되었습니다");
   } catch (err) {
-    next(err);
+       if (err.name === "InvalidOrExpiredTokenError") {
+     return res.status(400).error({
+       errorCode: "INVALID_TOKEN",
+       reason: err.message,
+     });
+   }
+   if (err.name === "UserNotFoundError") {
+     return res.status(404).error({
+       errorCode: "USER_NOT_FOUND",
+       reason: err.message,
+     });
+   }
+   console.error("[reset-passwd] error:", err?.stack || err?.message || err);
+   return res.status(500).error({
+     errorCode: "SERVER_ERROR",
+     reason: "서버 내부 오류가 발생했습니다.",
+   });
   }
 };

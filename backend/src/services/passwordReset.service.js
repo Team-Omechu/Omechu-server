@@ -23,7 +23,7 @@ const sendResetEmail = async (email, token) => {
   const imageUrl =
     "https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/email/a4e1f2ed-62bb-491d-93a0-3b88de6a64b3.jpg";
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+    from: process.env.MAIL_USER,
     to: email,
     subject: "[오메추] 비밀번호 재설정 안내",
     html: `
