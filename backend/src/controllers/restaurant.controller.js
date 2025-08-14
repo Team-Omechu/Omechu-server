@@ -154,30 +154,18 @@ export const handleFetchGooglePlaces = async (req, res) => {
 
 export const handleGetPlaceDetail = async (req, res) => {
   const placeId = BigInt(req.params.restId);
-  try {
-    let placeDetail = await getPlaceDetailService(placeId);
+  const role = req.user.role;
+  const userId = req.user.id;
 
-    if (placeDetail.googlePlaceId !== null) {
-      placeDetail.currentOpeningHours = openingHoursDto(
-        placeDetail.currentOpeningHours
-      );
-    } else {
-      placeDetail = responseFromGetRestData(placeDetail);
-    }
-    console.log("placeDetail2", placeDetail);
-    if (placeDetail) {
-      res.status(StatusCodes.OK).json(placeDetail);
-    } else {
-      res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: "Place detail not found" });
-    }
-  } catch (error) {
-    console.error("Error fetching place detail:", error);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal server error" });
+  let placeDetail = await getPlaceDetailService(placeId, role, userId);
+  if (placeDetail.googlePlaceId !== null) {
+    placeDetail.currentOpeningHours = openingHoursDto(
+      placeDetail.currentOpeningHours
+    );
+  } else {
+    placeDetail = responseFromGetRestData(placeDetail);
   }
+  res.status(StatusCodes.OK).json(placeDetail);
 
   /*
   #swagger.tags = ["Restaurant"]
