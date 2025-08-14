@@ -451,6 +451,9 @@ export const getMenuInfo = async (menuName) => {
         vitamin: true,
         allergic: true,
         image_link: true,
+        recipe_link: true,
+        recipe_link_source : true,
+        recipe_video_name : true,
       },
     });
 
