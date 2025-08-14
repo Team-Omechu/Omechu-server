@@ -136,7 +136,10 @@ exports.Prisma.MenuScalarFieldEnum = {
   vitamin: 'vitamin',
   allergic: 'allergic',
   sodium: 'sodium',
-  image_link: 'image_link'
+  image_link: 'image_link',
+  recipe_link: 'recipe_link',
+  recipe_link_source: 'recipe_link_source',
+  recipe_video_name: 'recipe_video_name'
 };
 
 exports.Prisma.MukburimScalarFieldEnum = {
@@ -172,6 +175,8 @@ exports.Prisma.RestaurantScalarFieldEnum = {
   location: 'location',
   name: 'name',
   address: 'address',
+  address_jibeon: 'address_jibeon',
+  postal_code: 'postal_code',
   rating: 'rating',
   monday: 'monday',
   tuesday: 'tuesday',
@@ -283,6 +288,19 @@ exports.Prisma.Agreement_consentScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Menu_tagScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  tag: 'tag'
+};
+
+exports.Prisma.Menu_view_timeScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  menu_name: 'menu_name',
+  time: 'time'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -307,7 +325,10 @@ exports.Prisma.menuOrderByRelevanceFieldEnum = {
   description: 'description',
   vitamin: 'vitamin',
   allergic: 'allergic',
-  image_link: 'image_link'
+  image_link: 'image_link',
+  recipe_link: 'recipe_link',
+  recipe_link_source: 'recipe_link_source',
+  recipe_video_name: 'recipe_video_name'
 };
 
 exports.Prisma.mukburimOrderByRelevanceFieldEnum = {
@@ -323,6 +344,8 @@ exports.Prisma.restaurantOrderByRelevanceFieldEnum = {
   location: 'location',
   name: 'name',
   address: 'address',
+  address_jibeon: 'address_jibeon',
+  postal_code: 'postal_code',
   monday: 'monday',
   tuesday: 'tuesday',
   wednesday: 'wednesday',
@@ -381,6 +404,14 @@ exports.Prisma.password_reset_tokenOrderByRelevanceFieldEnum = {
 exports.Prisma.repre_menuOrderByRelevanceFieldEnum = {
   menu: 'menu'
 };
+
+exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
+  tag: 'tag'
+};
+
+exports.Prisma.menu_view_timeOrderByRelevanceFieldEnum = {
+  menu_name: 'menu_name'
+};
 exports.user_body_type = exports.$Enums.user_body_type = {
   cold: 'cold',
   indigestion: 'indigestion',
@@ -435,7 +466,9 @@ exports.Prisma.ModelName = {
   password_reset_token: 'password_reset_token',
   repre_menu: 'repre_menu',
   user_rest: 'user_rest',
-  agreement_consent: 'agreement_consent'
+  agreement_consent: 'agreement_consent',
+  menu_tag: 'menu_tag',
+  menu_view_time: 'menu_view_time'
 };
 
 /**

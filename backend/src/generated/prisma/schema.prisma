@@ -14,19 +14,23 @@ model choice {
 }
 
 model menu {
-  id               BigInt             @id @default(autoincrement())
-  name             String             @unique(map: "unique_name") @db.VarChar(30)
-  description      String?            @db.VarChar(150)
-  calory           BigInt?
-  carbo            BigInt?
-  protein          BigInt?
-  fat              BigInt?
-  vitamin          String?            @db.Text
-  allergic         String?            @db.Text
-  sodium           BigInt?
-  image_link       String?
-  recommend_except recommend_except[]
-  rest_menu        rest_menu[]
+  id                 BigInt             @id @default(autoincrement())
+  name               String             @unique(map: "unique_name") @db.VarChar(30)
+  description        String?            @db.VarChar(150)
+  calory             BigInt?
+  carbo              BigInt?
+  protein            BigInt?
+  fat                BigInt?
+  vitamin            String?            @db.Text
+  allergic           String?            @db.Text
+  sodium             BigInt?
+  image_link         String?
+  recipe_link        String?            @db.VarChar(200)
+  recipe_link_source String?            @db.VarChar(200)
+  recipe_video_name  String?            @db.VarChar(300)
+  menu_tag           menu_tag[]
+  recommend_except   recommend_except[]
+  rest_menu          rest_menu[]
 }
 
 model mukburim {
@@ -81,6 +85,8 @@ model restaurant {
   location        String?        @db.VarChar(20)
   name            String?        @db.VarChar(60)
   address         String?        @db.VarChar(60)
+  address_jibeon  String?        @db.VarChar(50)
+  postal_code     String?        @db.VarChar(50)
   rating          Float?         @default(0) @db.Float
   monday          String?        @default("휴무") @db.VarChar(20)
   tuesday         String?        @default("휴뮤") @db.VarChar(20)
@@ -142,12 +148,13 @@ model user {
   body_type         user_body_type?
   gender            user_gender?
   exercise          user_exercise?
-  password          String              @db.VarChar(50)
+  password          String?             @db.VarChar(100)
   created_at        DateTime?           @default(now()) @db.DateTime(0)
   updated_at        DateTime?           @default(now()) @db.DateTime(0)
   profileImageUrl   String?             @db.VarChar(400)
   agreement_consent agreement_consent[]
   allergy           allergy[]
+  menu_view_time    menu_view_time[]
   mukburim          mukburim[]
   prefer            prefer[]
   recommend_except  recommend_except[]
@@ -244,6 +251,25 @@ model agreement_consent {
   user             user     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "agreement_consent_user_fk")
 
   @@index([user_id], map: "idx_user_id")
+}
+
+model menu_tag {
+  id      BigInt @id @default(autoincrement())
+  menu_id BigInt
+  tag     String @db.VarChar(40)
+  menu    menu   @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_tag_ibfk_1")
+
+  @@index([menu_id], map: "menu_id")
+}
+
+model menu_view_time {
+  id        BigInt    @id @default(autoincrement())
+  user_id   BigInt?
+  menu_name String?   @db.VarChar(30)
+  time      DateTime? @db.DateTime(0)
+  user      user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
+
+  @@index([user_id], map: "fk_user_id")
 }
 
 enum allergy_type {

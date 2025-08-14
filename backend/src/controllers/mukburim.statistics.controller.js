@@ -1,4 +1,3 @@
-// mukburim.statistics.controller.js
 import { StatusCodes } from "http-status-codes";
 import {
   getMukburimStatisticsService,
@@ -7,13 +6,13 @@ import {
 } from "../services/mukburim.statistics.service.js";
 
 /**
- * 먹부림 통계 조회 컨트롤러
+ * 먹부림 통계 조회 컨트롤러 (정렬 기능 추가)
  */
 export const handleGetMukburimStatistics = async (req, res, next) => {
   /*
   #swagger.tags = ["Mukburim"]
   #swagger.summary = "먹부림 통계 조회 API"
-  #swagger.description = "사용자의 먹부림 기록을 기간별로 통계 조회하는 API입니다. 기본적으로 현재 시점 기준으로 조회합니다."
+  #swagger.description = "사용자의 먹부림 기록을 기간별로 통계 조회하는 API입니다. 기본적으로 현재 시점 기준으로 조회하며, 각 메뉴별 최근 먹은 날짜 정보를 포함합니다."
   #swagger.parameters['period'] = {
     in: 'query',
     description: '조회 기간',
@@ -36,6 +35,14 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
     type: 'string',
     example: '2025-06-05'
   }
+  #swagger.parameters['sortBy'] = {
+    in: 'query',
+    description: '정렬 기준',
+    required: false,
+    type: 'string',
+    enum: ['count', 'recent', 'oldest', 'name'],
+    example: 'count'
+  }
   #swagger.responses[200] = {
     description: "먹부림 통계 조회 성공",
     content: {
@@ -49,6 +56,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
               type: "object",
               properties: {
                 period: { type: "string", example: "1개월" },
+                sortBy: { type: "string", example: "count" },
                 dateRange: {
                   type: "object",
                   properties: {
@@ -71,7 +79,10 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
                     type: "object",
                     properties: {
                       menu_name: { type: "string", example: "짜장면" },
-                      count: { type: "integer", example: 5 }
+                      count: { type: "integer", example: 5 },
+                      last_eaten_at: { type: "string", example: "2025-08-13T12:30:00.000Z" },
+                      last_eaten_date: { type: "string", example: "2025-08-13" },
+                      last_eaten_display: { type: "string", example: "2025. 8. 13." }
                     }
                   }
                 }
@@ -139,7 +150,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
     }
 
     const userId = parseInt(req.user.id);
-    const { period, startDate, endDate } = req.query;
+    const { period, startDate, endDate, sortBy } = req.query;
 
     // 로깅 추가
     console.log('먹부림 통계 요청:', {
@@ -147,6 +158,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
       period,
       startDate,
       endDate,
+      sortBy,
       query: req.query
     });
 
@@ -154,12 +166,27 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
     const cleanPeriod = period?.trim();
     const cleanStartDate = startDate?.trim();
     const cleanEndDate = endDate?.trim();
+    const cleanSortBy = sortBy?.trim() || "count";
+
+    // 유효한 정렬 옵션 검증
+    const validSortOptions = ["count", "recent", "latest", "oldest", "first_eaten", "name", "alphabetical"];
+    if (!validSortOptions.includes(cleanSortBy)) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "MK006",
+        reason: "지원하지 않는 정렬 기준입니다.",
+        data: { 
+          sortBy: cleanSortBy, 
+          validOptions: ["count", "recent", "oldest", "name"]
+        }
+      });
+    }
 
     const result = await getMukburimStatisticsService(
       userId,
       cleanPeriod,
       cleanStartDate,
-      cleanEndDate
+      cleanEndDate,
+      cleanSortBy
     );
 
     res.status(StatusCodes.OK).success(result);
@@ -175,7 +202,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
 };
 
 /**
- * 먹부림 캘린더 조회 컨트롤러
+ * 먹부림 캘린더 조회 컨트롤러 - 기존과 동일
  */
 export const handleGetMukburimCalendar = async (req, res, next) => {
   /*
@@ -272,7 +299,7 @@ export const handleGetMukburimCalendar = async (req, res, next) => {
 };
 
 /**
- * 특정 날짜 먹부림 조회 컨트롤러
+ * 특정 날짜 먹부림 조회 컨트롤러 - 기존과 동일
  */
 export const handleGetMukburimByDate = async (req, res, next) => {
   /*

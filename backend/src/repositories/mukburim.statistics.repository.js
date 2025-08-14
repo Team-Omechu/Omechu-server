@@ -1,7 +1,7 @@
 import { prisma } from "../db.config.js";
 
 /**
- * 사용자의 특정 기간 먹부림 통계 조회
+ * 사용자의 특정 기간 먹부림 통계 조회 (최근 먹은 날짜 포함)
  */
 export const findUserMukburimStatistics = async (userId, startDate, endDate) => {
   try {
@@ -30,25 +30,43 @@ export const findUserMukburimStatistics = async (userId, startDate, endDate) => 
 
     console.log(`DB 조회 결과: ${mukburimList.length}개 레코드 발견`);
 
-    // 메뉴별 횟수 집계
-    const menuCounts = {};
+    // 메뉴별 횟수와 최근 먹은 날짜 집계
+    const menuData = {};
     mukburimList.forEach((item) => {
       const menuName = item.menu_name;
-      menuCounts[menuName] = (menuCounts[menuName] || 0) + 1;
+      
+      if (!menuData[menuName]) {
+        menuData[menuName] = {
+          count: 0,
+          lastEatenAt: item.date, // 첫 번째 항목이 가장 최근 (orderBy desc)
+          allDates: []
+        };
+      }
+      
+      menuData[menuName].count += 1;
+      menuData[menuName].allDates.push(item.date);
+      
+      // 더 최근 날짜가 있다면 업데이트 (방어적 코드)
+      if (item.date > menuData[menuName].lastEatenAt) {
+        menuData[menuName].lastEatenAt = item.date;
+      }
     });
 
-    // 횟수 순으로 정렬하여 배열로 변환
-    const sortedMenus = Object.entries(menuCounts)
-      .map(([menu_name, count]) => ({
+    // 메뉴 통계 배열 생성 (기본: 횟수 순 정렬)
+    const menuStatistics = Object.entries(menuData)
+      .map(([menu_name, data]) => ({
         menu_name,
-        count,
+        count: data.count,
+        last_eaten_at: data.lastEatenAt.toISOString(),
+        last_eaten_date: data.lastEatenAt.toISOString().split('T')[0], // YYYY-MM-DD 형식
+        last_eaten_display: data.lastEatenAt.toLocaleDateString("ko-KR"), // 한국어 형식
       }))
-      .sort((a, b) => b.count - a.count);
+      .sort((a, b) => b.count - a.count); // 기본적으로 횟수 순 정렬
 
     const result = {
       totalRecords: mukburimList.length,
-      uniqueMenus: Object.keys(menuCounts).length,
-      menuStatistics: sortedMenus,
+      uniqueMenus: Object.keys(menuData).length,
+      menuStatistics: menuStatistics,
       rawData: mukburimList.map(item => ({
         ...item,
         id: item.id.toString(),
@@ -59,7 +77,11 @@ export const findUserMukburimStatistics = async (userId, startDate, endDate) => 
     console.log(`통계 집계 완료:`, {
       totalRecords: result.totalRecords,
       uniqueMenus: result.uniqueMenus,
-      topMenus: result.menuStatistics.slice(0, 3)
+      topMenus: result.menuStatistics.slice(0, 3).map(menu => ({
+        name: menu.menu_name,
+        count: menu.count,
+        lastEaten: menu.last_eaten_display
+      }))
     });
 
     return result;
@@ -77,7 +99,7 @@ export const findUserMukburimStatistics = async (userId, startDate, endDate) => 
 };
 
 /**
- * 사용자의 월별 먹부림 기록 조회 (캘린더용)
+ * 사용자의 월별 먹부림 기록 조회 (캘린더용) - 기존과 동일
  */
 export const findUserMukburimByMonth = async (userId, year, month) => {
   try {
@@ -134,7 +156,7 @@ export const findUserMukburimByMonth = async (userId, year, month) => {
 };
 
 /**
- * 사용자의 특정 날짜 먹부림 기록 조회
+ * 사용자의 특정 날짜 먹부림 기록 조회 - 기존과 동일
  */
 export const findUserMukburimByDate = async (userId, targetDate) => {
   try {
