@@ -26,7 +26,6 @@ export const handleUserLoginJWT = async (req, res) => {
       refreshToken: refreshToken,
     });
   }
-
   /*
   #swagger.tags= ["Auth"]
   #swagger.summary= "로그인"
