@@ -89,5 +89,6 @@ export const responseFromGetRestData = (data) => {
     currentOpeningHours: currentOpeningHours,
     googlePlaceId: data.googlePlaceId,
     reviewImage: data.reviewImage,
+    zzim: data.zzim,
   };
 };

@@ -288,7 +288,7 @@ app.get("/place/review/:restId", handleGetReview);
 app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
 app.post("/place", isLoggedIn, handleAddRestaurant);
 app.get("/place", optionalAuth, handleGetRestaurant);
-app.get("/place/detail/:restId", handleGetPlaceDetail);
+app.get("/place/detail/:restId", optionalAuth, handleGetPlaceDetail);
 app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
 app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
 app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
