@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { patchUserProfileService } from "../services/user.service.js";
 import { LoginRequiredError, UserUpdateFailedError } from "../errors.js";
+import jwt from "jsonwebtoken";
 
 export const handleUpdateUserInfo = async (req, res, next) => {
   /*
