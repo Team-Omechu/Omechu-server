@@ -1,4 +1,36 @@
 # omechu-server
+
+## 🧁 오메추 프로젝트
+**오늘의 메뉴를 색다르게! 사용자 응답 기반 메뉴 추천을 중심으로 먹을 거리 고민을 줄여주는 서비스, 오메추입니다!**
+
+## 👯 팀원 정보
+umc node.js 8th **위니 김서진**
+umc node.js 8th **솔솔 노찬솔**
+umc node.js 8th **코크 문조원**
+umc node.js 8th **랄프 정휘준**
+
+## 🛠 기술 스택
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Language**: JavaScript (ES6+)
+- **HTTP Status**: http-status-codes
+- **API Documentation**: Swagger
+
+### Database & Storage
+- **Database**: MySQL
+- **Cloud Storage**: AWS S3
+
+### Development & Deployment
+- **Version Control**: Git & GitHub
+- **Cloud Platform**: AWS
+- **Package Manager**: npm
+
+### Architecture Pattern
+- **Design Pattern**: MVC (Model-View-Controller)
+- **API Design**: RESTful API
+- **Code Organization**: Service-Oriented Architecture
+
 ## 브랜치 전략  : git flow 전략
 ```
 main         ← 🔵 배포용 (실서비스 운영)
@@ -8,6 +40,8 @@ main         ← 🔵 배포용 (실서비스 운영)
     ├── feature/api-endpoint
     └── ...
 ```
+
+## 기술 스택 : 
 ## ⭐️ 브랜치(Branch) 컨벤션
 
 1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
