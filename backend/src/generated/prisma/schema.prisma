@@ -14,20 +14,23 @@ model choice {
 }
 
 model menu {
-  id               BigInt             @id @default(autoincrement())
-  name             String             @unique(map: "unique_name") @db.VarChar(30)
-  description      String?            @db.VarChar(150)
-  calory           BigInt?
-  carbo            BigInt?
-  protein          BigInt?
-  fat              BigInt?
-  vitamin          String?            @db.Text
-  allergic         String?            @db.Text
-  sodium           BigInt?
-  image_link       String?
-  menu_tag         menu_tag[]
-  recommend_except recommend_except[]
-  rest_menu        rest_menu[]
+  id                 BigInt             @id @default(autoincrement())
+  name               String             @unique(map: "unique_name") @db.VarChar(30)
+  description        String?            @db.VarChar(150)
+  calory             BigInt?
+  carbo              BigInt?
+  protein            BigInt?
+  fat                BigInt?
+  vitamin            String?            @db.Text
+  allergic           String?            @db.Text
+  sodium             BigInt?
+  image_link         String?
+  recipe_link        String?            @db.VarChar(200)
+  recipe_link_source String?            @db.VarChar(200)
+  recipe_video_name  String?            @db.VarChar(300)
+  menu_tag           menu_tag[]
+  recommend_except   recommend_except[]
+  rest_menu          rest_menu[]
 }
 
 model mukburim {
