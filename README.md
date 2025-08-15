@@ -1,4 +1,36 @@
 # omechu-server
+
+## 🧁 오메추 프로젝트
+**오늘의 메뉴를 색다르게! 사용자 응답 기반 메뉴 추천을 중심으로 먹을 거리 고민을 줄여주는 서비스, 오메추입니다!**
+
+## 👯 팀원 정보
+- umc node.js 8th **위니 김서진**
+- umc node.js 8th **솔솔 노찬솔**
+- umc node.js 8th **코크 문조원**
+- umc node.js 8th **랄프 정휘준**
+
+## 🛠 기술 스택
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Language**: JavaScript (ES6+)
+- **HTTP Status**: http-status-codes
+- **API Documentation**: Swagger
+
+### Database & Storage
+- **Database**: MySQL
+- **Cloud Storage**: AWS S3
+
+### Development & Deployment
+- **Version Control**: Git & GitHub
+- **Cloud Platform**: AWS
+- **Package Manager**: npm
+
+### Architecture Pattern
+- **Design Pattern**: MVC (Model-View-Controller)
+- **API Design**: RESTful API
+- **Code Organization**: Service-Oriented Architecture
+
 ## 브랜치 전략  : git flow 전략
 ```
 main         ← 🔵 배포용 (실서비스 운영)
@@ -8,6 +40,103 @@ main         ← 🔵 배포용 (실서비스 운영)
     ├── feature/api-endpoint
     └── ...
 ```
+## 📌 ERD 구조
+![ERD](erd.png)
+
+## 🏗️ 서버 아키텍처
+
+### 전체 시스템 구조
+오메추 서버는 **3-Layer Architecture**를 기반으로 설계되어 있으며, AWS 클라우드 환경에서 운영됩니다.
+
+```
+Client (Frontend)
+       ↓
+[ Load Balancer ]
+       ↓
+[ Express.js Server ]
+       ↓
+┌─────────────────────────┐
+│     Controller Layer    │ ← API 요청/응답 처리
+├─────────────────────────┤
+│      Service Layer      │ ← 비즈니스 로직 처리
+├─────────────────────────┤
+│       Data Layer        │ ← 데이터베이스 연동
+└─────────────────────────┘
+       ↓
+[ MySQL Database ]
+       ↓
+[ AWS S3 Storage ]
+```
+
+### 계층별 역할
+
+#### 1. **Controller Layer** (`controllers/`)
+- **역할**: HTTP 요청/응답 처리, 라우팅
+- **책임**: 
+  - 클라이언트 요청 파라미터 검증
+  - Service Layer 호출
+  - HTTP 상태 코드 및 응답 형식 관리
+  - 에러 핸들링
+- **예시**: `sortMenu.controller.js`에서 메뉴 랜덤 추천, 검색, 필터링 API 처리
+
+#### 2. **Service Layer** (`services/`)
+- **역할**: 핵심 비즈니스 로직 구현
+- **책임**:
+  - 복잡한 데이터 처리 로직
+  - 외부 API 호출
+  - 데이터 변환 및 가공
+  - 트랜잭션 관리
+- **예시**: 메뉴 추천 알고리즘, 사용자 선호도 분석
+
+#### 3. **Data Layer** (`models/` 또는 `repositories/`)
+- **역할**: 데이터베이스 연동 및 데이터 액세스
+- **책임**:
+  - SQL 쿼리 실행
+  - 데이터베이스 연결 관리
+  - ORM/Query Builder 활용
+  - 데이터 모델 정의
+
+### 주요 기능별 아키텍처
+
+#### 메뉴 추천 시스템
+```
+사용자 요청 → Controller → Service → 추천 알고리즘 → Database 조회 → 결과 반환
+```
+
+#### 이미지 관리 시스템
+```
+이미지 업로드 요청 → Controller → Service → AWS S3 업로드 → URL 반환 → Database 저장
+```
+
+#### 사용자 인증 시스템
+```
+로그인 요청 → Controller → Service → JWT 토큰 생성 → 미들웨어 검증
+```
+
+### 데이터베이스 설계
+- **메뉴 테이블**: 메뉴 정보 및 이미지 링크 저장
+- **사용자 테이블**: 사용자 정보 및 선호도 저장
+- **조회 기록 테이블**: 사용자의 메뉴 조회 이력 추적
+- **태그 테이블**: 메뉴 분류 및 필터링을 위한 태그 시스템
+
+### API 설계 원칙
+- **RESTful API**: 표준 HTTP 메서드 사용
+- **일관된 응답 형식**: `resultType`, `error`, `success` 구조
+- **에러 코드 체계**: 기능별 고유 에러 코드 (M001, M002, ...)
+- **Swagger 문서화**: 모든 API 엔드포인트 문서화
+
+### 보안 및 인증
+- **JWT 토큰**: 사용자 인증 및 권한 관리
+- **미들웨어**: 요청 검증 및 인증 처리
+- **CORS**: 크로스 오리진 요청 관리
+- **Input Validation**: 입력 데이터 검증 및 SQL Injection 방지
+
+### 확장성 고려사항
+- **마이크로서비스 지향**: 기능별 서비스 분리 가능한 구조
+- **캐싱 전략**: Redis 도입 가능
+- **로드 밸런싱**: AWS ELB를 통한 트래픽 분산
+- **모니터링**: 로그 관리 및 성능 모니터링
+
 ## ⭐️ 브랜치(Branch) 컨벤션
 
 1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
