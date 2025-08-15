@@ -15,13 +15,25 @@ export const handleSearchRestaurant = async (req, res) => {
   #swagger.parameters["tag"]={
     in:"query",
     description:"맛집 필터링 시 태그 이름",
-    example:"아침식사"
+    schema: {
+      type: "array",
+      items: { type: "string" }
+    },
+    style: "form",
+    explode: true,
+    example:["아침식사","점심식사"]
     } 
 
   #swagger.parameters["location"]={
     in:"query",
     description:"맛집 필터링 시 위치명",
-    example:"서울 강남구 신사동"
+    schema: {
+      type: "array",
+      items: { type: "string" }
+    },
+    style: "form",
+    explode: true,
+    example:["서울 강남구 신사동","서울 서초구"]
     } 
 
   #swagger.parameters["cursor"]={
