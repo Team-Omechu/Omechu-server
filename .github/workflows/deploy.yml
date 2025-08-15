@@ -25,10 +25,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: |
-            backend/package-lock.json
-            package-lock.json
 
       - name: Check project structure
         run: |
@@ -47,7 +43,7 @@ jobs:
             echo "✅ Found backend/package.json"
             cd backend
             echo "Installing dependencies in backend directory..."
-            npm ci
+            npm install
             echo "✅ Backend dependencies installed"
           else
             echo "❌ No backend/package.json found"
