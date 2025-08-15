@@ -282,7 +282,7 @@ export const recommendMenu = async (choice, userId) => {
     const budgetText =
       {
         1: "0원 이상 1만원 미만",
-        2: "0원 이상 3만 원 이하",
+        2: "1만원 이상 3만원 이하",
         3: "가격 제한 없음",
       }[budget] || "상관 없음";
     console.log("gender: ", gender);
@@ -339,7 +339,7 @@ export const recommendMenu = async (choice, userId) => {
       store: true,
       prompt: {
         id: "pmpt_689b3e9906e88196a3e8ebd71fbd9a9f0d5b975c1f5335da",
-        version: "1"
+        version: "1",
       },
       input: `
       먹는 시간: ${mealTimeText}
@@ -355,10 +355,11 @@ export const recommendMenu = async (choice, userId) => {
 사용자의 알레르기: ${allergyString}
 최근에 먹지 않을 메뉴: ${exceptedMenus2String}
 현재 날씨: ${choice.weather}
-메뉴 리스트: ${menuList}`
+메뉴 리스트: ${menuList}`,
     });
     console.log("GPT response received:", completion);
-    const rawText = completion.output_text || completion.response || completion.content;
+    const rawText =
+      completion.output_text || completion.response || completion.content;
 
     // JSON 배열로 파싱
     const parsedArray = JSON.parse(rawText);
@@ -367,18 +368,21 @@ export const recommendMenu = async (choice, userId) => {
         try {
           const menuData = await prisma.menu.findFirst({
             where: { name: menuItem.menu },
-            select: { image_link: true }
+            select: { image_link: true },
           });
 
           return {
             ...menuItem,
-            image_link: menuData?.image_link || null
+            image_link: menuData?.image_link || null,
           };
         } catch (error) {
-          console.error(`Error fetching image for menu ${menuItem.menu}:`, error);
+          console.error(
+            `Error fetching image for menu ${menuItem.menu}:`,
+            error
+          );
           return {
             ...menuItem,
-            image_link: null
+            image_link: null,
           };
         }
       })
@@ -452,8 +456,8 @@ export const getMenuInfo = async (menuName) => {
         allergic: true,
         image_link: true,
         recipe_link: true,
-        recipe_link_source : true,
-        recipe_video_name : true,
+        recipe_link_source: true,
+        recipe_video_name: true,
       },
     });
 
@@ -489,24 +493,18 @@ export const getMenuInfo = async (menuName) => {
   }
 };
 
-
-
 export const recommendRandom = async (addition) => {
   try {
-
     const openai = new OpenAI({
       apiKey: key,
     });
     console.log("OpenAI client initialized successfully");
     // 사용자 정보 가져오기
-    
-    
-  
 
     const additionString =
       addition && addition.length > 0 ? addition.join(", ") : "없음";
     console.log("additionString:", additionString);
-   
+
     const completion = await openai.chat.completions.create({
       model: "gpt-4.1-mini",
       store: true,
@@ -535,19 +533,19 @@ export const recommendRandom = async (addition) => {
     // JSON 배열로 파싱
     const menu = JSON.parse(rawText);
     console.log("menu in repository : ", menu);
-      const menuData = await prisma.menu.findFirst({
-        where: { name: menu.menu },
-        select: { image_link: true }
-      });
-      
-      const menuWithImage = {
-        name: menu.menu,
-        image_link: menuData?.image_link || null
-      };
-      
-      console.log("Menu with image:", menuWithImage);
-      return menuWithImage;
-    
+    const menuData = await prisma.menu.findFirst({
+      where: { name: menu.menu },
+      select: { image_link: true },
+    });
+
+    const menuWithImage = {
+      name: menu.menu,
+      image_link: menuData?.image_link || null,
+    };
+
+    console.log("Menu with image:", menuWithImage);
+    return menuWithImage;
+
     console.log("Menu with images:", menuWithImages);
     return menuWithImages;
   } catch (error) {
@@ -555,4 +553,3 @@ export const recommendRandom = async (addition) => {
     throw error;
   }
 };
-
