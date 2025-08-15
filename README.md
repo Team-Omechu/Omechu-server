@@ -4,10 +4,10 @@
 **오늘의 메뉴를 색다르게! 사용자 응답 기반 메뉴 추천을 중심으로 먹을 거리 고민을 줄여주는 서비스, 오메추입니다!**
 
 ## 👯 팀원 정보
--umc node.js 8th **위니 김서진**
--umc node.js 8th **솔솔 노찬솔**
--umc node.js 8th **코크 문조원**
--umc node.js 8th **랄프 정휘준**
+- umc node.js 8th **위니 김서진**
+- umc node.js 8th **솔솔 노찬솔**
+- umc node.js 8th **코크 문조원**
+- umc node.js 8th **랄프 정휘준**
 
 ## 🛠 기술 스택
 ### Backend
