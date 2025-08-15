@@ -160,7 +160,16 @@ export const getPlaceDetail = async (restId) => {
   const placeId = await prisma.restaurant.findFirst({
     where: { id: restId },
   });
-  console.log("placeId", placeId);
+  const repreMenu = await prisma.repre_menu.findMany({
+    where: { rest_id: restId },
+  });
+  const menu = repreMenu.map((data) => {
+    return {
+      id: data.id.toString(),
+      menu: data.menu,
+    };
+  });
+  console.log(menu);
   if (placeId.google_place_id === null) {
     const restData = await prisma.rest_tag.findMany({
       where: { rest_id: restId },
@@ -183,6 +192,7 @@ export const getPlaceDetail = async (restId) => {
       address_jibeon: placeId.address_jibeon,
       postal_code: placeId.postal_code,
       rating: placeId.rating,
+      repreMenu: menu || null,
       monday: placeId.monday,
       tuesday: placeId.tuesday,
       wednesday: placeId.wednesday,
