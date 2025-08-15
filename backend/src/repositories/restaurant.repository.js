@@ -256,6 +256,7 @@ export const getPlaceDetail = async (restId, role, userId) => {
       address_jibeon: placeId.address_jibeon,
       postal_code: placeId.postal_code,
       rating: placeId.rating,
+      repreMenu: placeId.repre_menu || null,
       monday: placeId.monday,
       tuesday: placeId.tuesday,
       wednesday: placeId.wednesday,
