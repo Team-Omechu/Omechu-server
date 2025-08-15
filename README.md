@@ -40,8 +40,9 @@ main         ← 🔵 배포용 (실서비스 운영)
     ├── feature/api-endpoint
     └── ...
 ```
+## 📌 ERD 구조
+![ERD](erd.png)
 
-## 기술 스택 : 
 ## ⭐️ 브랜치(Branch) 컨벤션
 
 1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
