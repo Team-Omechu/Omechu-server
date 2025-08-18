@@ -445,7 +445,6 @@ export const getMenuInfo = async (menuName) => {
       // findUnique → findFirst로 변경
       where: { name: menuName },
       select: {
-        id : true,
         name: true,
         description: true,
         calory: true,
@@ -466,14 +465,9 @@ export const getMenuInfo = async (menuName) => {
       console.error(`No menu info found for: ${menuName}`);
       return null;
     }
-    const menuTags = await prisma.menu_tag.findMany({
-      where: { menu_id: menuInfo.id },
-      select: { tag: true },
-    });
-    menuInfo.tags = menuTags.map((tag) => tag.tag);
 
-    //숫자 변환
-    for (const key of ["id", "calory", "carbo", "protein", "fat", "sodium"]) {
+    // 숫자 변환
+    for (const key of ["calory", "carbo", "protein", "fat", "sodium"]) {
       if (menuInfo[key] !== null && menuInfo[key] !== undefined) {
         menuInfo[key] = Number(menuInfo[key]);
       }
