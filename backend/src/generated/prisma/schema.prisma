@@ -8,11 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model choice {
-  id          BigInt  @id @default(autoincrement())
-  description String? @db.VarChar(150)
-}
-
 model menu {
   id                 BigInt             @id @default(autoincrement())
   name               String             @unique(map: "unique_name") @db.VarChar(30)
