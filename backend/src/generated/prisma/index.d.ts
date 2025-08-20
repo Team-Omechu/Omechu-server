@@ -14,11 +14,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model choice
- * 
- */
-export type choice = $Result.DefaultSelection<Prisma.$choicePayload>
-/**
  * Model menu
  * 
  */
@@ -205,8 +200,8 @@ export const user_exercise: typeof $Enums.user_exercise
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Choices
- * const choices = await prisma.choice.findMany()
+ * // Fetch zero or more Menus
+ * const menus = await prisma.menu.findMany()
  * ```
  *
  *
@@ -226,8 +221,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Choices
-   * const choices = await prisma.choice.findMany()
+   * // Fetch zero or more Menus
+   * const menus = await prisma.menu.findMany()
    * ```
    *
    *
@@ -324,16 +319,6 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.choice`: Exposes CRUD operations for the **choice** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Choices
-    * const choices = await prisma.choice.findMany()
-    * ```
-    */
-  get choice(): Prisma.choiceDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.menu`: Exposes CRUD operations for the **menu** model.
     * Example usage:
     * ```ts
@@ -982,7 +967,6 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    choice: 'choice',
     menu: 'menu',
     mukburim: 'mukburim',
     recommend_except: 'recommend_except',
@@ -1022,76 +1006,10 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "choice" | "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent" | "menu_view_time" | "menu_tag"
+      modelProps: "menu" | "mukburim" | "recommend_except" | "report" | "rest_menu" | "restaurant" | "review" | "review_image" | "sessions" | "user" | "allergy" | "prefer" | "zzim" | "email_verification" | "rest_tag" | "password_reset_token" | "repre_menu" | "user_rest" | "agreement_consent" | "menu_view_time" | "menu_tag"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      choice: {
-        payload: Prisma.$choicePayload<ExtArgs>
-        fields: Prisma.choiceFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.choiceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.choiceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          findFirst: {
-            args: Prisma.choiceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.choiceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          findMany: {
-            args: Prisma.choiceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>[]
-          }
-          create: {
-            args: Prisma.choiceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          createMany: {
-            args: Prisma.choiceCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.choiceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          update: {
-            args: Prisma.choiceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          deleteMany: {
-            args: Prisma.choiceDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.choiceUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.choiceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$choicePayload>
-          }
-          aggregate: {
-            args: Prisma.ChoiceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateChoice>
-          }
-          groupBy: {
-            args: Prisma.choiceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ChoiceGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.choiceCountArgs<ExtArgs>
-            result: $Utils.Optional<ChoiceCountAggregateOutputType> | number
-          }
-        }
-      }
       menu: {
         payload: Prisma.$menuPayload<ExtArgs>
         fields: Prisma.menuFieldRefs
@@ -2562,7 +2480,6 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    choice?: choiceOmit
     menu?: menuOmit
     mukburim?: mukburimOmit
     recommend_except?: recommend_exceptOmit
@@ -2962,889 +2879,6 @@ export namespace Prisma {
   /**
    * Models
    */
-
-  /**
-   * Model choice
-   */
-
-  export type AggregateChoice = {
-    _count: ChoiceCountAggregateOutputType | null
-    _avg: ChoiceAvgAggregateOutputType | null
-    _sum: ChoiceSumAggregateOutputType | null
-    _min: ChoiceMinAggregateOutputType | null
-    _max: ChoiceMaxAggregateOutputType | null
-  }
-
-  export type ChoiceAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type ChoiceSumAggregateOutputType = {
-    id: bigint | null
-  }
-
-  export type ChoiceMinAggregateOutputType = {
-    id: bigint | null
-    description: string | null
-  }
-
-  export type ChoiceMaxAggregateOutputType = {
-    id: bigint | null
-    description: string | null
-  }
-
-  export type ChoiceCountAggregateOutputType = {
-    id: number
-    description: number
-    _all: number
-  }
-
-
-  export type ChoiceAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type ChoiceSumAggregateInputType = {
-    id?: true
-  }
-
-  export type ChoiceMinAggregateInputType = {
-    id?: true
-    description?: true
-  }
-
-  export type ChoiceMaxAggregateInputType = {
-    id?: true
-    description?: true
-  }
-
-  export type ChoiceCountAggregateInputType = {
-    id?: true
-    description?: true
-    _all?: true
-  }
-
-  export type ChoiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which choice to aggregate.
-     */
-    where?: choiceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of choices to fetch.
-     */
-    orderBy?: choiceOrderByWithRelationInput | choiceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: choiceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` choices from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` choices.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned choices
-    **/
-    _count?: true | ChoiceCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: ChoiceAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ChoiceSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ChoiceMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ChoiceMaxAggregateInputType
-  }
-
-  export type GetChoiceAggregateType<T extends ChoiceAggregateArgs> = {
-        [P in keyof T & keyof AggregateChoice]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateChoice[P]>
-      : GetScalarType<T[P], AggregateChoice[P]>
-  }
-
-
-
-
-  export type choiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: choiceWhereInput
-    orderBy?: choiceOrderByWithAggregationInput | choiceOrderByWithAggregationInput[]
-    by: ChoiceScalarFieldEnum[] | ChoiceScalarFieldEnum
-    having?: choiceScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ChoiceCountAggregateInputType | true
-    _avg?: ChoiceAvgAggregateInputType
-    _sum?: ChoiceSumAggregateInputType
-    _min?: ChoiceMinAggregateInputType
-    _max?: ChoiceMaxAggregateInputType
-  }
-
-  export type ChoiceGroupByOutputType = {
-    id: bigint
-    description: string | null
-    _count: ChoiceCountAggregateOutputType | null
-    _avg: ChoiceAvgAggregateOutputType | null
-    _sum: ChoiceSumAggregateOutputType | null
-    _min: ChoiceMinAggregateOutputType | null
-    _max: ChoiceMaxAggregateOutputType | null
-  }
-
-  type GetChoiceGroupByPayload<T extends choiceGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ChoiceGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ChoiceGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ChoiceGroupByOutputType[P]>
-            : GetScalarType<T[P], ChoiceGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type choiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    description?: boolean
-  }, ExtArgs["result"]["choice"]>
-
-
-
-  export type choiceSelectScalar = {
-    id?: boolean
-    description?: boolean
-  }
-
-  export type choiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "description", ExtArgs["result"]["choice"]>
-
-  export type $choicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "choice"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      description: string | null
-    }, ExtArgs["result"]["choice"]>
-    composites: {}
-  }
-
-  type choiceGetPayload<S extends boolean | null | undefined | choiceDefaultArgs> = $Result.GetResult<Prisma.$choicePayload, S>
-
-  type choiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<choiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ChoiceCountAggregateInputType | true
-    }
-
-  export interface choiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['choice'], meta: { name: 'choice' } }
-    /**
-     * Find zero or one Choice that matches the filter.
-     * @param {choiceFindUniqueArgs} args - Arguments to find a Choice
-     * @example
-     * // Get one Choice
-     * const choice = await prisma.choice.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends choiceFindUniqueArgs>(args: SelectSubset<T, choiceFindUniqueArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Choice that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {choiceFindUniqueOrThrowArgs} args - Arguments to find a Choice
-     * @example
-     * // Get one Choice
-     * const choice = await prisma.choice.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends choiceFindUniqueOrThrowArgs>(args: SelectSubset<T, choiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Choice that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceFindFirstArgs} args - Arguments to find a Choice
-     * @example
-     * // Get one Choice
-     * const choice = await prisma.choice.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends choiceFindFirstArgs>(args?: SelectSubset<T, choiceFindFirstArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Choice that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceFindFirstOrThrowArgs} args - Arguments to find a Choice
-     * @example
-     * // Get one Choice
-     * const choice = await prisma.choice.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends choiceFindFirstOrThrowArgs>(args?: SelectSubset<T, choiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Choices that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Choices
-     * const choices = await prisma.choice.findMany()
-     * 
-     * // Get first 10 Choices
-     * const choices = await prisma.choice.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const choiceWithIdOnly = await prisma.choice.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends choiceFindManyArgs>(args?: SelectSubset<T, choiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Choice.
-     * @param {choiceCreateArgs} args - Arguments to create a Choice.
-     * @example
-     * // Create one Choice
-     * const Choice = await prisma.choice.create({
-     *   data: {
-     *     // ... data to create a Choice
-     *   }
-     * })
-     * 
-     */
-    create<T extends choiceCreateArgs>(args: SelectSubset<T, choiceCreateArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Choices.
-     * @param {choiceCreateManyArgs} args - Arguments to create many Choices.
-     * @example
-     * // Create many Choices
-     * const choice = await prisma.choice.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends choiceCreateManyArgs>(args?: SelectSubset<T, choiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Choice.
-     * @param {choiceDeleteArgs} args - Arguments to delete one Choice.
-     * @example
-     * // Delete one Choice
-     * const Choice = await prisma.choice.delete({
-     *   where: {
-     *     // ... filter to delete one Choice
-     *   }
-     * })
-     * 
-     */
-    delete<T extends choiceDeleteArgs>(args: SelectSubset<T, choiceDeleteArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Choice.
-     * @param {choiceUpdateArgs} args - Arguments to update one Choice.
-     * @example
-     * // Update one Choice
-     * const choice = await prisma.choice.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends choiceUpdateArgs>(args: SelectSubset<T, choiceUpdateArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Choices.
-     * @param {choiceDeleteManyArgs} args - Arguments to filter Choices to delete.
-     * @example
-     * // Delete a few Choices
-     * const { count } = await prisma.choice.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends choiceDeleteManyArgs>(args?: SelectSubset<T, choiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Choices.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Choices
-     * const choice = await prisma.choice.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends choiceUpdateManyArgs>(args: SelectSubset<T, choiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Choice.
-     * @param {choiceUpsertArgs} args - Arguments to update or create a Choice.
-     * @example
-     * // Update or create a Choice
-     * const choice = await prisma.choice.upsert({
-     *   create: {
-     *     // ... data to create a Choice
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Choice we want to update
-     *   }
-     * })
-     */
-    upsert<T extends choiceUpsertArgs>(args: SelectSubset<T, choiceUpsertArgs<ExtArgs>>): Prisma__choiceClient<$Result.GetResult<Prisma.$choicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Choices.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceCountArgs} args - Arguments to filter Choices to count.
-     * @example
-     * // Count the number of Choices
-     * const count = await prisma.choice.count({
-     *   where: {
-     *     // ... the filter for the Choices we want to count
-     *   }
-     * })
-    **/
-    count<T extends choiceCountArgs>(
-      args?: Subset<T, choiceCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ChoiceCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Choice.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ChoiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ChoiceAggregateArgs>(args: Subset<T, ChoiceAggregateArgs>): Prisma.PrismaPromise<GetChoiceAggregateType<T>>
-
-    /**
-     * Group by Choice.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {choiceGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends choiceGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: choiceGroupByArgs['orderBy'] }
-        : { orderBy?: choiceGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, choiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChoiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the choice model
-   */
-  readonly fields: choiceFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for choice.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__choiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the choice model
-   */
-  interface choiceFieldRefs {
-    readonly id: FieldRef<"choice", 'BigInt'>
-    readonly description: FieldRef<"choice", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * choice findUnique
-   */
-  export type choiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter, which choice to fetch.
-     */
-    where: choiceWhereUniqueInput
-  }
-
-  /**
-   * choice findUniqueOrThrow
-   */
-  export type choiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter, which choice to fetch.
-     */
-    where: choiceWhereUniqueInput
-  }
-
-  /**
-   * choice findFirst
-   */
-  export type choiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter, which choice to fetch.
-     */
-    where?: choiceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of choices to fetch.
-     */
-    orderBy?: choiceOrderByWithRelationInput | choiceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for choices.
-     */
-    cursor?: choiceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` choices from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` choices.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of choices.
-     */
-    distinct?: ChoiceScalarFieldEnum | ChoiceScalarFieldEnum[]
-  }
-
-  /**
-   * choice findFirstOrThrow
-   */
-  export type choiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter, which choice to fetch.
-     */
-    where?: choiceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of choices to fetch.
-     */
-    orderBy?: choiceOrderByWithRelationInput | choiceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for choices.
-     */
-    cursor?: choiceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` choices from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` choices.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of choices.
-     */
-    distinct?: ChoiceScalarFieldEnum | ChoiceScalarFieldEnum[]
-  }
-
-  /**
-   * choice findMany
-   */
-  export type choiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter, which choices to fetch.
-     */
-    where?: choiceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of choices to fetch.
-     */
-    orderBy?: choiceOrderByWithRelationInput | choiceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing choices.
-     */
-    cursor?: choiceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` choices from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` choices.
-     */
-    skip?: number
-    distinct?: ChoiceScalarFieldEnum | ChoiceScalarFieldEnum[]
-  }
-
-  /**
-   * choice create
-   */
-  export type choiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * The data needed to create a choice.
-     */
-    data?: XOR<choiceCreateInput, choiceUncheckedCreateInput>
-  }
-
-  /**
-   * choice createMany
-   */
-  export type choiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many choices.
-     */
-    data: choiceCreateManyInput | choiceCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * choice update
-   */
-  export type choiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * The data needed to update a choice.
-     */
-    data: XOR<choiceUpdateInput, choiceUncheckedUpdateInput>
-    /**
-     * Choose, which choice to update.
-     */
-    where: choiceWhereUniqueInput
-  }
-
-  /**
-   * choice updateMany
-   */
-  export type choiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update choices.
-     */
-    data: XOR<choiceUpdateManyMutationInput, choiceUncheckedUpdateManyInput>
-    /**
-     * Filter which choices to update
-     */
-    where?: choiceWhereInput
-    /**
-     * Limit how many choices to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * choice upsert
-   */
-  export type choiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * The filter to search for the choice to update in case it exists.
-     */
-    where: choiceWhereUniqueInput
-    /**
-     * In case the choice found by the `where` argument doesn't exist, create a new choice with this data.
-     */
-    create: XOR<choiceCreateInput, choiceUncheckedCreateInput>
-    /**
-     * In case the choice was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<choiceUpdateInput, choiceUncheckedUpdateInput>
-  }
-
-  /**
-   * choice delete
-   */
-  export type choiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-    /**
-     * Filter which choice to delete.
-     */
-    where: choiceWhereUniqueInput
-  }
-
-  /**
-   * choice deleteMany
-   */
-  export type choiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which choices to delete
-     */
-    where?: choiceWhereInput
-    /**
-     * Limit how many choices to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * choice without action
-   */
-  export type choiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the choice
-     */
-    select?: choiceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the choice
-     */
-    omit?: choiceOmit<ExtArgs> | null
-  }
-
 
   /**
    * Model menu
@@ -24805,14 +23839,6 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const ChoiceScalarFieldEnum: {
-    id: 'id',
-    description: 'description'
-  };
-
-  export type ChoiceScalarFieldEnum = (typeof ChoiceScalarFieldEnum)[keyof typeof ChoiceScalarFieldEnum]
-
-
   export const MenuScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -25076,13 +24102,6 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-  export const choiceOrderByRelevanceFieldEnum: {
-    description: 'description'
-  };
-
-  export type choiceOrderByRelevanceFieldEnum = (typeof choiceOrderByRelevanceFieldEnum)[keyof typeof choiceOrderByRelevanceFieldEnum]
-
-
   export const menuOrderByRelevanceFieldEnum: {
     name: 'name',
     description: 'description',
@@ -25322,46 +24341,6 @@ export namespace Prisma {
    * Deep Input Types
    */
 
-
-  export type choiceWhereInput = {
-    AND?: choiceWhereInput | choiceWhereInput[]
-    OR?: choiceWhereInput[]
-    NOT?: choiceWhereInput | choiceWhereInput[]
-    id?: BigIntFilter<"choice"> | bigint | number
-    description?: StringNullableFilter<"choice"> | string | null
-  }
-
-  export type choiceOrderByWithRelationInput = {
-    id?: SortOrder
-    description?: SortOrderInput | SortOrder
-    _relevance?: choiceOrderByRelevanceInput
-  }
-
-  export type choiceWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: choiceWhereInput | choiceWhereInput[]
-    OR?: choiceWhereInput[]
-    NOT?: choiceWhereInput | choiceWhereInput[]
-    description?: StringNullableFilter<"choice"> | string | null
-  }, "id">
-
-  export type choiceOrderByWithAggregationInput = {
-    id?: SortOrder
-    description?: SortOrderInput | SortOrder
-    _count?: choiceCountOrderByAggregateInput
-    _avg?: choiceAvgOrderByAggregateInput
-    _max?: choiceMaxOrderByAggregateInput
-    _min?: choiceMinOrderByAggregateInput
-    _sum?: choiceSumOrderByAggregateInput
-  }
-
-  export type choiceScalarWhereWithAggregatesInput = {
-    AND?: choiceScalarWhereWithAggregatesInput | choiceScalarWhereWithAggregatesInput[]
-    OR?: choiceScalarWhereWithAggregatesInput[]
-    NOT?: choiceScalarWhereWithAggregatesInput | choiceScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"choice"> | bigint | number
-    description?: StringNullableWithAggregatesFilter<"choice"> | string | null
-  }
 
   export type menuWhereInput = {
     AND?: menuWhereInput | menuWhereInput[]
@@ -26684,41 +25663,6 @@ export namespace Prisma {
     tag?: StringWithAggregatesFilter<"menu_tag"> | string
   }
 
-  export type choiceCreateInput = {
-    id?: bigint | number
-    description?: string | null
-  }
-
-  export type choiceUncheckedCreateInput = {
-    id?: bigint | number
-    description?: string | null
-  }
-
-  export type choiceUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type choiceUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type choiceCreateManyInput = {
-    id?: bigint | number
-    description?: string | null
-  }
-
-  export type choiceUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type choiceUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type menuCreateInput = {
     id?: bigint | number
     name: string
@@ -28016,89 +26960,6 @@ export namespace Prisma {
     not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type choiceOrderByRelevanceInput = {
-    fields: choiceOrderByRelevanceFieldEnum | choiceOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type choiceCountOrderByAggregateInput = {
-    id?: SortOrder
-    description?: SortOrder
-  }
-
-  export type choiceAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type choiceMaxOrderByAggregateInput = {
-    id?: SortOrder
-    description?: SortOrder
-  }
-
-  export type choiceMinOrderByAggregateInput = {
-    id?: SortOrder
-    description?: SortOrder
-  }
-
-  export type choiceSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -28112,6 +26973,21 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type BigIntNullableFilter<$PrismaModel = never> = {
@@ -28141,6 +27017,11 @@ export namespace Prisma {
     every?: rest_menuWhereInput
     some?: rest_menuWhereInput
     none?: rest_menuWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type menu_tagOrderByRelationAggregateInput = {
@@ -28230,6 +27111,22 @@ export namespace Prisma {
     sodium?: SortOrder
   }
 
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -28246,6 +27143,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -29468,18 +28383,6 @@ export namespace Prisma {
     menu_id?: SortOrder
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type menu_tagCreateNestedManyWithoutMenuInput = {
     create?: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput> | menu_tagCreateWithoutMenuInput[] | menu_tagUncheckedCreateWithoutMenuInput[]
     connectOrCreate?: menu_tagCreateOrConnectWithoutMenuInput | menu_tagCreateOrConnectWithoutMenuInput[]
@@ -29522,8 +28425,20 @@ export namespace Prisma {
     connect?: rest_menuWhereUniqueInput | rest_menuWhereUniqueInput[]
   }
 
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NullableBigIntFieldUpdateOperationsInput = {
@@ -30797,6 +29712,21 @@ export namespace Prisma {
     not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -30810,6 +29740,17 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | null
+    notIn?: bigint[] | number[] | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
   export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -30850,6 +29791,24 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -30877,50 +29836,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
