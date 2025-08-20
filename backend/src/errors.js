@@ -262,6 +262,7 @@ export class FailToUpdateRestData extends Error {
 
 export class InvalidVerificationCodeError extends Error {
   errorCode = "V001";
+  statusCode = 400; 
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -271,6 +272,7 @@ export class InvalidVerificationCodeError extends Error {
 
 export class VerificationCodeExpiredError extends Error {
   errorCode = "V002";
+  statusCode = 401;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
