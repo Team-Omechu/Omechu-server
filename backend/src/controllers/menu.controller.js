@@ -420,11 +420,6 @@ export const handleGetMenuInfo = async (req, res) => {
               recipe_video_name: {
                 type: 'string',
                 example: '전문점 뺨치는 짜장면 비밀레시피 공개합니다'
-              },
-              tags : {
-                type: 'array',
-                items: { type: 'string' },
-                example: ['점심', '든든한 한 끼 식사', '혼자', '1만원 미만'],
               }
             }
           }
