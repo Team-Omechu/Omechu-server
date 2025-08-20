@@ -120,11 +120,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ChoiceScalarFieldEnum = {
-  id: 'id',
-  description: 'description'
-};
-
 exports.Prisma.MenuScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -316,10 +311,6 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.choiceOrderByRelevanceFieldEnum = {
-  description: 'description'
-};
-
 exports.Prisma.menuOrderByRelevanceFieldEnum = {
   name: 'name',
   description: 'description',
@@ -447,7 +438,6 @@ exports.prefer_type = exports.$Enums.prefer_type = {
 };
 
 exports.Prisma.ModelName = {
-  choice: 'choice',
   menu: 'menu',
   mukburim: 'mukburim',
   recommend_except: 'recommend_except',
