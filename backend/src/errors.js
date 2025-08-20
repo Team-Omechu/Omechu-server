@@ -1,5 +1,6 @@
 export class NoEmailOrPasswd extends Error {
   errorCode = "C001";
+  statusCode = 400
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -9,6 +10,7 @@ export class NoEmailOrPasswd extends Error {
 
 export class InCorrectPasswd extends Error {
   errorCode = "C002";
+  statusCode = 401
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
