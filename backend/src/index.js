@@ -219,6 +219,17 @@ export const isLoggedIn = (req, res, next) => {
   return next();
 };
 
+export const isLoggedInforRecommend = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return next();
+  }
+  const accessToken = authHeader.split(" ")[1];
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
+};
+
 // 로그인 / 비로그인 검증 미들웨어
 export const optionalAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -264,7 +275,7 @@ app.get("/auth/kakao", handleKakaoRedirect);
 app.get("/auth/kakao/callback", handleKakaoCallback);
 
 //메인페이지 관련
-app.post("/recommend", handleRecommendMenu);
+app.post("/recommend",isLoggedInforRecommend, handleRecommendMenu);
 app.post("/recommend/random", handleRecommendRandom);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
