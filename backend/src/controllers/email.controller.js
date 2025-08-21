@@ -39,20 +39,28 @@ export const handleSendEmailCode = async (req, res, next) => {
     }
     }
 
-    #swagger.responses[500] = {
+  #swagger.responses[500] = {
     description: "서버 오류",
     content: {
-        'application/json': {
+      'application/json': {
         schema: {
-            type: 'object',
-            properties: {
-            message: { type: 'string', example: '서버 오류' }
-            }
+          type: 'object',
+          properties: {
+            resultType: { type: 'string', example: 'FAIL' },
+            error: {
+              type: 'object',
+              properties: {
+                errorCode: { type: 'string', example: 'SERVER_ERROR' },
+                reason: { type: 'string', example: '서버 내부 오류가 발생했습니다.' }
+              }
+            },
+            success: { example: null }
+          }
         }
-        }
+      }
     }
-    }
-    */
+  }
+*/
 
   try {
     await sendVerificationCodeService(req.body.email);
@@ -98,13 +106,32 @@ export const handleVerifyEmailCode = async (req, res, next) => {
   }
 
   #swagger.responses[400] = {
-    description: "인증번호 불일치",
+    description: "잘못된 인증번호 or 만료된 인증번호",
     content: {
       'application/json': {
         schema: {
           type: 'object',
           properties: {
-            message: { type: 'string', example: '인증번호가 일치하지 않습니다.' }
+            resultType: { type: 'string', example: 'FAIL' },
+            error: {
+              oneOf: [
+                {
+                  type: 'object',
+                  properties: {
+                    errorCode: { type: 'string', example: 'V001' },
+                    reason: { type: 'string', example: '인증번호가 일치하지 않습니다.' }
+                  }
+                },
+                {
+                  type: 'object',
+                  properties: {
+                    errorCode: { type: 'string', example: 'V002' },
+                    reason: { type: 'string', example: '인증번호가 만료되었습니다. 다시 요청해 주세요.' }
+                  }
+                }
+              ]
+            },
+            success: { example: null }
           }
         }
       }
@@ -118,13 +145,21 @@ export const handleVerifyEmailCode = async (req, res, next) => {
         schema: {
           type: 'object',
           properties: {
-            message: { type: 'string', example: '서버 오류' }
+            resultType: { type: 'string', example: 'FAIL' },
+            error: {
+              type: 'object',
+              properties: {
+                errorCode: { type: 'string', example: 'SERVER_ERROR' },
+                reason: { type: 'string', example: '서버 내부 오류가 발생했습니다.' }
+              }
+            },
+            success: { example: null }
           }
         }
       }
     }
   }
-  */
+*/
   try {
     await verifyCodeService(req.body.email, req.body.code);
     res.status(StatusCodes.OK).success({ message: "이메일 인증 성공" });

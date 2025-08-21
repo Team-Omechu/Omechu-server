@@ -1,5 +1,6 @@
 export class NoEmailOrPasswd extends Error {
   errorCode = "C001";
+  statusCode = 400
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -9,6 +10,7 @@ export class NoEmailOrPasswd extends Error {
 
 export class InCorrectPasswd extends Error {
   errorCode = "C002";
+  statusCode = 401
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -191,6 +193,7 @@ export class InvalidProfileData extends Error {
 
 export class InvalidOrExpiredTokenError extends Error {
   errorCode = "E001";
+  statusCode = 400; 
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -200,6 +203,7 @@ export class InvalidOrExpiredTokenError extends Error {
 
 export class UserNotFoundError extends Error {
   errorCode = "E002";
+  statusCode = 404;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -260,6 +264,7 @@ export class FailToUpdateRestData extends Error {
 
 export class InvalidVerificationCodeError extends Error {
   errorCode = "V001";
+  statusCode = 400; 
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -269,6 +274,7 @@ export class InvalidVerificationCodeError extends Error {
 
 export class VerificationCodeExpiredError extends Error {
   errorCode = "V002";
+  statusCode = 401;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -413,6 +419,25 @@ export class NotYourReview extends Error {
 
 export class NoMenuData extends Error {
   errorCode = "C009";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class VerificationCodeMismatchError extends Error {
+  errorCode = "V002";
+  constructor(reason, data) {
+    super(reason);
+    this.reason = reason;
+    this.data = data;
+  }
+}
+
+export class PasswordMismatchError extends Error {
+  errorCode = "P002";
+  statusCode = 401; 
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
