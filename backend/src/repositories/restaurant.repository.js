@@ -234,21 +234,20 @@ export const getPlaceDetail = async (restId, role, userId) => {
   if (role === "member") {
     placeId = { ...placeId, zzim: placeId.zzim.length > 0 };
   }
-
+  const restData = await prisma.rest_tag.findMany({
+    where: { rest_id: restId },
+    select: { tag: true },
+    take: 3,
+    orderBy: { count: "asc" },
+  });
+  const reviewImage = await prisma.review_image.findMany({
+    where: { rest_id: restId },
+    select: { id: true, link: true },
+  });
+  const reviewImageToInt = await reviewImage.map((data) => {
+    return { ...data, id: data.id.toString() };
+  });
   if (placeId.google_place_id === null) {
-    const restData = await prisma.rest_tag.findMany({
-      where: { rest_id: restId },
-      select: { tag: true },
-      take: 3,
-      orderBy: { count: "asc" },
-    });
-    const reviewImage = await prisma.review_image.findMany({
-      where: { review_id: restData.id },
-      select: { id: true, link: true },
-    });
-    const reviewImageToInt = await reviewImage.map((data) => {
-      return { ...data, id: data.id.toString() };
-    });
     return {
       id: placeId.id.toString(),
       name: placeId.name,
@@ -277,7 +276,7 @@ export const getPlaceDetail = async (restId, role, userId) => {
         "Content-Type": "application/json",
         "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY,
         "X-Goog-FieldMask":
-          "currentOpeningHours.weekdayDescriptions,displayName,formattedAddress,location,rating,photos,postalAddress,addressComponents",
+          "currentOpeningHours.weekdayDescriptions,displayName,formattedAddress,location,rating,postalAddress,addressComponents",
       },
     });
     if (!response.ok) {
@@ -289,19 +288,18 @@ export const getPlaceDetail = async (restId, role, userId) => {
       displayName,
       currentOpeningHours,
       rating,
-      photos,
       addressComponents,
       postalAddress,
       formattedAddress,
     } = await response.json();
-    const reviewImage = photos.map((image, index) => {
-      return { [`name${index}`]: image.name };
-    });
+
     const postalCode =
       postalAddress?.postalCode ||
       addressComponents?.find((c) => c.types?.includes("postal_code"))
         ?.longText ||
       null;
+
+    const url2 = ``;
     const newUrl = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location.longitude}&y=${location.latitude}`;
 
     const responseData = await fetch(newUrl, {
@@ -337,7 +335,7 @@ export const getPlaceDetail = async (restId, role, userId) => {
       rating: rating,
       currentOpeningHours: currentOpeningHours.weekdayDescriptions,
       googlePlaceId: placeId.google_place_id,
-      reviewImage: reviewImage,
+      reviewImage: reviewImageToInt,
       zzim: placeId?.zzim,
     };
   }
