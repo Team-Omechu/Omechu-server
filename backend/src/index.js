@@ -169,8 +169,8 @@ app.get("/openapi.json", async (req, res, next) => {
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "로컬 서버",
+        url: "https://omechu-api.log8.kr",
+        description: "배포 서버",
       },
     ],
     components: {
