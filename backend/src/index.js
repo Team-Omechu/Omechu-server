@@ -169,8 +169,8 @@ app.get("/openapi.json", async (req, res, next) => {
     },
     servers: [
       {
-        url: "https://omechu-api.log8.kr",
-        description: "배포 서버",
+        url: "http://localhost:3000",
+        description: "로컬 서버",
       },
     ],
     components: {
@@ -212,6 +212,17 @@ export const isLoggedIn = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new NoBearerToken("인증 토큰이 없습니다.");
+  }
+  const accessToken = authHeader.split(" ")[1];
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
+};
+
+export const isLoggedInforRecommend = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return next();
   }
   const accessToken = authHeader.split(" ")[1];
   const { id, role } = verifyTokenOrThrow(accessToken);
@@ -264,7 +275,7 @@ app.get("/auth/kakao", handleKakaoRedirect);
 app.get("/auth/kakao/callback", handleKakaoCallback);
 
 //메인페이지 관련
-app.post("/recommend", handleRecommendMenu);
+app.post("/recommend",isLoggedInforRecommend, handleRecommendMenu);
 app.post("/recommend/random", handleRecommendRandom);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
