@@ -51,6 +51,73 @@ export const handleResetRequest = async (req, res, next) => {
   }
 }
 
+#swagger.responses[400] = {
+  description: "잘못된 입력값 (예: email 누락/형식 오류)",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            properties: {
+              errorCode: { type: "string", example: "INVALID_INPUT" },
+              reason: { type: "string", example: "email이 필요합니다." },
+              data: { type: "object", nullable: true, example: null }
+            }
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
+
+#swagger.responses[404] = {
+  description: "존재하지 않는 이메일",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            properties: {
+              errorCode: { type: "string", example: "E002" },
+              reason: { type: "string", example: "해당 이메일의 사용자가 존재하지 않습니다." },
+              data: { type: "object", nullable: true, example: null }
+            }
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
+
+#swagger.responses[500] = {
+  description: "서버 내부 오류",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            properties: {
+              errorCode: { type: "string", example: "SERVER_ERROR" },
+              reason: { type: "string", example: "서버 내부 오류가 발생했습니다." }
+            }
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
 */
 
   try {
@@ -108,6 +175,84 @@ export const handleResetPassword = async (req, res, next) => {
       }
     }
   }
+#swagger.responses[400] = {
+  description: "잘못된 입력 또는 만료/유효하지 않은 토큰",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            oneOf: [
+              {
+                properties: {
+                  errorCode: { type: "string", example: "INVALID_INPUT" },
+                  reason: { type: "string", example: "token과 newPassword가 필요합니다." },
+                  data: { type: "object", nullable: true, example: null }
+                }
+              },
+              {
+                properties: {
+                  errorCode: { type: "string", example: "E001" },
+                  reason: { type: "string", example: "유효하지 않거나 만료된 토큰입니다." },
+                  data: { type: "object", nullable: true, example: null }
+                }
+              }
+            ]
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
+
+#swagger.responses[404] = {
+  description: "사용자 없음 (토큰의 이메일이 삭제/변경된 경우 포함)",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            properties: {
+              errorCode: { type: "string", example: "E002" },
+              reason: { type: "string", example: "해당 사용자를 찾을 수 없습니다." },
+              data: { type: "object", nullable: true, example: null }
+            }
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
+
+#swagger.responses[500] = {
+  description: "서버 내부 오류",
+  content: {
+    'application/json': {
+      schema: {
+        type: "object",
+        properties: {
+          resultType: { type: "string", example: "FAIL" },
+          error: {
+            type: "object",
+            properties: {
+              errorCode: { type: "string", example: "SERVER_ERROR" },
+              reason: { type: "string", example: "서버 내부 오류가 발생했습니다." }
+            }
+          },
+          success: { nullable: true, example: null }
+        }
+      }
+    }
+  }
+}
 */
 
   try {
@@ -132,22 +277,6 @@ export const handleResetPassword = async (req, res, next) => {
 
     res.success("비밀번호가 성공적으로 변경되었습니다");
   } catch (err) {
-       if (err.name === "InvalidOrExpiredTokenError") {
-     return res.status(400).error({
-       errorCode: "INVALID_TOKEN",
-       reason: err.message,
-     });
-   }
-   if (err.name === "UserNotFoundError") {
-     return res.status(404).error({
-       errorCode: "USER_NOT_FOUND",
-       reason: err.message,
-     });
-   }
-   console.error("[reset-passwd] error:", err?.stack || err?.message || err);
-   return res.status(500).error({
-     errorCode: "SERVER_ERROR",
-     reason: "서버 내부 오류가 발생했습니다.",
-   });
+      next(err);
   }
 };
