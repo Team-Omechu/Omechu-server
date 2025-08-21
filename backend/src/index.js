@@ -294,7 +294,6 @@ app.post("/mukburim", isLoggedIn, handleInsertMukburim);
 app.get("/mukburim/statistics", isLoggedIn, handleGetMukburimStatistics);
 app.get("/mukburim/calendar", isLoggedIn, handleGetMukburimCalendar);
 app.get("/mukburim/date", isLoggedIn, handleGetMukburimByDate);
-
 // Restaurant & Review
 app.post("/place/review/:restId", isLoggedIn, handleAddReview);
 app.get("/place/review/:restId", handleGetReview);
