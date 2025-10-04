@@ -1,5 +1,4 @@
-# .github/workflows/deploy.yml
-name: Deploy FoodApp to EC2
+name: Deploy Omechu to EC2
 
 on:
   push:
@@ -92,7 +91,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: ".env.production"
-          target: "/home/ubuntu/foodapp"
+          target: "/var/www/omechu"
 
       - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -104,7 +103,7 @@ jobs:
           timeout: 300s
           script: |
             # 변수 설정
-            PROJECT_DIR="/home/ubuntu/foodapp"
+            PROJECT_DIR="/var/www/omechu"
             LOG_FILE="/home/ubuntu/deploy.log"
 
             # 로그 함수
