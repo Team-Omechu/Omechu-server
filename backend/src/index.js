@@ -169,8 +169,8 @@ app.get("/openapi.json", async (req, res, next) => {
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "로컬 서버",
+        url: "https://omechu-api.log8.kr",
+        description: "배포 서버",
       },
     ],
     components: {
@@ -294,7 +294,6 @@ app.post("/mukburim", isLoggedIn, handleInsertMukburim);
 app.get("/mukburim/statistics", isLoggedIn, handleGetMukburimStatistics);
 app.get("/mukburim/calendar", isLoggedIn, handleGetMukburimCalendar);
 app.get("/mukburim/date", isLoggedIn, handleGetMukburimByDate);
-
 // Restaurant & Review
 app.post("/place/review/:restId", isLoggedIn, handleAddReview);
 app.get("/place/review/:restId", handleGetReview);
