@@ -123,12 +123,15 @@ app.use(
   swaggerUiExpress.setup(
     {},
     {
-      swaggerOptions: { url: "/auth/openapi.json", withCredentials: true },
+      swaggerOptions: { url: "/openapi.json", withCredentials: true },
     }
   )
 );
+app.get("/docs/openapi.json", (req, res) => {
+  res.redirect(302, "/openapi.json");
+});
 
-app.get("/auth/openapi.json", async (req, res) => {
+app.get("/openapi.json", async (req, res) => {
   const options = {
     openapi: "3.0.0",
     disableLogs: true,
