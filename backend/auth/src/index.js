@@ -127,9 +127,6 @@ app.use(
     }
   )
 );
-app.get("/docs/openapi.json", (req, res) => {
-  res.redirect(302, "/openapi.json");
-});
 
 app.get("/openapi.json", async (req, res) => {
   const options = {
