@@ -117,40 +117,27 @@ app.use(
 );
 
 // Swagger (auth 서비스 전용)
-app.use(
-  "/docs",
-  swaggerUiExpress.serve,
-  swaggerUiExpress.setup(
-    {},
-    {
-      swaggerOptions: { url: "/openapi.json", withCredentials: true },
-    }
-  )
-);
+// ... (상단 import 및 app 설정들)
 
-app.get("/openapi.json", async (req, res) => {
+// 1. 전역 변수 선언 (함수 밖에서도 쓸 수 있게)
+let swaggerSpec = null;
+
+// 2. 함수 정의 (이 안에 모든 로직이 들어감)
+const startSwagger = async () => {
   const options = {
     openapi: "3.0.0",
     disableLogs: true,
     writeOutputFile: false,
   };
 
-  const outputFile = "/dev/null";
-  const routes = ["./index.js", "./controllers/*.js"];
-
   const doc = {
+    openapi: "3.0.0",
     info: {
       title: "Omechu Auth API",
+      version: "1.0.0",
       description: "Omechu 인증/인가 서비스 API",
     },
-    servers: [
-      // 배포 시 auth API가 노출되는 주소로 바꾸는 게 맞음
-      // 예: https://omechu-api.log8.kr/auth 또는 https://auth-api.omechu.com
-      {
-        url: "https://omechu-api.log8.kr",
-        description: "Gateway",
-      },
-    ],
+    servers: [{ url: "https://omechu-api.log8.kr/auth" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -159,9 +146,41 @@ app.get("/openapi.json", async (req, res) => {
     security: [{ bearerAuth: [] }],
   };
 
-  const result = await swaggerAutogen(options)(outputFile, routes, doc);
-  res.json(result ? result.data : null);
-});
+  const routes = ["./index.js", "./controllers/*.js"];
+
+  try {
+    // [A] 데이터를 생성할 때까지 기다림
+    const result = await swaggerAutogen(options)("/dev/null", routes, doc);
+    swaggerSpec = result.data || doc;
+
+    // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
+    app.use(
+      ["/docs", "/auth/docs"],
+      swaggerUiExpress.serve,
+      swaggerUiExpress.setup(swaggerSpec, {
+        swaggerOptions: {
+          url: null,
+          configUrl: null,
+          withCredentials: true,
+        },
+      })
+    );
+
+    // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
+    const forceJsonResponse = (req, res) => res.json(swaggerSpec);
+    app.get("/openapi.json", forceJsonResponse);
+    app.get("/docs/openapi.json", forceJsonResponse);
+    app.get("/auth/openapi.json", forceJsonResponse);
+    app.get("/auth/docs/openapi.json", forceJsonResponse);
+
+    console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
+  } catch (err) {
+    console.error("❌ Swagger 생성 실패:", err);
+  }
+};
+
+// 3. 함수 실행 (잊지 말고 호출!)
+startSwagger();
 
 // --- Auth 미들웨어(기존 로직 유지) ---
 function verifyTokenOrThrow(accessToken) {
