@@ -123,7 +123,7 @@ app.use(
   swaggerUiExpress.setup(
     {},
     {
-      swaggerOptions: { url: "/openapi.json", withCredentials: true },
+      swaggerOptions: { url: "openapi.json", withCredentials: true },
     }
   )
 );
@@ -147,8 +147,8 @@ app.get("/openapi.json", async (req, res) => {
       // 배포 시 auth API가 노출되는 주소로 바꾸는 게 맞음
       // 예: https://omechu-api.log8.kr/auth 또는 https://auth-api.omechu.com
       {
-        url: process.env.SWAGGER_SERVER_URL || "http://localhost:3000",
-        description: "Auth API",
+        url: "https://omechu-api.log8.kr",
+        description: "Gateway",
       },
     ],
     components: {

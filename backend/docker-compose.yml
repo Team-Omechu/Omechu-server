@@ -17,15 +17,15 @@ services:
       - omechu-net
 
     depends_on:
-      - auth_api_db
-  auth_api_db:
+      - omechu_db
+  omechu_db:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=omechu1234
-      - MYSQL_DATABASE=auth_api_db
+      - MYSQL_DATABASE=omechu_db
       - MYSQL_USER=omechu1234
       - MYSQL_PASSWORD=omechu1234
-    container_name: auth_api_db
+    container_name: omechu_db
     restart: unless-stopped
     command:
       - --character-set-server=utf8mb4
@@ -33,11 +33,11 @@ services:
     networks:
       - omechu-net
     volumes:
-      - auth_api_db_data:/var/lib/mysql
+      - omechu_db_data:/var/lib/mysql
 
 networks:
   omechu-net:
     external: true
 
 volumes:
-  auth_api_db_data:
+  omechu_db_data:
