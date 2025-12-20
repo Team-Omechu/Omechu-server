@@ -15,9 +15,9 @@ services:
     restart: unless-stopped
     networks:
       - omechu-net
-
     depends_on:
       - omechu_db
+
   omechu_db:
     image: mysql:8.0
     environment:
