@@ -1,0 +1,43 @@
+services:
+  default_container:
+    build:
+      context: ./default_container
+    container_name: default_container
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - omechu-net
+  auth_api:
+    build:
+      context: ./auth
+    container_name: auth_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+
+    depends_on:
+      - auth_api_db
+  auth_api_db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=omechu1234
+      - MYSQL_DATABASE=auth_api_db
+      - MYSQL_USER=omechu1234
+      - MYSQL_PASSWORD=omechu1234
+    container_name: auth_api_db
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - omechu-net
+    volumes:
+      - auth_api_db_data:/var/lib/mysql
+
+networks:
+  omechu-net:
+    external: true
+
+volumes:
+  auth_api_db_data:
