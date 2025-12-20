@@ -227,13 +227,13 @@ app.post("/auth/send", handleSendEmailCode);
 app.post("/auth/verify", handleVerifyEmailCode);
 
 app.post("/auth/reset-request", handleResetRequest);
-app.patch("/reset-passwd", handleResetPassword);
+app.patch("/auth/reset-passwd", handleResetPassword);
 
 app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 
 // 약관
-app.post("/agreements/consent", isLoggedIn, handleAgreementConsent);
-app.get("/agreements/consent", isLoggedIn, getAgreementConsent);
+app.post("/auth/agreements/consent", isLoggedIn, handleAgreementConsent);
+app.get("/auth/agreements/consent", isLoggedIn, getAgreementConsent);
 
 // 카카오 로그인
 app.get("/auth/kakao", handleKakaoRedirect);
