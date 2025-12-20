@@ -15,6 +15,8 @@ services:
     restart: unless-stopped
     networks:
       - omechu-net
+    env_file:
+      - ./auth/.env
     depends_on:
       - omechu_db
 
