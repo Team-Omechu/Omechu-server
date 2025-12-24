@@ -5,7 +5,11 @@ import {
   findRelatedMenu,
 } from "../repositories/menu.repository.js";
 import { fetchKakaoPlaces } from "../repositories/restaurant.repository.js";
-import { getMenu, getMenuInfo, recommendRandom  } from "../repositories/menu.repository.js";
+import {
+  getMenu,
+  getMenuInfo,
+  recommendRandom,
+} from "../repositories/menu.repository.js";
 export const recommendMenuService = async (choice, userId) => {
   const menus = await recommendMenu(choice, userId);
   console.log("Menu recommendation from service:", menus);
@@ -63,7 +67,6 @@ export const recommendMenuService = async (choice, userId) => {
   //   }
   // }
 
-  
   return menus;
 };
 
@@ -76,20 +79,6 @@ export const findRelatedMenuService = async (menuName) => {
   }
   console.log("Related menus found:", relatedMenus);
   return relatedMenus;
-};
-
-export const getMenuService = async () => {
-  try {
-    const menus = await getMenu();
-    if (!menus || menus.length === 0) {
-      console.error("No menus found in service");
-      return [];
-    }
-    return menus;
-  } catch (error) {
-    console.error("Error fetching menus from service:", error);
-    throw error;
-  }
 };
 
 export const getMenuInfoService = async (menuName) => {
@@ -105,7 +94,6 @@ export const getMenuInfoService = async (menuName) => {
     throw error;
   }
 };
-
 
 export const recommendRandomService = async (addition) => {
   try {

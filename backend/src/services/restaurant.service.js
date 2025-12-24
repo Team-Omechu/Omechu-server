@@ -41,15 +41,3 @@ export const fetchGooglePlacesService = async (info) => {
   );
   return response.places;
 };
-
-export const getPlaceDetailService = async (restId, role, userId) => {
-  console.log("Get Google Place detail for ID:", restId);
-  const placeDetail = await getPlaceDetail(restId, role, userId);
-  if (placeDetail.error === "NO_DATA") {
-    throw new NoRestData("해당 가게 정보가 없습니다", {
-      restId: restId.toString(),
-    });
-  }
-
-  return placeDetail;
-};

@@ -14,12 +14,12 @@ import {
   responseFromProfile,
   bodyToRestaurantUpdate,
   responseFromRestaurant,
-  bodyToZzimRequest,
-  responseFromZzim,
-  responseFromZzimList,
 } from "../dtos/mypage.dto.js";
 
-import { getUserReviews, deleteUserReviewService } from "../services/mypage.service.js";
+import {
+  getUserReviews,
+  deleteUserReviewService,
+} from "../services/mypage.service.js";
 
 export const handleGetUserProfile = async (req, res, next) => {
   /*
@@ -110,7 +110,7 @@ export const handleGetUserProfile = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     console.log("JWT 토큰에서 추출된 userId:", userId);
-    
+
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
@@ -243,7 +243,7 @@ export const handleUpdateUserProfile = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     console.log("JWT 토큰에서 추출된 userId:", userId);
-    
+
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
@@ -395,7 +395,7 @@ export const handleGetMyRestaurants = async (req, res, next) => {
       cursor: req.query.cursor ? parseInt(req.query.cursor) : null,
       limit: req.query.limit ? parseInt(req.query.limit) : 10,
     });
-    
+
     res.status(StatusCodes.OK).success(result);
   } catch (error) {
     console.error("내 맛집 목록 조회 에러:", error);
@@ -462,144 +462,6 @@ export const handleUpdateRestaurant = async (req, res, next) => {
     res.status(StatusCodes.OK).success(responseData);
   } catch (error) {
     console.error("맛집 정보 수정 에러:", error);
-    next(error);
-  }
-};
-
-export const handleGetZzimList = async (req, res, next) => {
-  /*
-  #swagger.tags = ["Heart"]
-  #swagger.summary = "사용자의 모든 찜 목록 조회"
-  #swagger.description = "사용자의 모든 찜 목록을 조회합니다."
-  */
-  try {
-    const userId = req.user?.id;
-    console.log("JWT 토큰에서 추출된 userId:", userId);
-
-    if (!userId) {
-      return res.status(StatusCodes.BAD_REQUEST).error({
-        errorCode: "C006",
-        reason: "사용자 ID가 필요합니다.",
-        data: null,
-      });
-    }
-
-    const result = await getZzimList(parseInt(userId), 1000, null);
-    const responseData = responseFromZzimList(result.data, false, null);
-
-    res.status(StatusCodes.OK).success(responseData);
-  } catch (error) {
-    console.error("찜 목록 조회 에러:", error);
-    next(error);
-  }
-};
-
-export const handleAddZzim = async (req, res, next) => {
-  /*
-  #swagger.tags = ["Heart"]
-  #swagger.summary = "찜 등록"
-  #swagger.description = "맛집을 찜 목록에 추가합니다."
-  #swagger.requestBody = {
-    required: true,
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          required: ['restaurantId'],
-          properties: {
-            restaurantId: { type: 'number', example: 1 }
-          }
-        }
-      }
-    }
-  }
-  */
-  try {
-    const userId = req.user?.id;
-    const { restaurantId } = req.body;
-
-    console.log("JWT 토큰에서 추출된 userId:", userId);
-    console.log("찜할 맛집 ID:", restaurantId);
-
-    if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).error({
-        errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
-        data: null,
-      });
-    }
-
-    if (!restaurantId) {
-      return res.status(StatusCodes.BAD_REQUEST).error({
-        errorCode: "C006",
-        reason: "맛집 ID가 필요합니다.",
-        data: null,
-      });
-    }
-
-    const newZzim = await addZzimService(
-      parseInt(userId),
-      parseInt(restaurantId)
-    );
-    const responseData = responseFromZzim(newZzim);
-
-    res.status(StatusCodes.CREATED).success(responseData);
-  } catch (error) {
-    console.error("찜 등록 에러:", error);
-    next(error);
-  }
-};
-
-export const handleRemoveZzim = async (req, res, next) => {
-  /*
-  #swagger.tags = ["Heart"]
-  #swagger.summary = "찜 해제"
-  #swagger.description = "찜 목록에서 맛집을 제거합니다."
-  #swagger.requestBody = {
-    required: true,
-    content: {
-      'application/json': {
-        schema: {
-          type: 'object',
-          required: ['restaurantId'],
-          properties: {
-            restaurantId: { type: 'number', example: 1 }
-          }
-        }
-      }
-    }
-  }
-  */
-  try {
-    const userId = req.user?.id;
-    const { restaurantId } = req.body;
-
-    console.log("JWT 토큰에서 추출된 userId:", userId);
-    console.log("찜 해제할 맛집 ID:", restaurantId);
-
-    if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).error({
-        errorCode: "AUTH_REQUIRED",
-        reason: "로그인이 필요합니다.",
-        data: null,
-      });
-    }
-
-    if (!restaurantId) {
-      return res.status(StatusCodes.BAD_REQUEST).error({
-        errorCode: "C006",
-        reason: "맛집 ID가 필요합니다.",
-        data: null,
-      });
-    }
-
-    await removeZzimService(parseInt(userId), parseInt(restaurantId));
-
-    res.status(StatusCodes.OK).success({
-      message: "찜이 성공적으로 해제되었습니다.",
-    });
-  } catch (error) {
-    console.error("찜 해제 에러:", error);
     next(error);
   }
 };
@@ -732,13 +594,15 @@ export const handleDeleteReview = async (req, res, next) => {
       });
     }
 
-    const result = await deleteUserReviewService(parseInt(userId), parseInt(reviewId));
+    const result = await deleteUserReviewService(
+      parseInt(userId),
+      parseInt(reviewId)
+    );
 
     res.status(StatusCodes.OK).success({
       message: "리뷰가 성공적으로 삭제되었습니다.",
-      deletedReviewId: reviewId
+      deletedReviewId: reviewId,
     });
-
   } catch (error) {
     console.error("리뷰 삭제 에러:", error);
     next(error);
