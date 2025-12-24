@@ -1,6 +1,6 @@
 export class NoEmailOrPasswd extends Error {
   errorCode = "C001";
-  statusCode = 400
+  statusCode = 400;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -10,7 +10,7 @@ export class NoEmailOrPasswd extends Error {
 
 export class InCorrectPasswd extends Error {
   errorCode = "C002";
-  statusCode = 401
+  statusCode = 401;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -164,24 +164,6 @@ export class NoRestaurantPermission extends Error {
   }
 }
 
-export class AlreadyZzimmed extends Error {
-  errorCode = "M004";
-  statusCode = 409; 
-  constructor(reason, data) {
-    super(reason);
-    this.reason = reason;
-    this.data = data;
-  }
-}
-export class NoZzimData extends Error {
-  errorCode = "M005";
-  constructor(reason, data) {
-    super(reason);
-    this.reason = reason;
-    this.data = data;
-  }
-}
-
 export class InvalidProfileData extends Error {
   errorCode = "M006";
   constructor(reason, data) {
@@ -193,7 +175,7 @@ export class InvalidProfileData extends Error {
 
 export class InvalidOrExpiredTokenError extends Error {
   errorCode = "E001";
-  statusCode = 400; 
+  statusCode = 400;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -264,7 +246,7 @@ export class FailToUpdateRestData extends Error {
 
 export class InvalidVerificationCodeError extends Error {
   errorCode = "V001";
-  statusCode = 400; 
+  statusCode = 400;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
@@ -437,7 +419,7 @@ export class VerificationCodeMismatchError extends Error {
 
 export class PasswordMismatchError extends Error {
   errorCode = "P002";
-  statusCode = 401; 
+  statusCode = 401;
   constructor(reason, data) {
     super(reason);
     this.reason = reason;
