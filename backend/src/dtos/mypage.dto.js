@@ -66,39 +66,7 @@ export const bodyToZzimRequest = (body) => {
   };
 };
 
-// 찜 응답 데이터 변환
-export const responseFromZzim = (zzim) => {
-  return {
-    id: zzim.id.toString(),
-    userId: zzim.user_id.toString(),
-    restaurantId: zzim.rest_id.toString(),
-    created_at: zzim.created_at,
-    restaurant: zzim.restaurant
-      ? {
-          id: zzim.restaurant.id.toString(),
-          name: zzim.restaurant.name,
-          address: zzim.restaurant.address,
-          rating: zzim.restaurant.rating,
-          // 🆕 추가된 필드들
-          reviewCount: zzim.restaurant.reviewCount || 0,
-          representativeMenus: zzim.restaurant.representativeMenus || [],
-          tags: zzim.restaurant.tags || [],
-          rest_image: zzim.restaurant.rest_image, // 이미지도 추가
-        }
-      : null,
-  };
-};
-
 // 찜 목록 응답 데이터 변환
-export const responseFromZzimList = (zzimList, hasNextPage, nextCursor) => {
-  const transformedList = zzimList.map((zzim) => responseFromZzim(zzim));
-
-  return {
-    data: transformedList,
-    hasNextPage: hasNextPage,
-    nextCursor: nextCursor,
-  };
-};
 
 // ============= Enum 변환 함수들 (user.dto.js와 통일) =============
 

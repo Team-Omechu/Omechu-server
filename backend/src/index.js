@@ -281,7 +281,6 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.post("/find-related-menu", handleFindRelatedMenu);
 app.get("/menu/search", handleGetMenuSearch);
-app.get("/menu", handleGetMenu);
 app.get("/menu/random", handleGetMenuRandom);
 app.get("/menu/recent", isLoggedIn, handleGetMenuRecent);
 app.get("/menu/filtered", handleGetMenuFiltered);
@@ -295,15 +294,7 @@ app.get("/mukburim/statistics", isLoggedIn, handleGetMukburimStatistics);
 app.get("/mukburim/calendar", isLoggedIn, handleGetMukburimCalendar);
 app.get("/mukburim/date", isLoggedIn, handleGetMukburimByDate);
 // Restaurant & Review
-app.post("/place/review/:restId", isLoggedIn, handleAddReview);
-app.get("/place/review/:restId", handleGetReview);
-app.patch("/place/:restId/like/:reviewId", isLoggedIn, handleLike);
-app.post("/place", isLoggedIn, handleAddRestaurant);
-app.get("/place", optionalAuth, handleGetRestaurant);
-app.get("/place/detail/:restId", optionalAuth, handleGetPlaceDetail);
-app.patch("/place/detail/:restId/edit", isLoggedIn, handleEditRestaurant);
-app.post("/place/:reviewId/report", isLoggedIn, handleReportReview);
-app.post("/place/coordinates", isLoggedIn, handleGetCoordinates);
+
 app.get("/place/search", optionalAuth, handleSearchRestaurant);
 app.get("/place/suggestions", isLoggedIn, handleSuggestion);
 // ImageUpload
@@ -313,11 +304,6 @@ app.post("/image/upload", generatePresignedUrl);
 app.get("/profile", isLoggedIn, handleGetUserProfile);
 app.patch("/profile", isLoggedIn, handleUpdateUserProfile);
 app.get("/profile/myPlace", isLoggedIn, handleGetMyRestaurants);
-
-// Heart (찜 기능) - JWT 형식으로 변경 (userId 제거)
-app.get("/hearts", isLoggedIn, handleGetZzimList);
-app.post("/heart", isLoggedIn, handleAddZzim);
-app.delete("/heart", isLoggedIn, handleRemoveZzim);
 
 // Recommend (추천 관리) - JWT 형식으로 변경 (userId 제거)
 app.get("/recommend/management", isLoggedIn, handleGetRecommendManagement);
