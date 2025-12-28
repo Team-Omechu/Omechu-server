@@ -30,10 +30,6 @@ import {
   handleGetMenuInfo,
 } from "./controllers/menu.controller.js";
 import {
-  handleGetMenuRandom,
-  handleInsertMenuViewTime,
-  handleGetMenuRecent,
-  handleGetMenuFiltered,
   handleGetMenuSearch,
 } from "./controllers/sortMenu.controller.js";
 import {
@@ -270,11 +266,7 @@ app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.post("/find-related-menu", handleFindRelatedMenu);
 app.get("/menu/search", handleGetMenuSearch);
-app.get("/menu/random", handleGetMenuRandom);
-app.get("/menu/recent", isLoggedIn, handleGetMenuRecent);
-app.get("/menu/filtered", handleGetMenuFiltered);
 app.post("/menu-info", handleGetMenuInfo);
-app.post("/menu/view", isLoggedIn, handleInsertMenuViewTime); // 메뉴 조회 시간 기록
 // Mukburim 기본 기능
 app.post("/mukburim", isLoggedIn, handleInsertMukburim);
 
