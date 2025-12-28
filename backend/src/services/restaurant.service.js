@@ -2,11 +2,7 @@ import { NoRestData } from "../errors.js";
 import {
   fetchKakaoPlaces,
   fetchGooglePlaces,
-  addRestaurantToDatabase,
-  checkRestaurantExists,
-  googlePlaceIdtoId,
 } from "../repositories/restaurant.repository.js";
-import { getPlaceDetail } from "../repositories/restaurant.repository.js";
 export const fetchKakaoPlacesService = async (info) => {
   console.log("Service called with info:", info);
   const documents = await fetchKakaoPlaces(info);
