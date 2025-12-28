@@ -11,7 +11,6 @@ import {
   handleRecommendMenu,
   handleRecommendRandom,
 } from "./controllers/menu.controller.js";
-import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
@@ -261,7 +260,6 @@ app.get("/auth/kakao/callback", handleKakaoCallback);
 //메인페이지 관련
 app.post("/recommend", isLoggedInforRecommend, handleRecommendMenu);
 app.post("/recommend/random", handleRecommendRandom);
-app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu-info", handleGetMenuInfo);
