@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { fetchKakaoPlacesService } from "../services/restaurant.service.js";
 import { fetchGooglePlacesService } from "../services/restaurant.service.js";
-import { getPlaceDetailService } from "../services/restaurant.service.js";
 import {
   openingHoursDto,
   responseFromGetRestData,
