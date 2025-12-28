@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   findUserByEmail,
   createUser,
-} from "../repositories/user.repository.js";
+} from "./kakao.repository";
 
 export const exchangeCodeForTokenService = async (code) => {
   try {

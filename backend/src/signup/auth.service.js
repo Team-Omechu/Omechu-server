@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import {
   createUser,
   findUserByEmail,
-} from "../repositories/user.repository.js";
+} from "./auth.repository";
 
 export const userSignUp = async ({ email, password }) => {
   const existingUser = await findUserByEmail(email);
