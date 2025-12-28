@@ -10,7 +10,6 @@ import swaggerUiExpress from "swagger-ui-express";
 import {
   handleRecommendMenu,
   handleRecommendRandom,
-  handleFindRelatedMenu,
 } from "./controllers/menu.controller.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
@@ -264,7 +263,6 @@ app.post("/recommend", isLoggedInforRecommend, handleRecommendMenu);
 app.post("/recommend/random", handleRecommendRandom);
 app.get("/fetch-places", handleFetchKakaoPlaces);
 app.post("/fetch-google-places", handleFetchGooglePlaces);
-app.post("/find-related-menu", handleFindRelatedMenu);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu-info", handleGetMenuInfo);
 // Mukburim 기본 기능

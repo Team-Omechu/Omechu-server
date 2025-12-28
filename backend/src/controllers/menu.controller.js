@@ -2,7 +2,6 @@ import { StatusCodes } from "http-status-codes";
 import { bodyToChoice } from "../dtos/choice.dto.js";
 import {
   recommendMenuService,
-  findRelatedMenuService,
   recommendRandomService,
 } from "../services/menu.service.js";
 import {
@@ -163,111 +162,7 @@ export const handleRecommendMenu = async (req, res) => {
     */
 };
 
-export const handleFindRelatedMenu = async (req, res) => {
-  const { menuName } = req.body;
 
-  try {
-    const relatedMenus = await findRelatedMenuService(menuName);
-    if (relatedMenus && relatedMenus.length > 0) {
-      res.status(StatusCodes.OK).json(relatedMenus);
-    } else {
-      res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ message: "No related menus found" });
-    }
-  } catch (error) {
-    console.error("Error finding related menus:", error);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Internal server error" });
-  }
-  /*
-    #swagger.tags = ["Menu"]
-    #swagger.summary = "관련 메뉴 찾기 API"
-    #swagger.description = "입력된 메뉴명과 관련된 메뉴들을 찾는 API입니다."
-
-    #swagger.requestBody = {
-      required: true,
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            required: ['menuName'],
-            properties: {
-              menuName: { 
-                type: 'string', 
-                example: "짜장면",
-                description: "관련 메뉴를 찾을 기준 메뉴명"
-              }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[200] = {
-      description: "관련 메뉴 찾기 성공",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                id: { type: 'number', example: 1 },
-                name: { type: 'string', example: '짬뽕' },
-                description: { type: 'string', example: '매콤한 해물 국물 면 요리' },
-                calories: { type: 'number', example: 900 },
-                carbohydrates: { type: 'number', example: 85 },
-                protein: { type: 'number', example: 25 },
-                fat: { type: 'number', example: 35 },
-                sodium: { type: 'number', example: 1500 },
-                vitamins: {
-                  type: 'array',
-                  items: { type: 'string' },
-                  example: ['A', 'C']
-                },
-                allergies: {
-                  type: 'array',
-                  items: { type: 'string' },
-                  example: ['밀', '해산물']
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[404] = {
-      description: "관련 메뉴를 찾을 수 없음",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              message: { type: 'string', example: 'No related menus found' }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[500] = {
-      description: "서버 내부 오류",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              message: { type: 'string', example: 'Internal server error' }
-            }
-          }
-        }
-      }
-    }
-    */
-};
 
 export const handleGetMenuInfo = async (req, res) => {
   const { name } = req.body;

@@ -1,10 +1,6 @@
 import {
   recommendMenu,
-  checkMenuExists,
-  addMenuToDatabase,
-  findRelatedMenu,
 } from "../repositories/menu.repository.js";
-import { fetchKakaoPlaces } from "../repositories/restaurant.repository.js";
 import {
   getMenu,
   getMenuInfo,
@@ -70,16 +66,7 @@ export const recommendMenuService = async (choice, userId) => {
   return menus;
 };
 
-export const findRelatedMenuService = async (menuName) => {
-  console.log("Finding related menu for:", menuName);
-  const relatedMenus = await findRelatedMenu(menuName);
-  if (!relatedMenus || relatedMenus.length === 0) {
-    console.error("No related menus found for:", menuName);
-    return [];
-  }
-  console.log("Related menus found:", relatedMenus);
-  return relatedMenus;
-};
+
 
 export const getMenuInfoService = async (menuName) => {
   try {

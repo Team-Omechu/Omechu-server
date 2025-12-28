@@ -8,7 +8,6 @@ import {
   getUserExceptedMenus,
   getUserPreferences,
 } from "./user.repository.js";
-import { getUser } from "./auth.repository.js";
 dotenv.config();
 const key = process.env.OPENAI_API_KEY;
 
