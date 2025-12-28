@@ -4,9 +4,6 @@ import {
   updateUserProfileService,
   getMyRestaurants,
   updateRestaurantService,
-  addZzimService,
-  removeZzimService,
-  getZzimList,
 } from "../services/mypage.service.js";
 
 import {

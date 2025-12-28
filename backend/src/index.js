@@ -12,20 +12,15 @@ import {
   handleRecommendRandom,
   handleFindRelatedMenu,
 } from "./controllers/menu.controller.js";
-import { testDatabaseConnection } from "./repositories/menu.repository.js";
 import { handleFetchKakaoPlaces } from "./controllers/restaurant.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/restaurant.controller.js";
 import { generatePresignedUrl } from "./controllers/image.uploader.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
-import { handleAddReview } from "./controllers/addReview.controller.js";
 import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
-import { handleLike } from "./controllers/like.controller.js";
-import { handleGetReview } from "./controllers/getReview.controller.js";
 import { handleSendEmailCode } from "./controllers/email.controller.js";
 import { handleVerifyEmailCode } from "./controllers/email.controller.js";
-import { handleGetPlaceDetail } from "./controllers/restaurant.controller.js";
 import {
   handleResetRequest,
   handleResetPassword,
@@ -45,9 +40,6 @@ import {
   handleGetUserProfile,
   handleUpdateUserProfile,
   handleGetMyRestaurants,
-  handleAddZzim,
-  handleRemoveZzim,
-  handleGetZzimList,
   handleGetUserReviews,
   handleDeleteReview,
 } from "./controllers/mypage.controller.js";
@@ -64,11 +56,6 @@ import {
   handleAddMenuToExcept,
   handleRemoveMenuExcept,
 } from "./controllers/recommend.management.controller.js";
-import { handleAddRestaurant } from "./controllers/addRestaurant.controller.js";
-import { handleEditRestaurant } from "./controllers/editRestaurant.controller.js";
-import { handleGetRestaurant } from "./controllers/getRestaurant.controller.js";
-import { handleReportReview } from "./controllers/reportReveiw.controller.js";
-import { handleGetCoordinates } from "./controllers/getCoordinates.controller.js";
 import { handleInsertMukburim } from "./controllers/mukburim.controller.js";
 import { handleChangePassword } from "./controllers/passwordChange.controller.js";
 import {
@@ -87,6 +74,8 @@ import {
   BearerTokenServerError,
 } from "./errors.js";
 import { handleSuggestion } from "./controllers/suggestions.controller.js";
+import { pool } from "./db.config.js";
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -353,7 +342,18 @@ app.use((err, req, res, next) => {
     data: err.data || null,
   });
 });
-
+// 데이터베이스 연결 테스트
+export const testDatabaseConnection = async () => {
+  try {
+    console.log("Testing database connection...");
+    const [rows] = await pool.execute("SELECT 1 as test");
+    console.log("Database connection successful!");
+    return true;
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    return false;
+  }
+};
 // 데이터베이스 연결
 async function initializeDatabase() {
   try {

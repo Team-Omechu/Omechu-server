@@ -12,18 +12,7 @@ import { getUser } from "./auth.repository.js";
 dotenv.config();
 const key = process.env.OPENAI_API_KEY;
 
-// 데이터베이스 연결 테스트
-export const testDatabaseConnection = async () => {
-  try {
-    console.log("Testing database connection...");
-    const [rows] = await pool.execute("SELECT 1 as test");
-    console.log("Database connection successful!");
-    return true;
-  } catch (error) {
-    console.error("Database connection failed:", error);
-    return false;
-  }
-};
+
 
 // 메뉴가 데이터베이스에 존재하는지 확인
 export const checkMenuExists = async (menuName) => {
@@ -531,6 +520,25 @@ export const recommendRandom = async (addition) => {
     return menuWithImages;
   } catch (error) {
     console.error("Error handling GPT request:", error);
+    throw error;
+  }
+};
+
+export const getMenu = async () => {
+  try {
+    const menus = await prisma.menu.findMany({
+      select: {
+        name: true,
+        image_link: true,
+      },
+    });
+    if (!menus || menus.length === 0) {
+      console.error("No menus found");
+      return [];
+    }
+    return menus;
+  } catch (error) {
+    console.error("Error fetching menus:", error);
     throw error;
   }
 };
