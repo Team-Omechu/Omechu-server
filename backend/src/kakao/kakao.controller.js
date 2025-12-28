@@ -1,8 +1,7 @@
-import { StatusCodes } from "http-status-codes";
 import {
   exchangeCodeForTokenService,
   findOrCreateKakaoUserService,
-} from "../services/kakao.service.js";
+} from "./kakao.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
 

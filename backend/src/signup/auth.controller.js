@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import { bodyToUser } from "../dtos/auth.dto.js";
-import { userSignUp } from "../services/auth.service.js";
+import { bodyToUser } from "./auth.dto.js";
+import { userSignUp } from "./auth.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
 
