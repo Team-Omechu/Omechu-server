@@ -8,39 +8,29 @@ import jwt from "jsonwebtoken";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { handleUserSignUp } from "./controllers/auth.controller.js";
-import { handleUserLoginJWT } from "./controllers/login.controller.js";
-import { handleRenewToken } from "./controllers/renewToken.controller.js";
 import { handleUpdateUserInfo } from "./controllers/user.controller.js";
-import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
 
-import {
-  handleSendEmailCode,
-  handleVerifyEmailCode,
-} from "./controllers/email.controller.js";
-import {
-  handleResetRequest,
-  handleResetPassword,
-} from "./controllers/passwordReset.controller.js";
-import { handleChangePassword } from "./controllers/passwordChange.controller.js";
-
-import {
-  handleKakaoRedirect,
-  handleKakaoCallback,
-} from "./controllers/kakao.controller.js";
 import {
   handleAgreementConsent,
   getAgreementConsent,
 } from "./controllers/agreement.controller.js";
-import { handleGetUserProfile } from "./controllers/mypage.controller.js";
-import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
+
+import {
+  handleGetUserProfile,
+  handleUpdateUserProfile,
+} from "./controllers/profile.controller.js";
+
 import {
   NoBearerToken,
   ExpireToken,
   BearerTokenError,
   BearerTokenServerError,
 } from "./errors.js";
-
+import {
+  handleGetRecommendManagement,
+  handleAddMenuToExcept,
+  handleRemoveMenuExcept,
+} from "./controllers/recommend.management.controller.js";
 dotenv.config();
 
 const app = express();
@@ -134,11 +124,11 @@ const startSwagger = async () => {
   const doc = {
     openapi: "3.0.0",
     info: {
-      title: "Omechu Auth API",
+      title: "Omechu User API",
       version: "1.0.0",
-      description: "Omechu 인증/인가 서비스 API",
+      description: "Omechu User 정보 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/auth" }],
+    servers: [{ url: "https://omechu-api.log8.kr/user" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -156,7 +146,7 @@ const startSwagger = async () => {
 
     // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
     app.use(
-      ["/docs", "/auth/docs"],
+      ["/docs", "/user/docs"],
       swaggerUiExpress.serve,
       swaggerUiExpress.setup(swaggerSpec, {
         swaggerOptions: {
@@ -171,8 +161,8 @@ const startSwagger = async () => {
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
     app.get("/openapi.json", forceJsonResponse);
     app.get("/docs/openapi.json", forceJsonResponse);
-    app.get("/auth/openapi.json", forceJsonResponse);
-    app.get("/auth/docs/openapi.json", forceJsonResponse);
+    app.get("/user/openapi.json", forceJsonResponse);
+    app.get("/user/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
@@ -213,35 +203,23 @@ export const isLoggedIn = (req, res, next) => {
 
 // 기본 라우터
 app.get("/", (req, res) => {
-  res.send("Auth API is running");
+  res.send("User API is running");
 });
 
-// --- Auth routes만 남김 ---
-app.post("/auth/signup", handleUserSignUp); // o
-app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo); // user 로 바꾸기
+// --- User routes만 남김 ---
+// 회원 가입 완료 API (회원 정보 넣는 API)
+app.patch("/user/complete", isLoggedIn, handleUpdateUserInfo);
 
-app.post("/auth/login", handleUserLoginJWT); // o
-app.post("/auth/reissue", handleRenewToken); // o
-app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT); // o
+// 약관 관련 API
+app.post("/user/agreements/consent", isLoggedIn, handleAgreementConsent);
+app.get("/user/agreements/consent", isLoggedIn, getAgreementConsent);
 
-app.post("/auth/send", handleSendEmailCode); // o
-app.post("/auth/verify", handleVerifyEmailCode); // o
+app.get("/user/profile", isLoggedIn, handleGetUserProfile);
+app.patch("/user/profile", isLoggedIn, handleUpdateUserProfile);
 
-app.post("/auth/reset-request", handleResetRequest); // o
-app.patch("/auth/reset-passwd", handleResetPassword); // o
-
-app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword); // o
-
-// 약관
-app.post("/auth/agreements/consent", isLoggedIn, handleAgreementConsent); // user로 바꾸기
-app.get("/auth/agreements/consent", isLoggedIn, getAgreementConsent); // user로 바꾸기
-
-// 카카오 로그인
-app.get("/auth/kakao", handleKakaoRedirect);
-app.get("/auth/kakao/callback", handleKakaoCallback);
-
-app.get("/auth/profile", isLoggedIn, handleGetUserProfile); // user로 바꾸기
-app.patch("/auth/profile", isLoggedIn, handleUpdateUserProfile); // user로 바꾸기
+app.get("/user/recommend/management", isLoggedIn, handleGetRecommendManagement);
+app.post("/user/recommend/except", isLoggedIn, handleAddMenuToExcept);
+app.post("/user/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {

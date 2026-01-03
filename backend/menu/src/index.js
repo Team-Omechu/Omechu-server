@@ -8,39 +8,21 @@ import jwt from "jsonwebtoken";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { handleUserSignUp } from "./controllers/auth.controller.js";
-import { handleUserLoginJWT } from "./controllers/login.controller.js";
-import { handleRenewToken } from "./controllers/renewToken.controller.js";
-import { handleUpdateUserInfo } from "./controllers/user.controller.js";
-import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
-
 import {
-  handleSendEmailCode,
-  handleVerifyEmailCode,
-} from "./controllers/email.controller.js";
+  handleRecommendMenu,
+  handleRecommendRandom,
+  handleGetMenuInfo,
+} from "./controllers/menu.controller.js";
+import { handleFetchGooglePlaces } from "./controllers/fetchGooglePlaces.controller.js";
+import { handleGetMenuSearch } from "./controllers/menuSearch.controller.js";
 import {
-  handleResetRequest,
-  handleResetPassword,
-} from "./controllers/passwordReset.controller.js";
-import { handleChangePassword } from "./controllers/passwordChange.controller.js";
-
-import {
-  handleKakaoRedirect,
-  handleKakaoCallback,
-} from "./controllers/kakao.controller.js";
-import {
-  handleAgreementConsent,
-  getAgreementConsent,
-} from "./controllers/agreement.controller.js";
-import { handleGetUserProfile } from "./controllers/mypage.controller.js";
-import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
-import {
-  NoBearerToken,
-  ExpireToken,
-  BearerTokenError,
-  BearerTokenServerError,
-} from "./errors.js";
-
+  handleGetMukburimStatistics,
+  handleGetMukburimCalendar,
+  handleGetMukburimByDate,
+  handleInsertMukburim,
+} from "./controllers/mukburim.controller.js";
+import { handleSearchRestaurant } from "./controllers/getSearchRestaurant.controller.js";
+import { handleSuggestion } from "./controllers/suggestions.controller.js";
 dotenv.config();
 
 const app = express();
@@ -134,11 +116,11 @@ const startSwagger = async () => {
   const doc = {
     openapi: "3.0.0",
     info: {
-      title: "Omechu Auth API",
+      title: "Omechu Menu API",
       version: "1.0.0",
-      description: "Omechu 인증/인가 서비스 API",
+      description: "Omechu 메뉴 관련 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/auth" }],
+    servers: [{ url: "https://omechu-api.log8.kr/menu" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -156,7 +138,7 @@ const startSwagger = async () => {
 
     // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
     app.use(
-      ["/docs", "/auth/docs"],
+      ["/docs", "/menu/docs"],
       swaggerUiExpress.serve,
       swaggerUiExpress.setup(swaggerSpec, {
         swaggerOptions: {
@@ -171,8 +153,8 @@ const startSwagger = async () => {
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
     app.get("/openapi.json", forceJsonResponse);
     app.get("/docs/openapi.json", forceJsonResponse);
-    app.get("/auth/openapi.json", forceJsonResponse);
-    app.get("/auth/docs/openapi.json", forceJsonResponse);
+    app.get("/menu/openapi.json", forceJsonResponse);
+    app.get("/menu/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
@@ -211,37 +193,55 @@ export const isLoggedIn = (req, res, next) => {
   return next();
 };
 
+export const isLoggedInforRecommend = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return next();
+  }
+  const accessToken = authHeader.split(" ")[1];
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
+};
+
+// 로그인 / 비로그인 검증 미들웨어
+export const optionalAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    req.user = { id: null, role: "guest" };
+    return next();
+  }
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw new NoBearerToken("인증 토큰이 없습니다.");
+  }
+  const accessToken = authHeader.split(" ")[1];
+  const { id, role } = verifyTokenOrThrow(accessToken);
+  req.user = { id, role };
+  return next();
+};
+
 // 기본 라우터
 app.get("/", (req, res) => {
-  res.send("Auth API is running");
+  res.send("User API is running");
 });
 
-// --- Auth routes만 남김 ---
-app.post("/auth/signup", handleUserSignUp); // o
-app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo); // user 로 바꾸기
+// --- menu routes만 남김 ---
+app.post("/menu/recommend", isLoggedInforRecommend, handleRecommendMenu);
+app.post("/menu/recommend/random", handleRecommendRandom);
+app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
+app.get("/menu/search", handleGetMenuSearch);
+app.post("/menu/menu-info", handleGetMenuInfo);
+// Mukburim 기본 기능
+app.post("/menu/mukburim", isLoggedIn, handleInsertMukburim);
 
-app.post("/auth/login", handleUserLoginJWT); // o
-app.post("/auth/reissue", handleRenewToken); // o
-app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT); // o
+// Mukburim 통계 기능 - JWT 형식으로 변경 (userId 제거)
+app.get("/menu/mukburim/statistics", isLoggedIn, handleGetMukburimStatistics);
+app.get("/menu/mukburim/calendar", isLoggedIn, handleGetMukburimCalendar);
+app.get("/menu/mukburim/date", isLoggedIn, handleGetMukburimByDate);
+// Restaurant & Review
 
-app.post("/auth/send", handleSendEmailCode); // o
-app.post("/auth/verify", handleVerifyEmailCode); // o
-
-app.post("/auth/reset-request", handleResetRequest); // o
-app.patch("/auth/reset-passwd", handleResetPassword); // o
-
-app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword); // o
-
-// 약관
-app.post("/auth/agreements/consent", isLoggedIn, handleAgreementConsent); // user로 바꾸기
-app.get("/auth/agreements/consent", isLoggedIn, getAgreementConsent); // user로 바꾸기
-
-// 카카오 로그인
-app.get("/auth/kakao", handleKakaoRedirect);
-app.get("/auth/kakao/callback", handleKakaoCallback);
-
-app.get("/auth/profile", isLoggedIn, handleGetUserProfile); // user로 바꾸기
-app.patch("/auth/profile", isLoggedIn, handleUpdateUserProfile); // user로 바꾸기
+app.get("/menu/place/search", optionalAuth, handleSearchRestaurant);
+app.get("/menu/place/suggestions", isLoggedIn, handleSuggestion);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {

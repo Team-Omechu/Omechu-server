@@ -20,6 +20,30 @@ services:
     depends_on:
       - omechu_db
 
+  menu_api:
+    build:
+      context: ./menu
+    container_name: menu_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    env_file:
+      - ./menu/.env
+    depends_on:
+      - omechu_db
+
+  user_api:
+    build:
+      context: ./user
+    container_name: user_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    env_file:
+      - ./user/.env
+    depends_on:
+      - omechu_db
+
   omechu_db:
     image: mysql:8.0
     environment:
