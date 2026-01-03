@@ -8,291 +8,74 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model menu {
-  id                 BigInt             @id @default(autoincrement())
-  name               String             @unique(map: "unique_name") @db.VarChar(30)
-  description        String?            @db.VarChar(150)
-  calory             BigInt?
-  carbo              BigInt?
-  protein            BigInt?
-  fat                BigInt?
-  vitamin            String?            @db.Text
-  allergic           String?            @db.Text
-  sodium             BigInt?
-  image_link         String?
-  recipe_link        String?            @db.VarChar(200)
-  recipe_link_source String?            @db.VarChar(200)
-  recipe_video_name  String?            @db.VarChar(300)
-  menu_tag           menu_tag[]
-  recommend_except   recommend_except[]
-  rest_menu          rest_menu[]
-}
-
-model mukburim {
-  id        BigInt    @id @default(autoincrement())
-  user_id   BigInt
-  menu_name String    @db.VarChar(30)
-  date      DateTime? @db.DateTime(0)
-  user      user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "mukburim_ibfk_1")
-
-  @@index([menu_name], map: "menu_id")
-  @@index([user_id], map: "user_id")
-}
-
-model recommend_except {
-  id      BigInt   @id @default(autoincrement())
-  menu_id BigInt
-  user_id BigInt
-  bit     Boolean?
-  menu    menu     @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recommend_except_ibfk_1")
-  user    user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "recommend_except_ibfk_2")
-
-  @@index([menu_id], map: "menu_id")
-  @@index([user_id], map: "user_id")
-}
-
-model report {
-  id        BigInt  @id @default(autoincrement())
-  user_id   BigInt
-  review_id BigInt
-  text      String? @db.VarChar(150)
-  user      user    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "report_ibfk_1")
-  review    review  @relation(fields: [review_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "report_ibfk_2")
-
-  @@index([review_id], map: "review_id")
-  @@index([user_id], map: "user_id")
-}
-
-model rest_menu {
-  id         BigInt     @id @default(autoincrement())
-  menu_id    BigInt
-  rest_id    BigInt
-  menu       menu       @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rest_menu_ibfk_1")
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rest_menu_ibfk_2")
-
-  @@index([menu_id], map: "menu_id")
-  @@index([rest_id], map: "rest_id")
-}
-
-model restaurant {
-  id              BigInt         @id @default(autoincrement())
-  rest_image      String?        @db.VarChar(500)
-  location        String?        @db.VarChar(20)
-  name            String?        @db.VarChar(60)
-  address         String?        @db.VarChar(60)
-  address_jibeon  String?        @db.VarChar(50)
-  postal_code     String?        @db.VarChar(50)
-  rating          Float?         @default(0) @db.Float
-  monday          String?        @default("휴무") @db.VarChar(20)
-  tuesday         String?        @default("휴뮤") @db.VarChar(20)
-  wednesday       String?        @default("휴무") @db.VarChar(20)
-  thursday        String?        @default("휴무") @db.VarChar(20)
-  friday          String?        @default("휴무") @db.VarChar(20)
-  saturday        String?        @default("휴무") @db.VarChar(20)
-  sunday          String?        @default("휴무") @db.VarChar(20)
-  google_place_id String?        @db.Text
-  repre_menu      repre_menu[]
-  rest_menu       rest_menu[]
-  rest_tag        rest_tag[]
-  review          review[]
-  review_image    review_image[]
-  user_rest       user_rest[]
-  zzim            zzim[]
-}
-
-model review {
-  id           BigInt         @id @default(autoincrement())
-  user_id      BigInt
-  rest_id      BigInt
-  rating       BigInt?
-  tag          Json?
-  text         String?        @db.VarChar(900)
-  created_at   DateTime?      @default(dbgenerated("(now())")) @db.DateTime(0)
-  like         Int?           @default(0)
-  report       report[]
-  user         user           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_1")
-  restaurant   restaurant     @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_2")
-  review_image review_image[]
-
-  @@index([rest_id], map: "rest_id")
-  @@index([user_id], map: "user_id")
-}
-
-model review_image {
-  id         BigInt     @id @default(autoincrement())
-  rest_id    BigInt
-  review_id  BigInt
-  link       String?    @db.VarChar(400)
-  review     review     @relation(fields: [review_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_image_ibfk_1")
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_image_restaurant_id_fk")
-
-  @@index([review_id], map: "review_id")
-  @@index([rest_id], map: "review_image_restaurant_id_fk")
-}
-
-model sessions {
-  session_id String  @id @db.VarChar(128)
-  expires    Int     @db.UnsignedInt
-  data       String? @db.Text
-}
-
 model user {
-  id                BigInt              @id @default(autoincrement())
-  email             String?             @unique(map: "user_pk") @db.VarChar(30)
+  id                BigInt              @id
+  phone_num         String?             @db.VarChar(21)
   nickname          String?             @db.VarChar(30)
-  body_type         user_body_type?
-  gender            user_gender?
   exercise          user_exercise?
-  password          String?             @db.VarChar(100)
-  created_at        DateTime?           @default(now()) @db.DateTime(0)
-  updated_at        DateTime?           @default(now()) @db.DateTime(0)
-  profileImageUrl   String?             @db.VarChar(400)
   agreement_consent agreement_consent[]
-  allergy           allergy[]
-  menu_view_time    menu_view_time[]
-  mukburim          mukburim[]
-  prefer            prefer[]
-  recommend_except  recommend_except[]
-  report            report[]
-  review            review[]
-  user_rest         user_rest[]
-  zzim              zzim[]
-}
-
-model allergy {
-  id      Int          @id @default(autoincrement())
-  userId  BigInt
-  allergy allergy_type
-  user    user         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "allergy_ibfk_1")
-
-  @@index([userId], map: "allergy_userId_fkey")
-}
-
-model prefer {
-  id     Int         @id @default(autoincrement())
-  userId BigInt
-  prefer prefer_type
-  user   user        @relation(fields: [userId], references: [id], map: "prefer_ibfk_1")
-
-  @@index([userId], map: "prefer_userId_fkey")
-}
-
-model zzim {
-  id         BigInt     @id @default(autoincrement())
-  user_id    BigInt
-  rest_id    BigInt
-  created_at DateTime?  @default(dbgenerated("(now())")) @db.DateTime(0)
-  user       user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "zzim_ibfk_1")
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "zzim_ibfk_2")
-
-  @@index([rest_id], map: "rest_id")
-  @@index([user_id], map: "user_id")
-}
-
-model email_verification {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique(map: "email_verification_pk") @db.VarChar(255)
-  code       String    @db.VarChar(10)
-  created_at DateTime? @default(now()) @db.DateTime(0)
-  expires_at DateTime  @default(now()) @db.DateTime(0)
-}
-
-model rest_tag {
-  rest_id    BigInt
-  tag        String     @db.VarChar(255)
-  count      Int        @default(1)
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "rest_tag_restaurant_id_fk")
-
-  @@id([tag, rest_id])
-  @@index([rest_id], map: "rest_tag_restaurant_id_fk")
-}
-
-model password_reset_token {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique(map: "password_reset_token_pk_2") @db.VarChar(255)
-  token      String    @unique(map: "password_reset_token_pk") @db.VarChar(255)
-  expires_at DateTime  @db.DateTime(0)
-  created_at DateTime? @default(now()) @db.DateTime(0)
-}
-
-model repre_menu {
-  id         BigInt     @id @default(autoincrement())
-  rest_id    BigInt
-  menu       String     @db.VarChar(50)
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "repre_menu_restaurant_id_fk")
-
-  @@index([rest_id], map: "repre_menu_restaurant_id_fk")
-}
-
-model user_rest {
-  id         BigInt     @id @default(autoincrement())
-  user_id    BigInt
-  rest_id    BigInt
-  restaurant restaurant @relation(fields: [rest_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rest_restaurant_id_fk")
-  user       user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_rest_user_id_fk")
-
-  @@index([rest_id], map: "user_rest_restaurant_id_fk")
-  @@index([user_id], map: "user_rest_user_id_fk")
+  inquiry           inquiry[]
+  meal_alert        meal_alert[]
+  user_allergy      user_allergy[]
 }
 
 model agreement_consent {
-  id               BigInt   @id @default(autoincrement())
+  id               BigInt    @id @default(autoincrement())
   user_id          BigInt
-  terms_of_service Boolean  @default(false)
-  privacy_policy   Boolean  @default(false)
-  location_service Boolean  @default(false)
-  is_over14        Boolean  @default(false)
-  created_at       DateTime @default(now()) @db.DateTime(0)
-  user             user     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "agreement_consent_user_fk")
+  terms_of_service Boolean?
+  privacy_policy   Boolean?
+  location_service Boolean?
+  is_over14        Boolean?
+  created_at       DateTime? @db.DateTime(0)
+  user             user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
 
-  @@index([user_id], map: "idx_user_id")
+  @@index([user_id], map: "agreement_consent_user_id_fk")
 }
 
-model menu_view_time {
-  id        BigInt    @id @default(autoincrement())
-  user_id   BigInt?
-  menu_name String?   @db.VarChar(30)
-  time      DateTime? @db.DateTime(0)
-  user      user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
-
-  @@index([user_id], map: "fk_user_id")
+model allergy_min {
+  id           BigInt         @id @default(autoincrement())
+  allergy      String?        @db.VarChar(255)
+  user_allergy user_allergy[]
 }
 
-model menu_tag {
-  id      BigInt @id @default(autoincrement())
-  menu_id BigInt
-  tag     String @db.VarChar(40)
-  menu    menu   @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_tag_ibfk_1")
+model inquiry {
+  id         BigInt    @id
+  user_id    BigInt
+  title      String?   @db.VarChar(100)
+  content    String?   @db.Text
+  created_at DateTime? @db.DateTime(0)
+  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "inquiry_user_id_fk")
 
-  @@index([menu_id], map: "menu_id")
+  @@index([user_id], map: "inquiry_user_id_fk")
 }
 
-enum allergy_type {
-  egg       @map("달걀(난류) 알레르기")
-  milk      @map("우유 알레르기")
-  shellfish @map("갑각류 알레르기")
-  seafood   @map("해산물 알레르기")
-  nuts      @map("견과류 알레르기")
+model meal_alert {
+  user_id    BigInt
+  meal_id    BigInt
+  enabled    Boolean?
+  alarm_time DateTime? @db.DateTime(0)
+  meal_time  meal_time @relation(fields: [meal_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_meal_time_id_fk")
+  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_user_id_fk")
+
+  @@id([user_id, meal_id])
+  @@index([meal_id], map: "meal_alert_meal_time_id_fk")
 }
 
-enum prefer_type {
-  korean   @map("한식")
-  western  @map("양식")
-  chinese  @map("중식")
-  japanese @map("일식")
-  other    @map("다른나라")
+model meal_time {
+  id         BigInt       @id @default(autoincrement())
+  alert_time DateTime?    @db.Time(0)
+  comment    String?      @db.VarChar(20)
+  meal_alert meal_alert[]
 }
 
-enum user_body_type {
-  cold           @map("감기")
-  indigestion    @map("소화불량")
-  heat_sensitive @map("더위잘탐")
-  cold_sensitive @map("추위잘탐")
-}
+model user_allergy {
+  user_id     BigInt
+  allergy_id  BigInt
+  allergy_min allergy_min @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_allergy_min_id_fk")
+  user        user        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_user_id_fk")
 
-enum user_gender {
-  female @map("여성")
-  male   @map("남성")
+  @@id([user_id, allergy_id])
+  @@index([allergy_id], map: "user_allergy_allergy_min_id_fk")
 }
 
 enum user_exercise {

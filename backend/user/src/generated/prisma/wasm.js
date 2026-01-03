@@ -120,157 +120,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.MenuScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  calory: 'calory',
-  carbo: 'carbo',
-  protein: 'protein',
-  fat: 'fat',
-  vitamin: 'vitamin',
-  allergic: 'allergic',
-  sodium: 'sodium',
-  image_link: 'image_link',
-  recipe_link: 'recipe_link',
-  recipe_link_source: 'recipe_link_source',
-  recipe_video_name: 'recipe_video_name'
-};
-
-exports.Prisma.MukburimScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  menu_name: 'menu_name',
-  date: 'date'
-};
-
-exports.Prisma.Recommend_exceptScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  user_id: 'user_id',
-  bit: 'bit'
-};
-
-exports.Prisma.ReportScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  review_id: 'review_id',
-  text: 'text'
-};
-
-exports.Prisma.Rest_menuScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  rest_id: 'rest_id'
-};
-
-exports.Prisma.RestaurantScalarFieldEnum = {
-  id: 'id',
-  rest_image: 'rest_image',
-  location: 'location',
-  name: 'name',
-  address: 'address',
-  address_jibeon: 'address_jibeon',
-  postal_code: 'postal_code',
-  rating: 'rating',
-  monday: 'monday',
-  tuesday: 'tuesday',
-  wednesday: 'wednesday',
-  thursday: 'thursday',
-  friday: 'friday',
-  saturday: 'saturday',
-  sunday: 'sunday',
-  google_place_id: 'google_place_id'
-};
-
-exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  rest_id: 'rest_id',
-  rating: 'rating',
-  tag: 'tag',
-  text: 'text',
-  created_at: 'created_at',
-  like: 'like'
-};
-
-exports.Prisma.Review_imageScalarFieldEnum = {
-  id: 'id',
-  rest_id: 'rest_id',
-  review_id: 'review_id',
-  link: 'link'
-};
-
-exports.Prisma.SessionsScalarFieldEnum = {
-  session_id: 'session_id',
-  expires: 'expires',
-  data: 'data'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
+  phone_num: 'phone_num',
   nickname: 'nickname',
-  body_type: 'body_type',
-  gender: 'gender',
-  exercise: 'exercise',
-  password: 'password',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  profileImageUrl: 'profileImageUrl'
-};
-
-exports.Prisma.AllergyScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  allergy: 'allergy'
-};
-
-exports.Prisma.PreferScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  prefer: 'prefer'
-};
-
-exports.Prisma.ZzimScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  rest_id: 'rest_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Email_verificationScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  code: 'code',
-  created_at: 'created_at',
-  expires_at: 'expires_at'
-};
-
-exports.Prisma.Rest_tagScalarFieldEnum = {
-  rest_id: 'rest_id',
-  tag: 'tag',
-  count: 'count'
-};
-
-exports.Prisma.Password_reset_tokenScalarFieldEnum = {
-  id: 'id',
-  email: 'email',
-  token: 'token',
-  expires_at: 'expires_at',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Repre_menuScalarFieldEnum = {
-  id: 'id',
-  rest_id: 'rest_id',
-  menu: 'menu'
-};
-
-exports.Prisma.User_restScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  rest_id: 'rest_id'
+  exercise: 'exercise'
 };
 
 exports.Prisma.Agreement_consentScalarFieldEnum = {
@@ -283,17 +137,35 @@ exports.Prisma.Agreement_consentScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Menu_view_timeScalarFieldEnum = {
+exports.Prisma.Allergy_minScalarFieldEnum = {
   id: 'id',
-  user_id: 'user_id',
-  menu_name: 'menu_name',
-  time: 'time'
+  allergy: 'allergy'
 };
 
-exports.Prisma.Menu_tagScalarFieldEnum = {
+exports.Prisma.InquiryScalarFieldEnum = {
   id: 'id',
-  menu_id: 'menu_id',
-  tag: 'tag'
+  user_id: 'user_id',
+  title: 'title',
+  content: 'content',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Meal_alertScalarFieldEnum = {
+  user_id: 'user_id',
+  meal_id: 'meal_id',
+  enabled: 'enabled',
+  alarm_time: 'alarm_time'
+};
+
+exports.Prisma.Meal_timeScalarFieldEnum = {
+  id: 'id',
+  alert_time: 'alert_time',
+  comment: 'comment'
+};
+
+exports.Prisma.User_allergyScalarFieldEnum = {
+  user_id: 'user_id',
+  allergy_id: 'allergy_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -301,164 +173,42 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
 
-exports.Prisma.menuOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description',
-  vitamin: 'vitamin',
-  allergic: 'allergic',
-  image_link: 'image_link',
-  recipe_link: 'recipe_link',
-  recipe_link_source: 'recipe_link_source',
-  recipe_video_name: 'recipe_video_name'
-};
-
-exports.Prisma.mukburimOrderByRelevanceFieldEnum = {
-  menu_name: 'menu_name'
-};
-
-exports.Prisma.reportOrderByRelevanceFieldEnum = {
-  text: 'text'
-};
-
-exports.Prisma.restaurantOrderByRelevanceFieldEnum = {
-  rest_image: 'rest_image',
-  location: 'location',
-  name: 'name',
-  address: 'address',
-  address_jibeon: 'address_jibeon',
-  postal_code: 'postal_code',
-  monday: 'monday',
-  tuesday: 'tuesday',
-  wednesday: 'wednesday',
-  thursday: 'thursday',
-  friday: 'friday',
-  saturday: 'saturday',
-  sunday: 'sunday',
-  google_place_id: 'google_place_id'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
-exports.Prisma.reviewOrderByRelevanceFieldEnum = {
-  text: 'text'
-};
-
-exports.Prisma.review_imageOrderByRelevanceFieldEnum = {
-  link: 'link'
-};
-
-exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
-  session_id: 'session_id',
-  data: 'data'
-};
-
 exports.Prisma.userOrderByRelevanceFieldEnum = {
-  email: 'email',
-  nickname: 'nickname',
-  password: 'password',
-  profileImageUrl: 'profileImageUrl'
+  phone_num: 'phone_num',
+  nickname: 'nickname'
 };
 
-exports.Prisma.email_verificationOrderByRelevanceFieldEnum = {
-  email: 'email',
-  code: 'code'
+exports.Prisma.allergy_minOrderByRelevanceFieldEnum = {
+  allergy: 'allergy'
 };
 
-exports.Prisma.rest_tagOrderByRelevanceFieldEnum = {
-  tag: 'tag'
+exports.Prisma.inquiryOrderByRelevanceFieldEnum = {
+  title: 'title',
+  content: 'content'
 };
 
-exports.Prisma.password_reset_tokenOrderByRelevanceFieldEnum = {
-  email: 'email',
-  token: 'token'
+exports.Prisma.meal_timeOrderByRelevanceFieldEnum = {
+  comment: 'comment'
 };
-
-exports.Prisma.repre_menuOrderByRelevanceFieldEnum = {
-  menu: 'menu'
-};
-
-exports.Prisma.menu_view_timeOrderByRelevanceFieldEnum = {
-  menu_name: 'menu_name'
-};
-
-exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
-  tag: 'tag'
-};
-exports.user_body_type = exports.$Enums.user_body_type = {
-  cold: 'cold',
-  indigestion: 'indigestion',
-  heat_sensitive: 'heat_sensitive',
-  cold_sensitive: 'cold_sensitive'
-};
-
-exports.user_gender = exports.$Enums.user_gender = {
-  female: 'female',
-  male: 'male'
-};
-
 exports.user_exercise = exports.$Enums.user_exercise = {
   dieting: 'dieting',
   bulking: 'bulking',
   maintaining: 'maintaining'
 };
 
-exports.allergy_type = exports.$Enums.allergy_type = {
-  egg: 'egg',
-  milk: 'milk',
-  shellfish: 'shellfish',
-  seafood: 'seafood',
-  nuts: 'nuts'
-};
-
-exports.prefer_type = exports.$Enums.prefer_type = {
-  korean: 'korean',
-  western: 'western',
-  chinese: 'chinese',
-  japanese: 'japanese',
-  other: 'other'
-};
-
 exports.Prisma.ModelName = {
-  menu: 'menu',
-  mukburim: 'mukburim',
-  recommend_except: 'recommend_except',
-  report: 'report',
-  rest_menu: 'rest_menu',
-  restaurant: 'restaurant',
-  review: 'review',
-  review_image: 'review_image',
-  sessions: 'sessions',
   user: 'user',
-  allergy: 'allergy',
-  prefer: 'prefer',
-  zzim: 'zzim',
-  email_verification: 'email_verification',
-  rest_tag: 'rest_tag',
-  password_reset_token: 'password_reset_token',
-  repre_menu: 'repre_menu',
-  user_rest: 'user_rest',
   agreement_consent: 'agreement_consent',
-  menu_view_time: 'menu_view_time',
-  menu_tag: 'menu_tag'
+  allergy_min: 'allergy_min',
+  inquiry: 'inquiry',
+  meal_alert: 'meal_alert',
+  meal_time: 'meal_time',
+  user_allergy: 'user_allergy'
 };
 
 /**
