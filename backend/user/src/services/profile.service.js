@@ -3,7 +3,7 @@
 import {
   findUserProfile,
   updateUserProfile,
-} from "./profile.repository.js";
+} from "../repositries/profile.repository.js";
 import {
   NoProfileData,
   ProfileUpdateFailed,
@@ -18,9 +18,9 @@ import {
  */
 export const getUserProfile = async (userId) => {
   console.log("getUserProfile 서비스 - userId:", userId);
-  
+
   const user = await findUserProfile(userId);
-  
+
   if (!user) {
     throw new NoProfileData("사용자 프로필을 찾을 수 없습니다.", { userId });
   }
@@ -39,15 +39,15 @@ export const getUserProfile = async (userId) => {
  */
 export const updateUserProfileService = async (userId, data) => {
   console.log("updateUserProfileService - userId:", userId);
-  
+
   const existingUser = await findUserProfile(userId);
   if (!existingUser) {
     throw new NoProfileData("사용자를 찾을 수 없습니다.", { userId });
   }
 
-  const updateFields = ['email', 'phone_num', 'nickname', 'profileImageUrl'];
-  const hasUpdateData = updateFields.some(field => data[field] !== undefined);
-  
+  const updateFields = ["email", "phone_num", "nickname", "profileImageUrl"];
+  const hasUpdateData = updateFields.some((field) => data[field] !== undefined);
+
   if (!hasUpdateData) {
     throw new InvalidProfileData("수정할 데이터가 없습니다.", data);
   }
@@ -57,6 +57,9 @@ export const updateUserProfileService = async (userId, data) => {
     return updatedUser;
   } catch (error) {
     console.error("프로필 수정 에러:", error);
-    throw new ProfileUpdateFailed("프로필 수정에 실패했습니다.", { userId, error: error.message });
+    throw new ProfileUpdateFailed("프로필 수정에 실패했습니다.", {
+      userId,
+      error: error.message,
+    });
   }
 };

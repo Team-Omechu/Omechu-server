@@ -3,7 +3,7 @@ import {
   getRecommendManagementService,
   addMenuToExceptService,
   removeMenuFromExceptService,
-} from "../services/recommendManagement.service";
+} from "../services/recommendManagement.service.js";
 
 export const handleGetRecommendManagement = async (req, res, next) => {
   /*
