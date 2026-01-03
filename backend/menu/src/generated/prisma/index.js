@@ -444,7 +444,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/auth/src/generated/prisma",
+      "value": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/menu/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -458,11 +458,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/auth/prisma/schema.prisma",
+    "sourceFilePath": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/menu/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",

@@ -1,4 +1,4 @@
-import { fetchGooglePlacesService } from "./fetchGooglePlaces.service.js";
+import { fetchGooglePlacesService } from "../services/fetchGooglePlaces.service.js";
 
 export const handleFetchGooglePlaces = async (req, res) => {
   const info = {

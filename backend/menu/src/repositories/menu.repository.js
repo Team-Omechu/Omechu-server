@@ -2,12 +2,12 @@ import { OpenAI } from "openai";
 import dotenv from "dotenv";
 import { pool } from "../db.config.js";
 import { prisma } from "../db.config.js";
-import {
-  getUserInfoForMenu,
-  getUserAllergies,
-  getUserExceptedMenus,
-  getUserPreferences,
-} from "./user.repository.js"; // 이거를 못씀
+// import {
+//   getUserInfoForMenu,
+//   getUserAllergies,
+//   getUserExceptedMenus,
+//   getUserPreferences,
+// } from "./user.repository.js"; // 이거를 못씀
 dotenv.config();
 const key = process.env.OPENAI_API_KEY;
 
@@ -199,24 +199,24 @@ export const recommendMenu = async (choice, userId) => {
       apiKey: key,
     });
     console.log("OpenAI client initialized successfully");
-    // 사용자 정보 가져오기
-    if (userId != undefined && userId != "") {
-      choice.exceptions2 = await getUserExceptedMenus(userId);
-      choice.allergy = await getUserAllergies(userId);
-      choice.prefer = await getUserPreferences(userId);
-      const userInfo = await getUserInfoForMenu(userId);
+    // 사용자 정보 가져오기 ( 여기 지금 문제가 있음 )
+    // if (userId != undefined && userId != "") {
+    //   choice.exceptions2 = await getUserExceptedMenus(userId);
+    //   choice.allergy = await getUserAllergies(userId);
+    //   choice.prefer = await getUserPreferences(userId);
+    //   const userInfo = await getUserInfoForMenu(userId);
 
-      choice.gender = userInfo.gender;
-      choice.exercise = userInfo.exercise;
-      choice.body_type = userInfo.body_type;
-    } else {
-      choice.exceptions2 = [];
-      choice.allergy = [];
-      choice.prefer = [];
-      choice.gender = 3;
-      choice.exercise = 3; // 기본값: 상관 없음
-      choice.body_type = 5; // 기본값: 상관 없음
-    }
+    //   choice.gender = userInfo.gender;
+    //   choice.exercise = userInfo.exercise;
+    //   choice.body_type = userInfo.body_type;
+    // } else {
+    //   choice.exceptions2 = [];
+    //   choice.allergy = [];
+    //   choice.prefer = [];
+    //   choice.gender = 3;
+    //   choice.exercise = 3; // 기본값: 상관 없음
+    //   choice.body_type = 5; // 기본값: 상관 없음
+    // }
     const {
       meal_time,
       purpose,

@@ -1,6 +1,4 @@
-import {
-  fetchGooglePlaces,
-} from "./fetchGooglePlaces.repository.js";
+import { fetchGooglePlaces } from "../repositories/fetchGooglePlaces.repository.js";
 
 export const fetchGooglePlacesService = async (info) => {
   console.log("Service called with info:", info);
