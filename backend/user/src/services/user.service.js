@@ -3,7 +3,7 @@ import {
   updateUserInfo,
   createUserPreferences,
   createUserAllergies,
-} from "../repositries/user.repository.js";
+} from "../repositories/user.repository.js";
 
 import {
   bodyToUserInfo,

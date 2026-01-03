@@ -6,7 +6,7 @@ import {
   addMenuToExceptList,
   removeMenuFromExceptList,
   findMenuByName,
-} from "../repositries/recommendManagement.repository.js";
+} from "../repositories/recommendManagement.repository.js";
 
 import {
   NoParams,

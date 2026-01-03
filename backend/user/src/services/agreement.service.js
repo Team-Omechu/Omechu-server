@@ -1,7 +1,7 @@
 import {
   createAgreementConsent,
   findLatestAgreementConsent,
-} from "../repositries/agreement.repository.js";
+} from "../repositories/agreement.repository.js";
 import { InvalidRequestError } from "../errors.js";
 
 export const handleAgreementConsentService = async (agreementData) => {

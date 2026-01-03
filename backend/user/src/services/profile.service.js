@@ -3,7 +3,7 @@
 import {
   findUserProfile,
   updateUserProfile,
-} from "../repositries/profile.repository.js";
+} from "../repositories/profile.repository.js";
 import {
   NoProfileData,
   ProfileUpdateFailed,
