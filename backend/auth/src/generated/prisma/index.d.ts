@@ -1628,7 +1628,7 @@ export namespace Prisma {
     /**
      * The data needed to create a auth_user.
      */
-    data: XOR<auth_userCreateInput, auth_userUncheckedCreateInput>
+    data?: XOR<auth_userCreateInput, auth_userUncheckedCreateInput>
   }
 
   /**
@@ -1884,13 +1884,13 @@ export namespace Prisma {
   }
 
   export type auth_userCreateInput = {
-    id: bigint | number
+    id?: bigint | number
     email?: string | null
     password?: string | null
   }
 
   export type auth_userUncheckedCreateInput = {
-    id: bigint | number
+    id?: bigint | number
     email?: string | null
     password?: string | null
   }
@@ -1908,7 +1908,7 @@ export namespace Prisma {
   }
 
   export type auth_userCreateManyInput = {
-    id: bigint | number
+    id?: bigint | number
     email?: string | null
     password?: string | null
   }

@@ -1,7 +1,10 @@
 # dependency directories
 node_modules/
 
+# generated files (전체 경로)
+**/generated/
+generated/
+
 # dotenv environment variable files
 .env
 .env.*
-/src/generated/prisma

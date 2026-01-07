@@ -29,11 +29,6 @@ export type mukburim = $Result.DefaultSelection<Prisma.$mukburimPayload>
  */
 export type menu_tag = $Result.DefaultSelection<Prisma.$menu_tagPayload>
 /**
- * Model allery
- * 
- */
-export type allery = $Result.DefaultSelection<Prisma.$alleryPayload>
-/**
  * Model battle
  * 
  */
@@ -68,6 +63,16 @@ export type spin_result = $Result.DefaultSelection<Prisma.$spin_resultPayload>
  * 
  */
 export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
+/**
+ * Model allergy
+ * 
+ */
+export type allergy = $Result.DefaultSelection<Prisma.$allergyPayload>
+/**
+ * Model sessions
+ * 
+ */
+export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -85,7 +90,7 @@ export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -117,13 +122,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -225,16 +223,6 @@ export class PrismaClient<
   get menu_tag(): Prisma.menu_tagDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.allery`: Exposes CRUD operations for the **allery** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Alleries
-    * const alleries = await prisma.allery.findMany()
-    * ```
-    */
-  get allery(): Prisma.alleryDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.battle`: Exposes CRUD operations for the **battle** model.
     * Example usage:
     * ```ts
@@ -303,6 +291,26 @@ export class PrismaClient<
     * ```
     */
   get vitamin(): Prisma.vitaminDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.allergy`: Exposes CRUD operations for the **allergy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Allergies
+    * const allergies = await prisma.allergy.findMany()
+    * ```
+    */
+  get allergy(): Prisma.allergyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessions`: Exposes CRUD operations for the **sessions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.sessions.findMany()
+    * ```
+    */
+  get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -361,8 +369,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.12.0
-   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+   * Prisma Client JS version: 6.19.1
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
@@ -375,6 +383,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -746,14 +755,15 @@ export namespace Prisma {
     menu: 'menu',
     mukburim: 'mukburim',
     menu_tag: 'menu_tag',
-    allery: 'allery',
     battle: 'battle',
     battle_menu: 'battle_menu',
     battle_participant: 'battle_participant',
     menu_allery: 'menu_allery',
     menu_vitamin: 'menu_vitamin',
     spin_result: 'spin_result',
-    vitamin: 'vitamin'
+    vitamin: 'vitamin',
+    allergy: 'allergy',
+    sessions: 'sessions'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -772,7 +782,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "menu" | "mukburim" | "menu_tag" | "allery" | "battle" | "battle_menu" | "battle_participant" | "menu_allery" | "menu_vitamin" | "spin_result" | "vitamin"
+      modelProps: "menu" | "mukburim" | "menu_tag" | "battle" | "battle_menu" | "battle_participant" | "menu_allery" | "menu_vitamin" | "spin_result" | "vitamin" | "allergy" | "sessions"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -971,72 +981,6 @@ export namespace Prisma {
           count: {
             args: Prisma.menu_tagCountArgs<ExtArgs>
             result: $Utils.Optional<Menu_tagCountAggregateOutputType> | number
-          }
-        }
-      }
-      allery: {
-        payload: Prisma.$alleryPayload<ExtArgs>
-        fields: Prisma.alleryFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.alleryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.alleryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          findFirst: {
-            args: Prisma.alleryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.alleryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          findMany: {
-            args: Prisma.alleryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>[]
-          }
-          create: {
-            args: Prisma.alleryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          createMany: {
-            args: Prisma.alleryCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.alleryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          update: {
-            args: Prisma.alleryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          deleteMany: {
-            args: Prisma.alleryDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.alleryUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.alleryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          aggregate: {
-            args: Prisma.AlleryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAllery>
-          }
-          groupBy: {
-            args: Prisma.alleryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AlleryGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.alleryCountArgs<ExtArgs>
-            result: $Utils.Optional<AlleryCountAggregateOutputType> | number
           }
         }
       }
@@ -1502,6 +1446,138 @@ export namespace Prisma {
           }
         }
       }
+      allergy: {
+        payload: Prisma.$allergyPayload<ExtArgs>
+        fields: Prisma.allergyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.allergyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.allergyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          findFirst: {
+            args: Prisma.allergyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.allergyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          findMany: {
+            args: Prisma.allergyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>[]
+          }
+          create: {
+            args: Prisma.allergyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          createMany: {
+            args: Prisma.allergyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.allergyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          update: {
+            args: Prisma.allergyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          deleteMany: {
+            args: Prisma.allergyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.allergyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.allergyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          aggregate: {
+            args: Prisma.AllergyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAllergy>
+          }
+          groupBy: {
+            args: Prisma.allergyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AllergyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.allergyCountArgs<ExtArgs>
+            result: $Utils.Optional<AllergyCountAggregateOutputType> | number
+          }
+        }
+      }
+      sessions: {
+        payload: Prisma.$sessionsPayload<ExtArgs>
+        fields: Prisma.sessionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.sessionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.sessionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findFirst: {
+            args: Prisma.sessionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.sessionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findMany: {
+            args: Prisma.sessionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>[]
+          }
+          create: {
+            args: Prisma.sessionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          createMany: {
+            args: Prisma.sessionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.sessionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          update: {
+            args: Prisma.sessionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.sessionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.sessionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.sessionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessions>
+          }
+          groupBy: {
+            args: Prisma.sessionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.sessionsCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1545,16 +1621,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1569,6 +1653,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1589,7 +1677,6 @@ export namespace Prisma {
     menu?: menuOmit
     mukburim?: mukburimOmit
     menu_tag?: menu_tagOmit
-    allery?: alleryOmit
     battle?: battleOmit
     battle_menu?: battle_menuOmit
     battle_participant?: battle_participantOmit
@@ -1597,6 +1684,8 @@ export namespace Prisma {
     menu_vitamin?: menu_vitaminOmit
     spin_result?: spin_resultOmit
     vitamin?: vitaminOmit
+    allergy?: allergyOmit
+    sessions?: sessionsOmit
   }
 
   /* Types for Logging */
@@ -1606,10 +1695,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1649,25 +1743,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -1763,37 +1838,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type AlleryCountOutputType
-   */
-
-  export type AlleryCountOutputType = {
-    menu_allery: number
-  }
-
-  export type AlleryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_allery?: boolean | AlleryCountOutputTypeCountMenu_alleryArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AlleryCountOutputType without action
-   */
-  export type AlleryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AlleryCountOutputType
-     */
-    select?: AlleryCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AlleryCountOutputType without action
-   */
-  export type AlleryCountOutputTypeCountMenu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menu_alleryWhereInput
-  }
-
-
-  /**
    * Count Type BattleCountOutputType
    */
 
@@ -1870,6 +1914,37 @@ export namespace Prisma {
    */
   export type VitaminCountOutputTypeCountMenu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: menu_vitaminWhereInput
+  }
+
+
+  /**
+   * Count Type AllergyCountOutputType
+   */
+
+  export type AllergyCountOutputType = {
+    menu_allery: number
+  }
+
+  export type AllergyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_allery?: boolean | AllergyCountOutputTypeCountMenu_alleryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllergyCountOutputType
+     */
+    select?: AllergyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeCountMenu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_alleryWhereInput
   }
 
 
@@ -4972,962 +5047,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: menu_tagInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model allery
-   */
-
-  export type AggregateAllery = {
-    _count: AlleryCountAggregateOutputType | null
-    _avg: AlleryAvgAggregateOutputType | null
-    _sum: AllerySumAggregateOutputType | null
-    _min: AlleryMinAggregateOutputType | null
-    _max: AlleryMaxAggregateOutputType | null
-  }
-
-  export type AlleryAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type AllerySumAggregateOutputType = {
-    id: bigint | null
-  }
-
-  export type AlleryMinAggregateOutputType = {
-    id: bigint | null
-    allergy: string | null
-  }
-
-  export type AlleryMaxAggregateOutputType = {
-    id: bigint | null
-    allergy: string | null
-  }
-
-  export type AlleryCountAggregateOutputType = {
-    id: number
-    allergy: number
-    _all: number
-  }
-
-
-  export type AlleryAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type AllerySumAggregateInputType = {
-    id?: true
-  }
-
-  export type AlleryMinAggregateInputType = {
-    id?: true
-    allergy?: true
-  }
-
-  export type AlleryMaxAggregateInputType = {
-    id?: true
-    allergy?: true
-  }
-
-  export type AlleryCountAggregateInputType = {
-    id?: true
-    allergy?: true
-    _all?: true
-  }
-
-  export type AlleryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which allery to aggregate.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned alleries
-    **/
-    _count?: true | AlleryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AlleryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AllerySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AlleryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AlleryMaxAggregateInputType
-  }
-
-  export type GetAlleryAggregateType<T extends AlleryAggregateArgs> = {
-        [P in keyof T & keyof AggregateAllery]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAllery[P]>
-      : GetScalarType<T[P], AggregateAllery[P]>
-  }
-
-
-
-
-  export type alleryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: alleryWhereInput
-    orderBy?: alleryOrderByWithAggregationInput | alleryOrderByWithAggregationInput[]
-    by: AlleryScalarFieldEnum[] | AlleryScalarFieldEnum
-    having?: alleryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AlleryCountAggregateInputType | true
-    _avg?: AlleryAvgAggregateInputType
-    _sum?: AllerySumAggregateInputType
-    _min?: AlleryMinAggregateInputType
-    _max?: AlleryMaxAggregateInputType
-  }
-
-  export type AlleryGroupByOutputType = {
-    id: bigint
-    allergy: string | null
-    _count: AlleryCountAggregateOutputType | null
-    _avg: AlleryAvgAggregateOutputType | null
-    _sum: AllerySumAggregateOutputType | null
-    _min: AlleryMinAggregateOutputType | null
-    _max: AlleryMaxAggregateOutputType | null
-  }
-
-  type GetAlleryGroupByPayload<T extends alleryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AlleryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AlleryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AlleryGroupByOutputType[P]>
-            : GetScalarType<T[P], AlleryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type allerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    allergy?: boolean
-    menu_allery?: boolean | allery$menu_alleryArgs<ExtArgs>
-    _count?: boolean | AlleryCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["allery"]>
-
-
-
-  export type allerySelectScalar = {
-    id?: boolean
-    allergy?: boolean
-  }
-
-  export type alleryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "allergy", ExtArgs["result"]["allery"]>
-  export type alleryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_allery?: boolean | allery$menu_alleryArgs<ExtArgs>
-    _count?: boolean | AlleryCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $alleryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "allery"
-    objects: {
-      menu_allery: Prisma.$menu_alleryPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      allergy: string | null
-    }, ExtArgs["result"]["allery"]>
-    composites: {}
-  }
-
-  type alleryGetPayload<S extends boolean | null | undefined | alleryDefaultArgs> = $Result.GetResult<Prisma.$alleryPayload, S>
-
-  type alleryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<alleryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AlleryCountAggregateInputType | true
-    }
-
-  export interface alleryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['allery'], meta: { name: 'allery' } }
-    /**
-     * Find zero or one Allery that matches the filter.
-     * @param {alleryFindUniqueArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends alleryFindUniqueArgs>(args: SelectSubset<T, alleryFindUniqueArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Allery that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {alleryFindUniqueOrThrowArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends alleryFindUniqueOrThrowArgs>(args: SelectSubset<T, alleryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Allery that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindFirstArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends alleryFindFirstArgs>(args?: SelectSubset<T, alleryFindFirstArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Allery that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindFirstOrThrowArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends alleryFindFirstOrThrowArgs>(args?: SelectSubset<T, alleryFindFirstOrThrowArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Alleries that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Alleries
-     * const alleries = await prisma.allery.findMany()
-     * 
-     * // Get first 10 Alleries
-     * const alleries = await prisma.allery.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const alleryWithIdOnly = await prisma.allery.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends alleryFindManyArgs>(args?: SelectSubset<T, alleryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Allery.
-     * @param {alleryCreateArgs} args - Arguments to create a Allery.
-     * @example
-     * // Create one Allery
-     * const Allery = await prisma.allery.create({
-     *   data: {
-     *     // ... data to create a Allery
-     *   }
-     * })
-     * 
-     */
-    create<T extends alleryCreateArgs>(args: SelectSubset<T, alleryCreateArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Alleries.
-     * @param {alleryCreateManyArgs} args - Arguments to create many Alleries.
-     * @example
-     * // Create many Alleries
-     * const allery = await prisma.allery.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends alleryCreateManyArgs>(args?: SelectSubset<T, alleryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Allery.
-     * @param {alleryDeleteArgs} args - Arguments to delete one Allery.
-     * @example
-     * // Delete one Allery
-     * const Allery = await prisma.allery.delete({
-     *   where: {
-     *     // ... filter to delete one Allery
-     *   }
-     * })
-     * 
-     */
-    delete<T extends alleryDeleteArgs>(args: SelectSubset<T, alleryDeleteArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Allery.
-     * @param {alleryUpdateArgs} args - Arguments to update one Allery.
-     * @example
-     * // Update one Allery
-     * const allery = await prisma.allery.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends alleryUpdateArgs>(args: SelectSubset<T, alleryUpdateArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Alleries.
-     * @param {alleryDeleteManyArgs} args - Arguments to filter Alleries to delete.
-     * @example
-     * // Delete a few Alleries
-     * const { count } = await prisma.allery.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends alleryDeleteManyArgs>(args?: SelectSubset<T, alleryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Alleries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Alleries
-     * const allery = await prisma.allery.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends alleryUpdateManyArgs>(args: SelectSubset<T, alleryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Allery.
-     * @param {alleryUpsertArgs} args - Arguments to update or create a Allery.
-     * @example
-     * // Update or create a Allery
-     * const allery = await prisma.allery.upsert({
-     *   create: {
-     *     // ... data to create a Allery
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Allery we want to update
-     *   }
-     * })
-     */
-    upsert<T extends alleryUpsertArgs>(args: SelectSubset<T, alleryUpsertArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Alleries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryCountArgs} args - Arguments to filter Alleries to count.
-     * @example
-     * // Count the number of Alleries
-     * const count = await prisma.allery.count({
-     *   where: {
-     *     // ... the filter for the Alleries we want to count
-     *   }
-     * })
-    **/
-    count<T extends alleryCountArgs>(
-      args?: Subset<T, alleryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AlleryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Allery.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlleryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AlleryAggregateArgs>(args: Subset<T, AlleryAggregateArgs>): Prisma.PrismaPromise<GetAlleryAggregateType<T>>
-
-    /**
-     * Group by Allery.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends alleryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: alleryGroupByArgs['orderBy'] }
-        : { orderBy?: alleryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, alleryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAlleryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the allery model
-   */
-  readonly fields: alleryFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for allery.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__alleryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu_allery<T extends allery$menu_alleryArgs<ExtArgs> = {}>(args?: Subset<T, allery$menu_alleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the allery model
-   */
-  interface alleryFieldRefs {
-    readonly id: FieldRef<"allery", 'BigInt'>
-    readonly allergy: FieldRef<"allery", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * allery findUnique
-   */
-  export type alleryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery findUniqueOrThrow
-   */
-  export type alleryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery findFirst
-   */
-  export type alleryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of alleries.
-     */
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery findFirstOrThrow
-   */
-  export type alleryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of alleries.
-     */
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery findMany
-   */
-  export type alleryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which alleries to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery create
-   */
-  export type alleryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The data needed to create a allery.
-     */
-    data?: XOR<alleryCreateInput, alleryUncheckedCreateInput>
-  }
-
-  /**
-   * allery createMany
-   */
-  export type alleryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many alleries.
-     */
-    data: alleryCreateManyInput | alleryCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * allery update
-   */
-  export type alleryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a allery.
-     */
-    data: XOR<alleryUpdateInput, alleryUncheckedUpdateInput>
-    /**
-     * Choose, which allery to update.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery updateMany
-   */
-  export type alleryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update alleries.
-     */
-    data: XOR<alleryUpdateManyMutationInput, alleryUncheckedUpdateManyInput>
-    /**
-     * Filter which alleries to update
-     */
-    where?: alleryWhereInput
-    /**
-     * Limit how many alleries to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * allery upsert
-   */
-  export type alleryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the allery to update in case it exists.
-     */
-    where: alleryWhereUniqueInput
-    /**
-     * In case the allery found by the `where` argument doesn't exist, create a new allery with this data.
-     */
-    create: XOR<alleryCreateInput, alleryUncheckedCreateInput>
-    /**
-     * In case the allery was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<alleryUpdateInput, alleryUncheckedUpdateInput>
-  }
-
-  /**
-   * allery delete
-   */
-  export type alleryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter which allery to delete.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery deleteMany
-   */
-  export type alleryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which alleries to delete
-     */
-    where?: alleryWhereInput
-    /**
-     * Limit how many alleries to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * allery.menu_allery
-   */
-  export type allery$menu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_allery
-     */
-    select?: menu_allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_allery
-     */
-    omit?: menu_alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_alleryInclude<ExtArgs> | null
-    where?: menu_alleryWhereInput
-    orderBy?: menu_alleryOrderByWithRelationInput | menu_alleryOrderByWithRelationInput[]
-    cursor?: menu_alleryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_alleryScalarFieldEnum | Menu_alleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery without action
-   */
-  export type alleryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
   }
 
 
@@ -9133,7 +8252,7 @@ export namespace Prisma {
   export type menu_allerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     menu_id?: boolean
     allergy_id?: boolean
-    allery?: boolean | alleryDefaultArgs<ExtArgs>
+    allery?: boolean | allergyDefaultArgs<ExtArgs>
     menu?: boolean | menuDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["menu_allery"]>
 
@@ -9146,14 +8265,14 @@ export namespace Prisma {
 
   export type menu_alleryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"menu_id" | "allergy_id", ExtArgs["result"]["menu_allery"]>
   export type menu_alleryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    allery?: boolean | alleryDefaultArgs<ExtArgs>
+    allery?: boolean | allergyDefaultArgs<ExtArgs>
     menu?: boolean | menuDefaultArgs<ExtArgs>
   }
 
   export type $menu_alleryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "menu_allery"
     objects: {
-      allery: Prisma.$alleryPayload<ExtArgs>
+      allery: Prisma.$allergyPayload<ExtArgs>
       menu: Prisma.$menuPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9499,7 +8618,7 @@ export namespace Prisma {
    */
   export interface Prisma__menu_alleryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    allery<T extends alleryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, alleryDefaultArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    allery<T extends allergyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, allergyDefaultArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12804,6 +11923,1856 @@ export namespace Prisma {
 
 
   /**
+   * Model allergy
+   */
+
+  export type AggregateAllergy = {
+    _count: AllergyCountAggregateOutputType | null
+    _avg: AllergyAvgAggregateOutputType | null
+    _sum: AllergySumAggregateOutputType | null
+    _min: AllergyMinAggregateOutputType | null
+    _max: AllergyMaxAggregateOutputType | null
+  }
+
+  export type AllergyAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AllergySumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type AllergyMinAggregateOutputType = {
+    id: bigint | null
+    allergy: string | null
+  }
+
+  export type AllergyMaxAggregateOutputType = {
+    id: bigint | null
+    allergy: string | null
+  }
+
+  export type AllergyCountAggregateOutputType = {
+    id: number
+    allergy: number
+    _all: number
+  }
+
+
+  export type AllergyAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type AllergySumAggregateInputType = {
+    id?: true
+  }
+
+  export type AllergyMinAggregateInputType = {
+    id?: true
+    allergy?: true
+  }
+
+  export type AllergyMaxAggregateInputType = {
+    id?: true
+    allergy?: true
+  }
+
+  export type AllergyCountAggregateInputType = {
+    id?: true
+    allergy?: true
+    _all?: true
+  }
+
+  export type AllergyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which allergy to aggregate.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned allergies
+    **/
+    _count?: true | AllergyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AllergyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AllergySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AllergyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AllergyMaxAggregateInputType
+  }
+
+  export type GetAllergyAggregateType<T extends AllergyAggregateArgs> = {
+        [P in keyof T & keyof AggregateAllergy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAllergy[P]>
+      : GetScalarType<T[P], AggregateAllergy[P]>
+  }
+
+
+
+
+  export type allergyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: allergyWhereInput
+    orderBy?: allergyOrderByWithAggregationInput | allergyOrderByWithAggregationInput[]
+    by: AllergyScalarFieldEnum[] | AllergyScalarFieldEnum
+    having?: allergyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AllergyCountAggregateInputType | true
+    _avg?: AllergyAvgAggregateInputType
+    _sum?: AllergySumAggregateInputType
+    _min?: AllergyMinAggregateInputType
+    _max?: AllergyMaxAggregateInputType
+  }
+
+  export type AllergyGroupByOutputType = {
+    id: bigint
+    allergy: string | null
+    _count: AllergyCountAggregateOutputType | null
+    _avg: AllergyAvgAggregateOutputType | null
+    _sum: AllergySumAggregateOutputType | null
+    _min: AllergyMinAggregateOutputType | null
+    _max: AllergyMaxAggregateOutputType | null
+  }
+
+  type GetAllergyGroupByPayload<T extends allergyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AllergyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AllergyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AllergyGroupByOutputType[P]>
+            : GetScalarType<T[P], AllergyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type allergySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    allergy?: boolean
+    menu_allery?: boolean | allergy$menu_alleryArgs<ExtArgs>
+    _count?: boolean | AllergyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["allergy"]>
+
+
+
+  export type allergySelectScalar = {
+    id?: boolean
+    allergy?: boolean
+  }
+
+  export type allergyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "allergy", ExtArgs["result"]["allergy"]>
+  export type allergyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_allery?: boolean | allergy$menu_alleryArgs<ExtArgs>
+    _count?: boolean | AllergyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $allergyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "allergy"
+    objects: {
+      menu_allery: Prisma.$menu_alleryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      allergy: string | null
+    }, ExtArgs["result"]["allergy"]>
+    composites: {}
+  }
+
+  type allergyGetPayload<S extends boolean | null | undefined | allergyDefaultArgs> = $Result.GetResult<Prisma.$allergyPayload, S>
+
+  type allergyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<allergyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AllergyCountAggregateInputType | true
+    }
+
+  export interface allergyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['allergy'], meta: { name: 'allergy' } }
+    /**
+     * Find zero or one Allergy that matches the filter.
+     * @param {allergyFindUniqueArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends allergyFindUniqueArgs>(args: SelectSubset<T, allergyFindUniqueArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Allergy that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {allergyFindUniqueOrThrowArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends allergyFindUniqueOrThrowArgs>(args: SelectSubset<T, allergyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Allergy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindFirstArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends allergyFindFirstArgs>(args?: SelectSubset<T, allergyFindFirstArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Allergy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindFirstOrThrowArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends allergyFindFirstOrThrowArgs>(args?: SelectSubset<T, allergyFindFirstOrThrowArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Allergies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Allergies
+     * const allergies = await prisma.allergy.findMany()
+     * 
+     * // Get first 10 Allergies
+     * const allergies = await prisma.allergy.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const allergyWithIdOnly = await prisma.allergy.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends allergyFindManyArgs>(args?: SelectSubset<T, allergyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Allergy.
+     * @param {allergyCreateArgs} args - Arguments to create a Allergy.
+     * @example
+     * // Create one Allergy
+     * const Allergy = await prisma.allergy.create({
+     *   data: {
+     *     // ... data to create a Allergy
+     *   }
+     * })
+     * 
+     */
+    create<T extends allergyCreateArgs>(args: SelectSubset<T, allergyCreateArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Allergies.
+     * @param {allergyCreateManyArgs} args - Arguments to create many Allergies.
+     * @example
+     * // Create many Allergies
+     * const allergy = await prisma.allergy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends allergyCreateManyArgs>(args?: SelectSubset<T, allergyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Allergy.
+     * @param {allergyDeleteArgs} args - Arguments to delete one Allergy.
+     * @example
+     * // Delete one Allergy
+     * const Allergy = await prisma.allergy.delete({
+     *   where: {
+     *     // ... filter to delete one Allergy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends allergyDeleteArgs>(args: SelectSubset<T, allergyDeleteArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Allergy.
+     * @param {allergyUpdateArgs} args - Arguments to update one Allergy.
+     * @example
+     * // Update one Allergy
+     * const allergy = await prisma.allergy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends allergyUpdateArgs>(args: SelectSubset<T, allergyUpdateArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Allergies.
+     * @param {allergyDeleteManyArgs} args - Arguments to filter Allergies to delete.
+     * @example
+     * // Delete a few Allergies
+     * const { count } = await prisma.allergy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends allergyDeleteManyArgs>(args?: SelectSubset<T, allergyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Allergies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Allergies
+     * const allergy = await prisma.allergy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends allergyUpdateManyArgs>(args: SelectSubset<T, allergyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Allergy.
+     * @param {allergyUpsertArgs} args - Arguments to update or create a Allergy.
+     * @example
+     * // Update or create a Allergy
+     * const allergy = await prisma.allergy.upsert({
+     *   create: {
+     *     // ... data to create a Allergy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Allergy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends allergyUpsertArgs>(args: SelectSubset<T, allergyUpsertArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Allergies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyCountArgs} args - Arguments to filter Allergies to count.
+     * @example
+     * // Count the number of Allergies
+     * const count = await prisma.allergy.count({
+     *   where: {
+     *     // ... the filter for the Allergies we want to count
+     *   }
+     * })
+    **/
+    count<T extends allergyCountArgs>(
+      args?: Subset<T, allergyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AllergyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Allergy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllergyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AllergyAggregateArgs>(args: Subset<T, AllergyAggregateArgs>): Prisma.PrismaPromise<GetAllergyAggregateType<T>>
+
+    /**
+     * Group by Allergy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends allergyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: allergyGroupByArgs['orderBy'] }
+        : { orderBy?: allergyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, allergyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAllergyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the allergy model
+   */
+  readonly fields: allergyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for allergy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__allergyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu_allery<T extends allergy$menu_alleryArgs<ExtArgs> = {}>(args?: Subset<T, allergy$menu_alleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the allergy model
+   */
+  interface allergyFieldRefs {
+    readonly id: FieldRef<"allergy", 'BigInt'>
+    readonly allergy: FieldRef<"allergy", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * allergy findUnique
+   */
+  export type allergyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy findUniqueOrThrow
+   */
+  export type allergyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy findFirst
+   */
+  export type allergyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of allergies.
+     */
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy findFirstOrThrow
+   */
+  export type allergyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of allergies.
+     */
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy findMany
+   */
+  export type allergyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergies to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy create
+   */
+  export type allergyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a allergy.
+     */
+    data?: XOR<allergyCreateInput, allergyUncheckedCreateInput>
+  }
+
+  /**
+   * allergy createMany
+   */
+  export type allergyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many allergies.
+     */
+    data: allergyCreateManyInput | allergyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * allergy update
+   */
+  export type allergyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a allergy.
+     */
+    data: XOR<allergyUpdateInput, allergyUncheckedUpdateInput>
+    /**
+     * Choose, which allergy to update.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy updateMany
+   */
+  export type allergyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update allergies.
+     */
+    data: XOR<allergyUpdateManyMutationInput, allergyUncheckedUpdateManyInput>
+    /**
+     * Filter which allergies to update
+     */
+    where?: allergyWhereInput
+    /**
+     * Limit how many allergies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * allergy upsert
+   */
+  export type allergyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the allergy to update in case it exists.
+     */
+    where: allergyWhereUniqueInput
+    /**
+     * In case the allergy found by the `where` argument doesn't exist, create a new allergy with this data.
+     */
+    create: XOR<allergyCreateInput, allergyUncheckedCreateInput>
+    /**
+     * In case the allergy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<allergyUpdateInput, allergyUncheckedUpdateInput>
+  }
+
+  /**
+   * allergy delete
+   */
+  export type allergyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter which allergy to delete.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy deleteMany
+   */
+  export type allergyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which allergies to delete
+     */
+    where?: allergyWhereInput
+    /**
+     * Limit how many allergies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * allergy.menu_allery
+   */
+  export type allergy$menu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_allery
+     */
+    select?: menu_allerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_allery
+     */
+    omit?: menu_alleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_alleryInclude<ExtArgs> | null
+    where?: menu_alleryWhereInput
+    orderBy?: menu_alleryOrderByWithRelationInput | menu_alleryOrderByWithRelationInput[]
+    cursor?: menu_alleryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_alleryScalarFieldEnum | Menu_alleryScalarFieldEnum[]
+  }
+
+  /**
+   * allergy without action
+   */
+  export type allergyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model sessions
+   */
+
+  export type AggregateSessions = {
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  export type SessionsAvgAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsSumAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsMinAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsMaxAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsCountAggregateOutputType = {
+    session_id: number
+    expires: number
+    data: number
+    _all: number
+  }
+
+
+  export type SessionsAvgAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsSumAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsMinAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsMaxAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsCountAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+    _all?: true
+  }
+
+  export type SessionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to aggregate.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sessions
+    **/
+    _count?: true | SessionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type GetSessionsAggregateType<T extends SessionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessions[P]>
+      : GetScalarType<T[P], AggregateSessions[P]>
+  }
+
+
+
+
+  export type sessionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithAggregationInput | sessionsOrderByWithAggregationInput[]
+    by: SessionsScalarFieldEnum[] | SessionsScalarFieldEnum
+    having?: sessionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionsCountAggregateInputType | true
+    _avg?: SessionsAvgAggregateInputType
+    _sum?: SessionsSumAggregateInputType
+    _min?: SessionsMinAggregateInputType
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type SessionsGroupByOutputType = {
+    session_id: string
+    expires: number
+    data: string | null
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  type GetSessionsGroupByPayload<T extends sessionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type sessionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }, ExtArgs["result"]["sessions"]>
+
+
+
+  export type sessionsSelectScalar = {
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }
+
+  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "expires" | "data", ExtArgs["result"]["sessions"]>
+
+  export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "sessions"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      session_id: string
+      expires: number
+      data: string | null
+    }, ExtArgs["result"]["sessions"]>
+    composites: {}
+  }
+
+  type sessionsGetPayload<S extends boolean | null | undefined | sessionsDefaultArgs> = $Result.GetResult<Prisma.$sessionsPayload, S>
+
+  type sessionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<sessionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionsCountAggregateInputType | true
+    }
+
+  export interface sessionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sessions'], meta: { name: 'sessions' } }
+    /**
+     * Find zero or one Sessions that matches the filter.
+     * @param {sessionsFindUniqueArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends sessionsFindUniqueArgs>(args: SelectSubset<T, sessionsFindUniqueArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Sessions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {sessionsFindUniqueOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends sessionsFindUniqueOrThrowArgs>(args: SelectSubset<T, sessionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends sessionsFindFirstArgs>(args?: SelectSubset<T, sessionsFindFirstArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends sessionsFindFirstOrThrowArgs>(args?: SelectSubset<T, sessionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sessions
+     * const sessions = await prisma.sessions.findMany()
+     * 
+     * // Get first 10 Sessions
+     * const sessions = await prisma.sessions.findMany({ take: 10 })
+     * 
+     * // Only select the `session_id`
+     * const sessionsWithSession_idOnly = await prisma.sessions.findMany({ select: { session_id: true } })
+     * 
+     */
+    findMany<T extends sessionsFindManyArgs>(args?: SelectSubset<T, sessionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Sessions.
+     * @param {sessionsCreateArgs} args - Arguments to create a Sessions.
+     * @example
+     * // Create one Sessions
+     * const Sessions = await prisma.sessions.create({
+     *   data: {
+     *     // ... data to create a Sessions
+     *   }
+     * })
+     * 
+     */
+    create<T extends sessionsCreateArgs>(args: SelectSubset<T, sessionsCreateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sessions.
+     * @param {sessionsCreateManyArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const sessions = await prisma.sessions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends sessionsCreateManyArgs>(args?: SelectSubset<T, sessionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Sessions.
+     * @param {sessionsDeleteArgs} args - Arguments to delete one Sessions.
+     * @example
+     * // Delete one Sessions
+     * const Sessions = await prisma.sessions.delete({
+     *   where: {
+     *     // ... filter to delete one Sessions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends sessionsDeleteArgs>(args: SelectSubset<T, sessionsDeleteArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Sessions.
+     * @param {sessionsUpdateArgs} args - Arguments to update one Sessions.
+     * @example
+     * // Update one Sessions
+     * const sessions = await prisma.sessions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends sessionsUpdateArgs>(args: SelectSubset<T, sessionsUpdateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sessions.
+     * @param {sessionsDeleteManyArgs} args - Arguments to filter Sessions to delete.
+     * @example
+     * // Delete a few Sessions
+     * const { count } = await prisma.sessions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends sessionsDeleteManyArgs>(args?: SelectSubset<T, sessionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sessions
+     * const sessions = await prisma.sessions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends sessionsUpdateManyArgs>(args: SelectSubset<T, sessionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Sessions.
+     * @param {sessionsUpsertArgs} args - Arguments to update or create a Sessions.
+     * @example
+     * // Update or create a Sessions
+     * const sessions = await prisma.sessions.upsert({
+     *   create: {
+     *     // ... data to create a Sessions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sessions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends sessionsUpsertArgs>(args: SelectSubset<T, sessionsUpsertArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsCountArgs} args - Arguments to filter Sessions to count.
+     * @example
+     * // Count the number of Sessions
+     * const count = await prisma.sessions.count({
+     *   where: {
+     *     // ... the filter for the Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends sessionsCountArgs>(
+      args?: Subset<T, sessionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionsAggregateArgs>(args: Subset<T, SessionsAggregateArgs>): Prisma.PrismaPromise<GetSessionsAggregateType<T>>
+
+    /**
+     * Group by Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends sessionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: sessionsGroupByArgs['orderBy'] }
+        : { orderBy?: sessionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, sessionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the sessions model
+   */
+  readonly fields: sessionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for sessions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the sessions model
+   */
+  interface sessionsFieldRefs {
+    readonly session_id: FieldRef<"sessions", 'String'>
+    readonly expires: FieldRef<"sessions", 'Int'>
+    readonly data: FieldRef<"sessions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * sessions findUnique
+   */
+  export type sessionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findUniqueOrThrow
+   */
+  export type sessionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findFirst
+   */
+  export type sessionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findFirstOrThrow
+   */
+  export type sessionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findMany
+   */
+  export type sessionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions create
+   */
+  export type sessionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a sessions.
+     */
+    data: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+  }
+
+  /**
+   * sessions createMany
+   */
+  export type sessionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sessions.
+     */
+    data: sessionsCreateManyInput | sessionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * sessions update
+   */
+  export type sessionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a sessions.
+     */
+    data: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+    /**
+     * Choose, which sessions to update.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions updateMany
+   */
+  export type sessionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sessions.
+     */
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyInput>
+    /**
+     * Filter which sessions to update
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions upsert
+   */
+  export type sessionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the sessions to update in case it exists.
+     */
+    where: sessionsWhereUniqueInput
+    /**
+     * In case the sessions found by the `where` argument doesn't exist, create a new sessions with this data.
+     */
+    create: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+    /**
+     * In case the sessions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+  }
+
+  /**
+   * sessions delete
+   */
+  export type sessionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter which sessions to delete.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions deleteMany
+   */
+  export type sessionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to delete
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions without action
+   */
+  export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12849,14 +13818,6 @@ export namespace Prisma {
   };
 
   export type Menu_tagScalarFieldEnum = (typeof Menu_tagScalarFieldEnum)[keyof typeof Menu_tagScalarFieldEnum]
-
-
-  export const AlleryScalarFieldEnum: {
-    id: 'id',
-    allergy: 'allergy'
-  };
-
-  export type AlleryScalarFieldEnum = (typeof AlleryScalarFieldEnum)[keyof typeof AlleryScalarFieldEnum]
 
 
   export const BattleScalarFieldEnum: {
@@ -12933,6 +13894,23 @@ export namespace Prisma {
   export type VitaminScalarFieldEnum = (typeof VitaminScalarFieldEnum)[keyof typeof VitaminScalarFieldEnum]
 
 
+  export const AllergyScalarFieldEnum: {
+    id: 'id',
+    allergy: 'allergy'
+  };
+
+  export type AllergyScalarFieldEnum = (typeof AllergyScalarFieldEnum)[keyof typeof AllergyScalarFieldEnum]
+
+
+  export const SessionsScalarFieldEnum: {
+    session_id: 'session_id',
+    expires: 'expires',
+    data: 'data'
+  };
+
+  export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -12963,13 +13941,6 @@ export namespace Prisma {
   };
 
   export type menu_tagOrderByRelevanceFieldEnum = (typeof menu_tagOrderByRelevanceFieldEnum)[keyof typeof menu_tagOrderByRelevanceFieldEnum]
-
-
-  export const alleryOrderByRelevanceFieldEnum: {
-    allergy: 'allergy'
-  };
-
-  export type alleryOrderByRelevanceFieldEnum = (typeof alleryOrderByRelevanceFieldEnum)[keyof typeof alleryOrderByRelevanceFieldEnum]
 
 
   export const battleOrderByRelevanceFieldEnum: {
@@ -13010,6 +13981,21 @@ export namespace Prisma {
   };
 
   export type vitaminOrderByRelevanceFieldEnum = (typeof vitaminOrderByRelevanceFieldEnum)[keyof typeof vitaminOrderByRelevanceFieldEnum]
+
+
+  export const allergyOrderByRelevanceFieldEnum: {
+    allergy: 'allergy'
+  };
+
+  export type allergyOrderByRelevanceFieldEnum = (typeof allergyOrderByRelevanceFieldEnum)[keyof typeof allergyOrderByRelevanceFieldEnum]
+
+
+  export const sessionsOrderByRelevanceFieldEnum: {
+    session_id: 'session_id',
+    data: 'data'
+  };
+
+  export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
 
 
   /**
@@ -13248,49 +14234,6 @@ export namespace Prisma {
     tag?: StringNullableWithAggregatesFilter<"menu_tag"> | string | null
   }
 
-  export type alleryWhereInput = {
-    AND?: alleryWhereInput | alleryWhereInput[]
-    OR?: alleryWhereInput[]
-    NOT?: alleryWhereInput | alleryWhereInput[]
-    id?: BigIntFilter<"allery"> | bigint | number
-    allergy?: StringNullableFilter<"allery"> | string | null
-    menu_allery?: Menu_alleryListRelationFilter
-  }
-
-  export type alleryOrderByWithRelationInput = {
-    id?: SortOrder
-    allergy?: SortOrderInput | SortOrder
-    menu_allery?: menu_alleryOrderByRelationAggregateInput
-    _relevance?: alleryOrderByRelevanceInput
-  }
-
-  export type alleryWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: alleryWhereInput | alleryWhereInput[]
-    OR?: alleryWhereInput[]
-    NOT?: alleryWhereInput | alleryWhereInput[]
-    allergy?: StringNullableFilter<"allery"> | string | null
-    menu_allery?: Menu_alleryListRelationFilter
-  }, "id">
-
-  export type alleryOrderByWithAggregationInput = {
-    id?: SortOrder
-    allergy?: SortOrderInput | SortOrder
-    _count?: alleryCountOrderByAggregateInput
-    _avg?: alleryAvgOrderByAggregateInput
-    _max?: alleryMaxOrderByAggregateInput
-    _min?: alleryMinOrderByAggregateInput
-    _sum?: allerySumOrderByAggregateInput
-  }
-
-  export type alleryScalarWhereWithAggregatesInput = {
-    AND?: alleryScalarWhereWithAggregatesInput | alleryScalarWhereWithAggregatesInput[]
-    OR?: alleryScalarWhereWithAggregatesInput[]
-    NOT?: alleryScalarWhereWithAggregatesInput | alleryScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"allery"> | bigint | number
-    allergy?: StringNullableWithAggregatesFilter<"allery"> | string | null
-  }
-
   export type battleWhereInput = {
     AND?: battleWhereInput | battleWhereInput[]
     OR?: battleWhereInput[]
@@ -13496,14 +14439,14 @@ export namespace Prisma {
     NOT?: menu_alleryWhereInput | menu_alleryWhereInput[]
     menu_id?: BigIntFilter<"menu_allery"> | bigint | number
     allergy_id?: BigIntFilter<"menu_allery"> | bigint | number
-    allery?: XOR<AlleryScalarRelationFilter, alleryWhereInput>
+    allery?: XOR<AllergyScalarRelationFilter, allergyWhereInput>
     menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
   }
 
   export type menu_alleryOrderByWithRelationInput = {
     menu_id?: SortOrder
     allergy_id?: SortOrder
-    allery?: alleryOrderByWithRelationInput
+    allery?: allergyOrderByWithRelationInput
     menu?: menuOrderByWithRelationInput
   }
 
@@ -13514,7 +14457,7 @@ export namespace Prisma {
     NOT?: menu_alleryWhereInput | menu_alleryWhereInput[]
     menu_id?: BigIntFilter<"menu_allery"> | bigint | number
     allergy_id?: BigIntFilter<"menu_allery"> | bigint | number
-    allery?: XOR<AlleryScalarRelationFilter, alleryWhereInput>
+    allery?: XOR<AllergyScalarRelationFilter, allergyWhereInput>
     menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
   }, "menu_id_allergy_id">
 
@@ -13699,6 +14642,94 @@ export namespace Prisma {
     NOT?: vitaminScalarWhereWithAggregatesInput | vitaminScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"vitamin"> | bigint | number
     vitamin?: StringNullableWithAggregatesFilter<"vitamin"> | string | null
+  }
+
+  export type allergyWhereInput = {
+    AND?: allergyWhereInput | allergyWhereInput[]
+    OR?: allergyWhereInput[]
+    NOT?: allergyWhereInput | allergyWhereInput[]
+    id?: BigIntFilter<"allergy"> | bigint | number
+    allergy?: StringNullableFilter<"allergy"> | string | null
+    menu_allery?: Menu_alleryListRelationFilter
+  }
+
+  export type allergyOrderByWithRelationInput = {
+    id?: SortOrder
+    allergy?: SortOrderInput | SortOrder
+    menu_allery?: menu_alleryOrderByRelationAggregateInput
+    _relevance?: allergyOrderByRelevanceInput
+  }
+
+  export type allergyWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: allergyWhereInput | allergyWhereInput[]
+    OR?: allergyWhereInput[]
+    NOT?: allergyWhereInput | allergyWhereInput[]
+    allergy?: StringNullableFilter<"allergy"> | string | null
+    menu_allery?: Menu_alleryListRelationFilter
+  }, "id">
+
+  export type allergyOrderByWithAggregationInput = {
+    id?: SortOrder
+    allergy?: SortOrderInput | SortOrder
+    _count?: allergyCountOrderByAggregateInput
+    _avg?: allergyAvgOrderByAggregateInput
+    _max?: allergyMaxOrderByAggregateInput
+    _min?: allergyMinOrderByAggregateInput
+    _sum?: allergySumOrderByAggregateInput
+  }
+
+  export type allergyScalarWhereWithAggregatesInput = {
+    AND?: allergyScalarWhereWithAggregatesInput | allergyScalarWhereWithAggregatesInput[]
+    OR?: allergyScalarWhereWithAggregatesInput[]
+    NOT?: allergyScalarWhereWithAggregatesInput | allergyScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"allergy"> | bigint | number
+    allergy?: StringNullableWithAggregatesFilter<"allergy"> | string | null
+  }
+
+  export type sessionsWhereInput = {
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    session_id?: StringFilter<"sessions"> | string
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }
+
+  export type sessionsOrderByWithRelationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _relevance?: sessionsOrderByRelevanceInput
+  }
+
+  export type sessionsWhereUniqueInput = Prisma.AtLeast<{
+    session_id?: string
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }, "session_id">
+
+  export type sessionsOrderByWithAggregationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _count?: sessionsCountOrderByAggregateInput
+    _avg?: sessionsAvgOrderByAggregateInput
+    _max?: sessionsMaxOrderByAggregateInput
+    _min?: sessionsMinOrderByAggregateInput
+    _sum?: sessionsSumOrderByAggregateInput
+  }
+
+  export type sessionsScalarWhereWithAggregatesInput = {
+    AND?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    OR?: sessionsScalarWhereWithAggregatesInput[]
+    NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    session_id?: StringWithAggregatesFilter<"sessions"> | string
+    expires?: IntWithAggregatesFilter<"sessions"> | number
+    data?: StringNullableWithAggregatesFilter<"sessions"> | string | null
   }
 
   export type menuCreateInput = {
@@ -13896,45 +14927,6 @@ export namespace Prisma {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
     tag?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type alleryCreateInput = {
-    id?: bigint | number
-    allergy?: string | null
-    menu_allery?: menu_alleryCreateNestedManyWithoutAlleryInput
-  }
-
-  export type alleryUncheckedCreateInput = {
-    id?: bigint | number
-    allergy?: string | null
-    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutAlleryInput
-  }
-
-  export type alleryUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUpdateManyWithoutAlleryNestedInput
-  }
-
-  export type alleryUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput
-  }
-
-  export type alleryCreateManyInput = {
-    id?: bigint | number
-    allergy?: string | null
-  }
-
-  export type alleryUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type alleryUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type battleCreateInput = {
@@ -14136,7 +15128,7 @@ export namespace Prisma {
   }
 
   export type menu_alleryCreateInput = {
-    allery: alleryCreateNestedOneWithoutMenu_alleryInput
+    allery: allergyCreateNestedOneWithoutMenu_alleryInput
     menu: menuCreateNestedOneWithoutMenu_alleryInput
   }
 
@@ -14146,7 +15138,7 @@ export namespace Prisma {
   }
 
   export type menu_alleryUpdateInput = {
-    allery?: alleryUpdateOneRequiredWithoutMenu_alleryNestedInput
+    allery?: allergyUpdateOneRequiredWithoutMenu_alleryNestedInput
     menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
   }
 
@@ -14315,6 +15307,87 @@ export namespace Prisma {
   export type vitaminUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type allergyCreateInput = {
+    id?: bigint | number
+    allergy?: string | null
+    menu_allery?: menu_alleryCreateNestedManyWithoutAlleryInput
+  }
+
+  export type allergyUncheckedCreateInput = {
+    id?: bigint | number
+    allergy?: string | null
+    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutAlleryInput
+  }
+
+  export type allergyUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUpdateManyWithoutAlleryNestedInput
+  }
+
+  export type allergyUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput
+  }
+
+  export type allergyCreateManyInput = {
+    id?: bigint | number
+    allergy?: string | null
+  }
+
+  export type allergyUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type allergyUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUncheckedCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsCreateManyInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateManyMutationInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateManyInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -14659,35 +15732,6 @@ export namespace Prisma {
     menu_id?: SortOrder
   }
 
-  export type alleryOrderByRelevanceInput = {
-    fields: alleryOrderByRelevanceFieldEnum | alleryOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type alleryCountOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type alleryAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type alleryMaxOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type alleryMinOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type allerySumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -14893,9 +15937,9 @@ export namespace Prisma {
     is_creater?: SortOrder
   }
 
-  export type AlleryScalarRelationFilter = {
-    is?: alleryWhereInput
-    isNot?: alleryWhereInput
+  export type AllergyScalarRelationFilter = {
+    is?: allergyWhereInput
+    isNot?: allergyWhereInput
   }
 
   export type menu_alleryMenu_idAllergy_idCompoundUniqueInput = {
@@ -15045,6 +16089,94 @@ export namespace Prisma {
 
   export type vitaminSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type allergyOrderByRelevanceInput = {
+    fields: allergyOrderByRelevanceFieldEnum | allergyOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type allergyCountOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergyAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type allergyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergyMinOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergySumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type sessionsOrderByRelevanceInput = {
+    fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type sessionsCountOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsAvgOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type sessionsMaxOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsMinOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsSumOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type battle_menuCreateNestedManyWithoutMenuInput = {
@@ -15355,48 +16487,6 @@ export namespace Prisma {
     update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMenu_tagInput, menuUpdateWithoutMenu_tagInput>, menuUncheckedUpdateWithoutMenu_tagInput>
   }
 
-  export type menu_alleryCreateNestedManyWithoutAlleryInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-  }
-
-  export type menu_alleryUncheckedCreateNestedManyWithoutAlleryInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-  }
-
-  export type menu_alleryUpdateManyWithoutAlleryNestedInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
-    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
-    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
-  }
-
-  export type menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
-    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
-    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
-  }
-
   export type battle_menuCreateNestedManyWithoutBattleInput = {
     create?: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput> | battle_menuCreateWithoutBattleInput[] | battle_menuUncheckedCreateWithoutBattleInput[]
     connectOrCreate?: battle_menuCreateOrConnectWithoutBattleInput | battle_menuCreateOrConnectWithoutBattleInput[]
@@ -15581,10 +16671,10 @@ export namespace Prisma {
     update?: XOR<XOR<battleUpdateToOneWithWhereWithoutBattle_participantInput, battleUpdateWithoutBattle_participantInput>, battleUncheckedUpdateWithoutBattle_participantInput>
   }
 
-  export type alleryCreateNestedOneWithoutMenu_alleryInput = {
-    create?: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    connectOrCreate?: alleryCreateOrConnectWithoutMenu_alleryInput
-    connect?: alleryWhereUniqueInput
+  export type allergyCreateNestedOneWithoutMenu_alleryInput = {
+    create?: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_alleryInput
+    connect?: allergyWhereUniqueInput
   }
 
   export type menuCreateNestedOneWithoutMenu_alleryInput = {
@@ -15593,12 +16683,12 @@ export namespace Prisma {
     connect?: menuWhereUniqueInput
   }
 
-  export type alleryUpdateOneRequiredWithoutMenu_alleryNestedInput = {
-    create?: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    connectOrCreate?: alleryCreateOrConnectWithoutMenu_alleryInput
-    upsert?: alleryUpsertWithoutMenu_alleryInput
-    connect?: alleryWhereUniqueInput
-    update?: XOR<XOR<alleryUpdateToOneWithWhereWithoutMenu_alleryInput, alleryUpdateWithoutMenu_alleryInput>, alleryUncheckedUpdateWithoutMenu_alleryInput>
+  export type allergyUpdateOneRequiredWithoutMenu_alleryNestedInput = {
+    create?: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_alleryInput
+    upsert?: allergyUpsertWithoutMenu_alleryInput
+    connect?: allergyWhereUniqueInput
+    update?: XOR<XOR<allergyUpdateToOneWithWhereWithoutMenu_alleryInput, allergyUpdateWithoutMenu_alleryInput>, allergyUncheckedUpdateWithoutMenu_alleryInput>
   }
 
   export type menuUpdateOneRequiredWithoutMenu_alleryNestedInput = {
@@ -15705,6 +16795,56 @@ export namespace Prisma {
     update?: menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput | menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput[]
     updateMany?: menu_vitaminUpdateManyWithWhereWithoutVitaminInput | menu_vitaminUpdateManyWithWhereWithoutVitaminInput[]
     deleteMany?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
+  }
+
+  export type menu_alleryCreateNestedManyWithoutAlleryInput = {
+    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
+    createMany?: menu_alleryCreateManyAlleryInputEnvelope
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+  }
+
+  export type menu_alleryUncheckedCreateNestedManyWithoutAlleryInput = {
+    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
+    createMany?: menu_alleryCreateManyAlleryInputEnvelope
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+  }
+
+  export type menu_alleryUpdateManyWithoutAlleryNestedInput = {
+    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
+    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
+    createMany?: menu_alleryCreateManyAlleryInputEnvelope
+    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
+    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
+    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
+  }
+
+  export type menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput = {
+    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
+    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
+    createMany?: menu_alleryCreateManyAlleryInputEnvelope
+    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
+    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
+    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -15928,6 +17068,22 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type battle_menuCreateWithoutMenuInput = {
     id?: bigint | number
     menu_name?: string | null
@@ -15955,7 +17111,7 @@ export namespace Prisma {
   }
 
   export type menu_alleryCreateWithoutMenuInput = {
-    allery: alleryCreateNestedOneWithoutMenu_alleryInput
+    allery: allergyCreateNestedOneWithoutMenu_alleryInput
   }
 
   export type menu_alleryUncheckedCreateWithoutMenuInput = {
@@ -16387,40 +17543,6 @@ export namespace Prisma {
     spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
   }
 
-  export type menu_alleryCreateWithoutAlleryInput = {
-    menu: menuCreateNestedOneWithoutMenu_alleryInput
-  }
-
-  export type menu_alleryUncheckedCreateWithoutAlleryInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_alleryCreateOrConnectWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
-  }
-
-  export type menu_alleryCreateManyAlleryInputEnvelope = {
-    data: menu_alleryCreateManyAlleryInput | menu_alleryCreateManyAlleryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_alleryUpsertWithWhereUniqueWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    update: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
-    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
-  }
-
-  export type menu_alleryUpdateWithWhereUniqueWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    data: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
-  }
-
-  export type menu_alleryUpdateManyWithWhereWithoutAlleryInput = {
-    where: menu_alleryScalarWhereInput
-    data: XOR<menu_alleryUpdateManyMutationInput, menu_alleryUncheckedUpdateManyWithoutAlleryInput>
-  }
-
   export type battle_menuCreateWithoutBattleInput = {
     id?: bigint | number
     menu_name?: string | null
@@ -16772,19 +17894,19 @@ export namespace Prisma {
     spin_result?: spin_resultUncheckedUpdateManyWithoutBattleNestedInput
   }
 
-  export type alleryCreateWithoutMenu_alleryInput = {
+  export type allergyCreateWithoutMenu_alleryInput = {
     id?: bigint | number
     allergy?: string | null
   }
 
-  export type alleryUncheckedCreateWithoutMenu_alleryInput = {
+  export type allergyUncheckedCreateWithoutMenu_alleryInput = {
     id?: bigint | number
     allergy?: string | null
   }
 
-  export type alleryCreateOrConnectWithoutMenu_alleryInput = {
-    where: alleryWhereUniqueInput
-    create: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
+  export type allergyCreateOrConnectWithoutMenu_alleryInput = {
+    where: allergyWhereUniqueInput
+    create: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
   }
 
   export type menuCreateWithoutMenu_alleryInput = {
@@ -16826,23 +17948,23 @@ export namespace Prisma {
     create: XOR<menuCreateWithoutMenu_alleryInput, menuUncheckedCreateWithoutMenu_alleryInput>
   }
 
-  export type alleryUpsertWithoutMenu_alleryInput = {
-    update: XOR<alleryUpdateWithoutMenu_alleryInput, alleryUncheckedUpdateWithoutMenu_alleryInput>
-    create: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    where?: alleryWhereInput
+  export type allergyUpsertWithoutMenu_alleryInput = {
+    update: XOR<allergyUpdateWithoutMenu_alleryInput, allergyUncheckedUpdateWithoutMenu_alleryInput>
+    create: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    where?: allergyWhereInput
   }
 
-  export type alleryUpdateToOneWithWhereWithoutMenu_alleryInput = {
-    where?: alleryWhereInput
-    data: XOR<alleryUpdateWithoutMenu_alleryInput, alleryUncheckedUpdateWithoutMenu_alleryInput>
+  export type allergyUpdateToOneWithWhereWithoutMenu_alleryInput = {
+    where?: allergyWhereInput
+    data: XOR<allergyUpdateWithoutMenu_alleryInput, allergyUncheckedUpdateWithoutMenu_alleryInput>
   }
 
-  export type alleryUpdateWithoutMenu_alleryInput = {
+  export type allergyUpdateWithoutMenu_alleryInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type alleryUncheckedUpdateWithoutMenu_alleryInput = {
+  export type allergyUncheckedUpdateWithoutMenu_alleryInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -17194,6 +18316,40 @@ export namespace Prisma {
     data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutVitaminInput>
   }
 
+  export type menu_alleryCreateWithoutAlleryInput = {
+    menu: menuCreateNestedOneWithoutMenu_alleryInput
+  }
+
+  export type menu_alleryUncheckedCreateWithoutAlleryInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_alleryCreateOrConnectWithoutAlleryInput = {
+    where: menu_alleryWhereUniqueInput
+    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
+  }
+
+  export type menu_alleryCreateManyAlleryInputEnvelope = {
+    data: menu_alleryCreateManyAlleryInput | menu_alleryCreateManyAlleryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_alleryUpsertWithWhereUniqueWithoutAlleryInput = {
+    where: menu_alleryWhereUniqueInput
+    update: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
+    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
+  }
+
+  export type menu_alleryUpdateWithWhereUniqueWithoutAlleryInput = {
+    where: menu_alleryWhereUniqueInput
+    data: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
+  }
+
+  export type menu_alleryUpdateManyWithWhereWithoutAlleryInput = {
+    where: menu_alleryScalarWhereInput
+    data: XOR<menu_alleryUpdateManyMutationInput, menu_alleryUncheckedUpdateManyWithoutAlleryInput>
+  }
+
   export type battle_menuCreateManyMenuInput = {
     id?: bigint | number
     menu_name?: string | null
@@ -17256,7 +18412,7 @@ export namespace Prisma {
   }
 
   export type menu_alleryUpdateWithoutMenuInput = {
-    allery?: alleryUpdateOneRequiredWithoutMenu_alleryNestedInput
+    allery?: allergyUpdateOneRequiredWithoutMenu_alleryNestedInput
   }
 
   export type menu_alleryUncheckedUpdateWithoutMenuInput = {
@@ -17340,22 +18496,6 @@ export namespace Prisma {
     rank?: NullableIntFieldUpdateOperationsInput | number | null
     spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     battle_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type menu_alleryCreateManyAlleryInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_alleryUpdateWithoutAlleryInput = {
-    menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
-  }
-
-  export type menu_alleryUncheckedUpdateWithoutAlleryInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type menu_alleryUncheckedUpdateManyWithoutAlleryInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type battle_menuCreateManyBattleInput = {
@@ -17471,6 +18611,22 @@ export namespace Prisma {
   }
 
   export type menu_vitaminUncheckedUpdateManyWithoutVitaminInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_alleryCreateManyAlleryInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_alleryUpdateWithoutAlleryInput = {
+    menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
+  }
+
+  export type menu_alleryUncheckedUpdateWithoutAlleryInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_alleryUncheckedUpdateManyWithoutAlleryInput = {
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
