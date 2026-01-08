@@ -11,7 +11,6 @@ import swaggerUiExpress from "swagger-ui-express";
 import { handleUserSignUp } from "./controllers/auth.controller.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
-import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
 
 import {
@@ -218,7 +217,6 @@ app.get("/", (req, res) => {
 
 // --- Auth routes만 남김 ---
 app.post("/auth/signup", handleUserSignUp); // o
-app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo); // user 로 바꾸기
 
 app.post("/auth/login", handleUserLoginJWT); // o
 app.post("/auth/reissue", handleRenewToken); // o
