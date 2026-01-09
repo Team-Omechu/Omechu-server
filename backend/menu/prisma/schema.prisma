@@ -45,12 +45,6 @@ model menu_tag {
   @@index([menu_id], map: "menu_tag_menu_id_fk")
 }
 
-model allery {
-  id          BigInt        @id @default(autoincrement())
-  allergy     String?       @db.VarChar(50)
-  menu_allery menu_allery[]
-}
-
 model battle {
   id                 String               @id @db.VarChar(36)
   creater_nickname   String?              @db.VarChar(50)
@@ -93,8 +87,8 @@ model battle_participant {
 model menu_allery {
   menu_id    BigInt
   allergy_id BigInt
-  allery     allery @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_allery_allery_id_fk")
-  menu       menu   @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_allery_menu_id_fk")
+  allery     allergy @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_allery_allery_id_fk")
+  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_allery_menu_id_fk")
 
   @@id([menu_id, allergy_id])
   @@index([allergy_id], map: "menu_allery_allery_id_fk")
@@ -130,4 +124,16 @@ model vitamin {
   id           BigInt         @id @default(autoincrement())
   vitamin      String?        @db.VarChar(50)
   menu_vitamin menu_vitamin[]
+}
+
+model allergy {
+  id          BigInt        @id @default(autoincrement())
+  allergy     String?       @db.VarChar(50)
+  menu_allery menu_allery[]
+}
+
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  expires    Int     @db.UnsignedInt
+  data       String? @db.MediumText
 }
