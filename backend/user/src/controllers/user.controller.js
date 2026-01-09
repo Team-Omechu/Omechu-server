@@ -2,6 +2,9 @@ import { StatusCodes } from "http-status-codes";
 import { patchUserProfileService } from "../services/user.service.js";
 import { LoginRequiredError, UserUpdateFailedError } from "../errors.js";
 import jwt from "jsonwebtoken";
+import { PrismaClient } from "../generated/prisma/index.js";
+
+const prisma = new PrismaClient();
 
 export const handleUpdateUserInfo = async (req, res, next) => {
   /*
@@ -18,9 +21,6 @@ export const handleUpdateUserInfo = async (req, res, next) => {
             type: "object",
             properties: {
               nickname: { type: "string" },
-              profileImageUrl: { type: "string" },
-              gender: { type: "string", enum: ["남성", "여성"] },
-              body_type: { type: "string" },
               exercise: { type: "string", enum: ["다이어트 중", "증량 중", "유지 중"] },
               prefer: { type: "array", items: { type: "string" } },
               allergy: { type: "array", items: { type: "string" } }
@@ -41,11 +41,7 @@ export const handleUpdateUserInfo = async (req, res, next) => {
               success: {
                 type: "object",
                 properties: {
-                  email: { type: "string" },
                   nickname: { type: "string" },
-                  profileImageUrl: { type: "string" },
-                  gender: { type: "string" },
-                  body_type: { type: "string" },
                   exercise: { type: "string" },
                   prefer: { type: "array", items: { type: "string" } },
                   allergy: { type: "array", items: { type: "string" } }
@@ -84,10 +80,8 @@ export const handleUpdateUserInfo = async (req, res, next) => {
     console.log("회원 정보 수정을 요청했습니다!");
     console.log("body:", req.body);
 
-    // 1) 기본적으로 미들웨어가 넣어준 id 사용
     let userId = req.user?.id;
 
-    // 2) 없으면 Authorization 헤더에서 직접 복구
     if (!userId) {
       const h = req.headers.authorization || "";
       const m = /^Bearer\s+(.+)$/.exec(h);
@@ -96,27 +90,48 @@ export const handleUpdateUserInfo = async (req, res, next) => {
       let decoded;
       try {
         decoded = jwt.verify(m[1], process.env.JWT_SECRET);
-      } catch (e) {
+      } catch {
         throw new LoginRequiredError("토큰이 유효하지 않거나 만료되었습니다.");
       }
 
-      // 토큰 페이로드 모양이 제각각이어도 흡수
-      userId = Number(
-        decoded?.id ??
-        decoded?.sub ??
-        decoded?.userId ??
-        decoded?.payload ??
-        decoded
-      );
-
+      userId = Number(decoded?.id);
       if (!userId) {
         throw new LoginRequiredError("토큰에 사용자 정보가 없습니다.");
       }
     }
 
     const updatedUserInfo = await patchUserProfileService(userId, req.body);
-    res.status(StatusCodes.OK).success(updatedUserInfo);
+    return res.status(StatusCodes.OK).success(updatedUserInfo);
   } catch (error) {
     next(new UserUpdateFailedError("회원 정보 수정 중 오류 발생", error));
+  }
+};
+
+
+export const handleCreateUserInternal = async (req, res) => {
+  try {
+    const internalKey = req.headers["x-internal-key"];
+    if (internalKey !== process.env.INTERNAL_API_KEY) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    await prisma.user.upsert({
+      where: { id: BigInt(userId) },
+      update: {},
+      create: { id: BigInt(userId) },
+    });
+
+    return res.status(201).json({ resultType: "SUCCESS" });
+  } catch (err) {
+    console.error("[user/internal error]", err);
+    return res.status(500).json({
+      resultType: "FAIL",
+      error: { reason: err.message },
+    });
   }
 };

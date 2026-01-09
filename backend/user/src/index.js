@@ -8,7 +8,10 @@ import jwt from "jsonwebtoken";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { handleUpdateUserInfo } from "./controllers/user.controller.js";
+import { 
+  handleUpdateUserInfo,
+  handleCreateUserInternal 
+} from "./controllers/user.controller.js";
 
 import {
   handleAgreementConsent,
@@ -209,6 +212,8 @@ app.get("/", (req, res) => {
 // --- User routes만 남김 ---
 // 회원 가입 완료 API (회원 정보 넣는 API)
 app.patch("/user/complete", isLoggedIn, handleUpdateUserInfo);
+app.post("/user/internal", handleCreateUserInternal);
+
 
 // 약관 관련 API
 app.post("/user/agreements/consent", isLoggedIn, handleAgreementConsent);
