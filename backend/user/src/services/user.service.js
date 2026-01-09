@@ -14,58 +14,40 @@ import {
 
 import { InvalidProfileData } from "../errors.js";
 
-const assertArrayIfPresent = (fieldName, value) => {
-  if (value === undefined || value === null) return;
-  if (!Array.isArray(value)) {
-    const err = new InvalidProfileData(
-      `${fieldName} must be an array of allowed strings`,
-      { [fieldName]: value }
-    );
-    err.statusCode = 400;
-    throw err;
+const assertArray = (name, value) => {
+  if (value !== undefined && !Array.isArray(value)) {
+    throw new InvalidProfileData(`${name} must be array`);
   }
 };
 
 export const patchUserProfileService = async (userId, body) => {
-  try {
-    // 1) 타입 검증
-    assertArrayIfPresent("prefer", body.prefer);
-    assertArrayIfPresent("allergy", body.allergy);
+  assertArray("prefer", body.prefer);
+  assertArray("allergy", body.allergy);
 
-    // 2) 값 검증
-    if (Array.isArray(body.prefer)) {
-      const mapped = body.prefer.map((p) => convertPreferToEnum(p));
-      if (mapped.some((v) => v === null)) {
-        const err = new InvalidProfileData("Invalid prefer value(s)", {
-          prefer: body.prefer,
-        });
-        err.statusCode = 400;
-        throw err;
-      }
-      if (mapped.length) await createUserPreferences(userId, mapped);
-    }
-
-    if (Array.isArray(body.allergy)) {
-      const mapped = body.allergy.map((a) => convertAllergyToEnum(a));
-      if (mapped.some((v) => v === null)) {
-        const err = new InvalidProfileData("Invalid allergy value(s)", {
-          allergy: body.allergy,
-        });
-        err.statusCode = 400;
-        throw err;
-      }
-      if (mapped.length) await createUserAllergies(userId, mapped);
-    }
-
-    const userData = bodyToUserInfo(body, userId);
-    await updateUserInfo(userId, userData);
-
-    const updatedUser = await findUserById(userId);
-    return responseFromUser(updatedUser);
-  } catch (error) {
-    // 그대로
-    console.error("patchUserProfileService 에러:", error.message);
-    console.error("meta:", error.meta);
-    throw error;
+  const user = await findUserById(userId);
+  if (!user) {
+    throw new InvalidProfileData("User not found");
   }
+
+  if (Array.isArray(body.prefer)) {
+    const mapped = body.prefer.map(convertPreferToEnum);
+    if (mapped.some(v => v === null)) {
+      throw new InvalidProfileData("Invalid prefer value", body.prefer);
+    }
+    await createUserPreferences(userId, mapped);
+  }
+
+  if (Array.isArray(body.allergy)) {
+    const mapped = body.allergy.map(convertAllergyToEnum);
+    if (mapped.some(v => v === null)) {
+      throw new InvalidProfileData("Invalid allergy value", body.allergy);
+    }
+    await createUserAllergies(userId, mapped);
+  }
+
+  const userData = bodyToUserInfo(body);
+  await updateUserInfo(userId, userData);
+
+  const updatedUser = await findUserById(userId);
+  return responseFromUser(updatedUser);
 };

@@ -3,6 +3,7 @@ import { bodyToUser } from "../dtos/auth.dto.js";
 import { userSignUp } from "../services/auth.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
+import axios from "axios";
 
 // Redis 클라이언트 생성
 const redisClient = createClient({
@@ -122,6 +123,19 @@ export const handleUserSignUp = async (req, res, next) => {
     // 1) 유저 생성
     const user = await userSignUp(bodyToUser(req.body));
     const uid = Number(user.id); 
+
+    const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
+
+    await axios.post(
+      `${USER_SERVICE_URL}/user/internal`,
+      { userId: uid },
+      {
+        headers: {
+          "x-internal-key": process.env.INTERNAL_API_KEY,
+        },
+        timeout: 3000,
+      }
+    );
 
     // 2) 토큰 발급 (id 키로 표준화)
     const accessToken = generateAccessToken({ id: uid });
