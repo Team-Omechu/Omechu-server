@@ -1,15 +1,18 @@
 import { prisma } from "../db.config.js";
 
 export const findUserByEmail = async (email) => {
-  // email은 현재 Prisma schema에서 unique 필드가 아니므로 findUnique 대신 findFirst 사용
   return prisma.auth_user.findFirst({ where: { email } });
 };
 
 export const createUser = async ({ email, password }) => {
-  const data = {
-    email: email ?? null,
-    // Prisma schema(prisma/schema.prisma)에 정의된 필드만 사용
-    // id(BigInt @id)는 DB에서 자동 생성된다고 가정
+    const data = {
+      email: email ?? null,
+    };
+    if (password) {
+      // 이미 상위 서비스에서 해시했다면 그대로 대입, 아니라면 여기서 해시
+      data.password = password;
+    }
+    return prisma.auth_user.create({ data });
   };
   if (password) {
     data.password = password;
