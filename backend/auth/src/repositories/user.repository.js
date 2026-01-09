@@ -5,19 +5,17 @@ export const findUserByEmail = async (email) => {
 };
 
 export const createUser = async ({ email, password }) => {
-    const data = {
-      email: email ?? null,
-    };
-    if (password) {
-      // 이미 상위 서비스에서 해시했다면 그대로 대입, 아니라면 여기서 해시
-      data.password = password;
-    }
-    return prisma.auth_user.create({ data });
+  const data = {
+    email,
   };
+
   if (password) {
-    data.password = password;
+    data.password = password; // 이미 해시된 비밀번호
   }
-  return prisma.auth_user.create({ data });
+
+  return prisma.auth_user.create({
+    data,
+  });
 };
 
 export const findUserById = async (userId) => {

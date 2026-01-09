@@ -127,6 +127,22 @@ exports.Prisma.Auth_userScalarFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.Email_verificationScalarFieldEnum = {
+  email: 'email',
+  code: 'code',
+  expires_at: 'expires_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Password_reset_tokenScalarFieldEnum = {
+  email: 'email',
+  token: 'token',
+  expires_at: 'expires_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -142,9 +158,21 @@ exports.Prisma.auth_userOrderByRelevanceFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.email_verificationOrderByRelevanceFieldEnum = {
+  email: 'email',
+  code: 'code'
+};
+
+exports.Prisma.password_reset_tokenOrderByRelevanceFieldEnum = {
+  email: 'email',
+  token: 'token'
+};
+
 
 exports.Prisma.ModelName = {
-  auth_user: 'auth_user'
+  auth_user: 'auth_user',
+  email_verification: 'email_verification',
+  password_reset_token: 'password_reset_token'
 };
 
 /**
