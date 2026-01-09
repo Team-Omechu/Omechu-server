@@ -1,5 +1,4 @@
-import { PrismaClient } from "../generated/prisma/index.js";
-const prisma = new PrismaClient();
+import { prisma } from "../db.config.js";
 
 export const findUserByEmail = async (email) => {
   return prisma.auth_user.findFirst({ where: { email } });
@@ -15,14 +14,15 @@ export const createUser = async ({ email, password }) => {
     }
     return prisma.auth_user.create({ data });
   };
+  if (password) {
+    data.password = password;
+  }
+  return prisma.auth_user.create({ data });
+};
 
 export const findUserById = async (userId) => {
-  return await prisma.user.findUnique({
+  return await prisma.auth_user.findUnique({
     where: { id: Number(userId) },
-    include: {
-      prefer: true,
-      allergy: true,
-    },
   });
 };
 
