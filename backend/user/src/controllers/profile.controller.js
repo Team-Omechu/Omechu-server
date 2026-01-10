@@ -32,10 +32,7 @@ export const handleGetUserProfile = async (req, res, next) => {
               type: "object",
               properties: {
                 id: { type: "string", example: "1" },
-                email: { type: "string", example: "user@example.com" },
                 nickname: { type: "string", example: "오메추유저" },
-                body_type: { type: "string", example: "감기" },
-                gender: { type: "string", example: "남성" },
                 exercise: { type: "string", example: "다이어트 중" },
                 prefer: { 
                   type: "array", 
@@ -47,9 +44,6 @@ export const handleGetUserProfile = async (req, res, next) => {
                   items: { type: "string" },
                   example: ["달걀(난류) 알레르기", "우유 알레르기"]
                 },
-                profileImageUrl: { type: "string", example: "https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/profile/123.jpg" },
-                created_at: { type: "string", example: "2023-01-01T00:00:00.000Z" },
-                updated_at: { type: "string", example: "2023-01-01T00:00:00.000Z" }
               }
             }
           }
@@ -137,10 +131,7 @@ export const handleUpdateUserProfile = async (req, res, next) => {
         schema: {
           type: 'object',
           properties: {
-            email: { type: 'string', example: 'user@example.com' },
             nickname: { type: 'string', example: '새닉네임' },
-            body_type: { type: 'string', example: '감기', enum: ['감기', '소화불량', '더위잘탐', '추위잘탐'] },
-            gender: { type: 'string', example: '남성', enum: ['남성', '여성'] },
             exercise: { type: 'string', example: '다이어트 중', enum: ['다이어트 중', '증량 중', '유지 중'] },
             prefer: { 
               type: 'array', 
@@ -152,7 +143,6 @@ export const handleUpdateUserProfile = async (req, res, next) => {
               items: { type: 'string', enum: ['달걀(난류) 알레르기', '우유 알레르기', '갑각류 알레르기', '해산물 알레르기', '견과류 알레르기'] },
               example: ['달걀(난류) 알레르기']
             },
-            profileImageUrl: { type: 'string', example: 'https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/profile/123.jpg' }
           }
         }
       }
@@ -171,10 +161,7 @@ export const handleUpdateUserProfile = async (req, res, next) => {
               type: "object",
               properties: {
                 id: { type: "string", example: "1" },
-                email: { type: "string", example: "user@example.com" },
                 nickname: { type: "string", example: "새닉네임" },
-                body_type: { type: "string", example: "감기" },
-                gender: { type: "string", example: "남성" },
                 exercise: { type: "string", example: "다이어트 중" },
                 prefer: { 
                   type: "array", 
@@ -186,7 +173,6 @@ export const handleUpdateUserProfile = async (req, res, next) => {
                   items: { type: "string" },
                   example: ["달걀(난류) 알레르기"]
                 },
-                profileImageUrl: { type: "string", example: "https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/profile/123.jpg" }
               }
             }
           }

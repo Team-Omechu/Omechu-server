@@ -1,93 +1,44 @@
 /**
- * 마이페이지 관련 DTO 함수들
+ * 마이페이지 DTO
  */
 
-// 프로필 수정 요청 데이터 변환
+// ===== 요청 DTO =====
 export const bodyToProfileUpdate = (body, userId) => {
-  return {
-    userId: userId,
-    email: body.email,
-    nickname: body.nickname,
-    body_type: convertBodyTypeToEnum(body.body_type),
-    gender: convertGenderToEnum(body.gender),
-    exercise: convertExerciseToEnum(body.exercise),
-    prefer: body.prefer,
-    allergy: body.allergy,
-    profileImageUrl: body.profileImageUrl,
-  };
+  const result = { userId };
+
+  if (body.nickname !== undefined) {
+    result.nickname = body.nickname;
+  }
+
+  if (body.exercise !== undefined) {
+    result.exercise = convertExerciseToEnum(body.exercise);
+  }
+
+  if (Array.isArray(body.prefer)) {
+    result.prefer = body.prefer.map(convertPreferToEnum).filter(Boolean);
+  }
+
+  if (Array.isArray(body.allergy)) {
+    result.allergy = body.allergy.map(convertAllergyToEnum).filter(Boolean);
+  }
+
+  return result;
 };
 
-// 프로필 응답 데이터 변환
+// ===== 응답 DTO =====
 export const responseFromProfile = (user) => {
-  const preferData = user.prefer.map((data) => convertPrefer(data.prefer));
-  const allergyData = user.allergy.map((data) => convertAllergy(data.allergy));
   return {
     id: user.id.toString(),
-    email: user.email,
     nickname: user.nickname,
-    body_type: convertBodyType(user.body_type),
-    gender: convertGender(user.gender),
     exercise: convertExercise(user.exercise),
-    prefer: preferData || [],
-    allergy: allergyData || [],
-    profileImageUrl: user.profileImageUrl,
-    created_at: user.created_at,
-    updated_at: user.updated_at,
+    prefer: user.prefer.map(p => convertPrefer(p.prefer)),
+    allergy: user.user_allergy.map(
+      ua => convertAllergy(ua.allergy_min.allergy)
+    ),
   };
 };
 
-// 맛집 정보 수정 요청 데이터 변환
-export const bodyToRestaurantUpdate = (body, restaurantId, userId) => {
-  return {
-    restaurantId: restaurantId,
-    userId: userId,
-    name: body.name,
-    repre_menu: body.repre_menu,
-    address: body.address,
-  };
-};
-
-// 맛집 응답 데이터 변환
-export const responseFromRestaurant = (restaurant) => {
-  return {
-    id: restaurant.id.toString(),
-    name: restaurant.name,
-    repre_menu: restaurant.repre_menu,
-    address: restaurant.address,
-    rating: restaurant.rating,
-  };
-};
-
-// 찜 요청 데이터 변환
-export const bodyToZzimRequest = (body) => {
-  return {
-    userId: body.userId,
-    restaurantId: body.restaurantId || body.restId,
-  };
-};
-
-// 찜 목록 응답 데이터 변환
-
-// ============= Enum 변환 함수들 (user.dto.js와 통일) =============
-
-// 성별: "여성", "남성" ↔ "female", "male"
-function convertGenderToEnum(gender) {
-  const map = {
-    남성: "male",
-    여성: "female",
-  };
-  return map[gender] ?? null;
-}
-
-function convertGender(gender) {
-  const map = {
-    male: "남성",
-    female: "여성",
-  };
-  return map[gender] ?? gender;
-}
-
-// 운동 상태: "다이어트 중", "증량 중", "유지 중" ↔ "dieting", "bulking", "maintaining"
+// ===== Enum 변환 =====
 function convertExerciseToEnum(exercise) {
   const map = {
     "다이어트 중": "dieting",
@@ -106,29 +57,6 @@ function convertExercise(exercise) {
   return map[exercise] ?? exercise;
 }
 
-// 체질: "감기", "소화불량", "더위잘탐", "추위잘탐" ↔ "cold", "indigestion", "heat_sensitive", "cold_sensitive"
-// user.dto.js와 일관성을 위해 heat_sensitive, cold_sensitive 사용
-function convertBodyTypeToEnum(bodyType) {
-  const map = {
-    감기: "cold",
-    소화불량: "indigestion",
-    더위잘탐: "heat_sensitive",
-    추위잘탐: "cold_sensitive",
-  };
-  return map[bodyType] ?? null;
-}
-
-function convertBodyType(bodyType) {
-  const map = {
-    cold: "감기",
-    indigestion: "소화불량",
-    heat_sensitive: "더위잘탐",
-    cold_sensitive: "추위잘탐",
-  };
-  return map[bodyType] ?? bodyType;
-}
-
-// 선호 음식: "한식", "양식", "중식", "일식", "다른나라" ↔ "korean", "western", "chinese", "japanese", "other"
 function convertPreferToEnum(prefer) {
   const map = {
     한식: "korean",
@@ -151,25 +79,55 @@ function convertPrefer(prefer) {
   return map[prefer] ?? prefer;
 }
 
-// 알레르기: "달걀(난류) 알레르기", "우유 알레르기", "갑각류 알레르기", "해산물 알레르기", "견과류 알레르기" ↔ "egg", "milk", "shellfish", "seafood", "nuts"
 function convertAllergyToEnum(allergy) {
   const map = {
-    "달걀(난류) 알레르기": "egg",
-    "우유 알레르기": "milk",
-    "갑각류 알레르기": "shellfish",
-    "해산물 알레르기": "seafood",
-    "견과류 알레르기": "nuts",
+    달걀: "egg",
+    우유: "milk",
+    메밀: "buckwheat",
+    대두: "soy",
+    밀: "wheat",
+    땅콩: "peanut",
+    호두: "walnut",
+    잣: "pine_nut",
+    돼지고기: "pork",
+    소고기: "beef",
+    닭고기: "chicken",
+    고등어: "mackerel",
+    새우: "shrimp",
+    게: "crab",
+    오징어: "squid",
+    조개류: "shellfish",
+    복숭아: "peach",
+    토마토: "tomato",
+    아황산류: "sulfite",
+    그외: "other",
+    "그 외": "other",
   };
   return map[allergy] ?? null;
 }
 
 function convertAllergy(allergy) {
   const map = {
-    egg: "달걀(난류) 알레르기",
-    milk: "우유 알레르기",
-    shellfish: "갑각류 알레르기",
-    seafood: "해산물 알레르기",
-    nuts: "견과류 알레르기",
+    egg: "달걀",
+    milk: "우유",
+    buckwheat: "메밀",
+    soy: "대두",
+    wheat: "밀",
+    peanut: "땅콩",
+    walnut: "호두",
+    pine_nut: "잣",
+    pork: "돼지고기",
+    beef: "소고기",
+    chicken: "닭고기",
+    mackerel: "고등어",
+    shrimp: "새우",
+    crab: "게",
+    squid: "오징어",
+    shellfish: "조개류",
+    peach: "복숭아",
+    tomato: "토마토",
+    sulfite: "아황산류",
+    other: "그 외",
   };
   return map[allergy] ?? allergy;
 }
