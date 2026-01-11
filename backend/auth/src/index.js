@@ -31,8 +31,10 @@ import {
   handleAgreementConsent,
   getAgreementConsent,
 } from "./controllers/agreement.controller.js";
+import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
 import { handleGetUserProfile } from "./controllers/mypage.controller.js";
 import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
+import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
   ExpireToken,
@@ -217,6 +219,8 @@ app.get("/", (req, res) => {
 
 // --- Auth routes만 남김 ---
 app.post("/auth/signup", handleUserSignUp); // o
+app.post("/auth/internal/withdraw", handleInternalWithdraw);
+app.post("/auth/internal/hard-delete", handleInternalHardDelete);
 
 app.post("/auth/login", handleUserLoginJWT); // o
 app.post("/auth/reissue", handleRenewToken); // o
