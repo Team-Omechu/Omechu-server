@@ -135,7 +135,8 @@ exports.Prisma.Agreement_consentScalarFieldEnum = {
   privacy_policy: 'privacy_policy',
   location_service: 'location_service',
   is_over14: 'is_over14',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  marketing_consent: 'marketing_consent'
 };
 
 exports.Prisma.Allergy_minScalarFieldEnum = {
