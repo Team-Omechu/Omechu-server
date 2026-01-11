@@ -19,10 +19,11 @@ export const handleAgreementConsent = async (req, res, next) => {
           type: 'object',
           required: ['termsOfService', 'privacyPolicy', 'locationService', 'isOver14'],
           properties: {
-            agreeAll: { type: 'boolean', example: true },
+            agreeAll: { type: 'boolean', example: false },
             termsOfService: { type: 'boolean', example: true },
             privacyPolicy: { type: 'boolean', example: true },
-            locationService: { type: 'boolean', example: true },
+            locationService: { type: 'boolean', example: false }, 
+            marketingConsent: { type: 'boolean', example: false }, 
             isOver14: { type: 'boolean', example: true }
           }
         }
@@ -111,7 +112,8 @@ export const getAgreementConsent = async (req, res, next) => {
               properties: {
                 terms_of_service: { type: "boolean", example: true },
                 privacy_policy: { type: "boolean", example: true },
-                location_service: { type: "boolean", example: true },
+                location_service: { type: "boolean", example: false },
+                marketing_consent: { type: "boolean", example: false },
                 is_over14: { type: "boolean", example: true },
                 created_at: { type: "string", example: "2023-01-01T00:00:00.000Z" }
               }

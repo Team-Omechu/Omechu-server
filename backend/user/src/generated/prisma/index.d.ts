@@ -2724,6 +2724,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
   }
 
   export type Agreement_consentMaxAggregateOutputType = {
@@ -2734,6 +2735,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
   }
 
   export type Agreement_consentCountAggregateOutputType = {
@@ -2744,6 +2746,7 @@ export namespace Prisma {
     location_service: number
     is_over14: number
     created_at: number
+    marketing_consent: number
     _all: number
   }
 
@@ -2766,6 +2769,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
   }
 
   export type Agreement_consentMaxAggregateInputType = {
@@ -2776,6 +2780,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
   }
 
   export type Agreement_consentCountAggregateInputType = {
@@ -2786,6 +2791,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
     _all?: true
   }
 
@@ -2883,6 +2889,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
     _count: Agreement_consentCountAggregateOutputType | null
     _avg: Agreement_consentAvgAggregateOutputType | null
     _sum: Agreement_consentSumAggregateOutputType | null
@@ -2912,6 +2919,7 @@ export namespace Prisma {
     location_service?: boolean
     is_over14?: boolean
     created_at?: boolean
+    marketing_consent?: boolean
     user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["agreement_consent"]>
 
@@ -2925,9 +2933,10 @@ export namespace Prisma {
     location_service?: boolean
     is_over14?: boolean
     created_at?: boolean
+    marketing_consent?: boolean
   }
 
-  export type agreement_consentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "terms_of_service" | "privacy_policy" | "location_service" | "is_over14" | "created_at", ExtArgs["result"]["agreement_consent"]>
+  export type agreement_consentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "terms_of_service" | "privacy_policy" | "location_service" | "is_over14" | "created_at" | "marketing_consent", ExtArgs["result"]["agreement_consent"]>
   export type agreement_consentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | userDefaultArgs<ExtArgs>
   }
@@ -2945,6 +2954,7 @@ export namespace Prisma {
       location_service: boolean | null
       is_over14: boolean | null
       created_at: Date | null
+      marketing_consent: boolean | null
     }, ExtArgs["result"]["agreement_consent"]>
     composites: {}
   }
@@ -3322,6 +3332,7 @@ export namespace Prisma {
     readonly location_service: FieldRef<"agreement_consent", 'Boolean'>
     readonly is_over14: FieldRef<"agreement_consent", 'Boolean'>
     readonly created_at: FieldRef<"agreement_consent", 'DateTime'>
+    readonly marketing_consent: FieldRef<"agreement_consent", 'Boolean'>
   }
     
 
@@ -10290,7 +10301,8 @@ export namespace Prisma {
     privacy_policy: 'privacy_policy',
     location_service: 'location_service',
     is_over14: 'is_over14',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    marketing_consent: 'marketing_consent'
   };
 
   export type Agreement_consentScalarFieldEnum = (typeof Agreement_consentScalarFieldEnum)[keyof typeof Agreement_consentScalarFieldEnum]
@@ -10548,6 +10560,7 @@ export namespace Prisma {
     location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableFilter<"agreement_consent"> | boolean | null
     user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
@@ -10559,22 +10572,24 @@ export namespace Prisma {
     location_service?: SortOrderInput | SortOrder
     is_over14?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    marketing_consent?: SortOrderInput | SortOrder
     user?: userOrderByWithRelationInput
   }
 
   export type agreement_consentWhereUniqueInput = Prisma.AtLeast<{
     id?: bigint | number
+    user_id?: bigint | number
     AND?: agreement_consentWhereInput | agreement_consentWhereInput[]
     OR?: agreement_consentWhereInput[]
     NOT?: agreement_consentWhereInput | agreement_consentWhereInput[]
-    user_id?: BigIntFilter<"agreement_consent"> | bigint | number
     terms_of_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     privacy_policy?: BoolNullableFilter<"agreement_consent"> | boolean | null
     location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableFilter<"agreement_consent"> | boolean | null
     user?: XOR<UserScalarRelationFilter, userWhereInput>
-  }, "id">
+  }, "id" | "user_id">
 
   export type agreement_consentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10584,6 +10599,7 @@ export namespace Prisma {
     location_service?: SortOrderInput | SortOrder
     is_over14?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    marketing_consent?: SortOrderInput | SortOrder
     _count?: agreement_consentCountOrderByAggregateInput
     _avg?: agreement_consentAvgOrderByAggregateInput
     _max?: agreement_consentMaxOrderByAggregateInput
@@ -10602,6 +10618,7 @@ export namespace Prisma {
     location_service?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableWithAggregatesFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
   }
 
   export type allergy_minWhereInput = {
@@ -11009,6 +11026,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
     user: userCreateNestedOneWithoutAgreement_consentInput
   }
 
@@ -11020,6 +11038,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUpdateInput = {
@@ -11029,6 +11048,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
     user?: userUpdateOneRequiredWithoutAgreement_consentNestedInput
   }
 
@@ -11040,6 +11060,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentCreateManyInput = {
@@ -11050,6 +11071,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUpdateManyMutationInput = {
@@ -11059,6 +11081,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentUncheckedUpdateManyInput = {
@@ -11069,6 +11092,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type allergy_minCreateInput = {
@@ -11553,6 +11577,7 @@ export namespace Prisma {
     location_service?: SortOrder
     is_over14?: SortOrder
     created_at?: SortOrder
+    marketing_consent?: SortOrder
   }
 
   export type agreement_consentAvgOrderByAggregateInput = {
@@ -11568,6 +11593,7 @@ export namespace Prisma {
     location_service?: SortOrder
     is_over14?: SortOrder
     created_at?: SortOrder
+    marketing_consent?: SortOrder
   }
 
   export type agreement_consentMinOrderByAggregateInput = {
@@ -11578,6 +11604,7 @@ export namespace Prisma {
     location_service?: SortOrder
     is_over14?: SortOrder
     created_at?: SortOrder
+    marketing_consent?: SortOrder
   }
 
   export type agreement_consentSumOrderByAggregateInput = {
@@ -12472,6 +12499,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUncheckedCreateWithoutUserInput = {
@@ -12481,6 +12509,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentCreateOrConnectWithoutUserInput = {
@@ -12558,6 +12587,7 @@ export namespace Prisma {
     location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableFilter<"agreement_consent"> | boolean | null
   }
 
   export type preferUpsertWithWhereUniqueWithoutUserInput = {
@@ -12930,6 +12960,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type preferCreateManyUserInput = {
@@ -12948,6 +12979,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentUncheckedUpdateWithoutUserInput = {
@@ -12957,6 +12989,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentUncheckedUpdateManyWithoutUserInput = {
@@ -12966,6 +12999,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type preferUpdateWithoutUserInput = {

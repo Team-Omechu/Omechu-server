@@ -19,14 +19,15 @@ model user {
 }
 
 model agreement_consent {
-  id               BigInt    @id @default(autoincrement())
-  user_id          BigInt
-  terms_of_service Boolean?
-  privacy_policy   Boolean?
-  location_service Boolean?
-  is_over14        Boolean?
-  created_at       DateTime? @db.DateTime(0)
-  user             user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
+  id                BigInt    @id @default(autoincrement())
+  user_id           BigInt    @unique
+  terms_of_service  Boolean?
+  privacy_policy    Boolean?
+  location_service  Boolean?
+  is_over14         Boolean?
+  created_at        DateTime? @db.DateTime(0)
+  marketing_consent Boolean?
+  user              user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
 
   @@index([user_id], map: "agreement_consent_user_id_fk")
 }
