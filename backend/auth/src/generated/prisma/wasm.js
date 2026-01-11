@@ -96,7 +96,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.Auth_userScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  password: 'password'
+  password: 'password',
+  is_deleted: 'is_deleted',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.Email_verificationScalarFieldEnum = {
@@ -194,13 +196,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel auth_user {\n  id       BigInt  @id @default(autoincrement())\n  email    String? @db.VarChar(30)\n  password String? @db.VarChar(100)\n}\n\nmodel email_verification {\n  email      String   @id @db.VarChar(255)\n  code       String   @db.VarChar(10)\n  expires_at DateTime @db.DateTime(0)\n  created_at DateTime @default(now()) @db.DateTime(0)\n  updated_at DateTime @default(now()) @db.DateTime(0)\n}\n\nmodel password_reset_token {\n  email      String   @unique(map: \"uk_password_reset_email\") @db.VarChar(255)\n  token      String   @id @db.VarChar(255)\n  expires_at DateTime @db.DateTime(0)\n  created_at DateTime @default(now()) @db.DateTime(0)\n  updated_at DateTime @default(now()) @db.DateTime(0)\n}\n",
-  "inlineSchemaHash": "b3476ffff903ca60a092a1a7cd309593fd1a8d0a1470ab8a49e1ff7bf9d3fb9c",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel auth_user {\n  id         BigInt    @id @default(autoincrement())\n  email      String?   @db.VarChar(30)\n  password   String?   @db.VarChar(100)\n  is_deleted Boolean?  @default(false)\n  deleted_at DateTime? @db.DateTime(0)\n}\n\nmodel email_verification {\n  email      String   @id @db.VarChar(255)\n  code       String   @db.VarChar(10)\n  expires_at DateTime @db.DateTime(0)\n  created_at DateTime @default(now()) @db.DateTime(0)\n  updated_at DateTime @default(now()) @db.DateTime(0)\n}\n\nmodel password_reset_token {\n  email      String   @unique(map: \"uk_password_reset_email\") @db.VarChar(255)\n  token      String   @id @db.VarChar(255)\n  expires_at DateTime @db.DateTime(0)\n  created_at DateTime @default(now()) @db.DateTime(0)\n  updated_at DateTime @default(now()) @db.DateTime(0)\n}\n",
+  "inlineSchemaHash": "c913b8e4a3ede500d2d651dde6c48e7cdd99fed60121cca3670eadadb8ff6218",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"auth_user\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"email_verification\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"password_reset_token\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"auth_user\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_deleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"deleted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"email_verification\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"password_reset_token\":{\"fields\":[{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

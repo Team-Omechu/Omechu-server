@@ -125,7 +125,9 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   phone_num: 'phone_num',
   nickname: 'nickname',
-  exercise: 'exercise'
+  exercise: 'exercise',
+  is_deleted: 'is_deleted',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.Agreement_consentScalarFieldEnum = {
@@ -190,6 +192,13 @@ exports.Prisma.Recommend_exceptScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.User_withdrawalScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  reason: 'reason',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -222,6 +231,10 @@ exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
   session_id: 'session_id',
   data: 'data'
 };
+
+exports.Prisma.user_withdrawalOrderByRelevanceFieldEnum = {
+  reason: 'reason'
+};
 exports.user_exercise = exports.$Enums.user_exercise = {
   dieting: 'dieting',
   bulking: 'bulking',
@@ -246,7 +259,8 @@ exports.Prisma.ModelName = {
   user_allergy: 'user_allergy',
   sessions: 'sessions',
   prefer: 'prefer',
-  recommend_except: 'recommend_except'
+  recommend_except: 'recommend_except',
+  user_withdrawal: 'user_withdrawal'
 };
 
 /**
