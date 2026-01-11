@@ -182,6 +182,14 @@ exports.Prisma.PreferScalarFieldEnum = {
   user_id: 'user_id'
 };
 
+exports.Prisma.Recommend_exceptScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  menu_id: 'menu_id',
+  bit: 'bit',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -237,7 +245,8 @@ exports.Prisma.ModelName = {
   meal_time: 'meal_time',
   user_allergy: 'user_allergy',
   sessions: 'sessions',
-  prefer: 'prefer'
+  prefer: 'prefer',
+  recommend_except: 'recommend_except'
 };
 
 /**

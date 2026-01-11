@@ -12,6 +12,7 @@ import {
   handleRecommendMenu,
   handleRecommendRandom,
   handleGetMenuInfo,
+  handleGetMenu,
 } from "./controllers/menu.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/fetchGooglePlaces.controller.js";
 import { handleGetMenuSearch } from "./controllers/menuSearch.controller.js";
@@ -231,6 +232,7 @@ app.post("/menu/recommend/random", handleRecommendRandom);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu/menu-info", handleGetMenuInfo);
+app.get("/menu/menu-list", handleGetMenu)
 // Mukburim 기본 기능
 app.post("/menu/mukburim", isLoggedIn, handleInsertMukburim);
 

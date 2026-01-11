@@ -9,18 +9,18 @@ datasource db {
 }
 
 model user {
-  id                BigInt              @id
-  phone_num         String?             @db.VarChar(21)
-  nickname          String?             @db.VarChar(30)
+  id                BigInt             @id
+  phone_num         String?            @db.VarChar(21)
+  nickname          String?            @db.VarChar(30)
   exercise          user_exercise?
-  agreement_consent agreement_consent[]
+  agreement_consent agreement_consent?
   prefer            prefer[]
   user_allergy      user_allergy[]
 }
 
 model agreement_consent {
   id                BigInt    @id @default(autoincrement())
-  user_id           BigInt    @unique
+  user_id           BigInt    @unique(map: "uk_agreement_user")
   terms_of_service  Boolean?
   privacy_policy    Boolean?
   location_service  Boolean?
@@ -28,8 +28,6 @@ model agreement_consent {
   created_at        DateTime? @db.DateTime(0)
   marketing_consent Boolean?
   user              user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
-
-  @@index([user_id], map: "agreement_consent_user_id_fk")
 }
 
 model allergy_min {
@@ -89,6 +87,18 @@ model prefer {
   user    user          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_prefer_user")
 
   @@index([user_id], map: "fk_prefer_user")
+}
+
+model recommend_except {
+  id         BigInt    @id @default(autoincrement())
+  user_id    BigInt
+  menu_id    BigInt
+  bit        Boolean?  @default(true)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+
+  @@unique([user_id, menu_id], map: "uk_user_menu")
+  @@index([menu_id], map: "idx_recommend_except_menu")
+  @@index([user_id], map: "idx_recommend_except_user")
 }
 
 enum user_exercise {
