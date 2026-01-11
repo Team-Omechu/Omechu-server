@@ -406,59 +406,55 @@ export const findRelatedMenu = async (menuName) => {
 };
 
 export const getMenuInfo = async (menuName) => {
-  try {
-    console.log("Fetching menu info for:", menuName);
-    const menuInfo = await prisma.menu.findFirst({
-      // findUnique → findFirst로 변경
-      where: { name: menuName },
-      select: {
-        name: true,
-        description: true,
-        calory: true,
-        carbo: true,
-        protein: true,
-        fat: true,
-        sodium: true,
-        vitamin: true,
-        allergic: true,
-        image_link: true,
-        recipe_link: true,
-        recipe_link_source: true,
-        recipe_video_name: true,
+  const menu = await prisma.menu.findFirst({
+    where: { name: menuName },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      calory: true,
+      carbo: true,
+      protein: true,
+      fat: true,
+      sodium: true,
+      image_link: true,
+
+      menu_vitamin: {
+        include: {
+          vitamin: {
+            select: { vitamin: true },
+          },
+        },
       },
-    });
 
-    if (!menuInfo) {
-      console.error(`No menu info found for: ${menuName}`);
-      return null;
-    }
+      menu_allergy: {
+        include: {
+          allergy: {
+            select: { allergy: true },
+          },
+        },
+      },
+    },
+  });
 
-    // 숫자 변환
-    for (const key of ["calory", "carbo", "protein", "fat", "sodium"]) {
-      if (menuInfo[key] !== null && menuInfo[key] !== undefined) {
-        menuInfo[key] = Number(menuInfo[key]);
-      }
-    }
+  if (!menu) return null;
 
-    // JSON 문자열 파싱
-    for (const key of ["vitamin", "allergic"]) {
-      try {
-        if (menuInfo[key] && typeof menuInfo[key] === "string") {
-          menuInfo[key] = JSON.parse(menuInfo[key]);
-        }
-      } catch (parseError) {
-        console.warn(`Error parsing ${key} data:`, parseError);
-        menuInfo[key] = [];
-      }
-    }
+  return {
+    id: menu.id.toString(),
+    name: menu.name,
+    description: menu.description,
+    calory: menu.calory ? Number(menu.calory) : null,
+    carbo: menu.carbo ? Number(menu.carbo) : null,
+    protein: menu.protein ? Number(menu.protein) : null,
+    fat: menu.fat ? Number(menu.fat) : null,
+    sodium: menu.sodium ? Number(menu.sodium) : null,
+    image_link: menu.image_link,
 
-    console.log("Menu info fetched successfully:", menuInfo);
-    return menuInfo;
-  } catch (error) {
-    console.error(`Error fetching menu info for ${menuName}:`, error);
-    throw error;
-  }
+    vitamins: menu.menu_vitamin.map(v => v.vitamin.vitamin),
+    allergies: menu.menu_allergy.map(a => a.allergy.allergy),
+  };
 };
+
 
 export const recommendRandom = async (addition) => {
   try {
@@ -513,8 +509,6 @@ export const recommendRandom = async (addition) => {
     console.log("Menu with image:", menuWithImage);
     return menuWithImage;
 
-    console.log("Menu with images:", menuWithImages);
-    return menuWithImages;
   } catch (error) {
     console.error("Error handling GPT request:", error);
     throw error;
@@ -522,20 +516,18 @@ export const recommendRandom = async (addition) => {
 };
 
 export const getMenu = async () => {
-  try {
-    const menus = await prisma.menu.findMany({
-      select: {
-        name: true,
-        image_link: true,
-      },
-    });
-    if (!menus || menus.length === 0) {
-      console.error("No menus found");
-      return [];
-    }
-    return menus;
-  } catch (error) {
-    console.error("Error fetching menus:", error);
-    throw error;
-  }
+  const menus = await prisma.menu.findMany({
+    select: {
+      id: true,
+      name: true,
+      image_link: true,
+    },
+  });
+
+  return menus.map(menu => ({
+    id: menu.id.toString(),   
+    name: menu.name,
+    image_link: menu.image_link,
+  }));
 };
+
