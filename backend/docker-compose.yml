@@ -70,9 +70,13 @@ services:
       - omechu-net
     ports:
       - "5001:5001"
+    volumes:
+      - imbedding_data:/app/data
+
 networks:
   omechu-net:
     external: true
 
 volumes:
   omechu_db_data:
+  imbedding_data:
