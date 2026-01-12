@@ -173,6 +173,7 @@ def deduplicate(results):
 @app.get("/recommend")
 @app.get("/recommend/")
 def root():
+    print("GET /recommend", flush=True)
     return {"status": "ok", "service": "Menu Recommender"}
 
 @app.post("/recommend/menu", response_model=RecommendResponse)
