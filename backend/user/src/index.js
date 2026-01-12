@@ -38,6 +38,11 @@ import {
   handleRemoveMenuExcept,
 } from "./controllers/recommend.management.controller.js";
 import { handleWithdraw } from "./controllers/withdraw.controller.js";
+import { 
+  handleGetMealAlerts,
+  handleUpdateMealAlerts,
+  handleToggleMealAlerts
+ } from "./controllers/mealAlert.controller.js";
 dotenv.config();
 
 const app = express();
@@ -233,6 +238,9 @@ app.patch("/user/complete", isLoggedIn, handleUpdateUserInfo);
 app.post("/user/internal", handleCreateUserInternal);
 
 app.post("/user/withdraw", isLoggedIn, handleWithdraw);
+app.get("/user/meal-alerts", isLoggedIn, handleGetMealAlerts);
+app.patch("/user/meal-alerts", isLoggedIn, handleUpdateMealAlerts);
+app.patch("/user/meal-alerts/toggle", isLoggedIn, handleToggleMealAlerts);
 
 
 // 약관 관련 API

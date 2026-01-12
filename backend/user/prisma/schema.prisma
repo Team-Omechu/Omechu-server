@@ -52,7 +52,7 @@ model meal_alert {
   user_id    BigInt
   meal_id    BigInt
   enabled    Boolean?
-  alarm_time DateTime? @db.DateTime(0)
+  alarm_time DateTime? @db.Time(0)
   meal_time  meal_time @relation(fields: [meal_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_meal_time_id_fk")
 
   @@id([user_id, meal_id])
