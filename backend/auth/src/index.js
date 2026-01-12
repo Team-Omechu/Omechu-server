@@ -217,31 +217,23 @@ app.get("/", (req, res) => {
 });
 
 // --- Auth routes만 남김 ---
-app.post("/auth/signup", handleUserSignUp); // o
-app.patch("/auth/complete", isLoggedIn, handleUpdateUserInfo); // user 로 바꾸기
+app.post("/auth/signup", handleUserSignUp);
 
-app.post("/auth/login", handleUserLoginJWT); // o
-app.post("/auth/reissue", handleRenewToken); // o
-app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT); // o
+app.post("/auth/login", handleUserLoginJWT);
+app.post("/auth/reissue", handleRenewToken);
+app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT);
 
-app.post("/auth/send", handleSendEmailCode); // o
-app.post("/auth/verify", handleVerifyEmailCode); // o
+app.post("/auth/send", handleSendEmailCode);
+app.post("/auth/verify", handleVerifyEmailCode);
 
-app.post("/auth/reset-request", handleResetRequest); // o
-app.patch("/auth/reset-passwd", handleResetPassword); // o
+app.post("/auth/reset-request", handleResetRequest);
+app.patch("/auth/reset-passwd", handleResetPassword);
 
-app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword); // o
-
-// 약관
-app.post("/auth/agreements/consent", isLoggedIn, handleAgreementConsent); // user로 바꾸기
-app.get("/auth/agreements/consent", isLoggedIn, getAgreementConsent); // user로 바꾸기
+app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 
 // 카카오 로그인
 app.get("/auth/kakao", handleKakaoRedirect);
 app.get("/auth/kakao/callback", handleKakaoCallback);
-
-app.get("/auth/profile", isLoggedIn, handleGetUserProfile); // user로 바꾸기
-app.patch("/auth/profile", isLoggedIn, handleUpdateUserProfile); // user로 바꾸기
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
