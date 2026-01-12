@@ -11,7 +11,6 @@ import swaggerUiExpress from "swagger-ui-express";
 import { handleUserSignUp } from "./controllers/auth.controller.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
-import { handleUpdateUserInfo } from "./controllers/user.controller.js";
 import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
 
 import {
@@ -32,8 +31,10 @@ import {
   handleAgreementConsent,
   getAgreementConsent,
 } from "./controllers/agreement.controller.js";
+import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
 import { handleGetUserProfile } from "./controllers/mypage.controller.js";
 import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
+import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
   ExpireToken,
@@ -217,7 +218,9 @@ app.get("/", (req, res) => {
 });
 
 // --- Auth routes만 남김 ---
-app.post("/auth/signup", handleUserSignUp);
+app.post("/auth/signup", handleUserSignUp); // o
+app.post("/auth/internal/withdraw", handleInternalWithdraw);
+app.post("/auth/internal/hard-delete", handleInternalHardDelete);
 
 app.post("/auth/login", handleUserLoginJWT);
 app.post("/auth/reissue", handleRenewToken);

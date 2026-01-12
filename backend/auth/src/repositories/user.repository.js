@@ -1,15 +1,12 @@
-import { PrismaClient } from "../generated/prisma/index.js";
-const prisma = new PrismaClient();
+import { prisma } from "../db.config.js";
 
 export const findUserByEmail = async (email) => {
-  return prisma.user.findUnique({ where: { email } });
+  return prisma.auth_user.findFirst({ where: { email } });
 };
 
 export const createUser = async ({ email, password }) => {
   const data = {
-    email: email ?? null,
-    created_at: new Date(),
-    updated_at: new Date(),
+    email,
   };
   if (password) {
     // 이미 상위 서비스에서 해시했다면 그대로 대입, 아니라면 여기서 해시
@@ -19,12 +16,8 @@ export const createUser = async ({ email, password }) => {
 };
 
 export const findUserById = async (userId) => {
-  return await prisma.user.findUnique({
+  return await prisma.auth_user.findUnique({
     where: { id: Number(userId) },
-    include: {
-      prefer: true,
-      allergy: true,
-    },
   });
 };
 

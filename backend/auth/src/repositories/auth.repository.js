@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 export const addUser = async (data) => {
   try {
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = await prisma.auth_user.findFirst({
       where: { email: data.email },
     });
 
@@ -11,12 +11,10 @@ export const addUser = async (data) => {
       return null;
     }
 
-    const user = await prisma.user.create({
+    const user = await prisma.auth_user.create({
       data: {
         email: data.email,
         password: data.password,
-        created_at: new Date(),
-        updated_at: new Date(),
       },
     });
 
@@ -28,7 +26,7 @@ export const addUser = async (data) => {
 
 export const getUser = async (userId) => {
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.auth_user.findFirst({
       where: { id: userId },
     });
 

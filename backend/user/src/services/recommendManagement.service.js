@@ -1,12 +1,13 @@
 // recommendManagement/recommendManagement.service.js
 
 import {
-  findUserExceptedMenus,
-  findAllAvailableMenus,
-  addMenuToExceptList,
+  findUserExceptedMenuIds,
   removeMenuFromExceptList,
-  findMenuByName,
+  addMenuToExceptList,
 } from "../repositories/recommendManagement.repository.js";
+import { 
+  getAllMenus, getMenuByName
+ } from "../clients/menu.client.js";
 
 import {
   NoParams,
@@ -21,17 +22,23 @@ import {
  * - 제외된 메뉴 목록
  */
 export const getRecommendManagementService = async (userId) => {
-  if (!userId) {
-    throw new NoParams("사용자 ID가 필요합니다.", { userId });
-  }
-
   try {
-    const allMenus = await findAllAvailableMenus();
-    const exceptedMenus = await findUserExceptedMenus(userId);
-    const exceptedMenuIds = exceptedMenus.map((item) => item.menu_id);
+    if (!userId) {
+      throw new NoParams("사용자 ID가 필요합니다.");
+    }
+
+    const [allMenus, exceptedMenus] = await Promise.all([
+      getAllMenus(),
+      findUserExceptedMenuIds(userId),
+    ]);
+
+    const exceptedMenuIds = exceptedMenus.map(m => m.menuId);
+
     const recommendMenus = allMenus.filter(
-      (menu) => !exceptedMenuIds.includes(menu.id)
+      menu => !exceptedMenuIds.includes(menu.id.toString())
     );
+
+    console.log("🔥 allMenus:", allMenus);
 
     return {
       summary: {
@@ -39,20 +46,23 @@ export const getRecommendManagementService = async (userId) => {
         recommendMenus: recommendMenus.length,
         exceptedMenus: exceptedMenus.length,
       },
-      recommendMenus: recommendMenus,
-      exceptedMenus: exceptedMenus.map((item) => item.menu),
+      recommendMenus,
+      exceptedMenus: allMenus.filter(menu =>
+        exceptedMenuIds.includes(menu.id.toString())
+      ),
     };
-  } catch (error) {
-    if (error instanceof NoParams) {
-      throw error;
-    }
 
+
+  } catch (error) {
+    console.error("🔥 getRecommendManagementService REAL ERROR:", error);
     throw new NoRestData("추천 목록 관리 조회 중 오류가 발생했습니다.", {
       userId,
       error: error.message,
     });
   }
 };
+
+
 
 /**
  * 메뉴를 제외 목록에 추가 (추천 받지 않기)
@@ -64,15 +74,18 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
 
   let targetMenuId = menuId;
 
+  // menuName → menu API 조회
   if (!menuId && menuName) {
-    const menu = await findMenuByName(menuName);
-    if (!menu) {
-      throw new NoInCorrectData("해당 이름의 메뉴를 찾을 수 없습니다.", {
-        menuName,
-      });
+    const menus = await getAllMenus();
+    const found = menus.find(m => m.name === menuName);
+
+    if (!found) {
+      throw new NoInCorrectData("해당 이름의 메뉴를 찾을 수 없습니다.");
     }
-    targetMenuId = menu.id;
+
+    targetMenuId = found.id;
   }
+
 
   if (!targetMenuId) {
     throw new NoInCorrectParmas("메뉴 ID 또는 메뉴 이름이 필요합니다.", {
@@ -91,14 +104,11 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
       });
     }
 
-    const menu = (await findMenuByName(menuName)) || {
-      id: targetMenuId,
-      name: "알 수 없는 메뉴",
-    };
-
     return {
       id: result.id,
-      menu: menu,
+      menu: {
+        id: targetMenuId,
+      },
       message: "메뉴가 제외 목록에 추가되었습니다.",
     };
   } catch (error) {
@@ -118,6 +128,8 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
   }
 };
 
+
+
 /**
  * 제외 목록에서 메뉴 제거 (다시 추천 받기)
  */
@@ -128,8 +140,9 @@ export const removeMenuFromExceptService = async (userId, menuId, menuName) => {
 
   let targetMenuId = menuId;
 
+  // menuName → menu API로 ID 조회
   if (!menuId && menuName) {
-    const menu = await findMenuByName(menuName);
+    const menu = await getMenuByName(menuName);
     if (!menu) {
       throw new NoInCorrectData("해당 이름의 메뉴를 찾을 수 없습니다.", {
         menuName,
@@ -149,10 +162,10 @@ export const removeMenuFromExceptService = async (userId, menuId, menuName) => {
     const result = await removeMenuFromExceptList(userId, targetMenuId);
 
     if (!result.success) {
-      throw new NoInCorrectData("제외 목록에서 해당 메뉴를 찾을 수 없습니다.", {
-        userId,
-        menuId: targetMenuId,
-      });
+      throw new NoInCorrectData(
+        "제외 목록에서 해당 메뉴를 찾을 수 없습니다.",
+        { userId, menuId: targetMenuId }
+      );
     }
 
     return {

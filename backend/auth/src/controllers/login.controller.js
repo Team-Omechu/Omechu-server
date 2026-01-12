@@ -65,10 +65,6 @@ export const handleUserLoginJWT = async (req, res) => {
               properties: {
                 id: { type: "string",example:"1" },
                 email: { type: "string",example:"email@email.com" },
-                gender: { type: "string",example:"남성" },
-                nickname: { type: "string",example:"오메추" },
-                created_at: { type: "string",example: '2023-01-01T00:00:00.000Z' },
-                updated_at: { type: "string",example: '2023-01-01T00:00:00.000Z' }
               }
             }
           }

@@ -13,7 +13,7 @@ export const upsertPasswordResetToken = async (email, token, expiresAt) => {
 };
 
 export const findPasswordResetToken = async (token) => {
-  return prisma.password_reset_token.findUnique({ where: { token } });
+  return prisma.password_reset_token.findFirst({ where: { token } });
 };
 
 export const deletePasswordResetToken = async (token) => {
@@ -22,7 +22,7 @@ export const deletePasswordResetToken = async (token) => {
 
 export const updateUserPasswordByEmail = async (email, newPassword) => {
   try {
-    return await prisma.user.update({
+    return await prisma.auth_user.update({
       where: { email },
       data: { password: newPassword },
     });
@@ -35,13 +35,13 @@ export const updateUserPasswordByEmail = async (email, newPassword) => {
 };
 
 export const findUserByEmail = async (email) => {
-  return prisma.user.findUnique({
+  return prisma.auth_user.findFirst({
     where: { email },
   });
 };
 
 export const updateUserPasswordById = async (id, newPassword) => {
-  return prisma.user.update({
+  return prisma.auth_user.update({
     where: { id: Number(id) },
     data: { password: newPassword },
   });

@@ -1,10 +1,7 @@
 export const bodyToUserInfo = (body, userId) => {
   const user = {
     nickname: body.nickname,
-    profileImageUrl: body.profileImageUrl,
-    body_type: convertBodyTypeToEnum(body.body_type),
     exercise: convertExerciseToEnum(body.exercise),
-    gender: convertGenderToEnum(body.gender),
   };
 
   return user;
@@ -12,24 +9,25 @@ export const bodyToUserInfo = (body, userId) => {
 
 export const responseFromUser = (user) => {
   const prefer = user.prefer || [];
-  const allergy = user.allergy || [];
+  const userAllergy = user.user_allergy || [];
 
-  const preferCategories = prefer.map((p) => convertPrefer(p.prefer));
-  const allergyTypes = allergy.map((a) => convertAllergy(a.allergy));
+  const preferCategories = prefer.map((p) =>
+    convertPrefer(p.prefer)
+  );
+
+  const allergyTypes = userAllergy.map((ua) =>
+    convertAllergy(ua.allergy_min.allergy)
+  );
 
   return {
-    email: user.email,
     nickname: user.nickname,
-    profileImageUrl: user.profileImageUrl,
-    gender: convertGender(user.gender),
-    body_type: convertBodyType(user.body_type),
     exercise: convertExercise(user.exercise),
     prefer: preferCategories,
     allergy: allergyTypes,
   };
 };
 
-// 프론트에서 한국어 라벨을 보낼 때, Prisma enum 값으로 변환
+
 export function convertPreferToEnum(preferKo) {
   const map = {
     한식: "korean",
@@ -44,22 +42,31 @@ export function convertPreferToEnum(preferKo) {
 
 export function convertAllergyToEnum(allergyKo) {
   const map = {
-    "달걀(난류) 알레르기": "egg",
-    "우유 알레르기": "milk",
-    "갑각류 알레르기": "shellfish",
-    "해산물 알레르기": "seafood",
-    "견과류 알레르기": "nuts",
+    달걀: "egg",
+    우유: "milk",
+    메밀: "buckwheat",
+    대두: "soy",
+    밀: "wheat",
+    땅콩: "peanut",
+    호두: "walnut",
+    잣: "pine_nut",
+    돼지고기: "pork",
+    소고기: "beef",
+    닭고기: "chicken",
+    고등어: "mackerel",
+    새우: "shrimp",
+    게: "crab",
+    오징어: "squid",
+    조개류: "shellfish",
+    복숭아: "peach",
+    토마토: "tomato",
+    아황산류: "sulfite",
+    그외: "other",
+    "그 외": "other",
   };
   return map[allergyKo] ?? null;
 }
 
-function convertGenderToEnum(gender) {
-  const map = {
-    남성: "male",
-    여성: "female",
-  };
-  return map[gender] ?? null;
-}
 
 function convertExerciseToEnum(exercise) {
   const map = {
@@ -70,23 +77,6 @@ function convertExerciseToEnum(exercise) {
   return map[exercise] ?? null;
 }
 
-function convertBodyTypeToEnum(type) {
-  const map = {
-    감기: "cold",
-    소화불량: "indigestion",
-    더위잘탐: "heat_sensitive",
-    추위잘탐: "cold_sensitive",
-  };
-  return map[type] ?? null;
-}
-
-function convertGender(gender) {
-  const map = {
-    male: "남성",
-    female: "여성",
-  };
-  return map[gender] ?? gender;
-}
 
 function convertExercise(ex) {
   const map = {
@@ -95,16 +85,6 @@ function convertExercise(ex) {
     maintaining: "유지 중",
   };
   return map[ex] ?? ex;
-}
-
-function convertBodyType(type) {
-  const map = {
-    cold: "감기",
-    indigestion: "소화불량",
-    heat_sensitive: "더위잘탐",
-    cold_sensitive: "추위잘탐",
-  };
-  return map[type] ?? type;
 }
 
 function convertPrefer(prefer) {
@@ -120,11 +100,26 @@ function convertPrefer(prefer) {
 
 function convertAllergy(allergy) {
   const map = {
-    egg: "달걀(난류) 알레르기",
-    milk: "우유 알레르기",
-    shellfish: "갑각류 알레르기",
-    seafood: "해산물 알레르기",
-    nuts: "견과류 알레르기",
+    egg: "달걀",
+    milk: "우유",
+    buckwheat: "메밀",
+    soy: "대두",
+    wheat: "밀",
+    peanut: "땅콩",
+    walnut: "호두",
+    pine_nut: "잣",
+    pork: "돼지고기",
+    beef: "소고기",
+    chicken: "닭고기",
+    mackerel: "고등어",
+    shrimp: "새우",
+    crab: "게",
+    squid: "오징어",
+    shellfish: "조개류",
+    peach: "복숭아",
+    tomato: "토마토",
+    sulfite: "아황산류",
+    other: "그 외",
   };
   return map[allergy] ?? allergy;
 }

@@ -9,27 +9,27 @@ datasource db {
 }
 
 model user {
-  id                BigInt              @id
-  phone_num         String?             @db.VarChar(21)
-  nickname          String?             @db.VarChar(30)
+  id                BigInt             @id
+  phone_num         String?            @db.VarChar(21)
+  nickname          String?            @db.VarChar(30)
   exercise          user_exercise?
-  agreement_consent agreement_consent[]
-  inquiry           inquiry[]
-  meal_alert        meal_alert[]
+  is_deleted        Boolean?           @default(false)
+  deleted_at        DateTime?          @db.DateTime(0)
+  agreement_consent agreement_consent?
+  prefer            prefer[]
   user_allergy      user_allergy[]
 }
 
 model agreement_consent {
-  id               BigInt    @id @default(autoincrement())
-  user_id          BigInt
-  terms_of_service Boolean?
-  privacy_policy   Boolean?
-  location_service Boolean?
-  is_over14        Boolean?
-  created_at       DateTime? @db.DateTime(0)
-  user             user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
-
-  @@index([user_id], map: "agreement_consent_user_id_fk")
+  id                BigInt    @id @default(autoincrement())
+  user_id           BigInt    @unique(map: "uk_agreement_user")
+  terms_of_service  Boolean?
+  privacy_policy    Boolean?
+  location_service  Boolean?
+  is_over14         Boolean?
+  created_at        DateTime? @db.DateTime(0)
+  marketing_consent Boolean?
+  user              user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "agreement_consent_user_fk")
 }
 
 model allergy_min {
@@ -44,7 +44,6 @@ model inquiry {
   title      String?   @db.VarChar(100)
   content    String?   @db.Text
   created_at DateTime? @db.DateTime(0)
-  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "inquiry_user_id_fk")
 
   @@index([user_id], map: "inquiry_user_id_fk")
 }
@@ -55,7 +54,6 @@ model meal_alert {
   enabled    Boolean?
   alarm_time DateTime? @db.DateTime(0)
   meal_time  meal_time @relation(fields: [meal_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_meal_time_id_fk")
-  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_user_id_fk")
 
   @@id([user_id, meal_id])
   @@index([meal_id], map: "meal_alert_meal_time_id_fk")
@@ -78,8 +76,50 @@ model user_allergy {
   @@index([allergy_id], map: "user_allergy_allergy_min_id_fk")
 }
 
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  expires    Int     @db.UnsignedInt
+  data       String? @db.MediumText
+}
+
+model prefer {
+  id      BigInt        @id @default(autoincrement())
+  prefer  prefer_prefer
+  user_id BigInt
+  user    user          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_prefer_user")
+
+  @@index([user_id], map: "fk_prefer_user")
+}
+
+model recommend_except {
+  id         BigInt    @id @default(autoincrement())
+  user_id    BigInt
+  menu_id    BigInt
+  bit        Boolean?  @default(true)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+
+  @@unique([user_id, menu_id], map: "uk_user_menu")
+  @@index([menu_id], map: "idx_recommend_except_menu")
+  @@index([user_id], map: "idx_recommend_except_user")
+}
+
+model user_withdrawal {
+  id         BigInt   @id @default(autoincrement())
+  user_id    BigInt
+  reason     String   @db.VarChar(100)
+  created_at DateTime @default(now()) @db.DateTime(0)
+}
+
 enum user_exercise {
   dieting     @map("다이어트 중")
   bulking     @map("증량 중")
   maintaining @map("유지 중")
+}
+
+enum prefer_prefer {
+  korean
+  western
+  chinese
+  japanese
+  other
 }

@@ -4,11 +4,17 @@ import express from "express";
 import session from "express-session";
 import MySQLStore from "express-mysql-session";
 import jwt from "jsonwebtoken";
+import cron from "node-cron";
+
+import { cleanupDeletedUsers } from "./utils/cleanupDeletedUsers.js";
 
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { handleUpdateUserInfo } from "./controllers/user.controller.js";
+import { 
+  handleUpdateUserInfo,
+  handleCreateUserInternal 
+} from "./controllers/user.controller.js";
 
 import {
   handleAgreementConsent,
@@ -31,6 +37,7 @@ import {
   handleAddMenuToExcept,
   handleRemoveMenuExcept,
 } from "./controllers/recommend.management.controller.js";
+import { handleWithdraw } from "./controllers/withdraw.controller.js";
 dotenv.config();
 
 const app = express();
@@ -137,6 +144,20 @@ const startSwagger = async () => {
     security: [{ bearerAuth: [] }],
   };
 
+  /** ===========================
+ * 탈퇴 사용자 30일 후 Hard Delete
+ * 매일 새벽 4시 실행
+ * =========================== */
+cron.schedule("0 4 * * *", async () => {
+  console.log("🧹 [CRON] 탈퇴 사용자 정리 작업 시작");
+  try {
+    await cleanupDeletedUsers();
+    console.log("✅ [CRON] 탈퇴 사용자 정리 완료");
+  } catch (err) {
+    console.error("❌ [CRON] 탈퇴 사용자 정리 실패", err);
+  }
+});
+
   const routes = ["./index.js", "./controllers/*.js"];
 
   try {
@@ -209,6 +230,10 @@ app.get("/", (req, res) => {
 // --- User routes만 남김 ---
 // 회원 가입 완료 API (회원 정보 넣는 API)
 app.patch("/user/complete", isLoggedIn, handleUpdateUserInfo);
+app.post("/user/internal", handleCreateUserInternal);
+
+app.post("/user/withdraw", isLoggedIn, handleWithdraw);
+
 
 // 약관 관련 API
 app.post("/user/agreements/consent", isLoggedIn, handleAgreementConsent);

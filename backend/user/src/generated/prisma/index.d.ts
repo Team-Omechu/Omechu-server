@@ -48,6 +48,26 @@ export type meal_time = $Result.DefaultSelection<Prisma.$meal_timePayload>
  * 
  */
 export type user_allergy = $Result.DefaultSelection<Prisma.$user_allergyPayload>
+/**
+ * Model sessions
+ * 
+ */
+export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
+/**
+ * Model prefer
+ * 
+ */
+export type prefer = $Result.DefaultSelection<Prisma.$preferPayload>
+/**
+ * Model recommend_except
+ * 
+ */
+export type recommend_except = $Result.DefaultSelection<Prisma.$recommend_exceptPayload>
+/**
+ * Model user_withdrawal
+ * 
+ */
+export type user_withdrawal = $Result.DefaultSelection<Prisma.$user_withdrawalPayload>
 
 /**
  * Enums
@@ -61,11 +81,26 @@ export namespace $Enums {
 
 export type user_exercise = (typeof user_exercise)[keyof typeof user_exercise]
 
+
+export const prefer_prefer: {
+  korean: 'korean',
+  western: 'western',
+  chinese: 'chinese',
+  japanese: 'japanese',
+  other: 'other'
+};
+
+export type prefer_prefer = (typeof prefer_prefer)[keyof typeof prefer_prefer]
+
 }
 
 export type user_exercise = $Enums.user_exercise
 
 export const user_exercise: typeof $Enums.user_exercise
+
+export type prefer_prefer = $Enums.prefer_prefer
+
+export const prefer_prefer: typeof $Enums.prefer_prefer
 
 /**
  * ##  Prisma Client ʲˢ
@@ -83,7 +118,7 @@ export const user_exercise: typeof $Enums.user_exercise
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -115,13 +150,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -261,6 +289,46 @@ export class PrismaClient<
     * ```
     */
   get user_allergy(): Prisma.user_allergyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessions`: Exposes CRUD operations for the **sessions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.sessions.findMany()
+    * ```
+    */
+  get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.prefer`: Exposes CRUD operations for the **prefer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Prefers
+    * const prefers = await prisma.prefer.findMany()
+    * ```
+    */
+  get prefer(): Prisma.preferDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recommend_except`: Exposes CRUD operations for the **recommend_except** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Recommend_excepts
+    * const recommend_excepts = await prisma.recommend_except.findMany()
+    * ```
+    */
+  get recommend_except(): Prisma.recommend_exceptDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.user_withdrawal`: Exposes CRUD operations for the **user_withdrawal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more User_withdrawals
+    * const user_withdrawals = await prisma.user_withdrawal.findMany()
+    * ```
+    */
+  get user_withdrawal(): Prisma.user_withdrawalDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -319,8 +387,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.12.0
-   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+   * Prisma Client JS version: 6.19.1
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
@@ -333,6 +401,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -707,7 +776,11 @@ export namespace Prisma {
     inquiry: 'inquiry',
     meal_alert: 'meal_alert',
     meal_time: 'meal_time',
-    user_allergy: 'user_allergy'
+    user_allergy: 'user_allergy',
+    sessions: 'sessions',
+    prefer: 'prefer',
+    recommend_except: 'recommend_except',
+    user_withdrawal: 'user_withdrawal'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -726,7 +799,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "agreement_consent" | "allergy_min" | "inquiry" | "meal_alert" | "meal_time" | "user_allergy"
+      modelProps: "user" | "agreement_consent" | "allergy_min" | "inquiry" | "meal_alert" | "meal_time" | "user_allergy" | "sessions" | "prefer" | "recommend_except" | "user_withdrawal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1192,6 +1265,270 @@ export namespace Prisma {
           }
         }
       }
+      sessions: {
+        payload: Prisma.$sessionsPayload<ExtArgs>
+        fields: Prisma.sessionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.sessionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.sessionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findFirst: {
+            args: Prisma.sessionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.sessionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findMany: {
+            args: Prisma.sessionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>[]
+          }
+          create: {
+            args: Prisma.sessionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          createMany: {
+            args: Prisma.sessionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.sessionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          update: {
+            args: Prisma.sessionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.sessionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.sessionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.sessionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessions>
+          }
+          groupBy: {
+            args: Prisma.sessionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.sessionsCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionsCountAggregateOutputType> | number
+          }
+        }
+      }
+      prefer: {
+        payload: Prisma.$preferPayload<ExtArgs>
+        fields: Prisma.preferFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.preferFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.preferFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          findFirst: {
+            args: Prisma.preferFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.preferFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          findMany: {
+            args: Prisma.preferFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>[]
+          }
+          create: {
+            args: Prisma.preferCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          createMany: {
+            args: Prisma.preferCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.preferDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          update: {
+            args: Prisma.preferUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          deleteMany: {
+            args: Prisma.preferDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.preferUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.preferUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$preferPayload>
+          }
+          aggregate: {
+            args: Prisma.PreferAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePrefer>
+          }
+          groupBy: {
+            args: Prisma.preferGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PreferGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.preferCountArgs<ExtArgs>
+            result: $Utils.Optional<PreferCountAggregateOutputType> | number
+          }
+        }
+      }
+      recommend_except: {
+        payload: Prisma.$recommend_exceptPayload<ExtArgs>
+        fields: Prisma.recommend_exceptFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.recommend_exceptFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.recommend_exceptFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          findFirst: {
+            args: Prisma.recommend_exceptFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.recommend_exceptFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          findMany: {
+            args: Prisma.recommend_exceptFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>[]
+          }
+          create: {
+            args: Prisma.recommend_exceptCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          createMany: {
+            args: Prisma.recommend_exceptCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.recommend_exceptDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          update: {
+            args: Prisma.recommend_exceptUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          deleteMany: {
+            args: Prisma.recommend_exceptDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.recommend_exceptUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.recommend_exceptUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$recommend_exceptPayload>
+          }
+          aggregate: {
+            args: Prisma.Recommend_exceptAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecommend_except>
+          }
+          groupBy: {
+            args: Prisma.recommend_exceptGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Recommend_exceptGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.recommend_exceptCountArgs<ExtArgs>
+            result: $Utils.Optional<Recommend_exceptCountAggregateOutputType> | number
+          }
+        }
+      }
+      user_withdrawal: {
+        payload: Prisma.$user_withdrawalPayload<ExtArgs>
+        fields: Prisma.user_withdrawalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.user_withdrawalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.user_withdrawalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          findFirst: {
+            args: Prisma.user_withdrawalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.user_withdrawalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          findMany: {
+            args: Prisma.user_withdrawalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>[]
+          }
+          create: {
+            args: Prisma.user_withdrawalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          createMany: {
+            args: Prisma.user_withdrawalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.user_withdrawalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          update: {
+            args: Prisma.user_withdrawalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          deleteMany: {
+            args: Prisma.user_withdrawalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.user_withdrawalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.user_withdrawalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$user_withdrawalPayload>
+          }
+          aggregate: {
+            args: Prisma.User_withdrawalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser_withdrawal>
+          }
+          groupBy: {
+            args: Prisma.user_withdrawalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<User_withdrawalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.user_withdrawalCountArgs<ExtArgs>
+            result: $Utils.Optional<User_withdrawalCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1235,16 +1572,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1259,6 +1604,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1283,6 +1632,10 @@ export namespace Prisma {
     meal_alert?: meal_alertOmit
     meal_time?: meal_timeOmit
     user_allergy?: user_allergyOmit
+    sessions?: sessionsOmit
+    prefer?: preferOmit
+    recommend_except?: recommend_exceptOmit
+    user_withdrawal?: user_withdrawalOmit
   }
 
   /* Types for Logging */
@@ -1292,10 +1645,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1336,25 +1694,6 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
-
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -1377,16 +1716,12 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    agreement_consent: number
-    inquiry: number
-    meal_alert: number
+    prefer: number
     user_allergy: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    agreement_consent?: boolean | UserCountOutputTypeCountAgreement_consentArgs
-    inquiry?: boolean | UserCountOutputTypeCountInquiryArgs
-    meal_alert?: boolean | UserCountOutputTypeCountMeal_alertArgs
+    prefer?: boolean | UserCountOutputTypeCountPreferArgs
     user_allergy?: boolean | UserCountOutputTypeCountUser_allergyArgs
   }
 
@@ -1404,22 +1739,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAgreement_consentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: agreement_consentWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountInquiryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: inquiryWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountMeal_alertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: meal_alertWhereInput
+  export type UserCountOutputTypeCountPreferArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: preferWhereInput
   }
 
   /**
@@ -1521,6 +1842,8 @@ export namespace Prisma {
     phone_num: string | null
     nickname: string | null
     exercise: $Enums.user_exercise | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1528,6 +1851,8 @@ export namespace Prisma {
     phone_num: string | null
     nickname: string | null
     exercise: $Enums.user_exercise | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1535,6 +1860,8 @@ export namespace Prisma {
     phone_num: number
     nickname: number
     exercise: number
+    is_deleted: number
+    deleted_at: number
     _all: number
   }
 
@@ -1552,6 +1879,8 @@ export namespace Prisma {
     phone_num?: true
     nickname?: true
     exercise?: true
+    is_deleted?: true
+    deleted_at?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1559,6 +1888,8 @@ export namespace Prisma {
     phone_num?: true
     nickname?: true
     exercise?: true
+    is_deleted?: true
+    deleted_at?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1566,6 +1897,8 @@ export namespace Prisma {
     phone_num?: true
     nickname?: true
     exercise?: true
+    is_deleted?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -1660,6 +1993,8 @@ export namespace Prisma {
     phone_num: string | null
     nickname: string | null
     exercise: $Enums.user_exercise | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1686,9 +2021,10 @@ export namespace Prisma {
     phone_num?: boolean
     nickname?: boolean
     exercise?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
-    inquiry?: boolean | user$inquiryArgs<ExtArgs>
-    meal_alert?: boolean | user$meal_alertArgs<ExtArgs>
+    prefer?: boolean | user$preferArgs<ExtArgs>
     user_allergy?: boolean | user$user_allergyArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1700,13 +2036,14 @@ export namespace Prisma {
     phone_num?: boolean
     nickname?: boolean
     exercise?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
   }
 
-  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_num" | "nickname" | "exercise", ExtArgs["result"]["user"]>
+  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_num" | "nickname" | "exercise" | "is_deleted" | "deleted_at", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
-    inquiry?: boolean | user$inquiryArgs<ExtArgs>
-    meal_alert?: boolean | user$meal_alertArgs<ExtArgs>
+    prefer?: boolean | user$preferArgs<ExtArgs>
     user_allergy?: boolean | user$user_allergyArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1714,9 +2051,8 @@ export namespace Prisma {
   export type $userPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "user"
     objects: {
-      agreement_consent: Prisma.$agreement_consentPayload<ExtArgs>[]
-      inquiry: Prisma.$inquiryPayload<ExtArgs>[]
-      meal_alert: Prisma.$meal_alertPayload<ExtArgs>[]
+      agreement_consent: Prisma.$agreement_consentPayload<ExtArgs> | null
+      prefer: Prisma.$preferPayload<ExtArgs>[]
       user_allergy: Prisma.$user_allergyPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -1724,6 +2060,8 @@ export namespace Prisma {
       phone_num: string | null
       nickname: string | null
       exercise: $Enums.user_exercise | null
+      is_deleted: boolean | null
+      deleted_at: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2064,9 +2402,8 @@ export namespace Prisma {
    */
   export interface Prisma__userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    agreement_consent<T extends user$agreement_consentArgs<ExtArgs> = {}>(args?: Subset<T, user$agreement_consentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$agreement_consentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    inquiry<T extends user$inquiryArgs<ExtArgs> = {}>(args?: Subset<T, user$inquiryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$inquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    meal_alert<T extends user$meal_alertArgs<ExtArgs> = {}>(args?: Subset<T, user$meal_alertArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$meal_alertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    agreement_consent<T extends user$agreement_consentArgs<ExtArgs> = {}>(args?: Subset<T, user$agreement_consentArgs<ExtArgs>>): Prisma__agreement_consentClient<$Result.GetResult<Prisma.$agreement_consentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    prefer<T extends user$preferArgs<ExtArgs> = {}>(args?: Subset<T, user$preferArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_allergy<T extends user$user_allergyArgs<ExtArgs> = {}>(args?: Subset<T, user$user_allergyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2101,6 +2438,8 @@ export namespace Prisma {
     readonly phone_num: FieldRef<"user", 'String'>
     readonly nickname: FieldRef<"user", 'String'>
     readonly exercise: FieldRef<"user", 'user_exercise'>
+    readonly is_deleted: FieldRef<"user", 'Boolean'>
+    readonly deleted_at: FieldRef<"user", 'DateTime'>
   }
     
 
@@ -2460,59 +2799,30 @@ export namespace Prisma {
      */
     include?: agreement_consentInclude<ExtArgs> | null
     where?: agreement_consentWhereInput
-    orderBy?: agreement_consentOrderByWithRelationInput | agreement_consentOrderByWithRelationInput[]
-    cursor?: agreement_consentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Agreement_consentScalarFieldEnum | Agreement_consentScalarFieldEnum[]
   }
 
   /**
-   * user.inquiry
+   * user.prefer
    */
-  export type user$inquiryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type user$preferArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the inquiry
+     * Select specific fields to fetch from the prefer
      */
-    select?: inquirySelect<ExtArgs> | null
+    select?: preferSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the inquiry
+     * Omit specific fields from the prefer
      */
-    omit?: inquiryOmit<ExtArgs> | null
+    omit?: preferOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: inquiryInclude<ExtArgs> | null
-    where?: inquiryWhereInput
-    orderBy?: inquiryOrderByWithRelationInput | inquiryOrderByWithRelationInput[]
-    cursor?: inquiryWhereUniqueInput
+    include?: preferInclude<ExtArgs> | null
+    where?: preferWhereInput
+    orderBy?: preferOrderByWithRelationInput | preferOrderByWithRelationInput[]
+    cursor?: preferWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: InquiryScalarFieldEnum | InquiryScalarFieldEnum[]
-  }
-
-  /**
-   * user.meal_alert
-   */
-  export type user$meal_alertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the meal_alert
-     */
-    select?: meal_alertSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the meal_alert
-     */
-    omit?: meal_alertOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: meal_alertInclude<ExtArgs> | null
-    where?: meal_alertWhereInput
-    orderBy?: meal_alertOrderByWithRelationInput | meal_alertOrderByWithRelationInput[]
-    cursor?: meal_alertWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Meal_alertScalarFieldEnum | Meal_alertScalarFieldEnum[]
+    distinct?: PreferScalarFieldEnum | PreferScalarFieldEnum[]
   }
 
   /**
@@ -2588,6 +2898,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
   }
 
   export type Agreement_consentMaxAggregateOutputType = {
@@ -2598,6 +2909,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
   }
 
   export type Agreement_consentCountAggregateOutputType = {
@@ -2608,6 +2920,7 @@ export namespace Prisma {
     location_service: number
     is_over14: number
     created_at: number
+    marketing_consent: number
     _all: number
   }
 
@@ -2630,6 +2943,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
   }
 
   export type Agreement_consentMaxAggregateInputType = {
@@ -2640,6 +2954,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
   }
 
   export type Agreement_consentCountAggregateInputType = {
@@ -2650,6 +2965,7 @@ export namespace Prisma {
     location_service?: true
     is_over14?: true
     created_at?: true
+    marketing_consent?: true
     _all?: true
   }
 
@@ -2747,6 +3063,7 @@ export namespace Prisma {
     location_service: boolean | null
     is_over14: boolean | null
     created_at: Date | null
+    marketing_consent: boolean | null
     _count: Agreement_consentCountAggregateOutputType | null
     _avg: Agreement_consentAvgAggregateOutputType | null
     _sum: Agreement_consentSumAggregateOutputType | null
@@ -2776,6 +3093,7 @@ export namespace Prisma {
     location_service?: boolean
     is_over14?: boolean
     created_at?: boolean
+    marketing_consent?: boolean
     user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["agreement_consent"]>
 
@@ -2789,9 +3107,10 @@ export namespace Prisma {
     location_service?: boolean
     is_over14?: boolean
     created_at?: boolean
+    marketing_consent?: boolean
   }
 
-  export type agreement_consentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "terms_of_service" | "privacy_policy" | "location_service" | "is_over14" | "created_at", ExtArgs["result"]["agreement_consent"]>
+  export type agreement_consentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "terms_of_service" | "privacy_policy" | "location_service" | "is_over14" | "created_at" | "marketing_consent", ExtArgs["result"]["agreement_consent"]>
   export type agreement_consentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | userDefaultArgs<ExtArgs>
   }
@@ -2809,6 +3128,7 @@ export namespace Prisma {
       location_service: boolean | null
       is_over14: boolean | null
       created_at: Date | null
+      marketing_consent: boolean | null
     }, ExtArgs["result"]["agreement_consent"]>
     composites: {}
   }
@@ -3186,6 +3506,7 @@ export namespace Prisma {
     readonly location_service: FieldRef<"agreement_consent", 'Boolean'>
     readonly is_over14: FieldRef<"agreement_consent", 'Boolean'>
     readonly created_at: FieldRef<"agreement_consent", 'DateTime'>
+    readonly marketing_consent: FieldRef<"agreement_consent", 'Boolean'>
   }
     
 
@@ -4705,7 +5026,6 @@ export namespace Prisma {
     title?: boolean
     content?: boolean
     created_at?: boolean
-    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["inquiry"]>
 
 
@@ -4719,15 +5039,10 @@ export namespace Prisma {
   }
 
   export type inquiryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "title" | "content" | "created_at", ExtArgs["result"]["inquiry"]>
-  export type inquiryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | userDefaultArgs<ExtArgs>
-  }
 
   export type $inquiryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "inquiry"
-    objects: {
-      user: Prisma.$userPayload<ExtArgs>
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       user_id: bigint
@@ -5074,7 +5389,6 @@ export namespace Prisma {
    */
   export interface Prisma__inquiryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5126,10 +5440,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * Filter, which inquiry to fetch.
      */
     where: inquiryWhereUniqueInput
@@ -5148,10 +5458,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * Filter, which inquiry to fetch.
      */
     where: inquiryWhereUniqueInput
@@ -5169,10 +5475,6 @@ export namespace Prisma {
      * Omit specific fields from the inquiry
      */
     omit?: inquiryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
     /**
      * Filter, which inquiry to fetch.
      */
@@ -5222,10 +5524,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * Filter, which inquiry to fetch.
      */
     where?: inquiryWhereInput
@@ -5274,10 +5572,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * Filter, which inquiries to fetch.
      */
     where?: inquiryWhereInput
@@ -5321,10 +5615,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * The data needed to create a inquiry.
      */
     data: XOR<inquiryCreateInput, inquiryUncheckedCreateInput>
@@ -5353,10 +5643,6 @@ export namespace Prisma {
      * Omit specific fields from the inquiry
      */
     omit?: inquiryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
     /**
      * The data needed to update a inquiry.
      */
@@ -5398,10 +5684,6 @@ export namespace Prisma {
      */
     omit?: inquiryOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
-    /**
      * The filter to search for the inquiry to update in case it exists.
      */
     where: inquiryWhereUniqueInput
@@ -5427,10 +5709,6 @@ export namespace Prisma {
      * Omit specific fields from the inquiry
      */
     omit?: inquiryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
     /**
      * Filter which inquiry to delete.
      */
@@ -5463,10 +5741,6 @@ export namespace Prisma {
      * Omit specific fields from the inquiry
      */
     omit?: inquiryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: inquiryInclude<ExtArgs> | null
   }
 
 
@@ -5665,7 +5939,6 @@ export namespace Prisma {
     enabled?: boolean
     alarm_time?: boolean
     meal_time?: boolean | meal_timeDefaultArgs<ExtArgs>
-    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["meal_alert"]>
 
 
@@ -5680,14 +5953,12 @@ export namespace Prisma {
   export type meal_alertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "meal_id" | "enabled" | "alarm_time", ExtArgs["result"]["meal_alert"]>
   export type meal_alertInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meal_time?: boolean | meal_timeDefaultArgs<ExtArgs>
-    user?: boolean | userDefaultArgs<ExtArgs>
   }
 
   export type $meal_alertPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "meal_alert"
     objects: {
       meal_time: Prisma.$meal_timePayload<ExtArgs>
-      user: Prisma.$userPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: bigint
@@ -6035,7 +6306,6 @@ export namespace Prisma {
   export interface Prisma__meal_alertClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     meal_time<T extends meal_timeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, meal_timeDefaultArgs<ExtArgs>>): Prisma__meal_timeClient<$Result.GetResult<Prisma.$meal_timePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8336,6 +8606,3678 @@ export namespace Prisma {
 
 
   /**
+   * Model sessions
+   */
+
+  export type AggregateSessions = {
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  export type SessionsAvgAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsSumAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsMinAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsMaxAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsCountAggregateOutputType = {
+    session_id: number
+    expires: number
+    data: number
+    _all: number
+  }
+
+
+  export type SessionsAvgAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsSumAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsMinAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsMaxAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsCountAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+    _all?: true
+  }
+
+  export type SessionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to aggregate.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sessions
+    **/
+    _count?: true | SessionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type GetSessionsAggregateType<T extends SessionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessions[P]>
+      : GetScalarType<T[P], AggregateSessions[P]>
+  }
+
+
+
+
+  export type sessionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithAggregationInput | sessionsOrderByWithAggregationInput[]
+    by: SessionsScalarFieldEnum[] | SessionsScalarFieldEnum
+    having?: sessionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionsCountAggregateInputType | true
+    _avg?: SessionsAvgAggregateInputType
+    _sum?: SessionsSumAggregateInputType
+    _min?: SessionsMinAggregateInputType
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type SessionsGroupByOutputType = {
+    session_id: string
+    expires: number
+    data: string | null
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  type GetSessionsGroupByPayload<T extends sessionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type sessionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }, ExtArgs["result"]["sessions"]>
+
+
+
+  export type sessionsSelectScalar = {
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }
+
+  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "expires" | "data", ExtArgs["result"]["sessions"]>
+
+  export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "sessions"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      session_id: string
+      expires: number
+      data: string | null
+    }, ExtArgs["result"]["sessions"]>
+    composites: {}
+  }
+
+  type sessionsGetPayload<S extends boolean | null | undefined | sessionsDefaultArgs> = $Result.GetResult<Prisma.$sessionsPayload, S>
+
+  type sessionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<sessionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionsCountAggregateInputType | true
+    }
+
+  export interface sessionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sessions'], meta: { name: 'sessions' } }
+    /**
+     * Find zero or one Sessions that matches the filter.
+     * @param {sessionsFindUniqueArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends sessionsFindUniqueArgs>(args: SelectSubset<T, sessionsFindUniqueArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Sessions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {sessionsFindUniqueOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends sessionsFindUniqueOrThrowArgs>(args: SelectSubset<T, sessionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends sessionsFindFirstArgs>(args?: SelectSubset<T, sessionsFindFirstArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends sessionsFindFirstOrThrowArgs>(args?: SelectSubset<T, sessionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sessions
+     * const sessions = await prisma.sessions.findMany()
+     * 
+     * // Get first 10 Sessions
+     * const sessions = await prisma.sessions.findMany({ take: 10 })
+     * 
+     * // Only select the `session_id`
+     * const sessionsWithSession_idOnly = await prisma.sessions.findMany({ select: { session_id: true } })
+     * 
+     */
+    findMany<T extends sessionsFindManyArgs>(args?: SelectSubset<T, sessionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Sessions.
+     * @param {sessionsCreateArgs} args - Arguments to create a Sessions.
+     * @example
+     * // Create one Sessions
+     * const Sessions = await prisma.sessions.create({
+     *   data: {
+     *     // ... data to create a Sessions
+     *   }
+     * })
+     * 
+     */
+    create<T extends sessionsCreateArgs>(args: SelectSubset<T, sessionsCreateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sessions.
+     * @param {sessionsCreateManyArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const sessions = await prisma.sessions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends sessionsCreateManyArgs>(args?: SelectSubset<T, sessionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Sessions.
+     * @param {sessionsDeleteArgs} args - Arguments to delete one Sessions.
+     * @example
+     * // Delete one Sessions
+     * const Sessions = await prisma.sessions.delete({
+     *   where: {
+     *     // ... filter to delete one Sessions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends sessionsDeleteArgs>(args: SelectSubset<T, sessionsDeleteArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Sessions.
+     * @param {sessionsUpdateArgs} args - Arguments to update one Sessions.
+     * @example
+     * // Update one Sessions
+     * const sessions = await prisma.sessions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends sessionsUpdateArgs>(args: SelectSubset<T, sessionsUpdateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sessions.
+     * @param {sessionsDeleteManyArgs} args - Arguments to filter Sessions to delete.
+     * @example
+     * // Delete a few Sessions
+     * const { count } = await prisma.sessions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends sessionsDeleteManyArgs>(args?: SelectSubset<T, sessionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sessions
+     * const sessions = await prisma.sessions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends sessionsUpdateManyArgs>(args: SelectSubset<T, sessionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Sessions.
+     * @param {sessionsUpsertArgs} args - Arguments to update or create a Sessions.
+     * @example
+     * // Update or create a Sessions
+     * const sessions = await prisma.sessions.upsert({
+     *   create: {
+     *     // ... data to create a Sessions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sessions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends sessionsUpsertArgs>(args: SelectSubset<T, sessionsUpsertArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsCountArgs} args - Arguments to filter Sessions to count.
+     * @example
+     * // Count the number of Sessions
+     * const count = await prisma.sessions.count({
+     *   where: {
+     *     // ... the filter for the Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends sessionsCountArgs>(
+      args?: Subset<T, sessionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionsAggregateArgs>(args: Subset<T, SessionsAggregateArgs>): Prisma.PrismaPromise<GetSessionsAggregateType<T>>
+
+    /**
+     * Group by Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends sessionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: sessionsGroupByArgs['orderBy'] }
+        : { orderBy?: sessionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, sessionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the sessions model
+   */
+  readonly fields: sessionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for sessions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the sessions model
+   */
+  interface sessionsFieldRefs {
+    readonly session_id: FieldRef<"sessions", 'String'>
+    readonly expires: FieldRef<"sessions", 'Int'>
+    readonly data: FieldRef<"sessions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * sessions findUnique
+   */
+  export type sessionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findUniqueOrThrow
+   */
+  export type sessionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findFirst
+   */
+  export type sessionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findFirstOrThrow
+   */
+  export type sessionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findMany
+   */
+  export type sessionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions create
+   */
+  export type sessionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a sessions.
+     */
+    data: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+  }
+
+  /**
+   * sessions createMany
+   */
+  export type sessionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sessions.
+     */
+    data: sessionsCreateManyInput | sessionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * sessions update
+   */
+  export type sessionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a sessions.
+     */
+    data: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+    /**
+     * Choose, which sessions to update.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions updateMany
+   */
+  export type sessionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sessions.
+     */
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyInput>
+    /**
+     * Filter which sessions to update
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions upsert
+   */
+  export type sessionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the sessions to update in case it exists.
+     */
+    where: sessionsWhereUniqueInput
+    /**
+     * In case the sessions found by the `where` argument doesn't exist, create a new sessions with this data.
+     */
+    create: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+    /**
+     * In case the sessions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+  }
+
+  /**
+   * sessions delete
+   */
+  export type sessionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter which sessions to delete.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions deleteMany
+   */
+  export type sessionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to delete
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions without action
+   */
+  export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model prefer
+   */
+
+  export type AggregatePrefer = {
+    _count: PreferCountAggregateOutputType | null
+    _avg: PreferAvgAggregateOutputType | null
+    _sum: PreferSumAggregateOutputType | null
+    _min: PreferMinAggregateOutputType | null
+    _max: PreferMaxAggregateOutputType | null
+  }
+
+  export type PreferAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type PreferSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+  }
+
+  export type PreferMinAggregateOutputType = {
+    id: bigint | null
+    prefer: $Enums.prefer_prefer | null
+    user_id: bigint | null
+  }
+
+  export type PreferMaxAggregateOutputType = {
+    id: bigint | null
+    prefer: $Enums.prefer_prefer | null
+    user_id: bigint | null
+  }
+
+  export type PreferCountAggregateOutputType = {
+    id: number
+    prefer: number
+    user_id: number
+    _all: number
+  }
+
+
+  export type PreferAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type PreferSumAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type PreferMinAggregateInputType = {
+    id?: true
+    prefer?: true
+    user_id?: true
+  }
+
+  export type PreferMaxAggregateInputType = {
+    id?: true
+    prefer?: true
+    user_id?: true
+  }
+
+  export type PreferCountAggregateInputType = {
+    id?: true
+    prefer?: true
+    user_id?: true
+    _all?: true
+  }
+
+  export type PreferAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which prefer to aggregate.
+     */
+    where?: preferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of prefers to fetch.
+     */
+    orderBy?: preferOrderByWithRelationInput | preferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: preferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` prefers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` prefers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned prefers
+    **/
+    _count?: true | PreferCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PreferAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PreferSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PreferMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PreferMaxAggregateInputType
+  }
+
+  export type GetPreferAggregateType<T extends PreferAggregateArgs> = {
+        [P in keyof T & keyof AggregatePrefer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePrefer[P]>
+      : GetScalarType<T[P], AggregatePrefer[P]>
+  }
+
+
+
+
+  export type preferGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: preferWhereInput
+    orderBy?: preferOrderByWithAggregationInput | preferOrderByWithAggregationInput[]
+    by: PreferScalarFieldEnum[] | PreferScalarFieldEnum
+    having?: preferScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PreferCountAggregateInputType | true
+    _avg?: PreferAvgAggregateInputType
+    _sum?: PreferSumAggregateInputType
+    _min?: PreferMinAggregateInputType
+    _max?: PreferMaxAggregateInputType
+  }
+
+  export type PreferGroupByOutputType = {
+    id: bigint
+    prefer: $Enums.prefer_prefer
+    user_id: bigint
+    _count: PreferCountAggregateOutputType | null
+    _avg: PreferAvgAggregateOutputType | null
+    _sum: PreferSumAggregateOutputType | null
+    _min: PreferMinAggregateOutputType | null
+    _max: PreferMaxAggregateOutputType | null
+  }
+
+  type GetPreferGroupByPayload<T extends preferGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PreferGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PreferGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PreferGroupByOutputType[P]>
+            : GetScalarType<T[P], PreferGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type preferSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    prefer?: boolean
+    user_id?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["prefer"]>
+
+
+
+  export type preferSelectScalar = {
+    id?: boolean
+    prefer?: boolean
+    user_id?: boolean
+  }
+
+  export type preferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "prefer" | "user_id", ExtArgs["result"]["prefer"]>
+  export type preferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
+
+  export type $preferPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "prefer"
+    objects: {
+      user: Prisma.$userPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      prefer: $Enums.prefer_prefer
+      user_id: bigint
+    }, ExtArgs["result"]["prefer"]>
+    composites: {}
+  }
+
+  type preferGetPayload<S extends boolean | null | undefined | preferDefaultArgs> = $Result.GetResult<Prisma.$preferPayload, S>
+
+  type preferCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<preferFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PreferCountAggregateInputType | true
+    }
+
+  export interface preferDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['prefer'], meta: { name: 'prefer' } }
+    /**
+     * Find zero or one Prefer that matches the filter.
+     * @param {preferFindUniqueArgs} args - Arguments to find a Prefer
+     * @example
+     * // Get one Prefer
+     * const prefer = await prisma.prefer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends preferFindUniqueArgs>(args: SelectSubset<T, preferFindUniqueArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Prefer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {preferFindUniqueOrThrowArgs} args - Arguments to find a Prefer
+     * @example
+     * // Get one Prefer
+     * const prefer = await prisma.prefer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends preferFindUniqueOrThrowArgs>(args: SelectSubset<T, preferFindUniqueOrThrowArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Prefer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferFindFirstArgs} args - Arguments to find a Prefer
+     * @example
+     * // Get one Prefer
+     * const prefer = await prisma.prefer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends preferFindFirstArgs>(args?: SelectSubset<T, preferFindFirstArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Prefer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferFindFirstOrThrowArgs} args - Arguments to find a Prefer
+     * @example
+     * // Get one Prefer
+     * const prefer = await prisma.prefer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends preferFindFirstOrThrowArgs>(args?: SelectSubset<T, preferFindFirstOrThrowArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Prefers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Prefers
+     * const prefers = await prisma.prefer.findMany()
+     * 
+     * // Get first 10 Prefers
+     * const prefers = await prisma.prefer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const preferWithIdOnly = await prisma.prefer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends preferFindManyArgs>(args?: SelectSubset<T, preferFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Prefer.
+     * @param {preferCreateArgs} args - Arguments to create a Prefer.
+     * @example
+     * // Create one Prefer
+     * const Prefer = await prisma.prefer.create({
+     *   data: {
+     *     // ... data to create a Prefer
+     *   }
+     * })
+     * 
+     */
+    create<T extends preferCreateArgs>(args: SelectSubset<T, preferCreateArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Prefers.
+     * @param {preferCreateManyArgs} args - Arguments to create many Prefers.
+     * @example
+     * // Create many Prefers
+     * const prefer = await prisma.prefer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends preferCreateManyArgs>(args?: SelectSubset<T, preferCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Prefer.
+     * @param {preferDeleteArgs} args - Arguments to delete one Prefer.
+     * @example
+     * // Delete one Prefer
+     * const Prefer = await prisma.prefer.delete({
+     *   where: {
+     *     // ... filter to delete one Prefer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends preferDeleteArgs>(args: SelectSubset<T, preferDeleteArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Prefer.
+     * @param {preferUpdateArgs} args - Arguments to update one Prefer.
+     * @example
+     * // Update one Prefer
+     * const prefer = await prisma.prefer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends preferUpdateArgs>(args: SelectSubset<T, preferUpdateArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Prefers.
+     * @param {preferDeleteManyArgs} args - Arguments to filter Prefers to delete.
+     * @example
+     * // Delete a few Prefers
+     * const { count } = await prisma.prefer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends preferDeleteManyArgs>(args?: SelectSubset<T, preferDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Prefers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Prefers
+     * const prefer = await prisma.prefer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends preferUpdateManyArgs>(args: SelectSubset<T, preferUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Prefer.
+     * @param {preferUpsertArgs} args - Arguments to update or create a Prefer.
+     * @example
+     * // Update or create a Prefer
+     * const prefer = await prisma.prefer.upsert({
+     *   create: {
+     *     // ... data to create a Prefer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Prefer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends preferUpsertArgs>(args: SelectSubset<T, preferUpsertArgs<ExtArgs>>): Prisma__preferClient<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Prefers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferCountArgs} args - Arguments to filter Prefers to count.
+     * @example
+     * // Count the number of Prefers
+     * const count = await prisma.prefer.count({
+     *   where: {
+     *     // ... the filter for the Prefers we want to count
+     *   }
+     * })
+    **/
+    count<T extends preferCountArgs>(
+      args?: Subset<T, preferCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PreferCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Prefer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PreferAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PreferAggregateArgs>(args: Subset<T, PreferAggregateArgs>): Prisma.PrismaPromise<GetPreferAggregateType<T>>
+
+    /**
+     * Group by Prefer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {preferGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends preferGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: preferGroupByArgs['orderBy'] }
+        : { orderBy?: preferGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, preferGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPreferGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the prefer model
+   */
+  readonly fields: preferFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for prefer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__preferClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the prefer model
+   */
+  interface preferFieldRefs {
+    readonly id: FieldRef<"prefer", 'BigInt'>
+    readonly prefer: FieldRef<"prefer", 'prefer_prefer'>
+    readonly user_id: FieldRef<"prefer", 'BigInt'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * prefer findUnique
+   */
+  export type preferFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter, which prefer to fetch.
+     */
+    where: preferWhereUniqueInput
+  }
+
+  /**
+   * prefer findUniqueOrThrow
+   */
+  export type preferFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter, which prefer to fetch.
+     */
+    where: preferWhereUniqueInput
+  }
+
+  /**
+   * prefer findFirst
+   */
+  export type preferFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter, which prefer to fetch.
+     */
+    where?: preferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of prefers to fetch.
+     */
+    orderBy?: preferOrderByWithRelationInput | preferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for prefers.
+     */
+    cursor?: preferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` prefers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` prefers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of prefers.
+     */
+    distinct?: PreferScalarFieldEnum | PreferScalarFieldEnum[]
+  }
+
+  /**
+   * prefer findFirstOrThrow
+   */
+  export type preferFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter, which prefer to fetch.
+     */
+    where?: preferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of prefers to fetch.
+     */
+    orderBy?: preferOrderByWithRelationInput | preferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for prefers.
+     */
+    cursor?: preferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` prefers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` prefers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of prefers.
+     */
+    distinct?: PreferScalarFieldEnum | PreferScalarFieldEnum[]
+  }
+
+  /**
+   * prefer findMany
+   */
+  export type preferFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter, which prefers to fetch.
+     */
+    where?: preferWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of prefers to fetch.
+     */
+    orderBy?: preferOrderByWithRelationInput | preferOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing prefers.
+     */
+    cursor?: preferWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` prefers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` prefers.
+     */
+    skip?: number
+    distinct?: PreferScalarFieldEnum | PreferScalarFieldEnum[]
+  }
+
+  /**
+   * prefer create
+   */
+  export type preferCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * The data needed to create a prefer.
+     */
+    data: XOR<preferCreateInput, preferUncheckedCreateInput>
+  }
+
+  /**
+   * prefer createMany
+   */
+  export type preferCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many prefers.
+     */
+    data: preferCreateManyInput | preferCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * prefer update
+   */
+  export type preferUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * The data needed to update a prefer.
+     */
+    data: XOR<preferUpdateInput, preferUncheckedUpdateInput>
+    /**
+     * Choose, which prefer to update.
+     */
+    where: preferWhereUniqueInput
+  }
+
+  /**
+   * prefer updateMany
+   */
+  export type preferUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update prefers.
+     */
+    data: XOR<preferUpdateManyMutationInput, preferUncheckedUpdateManyInput>
+    /**
+     * Filter which prefers to update
+     */
+    where?: preferWhereInput
+    /**
+     * Limit how many prefers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * prefer upsert
+   */
+  export type preferUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * The filter to search for the prefer to update in case it exists.
+     */
+    where: preferWhereUniqueInput
+    /**
+     * In case the prefer found by the `where` argument doesn't exist, create a new prefer with this data.
+     */
+    create: XOR<preferCreateInput, preferUncheckedCreateInput>
+    /**
+     * In case the prefer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<preferUpdateInput, preferUncheckedUpdateInput>
+  }
+
+  /**
+   * prefer delete
+   */
+  export type preferDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+    /**
+     * Filter which prefer to delete.
+     */
+    where: preferWhereUniqueInput
+  }
+
+  /**
+   * prefer deleteMany
+   */
+  export type preferDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which prefers to delete
+     */
+    where?: preferWhereInput
+    /**
+     * Limit how many prefers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * prefer without action
+   */
+  export type preferDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the prefer
+     */
+    select?: preferSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the prefer
+     */
+    omit?: preferOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: preferInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model recommend_except
+   */
+
+  export type AggregateRecommend_except = {
+    _count: Recommend_exceptCountAggregateOutputType | null
+    _avg: Recommend_exceptAvgAggregateOutputType | null
+    _sum: Recommend_exceptSumAggregateOutputType | null
+    _min: Recommend_exceptMinAggregateOutputType | null
+    _max: Recommend_exceptMaxAggregateOutputType | null
+  }
+
+  export type Recommend_exceptAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    menu_id: number | null
+  }
+
+  export type Recommend_exceptSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    menu_id: bigint | null
+  }
+
+  export type Recommend_exceptMinAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    menu_id: bigint | null
+    bit: boolean | null
+    created_at: Date | null
+  }
+
+  export type Recommend_exceptMaxAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    menu_id: bigint | null
+    bit: boolean | null
+    created_at: Date | null
+  }
+
+  export type Recommend_exceptCountAggregateOutputType = {
+    id: number
+    user_id: number
+    menu_id: number
+    bit: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Recommend_exceptAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_id?: true
+  }
+
+  export type Recommend_exceptSumAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_id?: true
+  }
+
+  export type Recommend_exceptMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_id?: true
+    bit?: true
+    created_at?: true
+  }
+
+  export type Recommend_exceptMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_id?: true
+    bit?: true
+    created_at?: true
+  }
+
+  export type Recommend_exceptCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    menu_id?: true
+    bit?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Recommend_exceptAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which recommend_except to aggregate.
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommend_excepts to fetch.
+     */
+    orderBy?: recommend_exceptOrderByWithRelationInput | recommend_exceptOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: recommend_exceptWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommend_excepts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommend_excepts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned recommend_excepts
+    **/
+    _count?: true | Recommend_exceptCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Recommend_exceptAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Recommend_exceptSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Recommend_exceptMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Recommend_exceptMaxAggregateInputType
+  }
+
+  export type GetRecommend_exceptAggregateType<T extends Recommend_exceptAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecommend_except]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecommend_except[P]>
+      : GetScalarType<T[P], AggregateRecommend_except[P]>
+  }
+
+
+
+
+  export type recommend_exceptGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recommend_exceptWhereInput
+    orderBy?: recommend_exceptOrderByWithAggregationInput | recommend_exceptOrderByWithAggregationInput[]
+    by: Recommend_exceptScalarFieldEnum[] | Recommend_exceptScalarFieldEnum
+    having?: recommend_exceptScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Recommend_exceptCountAggregateInputType | true
+    _avg?: Recommend_exceptAvgAggregateInputType
+    _sum?: Recommend_exceptSumAggregateInputType
+    _min?: Recommend_exceptMinAggregateInputType
+    _max?: Recommend_exceptMaxAggregateInputType
+  }
+
+  export type Recommend_exceptGroupByOutputType = {
+    id: bigint
+    user_id: bigint
+    menu_id: bigint
+    bit: boolean | null
+    created_at: Date | null
+    _count: Recommend_exceptCountAggregateOutputType | null
+    _avg: Recommend_exceptAvgAggregateOutputType | null
+    _sum: Recommend_exceptSumAggregateOutputType | null
+    _min: Recommend_exceptMinAggregateOutputType | null
+    _max: Recommend_exceptMaxAggregateOutputType | null
+  }
+
+  type GetRecommend_exceptGroupByPayload<T extends recommend_exceptGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Recommend_exceptGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Recommend_exceptGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Recommend_exceptGroupByOutputType[P]>
+            : GetScalarType<T[P], Recommend_exceptGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type recommend_exceptSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    menu_id?: boolean
+    bit?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["recommend_except"]>
+
+
+
+  export type recommend_exceptSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    menu_id?: boolean
+    bit?: boolean
+    created_at?: boolean
+  }
+
+  export type recommend_exceptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "menu_id" | "bit" | "created_at", ExtArgs["result"]["recommend_except"]>
+
+  export type $recommend_exceptPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "recommend_except"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      user_id: bigint
+      menu_id: bigint
+      bit: boolean | null
+      created_at: Date | null
+    }, ExtArgs["result"]["recommend_except"]>
+    composites: {}
+  }
+
+  type recommend_exceptGetPayload<S extends boolean | null | undefined | recommend_exceptDefaultArgs> = $Result.GetResult<Prisma.$recommend_exceptPayload, S>
+
+  type recommend_exceptCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<recommend_exceptFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Recommend_exceptCountAggregateInputType | true
+    }
+
+  export interface recommend_exceptDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['recommend_except'], meta: { name: 'recommend_except' } }
+    /**
+     * Find zero or one Recommend_except that matches the filter.
+     * @param {recommend_exceptFindUniqueArgs} args - Arguments to find a Recommend_except
+     * @example
+     * // Get one Recommend_except
+     * const recommend_except = await prisma.recommend_except.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends recommend_exceptFindUniqueArgs>(args: SelectSubset<T, recommend_exceptFindUniqueArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Recommend_except that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {recommend_exceptFindUniqueOrThrowArgs} args - Arguments to find a Recommend_except
+     * @example
+     * // Get one Recommend_except
+     * const recommend_except = await prisma.recommend_except.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends recommend_exceptFindUniqueOrThrowArgs>(args: SelectSubset<T, recommend_exceptFindUniqueOrThrowArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommend_except that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptFindFirstArgs} args - Arguments to find a Recommend_except
+     * @example
+     * // Get one Recommend_except
+     * const recommend_except = await prisma.recommend_except.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends recommend_exceptFindFirstArgs>(args?: SelectSubset<T, recommend_exceptFindFirstArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recommend_except that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptFindFirstOrThrowArgs} args - Arguments to find a Recommend_except
+     * @example
+     * // Get one Recommend_except
+     * const recommend_except = await prisma.recommend_except.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends recommend_exceptFindFirstOrThrowArgs>(args?: SelectSubset<T, recommend_exceptFindFirstOrThrowArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Recommend_excepts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Recommend_excepts
+     * const recommend_excepts = await prisma.recommend_except.findMany()
+     * 
+     * // Get first 10 Recommend_excepts
+     * const recommend_excepts = await prisma.recommend_except.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recommend_exceptWithIdOnly = await prisma.recommend_except.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends recommend_exceptFindManyArgs>(args?: SelectSubset<T, recommend_exceptFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Recommend_except.
+     * @param {recommend_exceptCreateArgs} args - Arguments to create a Recommend_except.
+     * @example
+     * // Create one Recommend_except
+     * const Recommend_except = await prisma.recommend_except.create({
+     *   data: {
+     *     // ... data to create a Recommend_except
+     *   }
+     * })
+     * 
+     */
+    create<T extends recommend_exceptCreateArgs>(args: SelectSubset<T, recommend_exceptCreateArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Recommend_excepts.
+     * @param {recommend_exceptCreateManyArgs} args - Arguments to create many Recommend_excepts.
+     * @example
+     * // Create many Recommend_excepts
+     * const recommend_except = await prisma.recommend_except.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends recommend_exceptCreateManyArgs>(args?: SelectSubset<T, recommend_exceptCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Recommend_except.
+     * @param {recommend_exceptDeleteArgs} args - Arguments to delete one Recommend_except.
+     * @example
+     * // Delete one Recommend_except
+     * const Recommend_except = await prisma.recommend_except.delete({
+     *   where: {
+     *     // ... filter to delete one Recommend_except
+     *   }
+     * })
+     * 
+     */
+    delete<T extends recommend_exceptDeleteArgs>(args: SelectSubset<T, recommend_exceptDeleteArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Recommend_except.
+     * @param {recommend_exceptUpdateArgs} args - Arguments to update one Recommend_except.
+     * @example
+     * // Update one Recommend_except
+     * const recommend_except = await prisma.recommend_except.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends recommend_exceptUpdateArgs>(args: SelectSubset<T, recommend_exceptUpdateArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Recommend_excepts.
+     * @param {recommend_exceptDeleteManyArgs} args - Arguments to filter Recommend_excepts to delete.
+     * @example
+     * // Delete a few Recommend_excepts
+     * const { count } = await prisma.recommend_except.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends recommend_exceptDeleteManyArgs>(args?: SelectSubset<T, recommend_exceptDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recommend_excepts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Recommend_excepts
+     * const recommend_except = await prisma.recommend_except.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends recommend_exceptUpdateManyArgs>(args: SelectSubset<T, recommend_exceptUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Recommend_except.
+     * @param {recommend_exceptUpsertArgs} args - Arguments to update or create a Recommend_except.
+     * @example
+     * // Update or create a Recommend_except
+     * const recommend_except = await prisma.recommend_except.upsert({
+     *   create: {
+     *     // ... data to create a Recommend_except
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Recommend_except we want to update
+     *   }
+     * })
+     */
+    upsert<T extends recommend_exceptUpsertArgs>(args: SelectSubset<T, recommend_exceptUpsertArgs<ExtArgs>>): Prisma__recommend_exceptClient<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Recommend_excepts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptCountArgs} args - Arguments to filter Recommend_excepts to count.
+     * @example
+     * // Count the number of Recommend_excepts
+     * const count = await prisma.recommend_except.count({
+     *   where: {
+     *     // ... the filter for the Recommend_excepts we want to count
+     *   }
+     * })
+    **/
+    count<T extends recommend_exceptCountArgs>(
+      args?: Subset<T, recommend_exceptCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Recommend_exceptCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Recommend_except.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Recommend_exceptAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Recommend_exceptAggregateArgs>(args: Subset<T, Recommend_exceptAggregateArgs>): Prisma.PrismaPromise<GetRecommend_exceptAggregateType<T>>
+
+    /**
+     * Group by Recommend_except.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {recommend_exceptGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends recommend_exceptGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: recommend_exceptGroupByArgs['orderBy'] }
+        : { orderBy?: recommend_exceptGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, recommend_exceptGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecommend_exceptGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the recommend_except model
+   */
+  readonly fields: recommend_exceptFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for recommend_except.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__recommend_exceptClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the recommend_except model
+   */
+  interface recommend_exceptFieldRefs {
+    readonly id: FieldRef<"recommend_except", 'BigInt'>
+    readonly user_id: FieldRef<"recommend_except", 'BigInt'>
+    readonly menu_id: FieldRef<"recommend_except", 'BigInt'>
+    readonly bit: FieldRef<"recommend_except", 'Boolean'>
+    readonly created_at: FieldRef<"recommend_except", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * recommend_except findUnique
+   */
+  export type recommend_exceptFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter, which recommend_except to fetch.
+     */
+    where: recommend_exceptWhereUniqueInput
+  }
+
+  /**
+   * recommend_except findUniqueOrThrow
+   */
+  export type recommend_exceptFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter, which recommend_except to fetch.
+     */
+    where: recommend_exceptWhereUniqueInput
+  }
+
+  /**
+   * recommend_except findFirst
+   */
+  export type recommend_exceptFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter, which recommend_except to fetch.
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommend_excepts to fetch.
+     */
+    orderBy?: recommend_exceptOrderByWithRelationInput | recommend_exceptOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for recommend_excepts.
+     */
+    cursor?: recommend_exceptWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommend_excepts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommend_excepts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of recommend_excepts.
+     */
+    distinct?: Recommend_exceptScalarFieldEnum | Recommend_exceptScalarFieldEnum[]
+  }
+
+  /**
+   * recommend_except findFirstOrThrow
+   */
+  export type recommend_exceptFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter, which recommend_except to fetch.
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommend_excepts to fetch.
+     */
+    orderBy?: recommend_exceptOrderByWithRelationInput | recommend_exceptOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for recommend_excepts.
+     */
+    cursor?: recommend_exceptWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommend_excepts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommend_excepts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of recommend_excepts.
+     */
+    distinct?: Recommend_exceptScalarFieldEnum | Recommend_exceptScalarFieldEnum[]
+  }
+
+  /**
+   * recommend_except findMany
+   */
+  export type recommend_exceptFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter, which recommend_excepts to fetch.
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of recommend_excepts to fetch.
+     */
+    orderBy?: recommend_exceptOrderByWithRelationInput | recommend_exceptOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing recommend_excepts.
+     */
+    cursor?: recommend_exceptWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` recommend_excepts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` recommend_excepts.
+     */
+    skip?: number
+    distinct?: Recommend_exceptScalarFieldEnum | Recommend_exceptScalarFieldEnum[]
+  }
+
+  /**
+   * recommend_except create
+   */
+  export type recommend_exceptCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * The data needed to create a recommend_except.
+     */
+    data: XOR<recommend_exceptCreateInput, recommend_exceptUncheckedCreateInput>
+  }
+
+  /**
+   * recommend_except createMany
+   */
+  export type recommend_exceptCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many recommend_excepts.
+     */
+    data: recommend_exceptCreateManyInput | recommend_exceptCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * recommend_except update
+   */
+  export type recommend_exceptUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * The data needed to update a recommend_except.
+     */
+    data: XOR<recommend_exceptUpdateInput, recommend_exceptUncheckedUpdateInput>
+    /**
+     * Choose, which recommend_except to update.
+     */
+    where: recommend_exceptWhereUniqueInput
+  }
+
+  /**
+   * recommend_except updateMany
+   */
+  export type recommend_exceptUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update recommend_excepts.
+     */
+    data: XOR<recommend_exceptUpdateManyMutationInput, recommend_exceptUncheckedUpdateManyInput>
+    /**
+     * Filter which recommend_excepts to update
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * Limit how many recommend_excepts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * recommend_except upsert
+   */
+  export type recommend_exceptUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * The filter to search for the recommend_except to update in case it exists.
+     */
+    where: recommend_exceptWhereUniqueInput
+    /**
+     * In case the recommend_except found by the `where` argument doesn't exist, create a new recommend_except with this data.
+     */
+    create: XOR<recommend_exceptCreateInput, recommend_exceptUncheckedCreateInput>
+    /**
+     * In case the recommend_except was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<recommend_exceptUpdateInput, recommend_exceptUncheckedUpdateInput>
+  }
+
+  /**
+   * recommend_except delete
+   */
+  export type recommend_exceptDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Filter which recommend_except to delete.
+     */
+    where: recommend_exceptWhereUniqueInput
+  }
+
+  /**
+   * recommend_except deleteMany
+   */
+  export type recommend_exceptDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which recommend_excepts to delete
+     */
+    where?: recommend_exceptWhereInput
+    /**
+     * Limit how many recommend_excepts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * recommend_except without action
+   */
+  export type recommend_exceptDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model user_withdrawal
+   */
+
+  export type AggregateUser_withdrawal = {
+    _count: User_withdrawalCountAggregateOutputType | null
+    _avg: User_withdrawalAvgAggregateOutputType | null
+    _sum: User_withdrawalSumAggregateOutputType | null
+    _min: User_withdrawalMinAggregateOutputType | null
+    _max: User_withdrawalMaxAggregateOutputType | null
+  }
+
+  export type User_withdrawalAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+  }
+
+  export type User_withdrawalSumAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+  }
+
+  export type User_withdrawalMinAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    reason: string | null
+    created_at: Date | null
+  }
+
+  export type User_withdrawalMaxAggregateOutputType = {
+    id: bigint | null
+    user_id: bigint | null
+    reason: string | null
+    created_at: Date | null
+  }
+
+  export type User_withdrawalCountAggregateOutputType = {
+    id: number
+    user_id: number
+    reason: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type User_withdrawalAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type User_withdrawalSumAggregateInputType = {
+    id?: true
+    user_id?: true
+  }
+
+  export type User_withdrawalMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    reason?: true
+    created_at?: true
+  }
+
+  export type User_withdrawalMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    reason?: true
+    created_at?: true
+  }
+
+  export type User_withdrawalCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    reason?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type User_withdrawalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which user_withdrawal to aggregate.
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of user_withdrawals to fetch.
+     */
+    orderBy?: user_withdrawalOrderByWithRelationInput | user_withdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: user_withdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` user_withdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` user_withdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned user_withdrawals
+    **/
+    _count?: true | User_withdrawalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: User_withdrawalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: User_withdrawalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: User_withdrawalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: User_withdrawalMaxAggregateInputType
+  }
+
+  export type GetUser_withdrawalAggregateType<T extends User_withdrawalAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser_withdrawal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser_withdrawal[P]>
+      : GetScalarType<T[P], AggregateUser_withdrawal[P]>
+  }
+
+
+
+
+  export type user_withdrawalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: user_withdrawalWhereInput
+    orderBy?: user_withdrawalOrderByWithAggregationInput | user_withdrawalOrderByWithAggregationInput[]
+    by: User_withdrawalScalarFieldEnum[] | User_withdrawalScalarFieldEnum
+    having?: user_withdrawalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: User_withdrawalCountAggregateInputType | true
+    _avg?: User_withdrawalAvgAggregateInputType
+    _sum?: User_withdrawalSumAggregateInputType
+    _min?: User_withdrawalMinAggregateInputType
+    _max?: User_withdrawalMaxAggregateInputType
+  }
+
+  export type User_withdrawalGroupByOutputType = {
+    id: bigint
+    user_id: bigint
+    reason: string
+    created_at: Date
+    _count: User_withdrawalCountAggregateOutputType | null
+    _avg: User_withdrawalAvgAggregateOutputType | null
+    _sum: User_withdrawalSumAggregateOutputType | null
+    _min: User_withdrawalMinAggregateOutputType | null
+    _max: User_withdrawalMaxAggregateOutputType | null
+  }
+
+  type GetUser_withdrawalGroupByPayload<T extends user_withdrawalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<User_withdrawalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof User_withdrawalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], User_withdrawalGroupByOutputType[P]>
+            : GetScalarType<T[P], User_withdrawalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type user_withdrawalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    reason?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["user_withdrawal"]>
+
+
+
+  export type user_withdrawalSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    reason?: boolean
+    created_at?: boolean
+  }
+
+  export type user_withdrawalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "reason" | "created_at", ExtArgs["result"]["user_withdrawal"]>
+
+  export type $user_withdrawalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "user_withdrawal"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      user_id: bigint
+      reason: string
+      created_at: Date
+    }, ExtArgs["result"]["user_withdrawal"]>
+    composites: {}
+  }
+
+  type user_withdrawalGetPayload<S extends boolean | null | undefined | user_withdrawalDefaultArgs> = $Result.GetResult<Prisma.$user_withdrawalPayload, S>
+
+  type user_withdrawalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<user_withdrawalFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: User_withdrawalCountAggregateInputType | true
+    }
+
+  export interface user_withdrawalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['user_withdrawal'], meta: { name: 'user_withdrawal' } }
+    /**
+     * Find zero or one User_withdrawal that matches the filter.
+     * @param {user_withdrawalFindUniqueArgs} args - Arguments to find a User_withdrawal
+     * @example
+     * // Get one User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends user_withdrawalFindUniqueArgs>(args: SelectSubset<T, user_withdrawalFindUniqueArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User_withdrawal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {user_withdrawalFindUniqueOrThrowArgs} args - Arguments to find a User_withdrawal
+     * @example
+     * // Get one User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends user_withdrawalFindUniqueOrThrowArgs>(args: SelectSubset<T, user_withdrawalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User_withdrawal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalFindFirstArgs} args - Arguments to find a User_withdrawal
+     * @example
+     * // Get one User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends user_withdrawalFindFirstArgs>(args?: SelectSubset<T, user_withdrawalFindFirstArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User_withdrawal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalFindFirstOrThrowArgs} args - Arguments to find a User_withdrawal
+     * @example
+     * // Get one User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends user_withdrawalFindFirstOrThrowArgs>(args?: SelectSubset<T, user_withdrawalFindFirstOrThrowArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more User_withdrawals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all User_withdrawals
+     * const user_withdrawals = await prisma.user_withdrawal.findMany()
+     * 
+     * // Get first 10 User_withdrawals
+     * const user_withdrawals = await prisma.user_withdrawal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const user_withdrawalWithIdOnly = await prisma.user_withdrawal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends user_withdrawalFindManyArgs>(args?: SelectSubset<T, user_withdrawalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User_withdrawal.
+     * @param {user_withdrawalCreateArgs} args - Arguments to create a User_withdrawal.
+     * @example
+     * // Create one User_withdrawal
+     * const User_withdrawal = await prisma.user_withdrawal.create({
+     *   data: {
+     *     // ... data to create a User_withdrawal
+     *   }
+     * })
+     * 
+     */
+    create<T extends user_withdrawalCreateArgs>(args: SelectSubset<T, user_withdrawalCreateArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many User_withdrawals.
+     * @param {user_withdrawalCreateManyArgs} args - Arguments to create many User_withdrawals.
+     * @example
+     * // Create many User_withdrawals
+     * const user_withdrawal = await prisma.user_withdrawal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends user_withdrawalCreateManyArgs>(args?: SelectSubset<T, user_withdrawalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User_withdrawal.
+     * @param {user_withdrawalDeleteArgs} args - Arguments to delete one User_withdrawal.
+     * @example
+     * // Delete one User_withdrawal
+     * const User_withdrawal = await prisma.user_withdrawal.delete({
+     *   where: {
+     *     // ... filter to delete one User_withdrawal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends user_withdrawalDeleteArgs>(args: SelectSubset<T, user_withdrawalDeleteArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User_withdrawal.
+     * @param {user_withdrawalUpdateArgs} args - Arguments to update one User_withdrawal.
+     * @example
+     * // Update one User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends user_withdrawalUpdateArgs>(args: SelectSubset<T, user_withdrawalUpdateArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more User_withdrawals.
+     * @param {user_withdrawalDeleteManyArgs} args - Arguments to filter User_withdrawals to delete.
+     * @example
+     * // Delete a few User_withdrawals
+     * const { count } = await prisma.user_withdrawal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends user_withdrawalDeleteManyArgs>(args?: SelectSubset<T, user_withdrawalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more User_withdrawals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many User_withdrawals
+     * const user_withdrawal = await prisma.user_withdrawal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends user_withdrawalUpdateManyArgs>(args: SelectSubset<T, user_withdrawalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User_withdrawal.
+     * @param {user_withdrawalUpsertArgs} args - Arguments to update or create a User_withdrawal.
+     * @example
+     * // Update or create a User_withdrawal
+     * const user_withdrawal = await prisma.user_withdrawal.upsert({
+     *   create: {
+     *     // ... data to create a User_withdrawal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User_withdrawal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends user_withdrawalUpsertArgs>(args: SelectSubset<T, user_withdrawalUpsertArgs<ExtArgs>>): Prisma__user_withdrawalClient<$Result.GetResult<Prisma.$user_withdrawalPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of User_withdrawals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalCountArgs} args - Arguments to filter User_withdrawals to count.
+     * @example
+     * // Count the number of User_withdrawals
+     * const count = await prisma.user_withdrawal.count({
+     *   where: {
+     *     // ... the filter for the User_withdrawals we want to count
+     *   }
+     * })
+    **/
+    count<T extends user_withdrawalCountArgs>(
+      args?: Subset<T, user_withdrawalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], User_withdrawalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User_withdrawal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {User_withdrawalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends User_withdrawalAggregateArgs>(args: Subset<T, User_withdrawalAggregateArgs>): Prisma.PrismaPromise<GetUser_withdrawalAggregateType<T>>
+
+    /**
+     * Group by User_withdrawal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {user_withdrawalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends user_withdrawalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: user_withdrawalGroupByArgs['orderBy'] }
+        : { orderBy?: user_withdrawalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, user_withdrawalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUser_withdrawalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the user_withdrawal model
+   */
+  readonly fields: user_withdrawalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for user_withdrawal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__user_withdrawalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the user_withdrawal model
+   */
+  interface user_withdrawalFieldRefs {
+    readonly id: FieldRef<"user_withdrawal", 'BigInt'>
+    readonly user_id: FieldRef<"user_withdrawal", 'BigInt'>
+    readonly reason: FieldRef<"user_withdrawal", 'String'>
+    readonly created_at: FieldRef<"user_withdrawal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * user_withdrawal findUnique
+   */
+  export type user_withdrawalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter, which user_withdrawal to fetch.
+     */
+    where: user_withdrawalWhereUniqueInput
+  }
+
+  /**
+   * user_withdrawal findUniqueOrThrow
+   */
+  export type user_withdrawalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter, which user_withdrawal to fetch.
+     */
+    where: user_withdrawalWhereUniqueInput
+  }
+
+  /**
+   * user_withdrawal findFirst
+   */
+  export type user_withdrawalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter, which user_withdrawal to fetch.
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of user_withdrawals to fetch.
+     */
+    orderBy?: user_withdrawalOrderByWithRelationInput | user_withdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for user_withdrawals.
+     */
+    cursor?: user_withdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` user_withdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` user_withdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of user_withdrawals.
+     */
+    distinct?: User_withdrawalScalarFieldEnum | User_withdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * user_withdrawal findFirstOrThrow
+   */
+  export type user_withdrawalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter, which user_withdrawal to fetch.
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of user_withdrawals to fetch.
+     */
+    orderBy?: user_withdrawalOrderByWithRelationInput | user_withdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for user_withdrawals.
+     */
+    cursor?: user_withdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` user_withdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` user_withdrawals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of user_withdrawals.
+     */
+    distinct?: User_withdrawalScalarFieldEnum | User_withdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * user_withdrawal findMany
+   */
+  export type user_withdrawalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter, which user_withdrawals to fetch.
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of user_withdrawals to fetch.
+     */
+    orderBy?: user_withdrawalOrderByWithRelationInput | user_withdrawalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing user_withdrawals.
+     */
+    cursor?: user_withdrawalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` user_withdrawals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` user_withdrawals.
+     */
+    skip?: number
+    distinct?: User_withdrawalScalarFieldEnum | User_withdrawalScalarFieldEnum[]
+  }
+
+  /**
+   * user_withdrawal create
+   */
+  export type user_withdrawalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * The data needed to create a user_withdrawal.
+     */
+    data: XOR<user_withdrawalCreateInput, user_withdrawalUncheckedCreateInput>
+  }
+
+  /**
+   * user_withdrawal createMany
+   */
+  export type user_withdrawalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many user_withdrawals.
+     */
+    data: user_withdrawalCreateManyInput | user_withdrawalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * user_withdrawal update
+   */
+  export type user_withdrawalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * The data needed to update a user_withdrawal.
+     */
+    data: XOR<user_withdrawalUpdateInput, user_withdrawalUncheckedUpdateInput>
+    /**
+     * Choose, which user_withdrawal to update.
+     */
+    where: user_withdrawalWhereUniqueInput
+  }
+
+  /**
+   * user_withdrawal updateMany
+   */
+  export type user_withdrawalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update user_withdrawals.
+     */
+    data: XOR<user_withdrawalUpdateManyMutationInput, user_withdrawalUncheckedUpdateManyInput>
+    /**
+     * Filter which user_withdrawals to update
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * Limit how many user_withdrawals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * user_withdrawal upsert
+   */
+  export type user_withdrawalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * The filter to search for the user_withdrawal to update in case it exists.
+     */
+    where: user_withdrawalWhereUniqueInput
+    /**
+     * In case the user_withdrawal found by the `where` argument doesn't exist, create a new user_withdrawal with this data.
+     */
+    create: XOR<user_withdrawalCreateInput, user_withdrawalUncheckedCreateInput>
+    /**
+     * In case the user_withdrawal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<user_withdrawalUpdateInput, user_withdrawalUncheckedUpdateInput>
+  }
+
+  /**
+   * user_withdrawal delete
+   */
+  export type user_withdrawalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+    /**
+     * Filter which user_withdrawal to delete.
+     */
+    where: user_withdrawalWhereUniqueInput
+  }
+
+  /**
+   * user_withdrawal deleteMany
+   */
+  export type user_withdrawalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which user_withdrawals to delete
+     */
+    where?: user_withdrawalWhereInput
+    /**
+     * Limit how many user_withdrawals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * user_withdrawal without action
+   */
+  export type user_withdrawalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the user_withdrawal
+     */
+    select?: user_withdrawalSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the user_withdrawal
+     */
+    omit?: user_withdrawalOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8353,7 +12295,9 @@ export namespace Prisma {
     id: 'id',
     phone_num: 'phone_num',
     nickname: 'nickname',
-    exercise: 'exercise'
+    exercise: 'exercise',
+    is_deleted: 'is_deleted',
+    deleted_at: 'deleted_at'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8366,7 +12310,8 @@ export namespace Prisma {
     privacy_policy: 'privacy_policy',
     location_service: 'location_service',
     is_over14: 'is_over14',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    marketing_consent: 'marketing_consent'
   };
 
   export type Agreement_consentScalarFieldEnum = (typeof Agreement_consentScalarFieldEnum)[keyof typeof Agreement_consentScalarFieldEnum]
@@ -8418,6 +12363,45 @@ export namespace Prisma {
   export type User_allergyScalarFieldEnum = (typeof User_allergyScalarFieldEnum)[keyof typeof User_allergyScalarFieldEnum]
 
 
+  export const SessionsScalarFieldEnum: {
+    session_id: 'session_id',
+    expires: 'expires',
+    data: 'data'
+  };
+
+  export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
+
+
+  export const PreferScalarFieldEnum: {
+    id: 'id',
+    prefer: 'prefer',
+    user_id: 'user_id'
+  };
+
+  export type PreferScalarFieldEnum = (typeof PreferScalarFieldEnum)[keyof typeof PreferScalarFieldEnum]
+
+
+  export const Recommend_exceptScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    menu_id: 'menu_id',
+    bit: 'bit',
+    created_at: 'created_at'
+  };
+
+  export type Recommend_exceptScalarFieldEnum = (typeof Recommend_exceptScalarFieldEnum)[keyof typeof Recommend_exceptScalarFieldEnum]
+
+
+  export const User_withdrawalScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    reason: 'reason',
+    created_at: 'created_at'
+  };
+
+  export type User_withdrawalScalarFieldEnum = (typeof User_withdrawalScalarFieldEnum)[keyof typeof User_withdrawalScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8462,6 +12446,21 @@ export namespace Prisma {
   };
 
   export type meal_timeOrderByRelevanceFieldEnum = (typeof meal_timeOrderByRelevanceFieldEnum)[keyof typeof meal_timeOrderByRelevanceFieldEnum]
+
+
+  export const sessionsOrderByRelevanceFieldEnum: {
+    session_id: 'session_id',
+    data: 'data'
+  };
+
+  export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
+
+
+  export const user_withdrawalOrderByRelevanceFieldEnum: {
+    reason: 'reason'
+  };
+
+  export type user_withdrawalOrderByRelevanceFieldEnum = (typeof user_withdrawalOrderByRelevanceFieldEnum)[keyof typeof user_withdrawalOrderByRelevanceFieldEnum]
 
 
   /**
@@ -8512,6 +12511,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'prefer_prefer'
+   */
+  export type Enumprefer_preferFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'prefer_prefer'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8529,9 +12535,10 @@ export namespace Prisma {
     phone_num?: StringNullableFilter<"user"> | string | null
     nickname?: StringNullableFilter<"user"> | string | null
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
-    agreement_consent?: Agreement_consentListRelationFilter
-    inquiry?: InquiryListRelationFilter
-    meal_alert?: Meal_alertListRelationFilter
+    is_deleted?: BoolNullableFilter<"user"> | boolean | null
+    deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
+    prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
   }
 
@@ -8540,9 +12547,10 @@ export namespace Prisma {
     phone_num?: SortOrderInput | SortOrder
     nickname?: SortOrderInput | SortOrder
     exercise?: SortOrderInput | SortOrder
-    agreement_consent?: agreement_consentOrderByRelationAggregateInput
-    inquiry?: inquiryOrderByRelationAggregateInput
-    meal_alert?: meal_alertOrderByRelationAggregateInput
+    is_deleted?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    agreement_consent?: agreement_consentOrderByWithRelationInput
+    prefer?: preferOrderByRelationAggregateInput
     user_allergy?: user_allergyOrderByRelationAggregateInput
     _relevance?: userOrderByRelevanceInput
   }
@@ -8555,9 +12563,10 @@ export namespace Prisma {
     phone_num?: StringNullableFilter<"user"> | string | null
     nickname?: StringNullableFilter<"user"> | string | null
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
-    agreement_consent?: Agreement_consentListRelationFilter
-    inquiry?: InquiryListRelationFilter
-    meal_alert?: Meal_alertListRelationFilter
+    is_deleted?: BoolNullableFilter<"user"> | boolean | null
+    deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
+    prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
   }, "id">
 
@@ -8566,6 +12575,8 @@ export namespace Prisma {
     phone_num?: SortOrderInput | SortOrder
     nickname?: SortOrderInput | SortOrder
     exercise?: SortOrderInput | SortOrder
+    is_deleted?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: userCountOrderByAggregateInput
     _avg?: userAvgOrderByAggregateInput
     _max?: userMaxOrderByAggregateInput
@@ -8581,6 +12592,8 @@ export namespace Prisma {
     phone_num?: StringNullableWithAggregatesFilter<"user"> | string | null
     nickname?: StringNullableWithAggregatesFilter<"user"> | string | null
     exercise?: Enumuser_exerciseNullableWithAggregatesFilter<"user"> | $Enums.user_exercise | null
+    is_deleted?: BoolNullableWithAggregatesFilter<"user"> | boolean | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
   }
 
   export type agreement_consentWhereInput = {
@@ -8594,6 +12607,7 @@ export namespace Prisma {
     location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableFilter<"agreement_consent"> | boolean | null
     user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
@@ -8605,22 +12619,24 @@ export namespace Prisma {
     location_service?: SortOrderInput | SortOrder
     is_over14?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    marketing_consent?: SortOrderInput | SortOrder
     user?: userOrderByWithRelationInput
   }
 
   export type agreement_consentWhereUniqueInput = Prisma.AtLeast<{
     id?: bigint | number
+    user_id?: bigint | number
     AND?: agreement_consentWhereInput | agreement_consentWhereInput[]
     OR?: agreement_consentWhereInput[]
     NOT?: agreement_consentWhereInput | agreement_consentWhereInput[]
-    user_id?: BigIntFilter<"agreement_consent"> | bigint | number
     terms_of_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     privacy_policy?: BoolNullableFilter<"agreement_consent"> | boolean | null
     location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableFilter<"agreement_consent"> | boolean | null
     user?: XOR<UserScalarRelationFilter, userWhereInput>
-  }, "id">
+  }, "id" | "user_id">
 
   export type agreement_consentOrderByWithAggregationInput = {
     id?: SortOrder
@@ -8630,6 +12646,7 @@ export namespace Prisma {
     location_service?: SortOrderInput | SortOrder
     is_over14?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    marketing_consent?: SortOrderInput | SortOrder
     _count?: agreement_consentCountOrderByAggregateInput
     _avg?: agreement_consentAvgOrderByAggregateInput
     _max?: agreement_consentMaxOrderByAggregateInput
@@ -8648,6 +12665,7 @@ export namespace Prisma {
     location_service?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
     is_over14?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
     created_at?: DateTimeNullableWithAggregatesFilter<"agreement_consent"> | Date | string | null
+    marketing_consent?: BoolNullableWithAggregatesFilter<"agreement_consent"> | boolean | null
   }
 
   export type allergy_minWhereInput = {
@@ -8702,7 +12720,6 @@ export namespace Prisma {
     title?: StringNullableFilter<"inquiry"> | string | null
     content?: StringNullableFilter<"inquiry"> | string | null
     created_at?: DateTimeNullableFilter<"inquiry"> | Date | string | null
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
   export type inquiryOrderByWithRelationInput = {
@@ -8711,7 +12728,6 @@ export namespace Prisma {
     title?: SortOrderInput | SortOrder
     content?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
-    user?: userOrderByWithRelationInput
     _relevance?: inquiryOrderByRelevanceInput
   }
 
@@ -8724,7 +12740,6 @@ export namespace Prisma {
     title?: StringNullableFilter<"inquiry"> | string | null
     content?: StringNullableFilter<"inquiry"> | string | null
     created_at?: DateTimeNullableFilter<"inquiry"> | Date | string | null
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "id">
 
   export type inquiryOrderByWithAggregationInput = {
@@ -8760,7 +12775,6 @@ export namespace Prisma {
     enabled?: BoolNullableFilter<"meal_alert"> | boolean | null
     alarm_time?: DateTimeNullableFilter<"meal_alert"> | Date | string | null
     meal_time?: XOR<Meal_timeScalarRelationFilter, meal_timeWhereInput>
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
   export type meal_alertOrderByWithRelationInput = {
@@ -8769,7 +12783,6 @@ export namespace Prisma {
     enabled?: SortOrderInput | SortOrder
     alarm_time?: SortOrderInput | SortOrder
     meal_time?: meal_timeOrderByWithRelationInput
-    user?: userOrderByWithRelationInput
   }
 
   export type meal_alertWhereUniqueInput = Prisma.AtLeast<{
@@ -8782,7 +12795,6 @@ export namespace Prisma {
     enabled?: BoolNullableFilter<"meal_alert"> | boolean | null
     alarm_time?: DateTimeNullableFilter<"meal_alert"> | Date | string | null
     meal_time?: XOR<Meal_timeScalarRelationFilter, meal_timeWhereInput>
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "user_id_meal_id">
 
   export type meal_alertOrderByWithAggregationInput = {
@@ -8901,14 +12913,212 @@ export namespace Prisma {
     allergy_id?: BigIntWithAggregatesFilter<"user_allergy"> | bigint | number
   }
 
+  export type sessionsWhereInput = {
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    session_id?: StringFilter<"sessions"> | string
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }
+
+  export type sessionsOrderByWithRelationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _relevance?: sessionsOrderByRelevanceInput
+  }
+
+  export type sessionsWhereUniqueInput = Prisma.AtLeast<{
+    session_id?: string
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }, "session_id">
+
+  export type sessionsOrderByWithAggregationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _count?: sessionsCountOrderByAggregateInput
+    _avg?: sessionsAvgOrderByAggregateInput
+    _max?: sessionsMaxOrderByAggregateInput
+    _min?: sessionsMinOrderByAggregateInput
+    _sum?: sessionsSumOrderByAggregateInput
+  }
+
+  export type sessionsScalarWhereWithAggregatesInput = {
+    AND?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    OR?: sessionsScalarWhereWithAggregatesInput[]
+    NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    session_id?: StringWithAggregatesFilter<"sessions"> | string
+    expires?: IntWithAggregatesFilter<"sessions"> | number
+    data?: StringNullableWithAggregatesFilter<"sessions"> | string | null
+  }
+
+  export type preferWhereInput = {
+    AND?: preferWhereInput | preferWhereInput[]
+    OR?: preferWhereInput[]
+    NOT?: preferWhereInput | preferWhereInput[]
+    id?: BigIntFilter<"prefer"> | bigint | number
+    prefer?: Enumprefer_preferFilter<"prefer"> | $Enums.prefer_prefer
+    user_id?: BigIntFilter<"prefer"> | bigint | number
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+  }
+
+  export type preferOrderByWithRelationInput = {
+    id?: SortOrder
+    prefer?: SortOrder
+    user_id?: SortOrder
+    user?: userOrderByWithRelationInput
+  }
+
+  export type preferWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: preferWhereInput | preferWhereInput[]
+    OR?: preferWhereInput[]
+    NOT?: preferWhereInput | preferWhereInput[]
+    prefer?: Enumprefer_preferFilter<"prefer"> | $Enums.prefer_prefer
+    user_id?: BigIntFilter<"prefer"> | bigint | number
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+  }, "id">
+
+  export type preferOrderByWithAggregationInput = {
+    id?: SortOrder
+    prefer?: SortOrder
+    user_id?: SortOrder
+    _count?: preferCountOrderByAggregateInput
+    _avg?: preferAvgOrderByAggregateInput
+    _max?: preferMaxOrderByAggregateInput
+    _min?: preferMinOrderByAggregateInput
+    _sum?: preferSumOrderByAggregateInput
+  }
+
+  export type preferScalarWhereWithAggregatesInput = {
+    AND?: preferScalarWhereWithAggregatesInput | preferScalarWhereWithAggregatesInput[]
+    OR?: preferScalarWhereWithAggregatesInput[]
+    NOT?: preferScalarWhereWithAggregatesInput | preferScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"prefer"> | bigint | number
+    prefer?: Enumprefer_preferWithAggregatesFilter<"prefer"> | $Enums.prefer_prefer
+    user_id?: BigIntWithAggregatesFilter<"prefer"> | bigint | number
+  }
+
+  export type recommend_exceptWhereInput = {
+    AND?: recommend_exceptWhereInput | recommend_exceptWhereInput[]
+    OR?: recommend_exceptWhereInput[]
+    NOT?: recommend_exceptWhereInput | recommend_exceptWhereInput[]
+    id?: BigIntFilter<"recommend_except"> | bigint | number
+    user_id?: BigIntFilter<"recommend_except"> | bigint | number
+    menu_id?: BigIntFilter<"recommend_except"> | bigint | number
+    bit?: BoolNullableFilter<"recommend_except"> | boolean | null
+    created_at?: DateTimeNullableFilter<"recommend_except"> | Date | string | null
+  }
+
+  export type recommend_exceptOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+    bit?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+  }
+
+  export type recommend_exceptWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    user_id_menu_id?: recommend_exceptUser_idMenu_idCompoundUniqueInput
+    AND?: recommend_exceptWhereInput | recommend_exceptWhereInput[]
+    OR?: recommend_exceptWhereInput[]
+    NOT?: recommend_exceptWhereInput | recommend_exceptWhereInput[]
+    user_id?: BigIntFilter<"recommend_except"> | bigint | number
+    menu_id?: BigIntFilter<"recommend_except"> | bigint | number
+    bit?: BoolNullableFilter<"recommend_except"> | boolean | null
+    created_at?: DateTimeNullableFilter<"recommend_except"> | Date | string | null
+  }, "id" | "user_id_menu_id">
+
+  export type recommend_exceptOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+    bit?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: recommend_exceptCountOrderByAggregateInput
+    _avg?: recommend_exceptAvgOrderByAggregateInput
+    _max?: recommend_exceptMaxOrderByAggregateInput
+    _min?: recommend_exceptMinOrderByAggregateInput
+    _sum?: recommend_exceptSumOrderByAggregateInput
+  }
+
+  export type recommend_exceptScalarWhereWithAggregatesInput = {
+    AND?: recommend_exceptScalarWhereWithAggregatesInput | recommend_exceptScalarWhereWithAggregatesInput[]
+    OR?: recommend_exceptScalarWhereWithAggregatesInput[]
+    NOT?: recommend_exceptScalarWhereWithAggregatesInput | recommend_exceptScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"recommend_except"> | bigint | number
+    user_id?: BigIntWithAggregatesFilter<"recommend_except"> | bigint | number
+    menu_id?: BigIntWithAggregatesFilter<"recommend_except"> | bigint | number
+    bit?: BoolNullableWithAggregatesFilter<"recommend_except"> | boolean | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"recommend_except"> | Date | string | null
+  }
+
+  export type user_withdrawalWhereInput = {
+    AND?: user_withdrawalWhereInput | user_withdrawalWhereInput[]
+    OR?: user_withdrawalWhereInput[]
+    NOT?: user_withdrawalWhereInput | user_withdrawalWhereInput[]
+    id?: BigIntFilter<"user_withdrawal"> | bigint | number
+    user_id?: BigIntFilter<"user_withdrawal"> | bigint | number
+    reason?: StringFilter<"user_withdrawal"> | string
+    created_at?: DateTimeFilter<"user_withdrawal"> | Date | string
+  }
+
+  export type user_withdrawalOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    reason?: SortOrder
+    created_at?: SortOrder
+    _relevance?: user_withdrawalOrderByRelevanceInput
+  }
+
+  export type user_withdrawalWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: user_withdrawalWhereInput | user_withdrawalWhereInput[]
+    OR?: user_withdrawalWhereInput[]
+    NOT?: user_withdrawalWhereInput | user_withdrawalWhereInput[]
+    user_id?: BigIntFilter<"user_withdrawal"> | bigint | number
+    reason?: StringFilter<"user_withdrawal"> | string
+    created_at?: DateTimeFilter<"user_withdrawal"> | Date | string
+  }, "id">
+
+  export type user_withdrawalOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    reason?: SortOrder
+    created_at?: SortOrder
+    _count?: user_withdrawalCountOrderByAggregateInput
+    _avg?: user_withdrawalAvgOrderByAggregateInput
+    _max?: user_withdrawalMaxOrderByAggregateInput
+    _min?: user_withdrawalMinOrderByAggregateInput
+    _sum?: user_withdrawalSumOrderByAggregateInput
+  }
+
+  export type user_withdrawalScalarWhereWithAggregatesInput = {
+    AND?: user_withdrawalScalarWhereWithAggregatesInput | user_withdrawalScalarWhereWithAggregatesInput[]
+    OR?: user_withdrawalScalarWhereWithAggregatesInput[]
+    NOT?: user_withdrawalScalarWhereWithAggregatesInput | user_withdrawalScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"user_withdrawal"> | bigint | number
+    user_id?: BigIntWithAggregatesFilter<"user_withdrawal"> | bigint | number
+    reason?: StringWithAggregatesFilter<"user_withdrawal"> | string
+    created_at?: DateTimeWithAggregatesFilter<"user_withdrawal"> | Date | string
+  }
+
   export type userCreateInput = {
     id: bigint | number
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
-    inquiry?: inquiryCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
+    prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
   }
 
@@ -8917,9 +13127,10 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
-    inquiry?: inquiryUncheckedCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertUncheckedCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
+    prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8928,9 +13139,10 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
+    prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
   }
 
@@ -8939,9 +13151,10 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUncheckedUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUncheckedUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
+    prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8950,6 +13163,8 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
   }
 
   export type userUpdateManyMutationInput = {
@@ -8957,6 +13172,8 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type userUncheckedUpdateManyInput = {
@@ -8964,6 +13181,8 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type agreement_consentCreateInput = {
@@ -8973,6 +13192,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
     user: userCreateNestedOneWithoutAgreement_consentInput
   }
 
@@ -8984,6 +13204,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUpdateInput = {
@@ -8993,6 +13214,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
     user?: userUpdateOneRequiredWithoutAgreement_consentNestedInput
   }
 
@@ -9004,6 +13226,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentCreateManyInput = {
@@ -9014,6 +13237,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUpdateManyMutationInput = {
@@ -9023,6 +13247,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type agreement_consentUncheckedUpdateManyInput = {
@@ -9033,6 +13258,7 @@ export namespace Prisma {
     location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type allergy_minCreateInput = {
@@ -9076,10 +13302,10 @@ export namespace Prisma {
 
   export type inquiryCreateInput = {
     id: bigint | number
+    user_id: bigint | number
     title?: string | null
     content?: string | null
     created_at?: Date | string | null
-    user: userCreateNestedOneWithoutInquiryInput
   }
 
   export type inquiryUncheckedCreateInput = {
@@ -9092,10 +13318,10 @@ export namespace Prisma {
 
   export type inquiryUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: userUpdateOneRequiredWithoutInquiryNestedInput
   }
 
   export type inquiryUncheckedUpdateInput = {
@@ -9116,6 +13342,7 @@ export namespace Prisma {
 
   export type inquiryUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -9130,10 +13357,10 @@ export namespace Prisma {
   }
 
   export type meal_alertCreateInput = {
+    user_id: bigint | number
     enabled?: boolean | null
     alarm_time?: Date | string | null
     meal_time: meal_timeCreateNestedOneWithoutMeal_alertInput
-    user: userCreateNestedOneWithoutMeal_alertInput
   }
 
   export type meal_alertUncheckedCreateInput = {
@@ -9144,10 +13371,10 @@ export namespace Prisma {
   }
 
   export type meal_alertUpdateInput = {
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meal_time?: meal_timeUpdateOneRequiredWithoutMeal_alertNestedInput
-    user?: userUpdateOneRequiredWithoutMeal_alertNestedInput
   }
 
   export type meal_alertUncheckedUpdateInput = {
@@ -9165,6 +13392,7 @@ export namespace Prisma {
   }
 
   export type meal_alertUpdateManyMutationInput = {
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9256,6 +13484,194 @@ export namespace Prisma {
     allergy_id?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
+  export type sessionsCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUncheckedCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsCreateManyInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateManyMutationInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateManyInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type preferCreateInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
+    user: userCreateNestedOneWithoutPreferInput
+  }
+
+  export type preferUncheckedCreateInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
+    user_id: bigint | number
+  }
+
+  export type preferUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
+    user?: userUpdateOneRequiredWithoutPreferNestedInput
+  }
+
+  export type preferUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type preferCreateManyInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
+    user_id: bigint | number
+  }
+
+  export type preferUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
+  }
+
+  export type preferUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type recommend_exceptCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type recommend_exceptUncheckedCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type recommend_exceptUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type recommend_exceptUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type recommend_exceptCreateManyInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type recommend_exceptUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type recommend_exceptUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type user_withdrawalCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    reason: string
+    created_at?: Date | string
+  }
+
+  export type user_withdrawalUncheckedCreateInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    reason: string
+    created_at?: Date | string
+  }
+
+  export type user_withdrawalUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    reason?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type user_withdrawalUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    reason?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type user_withdrawalCreateManyInput = {
+    id?: bigint | number
+    user_id: bigint | number
+    reason: string
+    created_at?: Date | string
+  }
+
+  export type user_withdrawalUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    reason?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type user_withdrawalUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    reason?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -9289,22 +13705,31 @@ export namespace Prisma {
     not?: NestedEnumuser_exerciseNullableFilter<$PrismaModel> | $Enums.user_exercise | null
   }
 
-  export type Agreement_consentListRelationFilter = {
-    every?: agreement_consentWhereInput
-    some?: agreement_consentWhereInput
-    none?: agreement_consentWhereInput
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type InquiryListRelationFilter = {
-    every?: inquiryWhereInput
-    some?: inquiryWhereInput
-    none?: inquiryWhereInput
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type Meal_alertListRelationFilter = {
-    every?: meal_alertWhereInput
-    some?: meal_alertWhereInput
-    none?: meal_alertWhereInput
+  export type Agreement_consentNullableScalarRelationFilter = {
+    is?: agreement_consentWhereInput | null
+    isNot?: agreement_consentWhereInput | null
+  }
+
+  export type PreferListRelationFilter = {
+    every?: preferWhereInput
+    some?: preferWhereInput
+    none?: preferWhereInput
   }
 
   export type User_allergyListRelationFilter = {
@@ -9318,15 +13743,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type agreement_consentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type inquiryOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type meal_alertOrderByRelationAggregateInput = {
+  export type preferOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9345,6 +13762,8 @@ export namespace Prisma {
     phone_num?: SortOrder
     nickname?: SortOrder
     exercise?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type userAvgOrderByAggregateInput = {
@@ -9356,6 +13775,8 @@ export namespace Prisma {
     phone_num?: SortOrder
     nickname?: SortOrder
     exercise?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type userMinOrderByAggregateInput = {
@@ -9363,6 +13784,8 @@ export namespace Prisma {
     phone_num?: SortOrder
     nickname?: SortOrder
     exercise?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type userSumOrderByAggregateInput = {
@@ -9413,67 +13836,6 @@ export namespace Prisma {
     _max?: NestedEnumuser_exerciseNullableFilter<$PrismaModel>
   }
 
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: userWhereInput
-    isNot?: userWhereInput
-  }
-
-  export type agreement_consentCountOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    terms_of_service?: SortOrder
-    privacy_policy?: SortOrder
-    location_service?: SortOrder
-    is_over14?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type agreement_consentAvgOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type agreement_consentMaxOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    terms_of_service?: SortOrder
-    privacy_policy?: SortOrder
-    location_service?: SortOrder
-    is_over14?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type agreement_consentMinOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    terms_of_service?: SortOrder
-    privacy_policy?: SortOrder
-    location_service?: SortOrder
-    is_over14?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type agreement_consentSumOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-  }
-
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -9494,6 +13856,54 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: userWhereInput
+    isNot?: userWhereInput
+  }
+
+  export type agreement_consentCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    terms_of_service?: SortOrder
+    privacy_policy?: SortOrder
+    location_service?: SortOrder
+    is_over14?: SortOrder
+    created_at?: SortOrder
+    marketing_consent?: SortOrder
+  }
+
+  export type agreement_consentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type agreement_consentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    terms_of_service?: SortOrder
+    privacy_policy?: SortOrder
+    location_service?: SortOrder
+    is_over14?: SortOrder
+    created_at?: SortOrder
+    marketing_consent?: SortOrder
+  }
+
+  export type agreement_consentMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    terms_of_service?: SortOrder
+    privacy_policy?: SortOrder
+    location_service?: SortOrder
+    is_over14?: SortOrder
+    created_at?: SortOrder
+    marketing_consent?: SortOrder
+  }
+
+  export type agreement_consentSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
   }
 
   export type allergy_minOrderByRelevanceInput = {
@@ -9606,6 +14016,16 @@ export namespace Prisma {
     meal_id?: SortOrder
   }
 
+  export type Meal_alertListRelationFilter = {
+    every?: meal_alertWhereInput
+    some?: meal_alertWhereInput
+    none?: meal_alertWhereInput
+  }
+
+  export type meal_alertOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type meal_timeOrderByRelevanceInput = {
     fields: meal_timeOrderByRelevanceFieldEnum | meal_timeOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -9673,25 +14093,257 @@ export namespace Prisma {
     allergy_id?: SortOrder
   }
 
-  export type agreement_consentCreateNestedManyWithoutUserInput = {
-    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput> | agreement_consentCreateWithoutUserInput[] | agreement_consentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput | agreement_consentCreateOrConnectWithoutUserInput[]
-    createMany?: agreement_consentCreateManyUserInputEnvelope
-    connect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type inquiryCreateNestedManyWithoutUserInput = {
-    create?: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput> | inquiryCreateWithoutUserInput[] | inquiryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: inquiryCreateOrConnectWithoutUserInput | inquiryCreateOrConnectWithoutUserInput[]
-    createMany?: inquiryCreateManyUserInputEnvelope
-    connect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type meal_alertCreateNestedManyWithoutUserInput = {
-    create?: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput> | meal_alertCreateWithoutUserInput[] | meal_alertUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: meal_alertCreateOrConnectWithoutUserInput | meal_alertCreateOrConnectWithoutUserInput[]
-    createMany?: meal_alertCreateManyUserInputEnvelope
-    connect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
+  export type sessionsOrderByRelevanceInput = {
+    fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type sessionsCountOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsAvgOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type sessionsMaxOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsMinOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsSumOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type Enumprefer_preferFilter<$PrismaModel = never> = {
+    equals?: $Enums.prefer_prefer | Enumprefer_preferFieldRefInput<$PrismaModel>
+    in?: $Enums.prefer_prefer[]
+    notIn?: $Enums.prefer_prefer[]
+    not?: NestedEnumprefer_preferFilter<$PrismaModel> | $Enums.prefer_prefer
+  }
+
+  export type preferCountOrderByAggregateInput = {
+    id?: SortOrder
+    prefer?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type preferAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type preferMaxOrderByAggregateInput = {
+    id?: SortOrder
+    prefer?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type preferMinOrderByAggregateInput = {
+    id?: SortOrder
+    prefer?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type preferSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type Enumprefer_preferWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.prefer_prefer | Enumprefer_preferFieldRefInput<$PrismaModel>
+    in?: $Enums.prefer_prefer[]
+    notIn?: $Enums.prefer_prefer[]
+    not?: NestedEnumprefer_preferWithAggregatesFilter<$PrismaModel> | $Enums.prefer_prefer
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumprefer_preferFilter<$PrismaModel>
+    _max?: NestedEnumprefer_preferFilter<$PrismaModel>
+  }
+
+  export type recommend_exceptUser_idMenu_idCompoundUniqueInput = {
+    user_id: bigint | number
+    menu_id: bigint | number
+  }
+
+  export type recommend_exceptCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+    bit?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type recommend_exceptAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+  }
+
+  export type recommend_exceptMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+    bit?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type recommend_exceptMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+    bit?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type recommend_exceptSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    menu_id?: SortOrder
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type user_withdrawalOrderByRelevanceInput = {
+    fields: user_withdrawalOrderByRelevanceFieldEnum | user_withdrawalOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type user_withdrawalCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    reason?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type user_withdrawalAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type user_withdrawalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    reason?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type user_withdrawalMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    reason?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type user_withdrawalSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type agreement_consentCreateNestedOneWithoutUserInput = {
+    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
+    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
+    connect?: agreement_consentWhereUniqueInput
+  }
+
+  export type preferCreateNestedManyWithoutUserInput = {
+    create?: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput> | preferCreateWithoutUserInput[] | preferUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: preferCreateOrConnectWithoutUserInput | preferCreateOrConnectWithoutUserInput[]
+    createMany?: preferCreateManyUserInputEnvelope
+    connect?: preferWhereUniqueInput | preferWhereUniqueInput[]
   }
 
   export type user_allergyCreateNestedManyWithoutUserInput = {
@@ -9701,25 +14353,17 @@ export namespace Prisma {
     connect?: user_allergyWhereUniqueInput | user_allergyWhereUniqueInput[]
   }
 
-  export type agreement_consentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput> | agreement_consentCreateWithoutUserInput[] | agreement_consentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput | agreement_consentCreateOrConnectWithoutUserInput[]
-    createMany?: agreement_consentCreateManyUserInputEnvelope
-    connect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
+  export type agreement_consentUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
+    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
+    connect?: agreement_consentWhereUniqueInput
   }
 
-  export type inquiryUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput> | inquiryCreateWithoutUserInput[] | inquiryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: inquiryCreateOrConnectWithoutUserInput | inquiryCreateOrConnectWithoutUserInput[]
-    createMany?: inquiryCreateManyUserInputEnvelope
-    connect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-  }
-
-  export type meal_alertUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput> | meal_alertCreateWithoutUserInput[] | meal_alertUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: meal_alertCreateOrConnectWithoutUserInput | meal_alertCreateOrConnectWithoutUserInput[]
-    createMany?: meal_alertCreateManyUserInputEnvelope
-    connect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
+  export type preferUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput> | preferCreateWithoutUserInput[] | preferUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: preferCreateOrConnectWithoutUserInput | preferCreateOrConnectWithoutUserInput[]
+    createMany?: preferCreateManyUserInputEnvelope
+    connect?: preferWhereUniqueInput | preferWhereUniqueInput[]
   }
 
   export type user_allergyUncheckedCreateNestedManyWithoutUserInput = {
@@ -9745,46 +14389,36 @@ export namespace Prisma {
     set?: $Enums.user_exercise | null
   }
 
-  export type agreement_consentUpdateManyWithoutUserNestedInput = {
-    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput> | agreement_consentCreateWithoutUserInput[] | agreement_consentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput | agreement_consentCreateOrConnectWithoutUserInput[]
-    upsert?: agreement_consentUpsertWithWhereUniqueWithoutUserInput | agreement_consentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: agreement_consentCreateManyUserInputEnvelope
-    set?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    disconnect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    delete?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    connect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    update?: agreement_consentUpdateWithWhereUniqueWithoutUserInput | agreement_consentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: agreement_consentUpdateManyWithWhereWithoutUserInput | agreement_consentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: agreement_consentScalarWhereInput | agreement_consentScalarWhereInput[]
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
-  export type inquiryUpdateManyWithoutUserNestedInput = {
-    create?: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput> | inquiryCreateWithoutUserInput[] | inquiryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: inquiryCreateOrConnectWithoutUserInput | inquiryCreateOrConnectWithoutUserInput[]
-    upsert?: inquiryUpsertWithWhereUniqueWithoutUserInput | inquiryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: inquiryCreateManyUserInputEnvelope
-    set?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    disconnect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    delete?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    connect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    update?: inquiryUpdateWithWhereUniqueWithoutUserInput | inquiryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: inquiryUpdateManyWithWhereWithoutUserInput | inquiryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: inquiryScalarWhereInput | inquiryScalarWhereInput[]
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
-  export type meal_alertUpdateManyWithoutUserNestedInput = {
-    create?: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput> | meal_alertCreateWithoutUserInput[] | meal_alertUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: meal_alertCreateOrConnectWithoutUserInput | meal_alertCreateOrConnectWithoutUserInput[]
-    upsert?: meal_alertUpsertWithWhereUniqueWithoutUserInput | meal_alertUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: meal_alertCreateManyUserInputEnvelope
-    set?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    disconnect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    delete?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    connect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    update?: meal_alertUpdateWithWhereUniqueWithoutUserInput | meal_alertUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: meal_alertUpdateManyWithWhereWithoutUserInput | meal_alertUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
+  export type agreement_consentUpdateOneWithoutUserNestedInput = {
+    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
+    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
+    upsert?: agreement_consentUpsertWithoutUserInput
+    disconnect?: agreement_consentWhereInput | boolean
+    delete?: agreement_consentWhereInput | boolean
+    connect?: agreement_consentWhereUniqueInput
+    update?: XOR<XOR<agreement_consentUpdateToOneWithWhereWithoutUserInput, agreement_consentUpdateWithoutUserInput>, agreement_consentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type preferUpdateManyWithoutUserNestedInput = {
+    create?: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput> | preferCreateWithoutUserInput[] | preferUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: preferCreateOrConnectWithoutUserInput | preferCreateOrConnectWithoutUserInput[]
+    upsert?: preferUpsertWithWhereUniqueWithoutUserInput | preferUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: preferCreateManyUserInputEnvelope
+    set?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    disconnect?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    delete?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    connect?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    update?: preferUpdateWithWhereUniqueWithoutUserInput | preferUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: preferUpdateManyWithWhereWithoutUserInput | preferUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: preferScalarWhereInput | preferScalarWhereInput[]
   }
 
   export type user_allergyUpdateManyWithoutUserNestedInput = {
@@ -9801,46 +14435,28 @@ export namespace Prisma {
     deleteMany?: user_allergyScalarWhereInput | user_allergyScalarWhereInput[]
   }
 
-  export type agreement_consentUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput> | agreement_consentCreateWithoutUserInput[] | agreement_consentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput | agreement_consentCreateOrConnectWithoutUserInput[]
-    upsert?: agreement_consentUpsertWithWhereUniqueWithoutUserInput | agreement_consentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: agreement_consentCreateManyUserInputEnvelope
-    set?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    disconnect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    delete?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    connect?: agreement_consentWhereUniqueInput | agreement_consentWhereUniqueInput[]
-    update?: agreement_consentUpdateWithWhereUniqueWithoutUserInput | agreement_consentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: agreement_consentUpdateManyWithWhereWithoutUserInput | agreement_consentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: agreement_consentScalarWhereInput | agreement_consentScalarWhereInput[]
+  export type agreement_consentUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
+    connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
+    upsert?: agreement_consentUpsertWithoutUserInput
+    disconnect?: agreement_consentWhereInput | boolean
+    delete?: agreement_consentWhereInput | boolean
+    connect?: agreement_consentWhereUniqueInput
+    update?: XOR<XOR<agreement_consentUpdateToOneWithWhereWithoutUserInput, agreement_consentUpdateWithoutUserInput>, agreement_consentUncheckedUpdateWithoutUserInput>
   }
 
-  export type inquiryUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput> | inquiryCreateWithoutUserInput[] | inquiryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: inquiryCreateOrConnectWithoutUserInput | inquiryCreateOrConnectWithoutUserInput[]
-    upsert?: inquiryUpsertWithWhereUniqueWithoutUserInput | inquiryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: inquiryCreateManyUserInputEnvelope
-    set?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    disconnect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    delete?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    connect?: inquiryWhereUniqueInput | inquiryWhereUniqueInput[]
-    update?: inquiryUpdateWithWhereUniqueWithoutUserInput | inquiryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: inquiryUpdateManyWithWhereWithoutUserInput | inquiryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: inquiryScalarWhereInput | inquiryScalarWhereInput[]
-  }
-
-  export type meal_alertUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput> | meal_alertCreateWithoutUserInput[] | meal_alertUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: meal_alertCreateOrConnectWithoutUserInput | meal_alertCreateOrConnectWithoutUserInput[]
-    upsert?: meal_alertUpsertWithWhereUniqueWithoutUserInput | meal_alertUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: meal_alertCreateManyUserInputEnvelope
-    set?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    disconnect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    delete?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    connect?: meal_alertWhereUniqueInput | meal_alertWhereUniqueInput[]
-    update?: meal_alertUpdateWithWhereUniqueWithoutUserInput | meal_alertUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: meal_alertUpdateManyWithWhereWithoutUserInput | meal_alertUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
+  export type preferUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput> | preferCreateWithoutUserInput[] | preferUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: preferCreateOrConnectWithoutUserInput | preferCreateOrConnectWithoutUserInput[]
+    upsert?: preferUpsertWithWhereUniqueWithoutUserInput | preferUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: preferCreateManyUserInputEnvelope
+    set?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    disconnect?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    delete?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    connect?: preferWhereUniqueInput | preferWhereUniqueInput[]
+    update?: preferUpdateWithWhereUniqueWithoutUserInput | preferUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: preferUpdateManyWithWhereWithoutUserInput | preferUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: preferScalarWhereInput | preferScalarWhereInput[]
   }
 
   export type user_allergyUncheckedUpdateManyWithoutUserNestedInput = {
@@ -9861,14 +14477,6 @@ export namespace Prisma {
     create?: XOR<userCreateWithoutAgreement_consentInput, userUncheckedCreateWithoutAgreement_consentInput>
     connectOrCreate?: userCreateOrConnectWithoutAgreement_consentInput
     connect?: userWhereUniqueInput
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type userUpdateOneRequiredWithoutAgreement_consentNestedInput = {
@@ -9921,30 +14529,10 @@ export namespace Prisma {
     deleteMany?: user_allergyScalarWhereInput | user_allergyScalarWhereInput[]
   }
 
-  export type userCreateNestedOneWithoutInquiryInput = {
-    create?: XOR<userCreateWithoutInquiryInput, userUncheckedCreateWithoutInquiryInput>
-    connectOrCreate?: userCreateOrConnectWithoutInquiryInput
-    connect?: userWhereUniqueInput
-  }
-
-  export type userUpdateOneRequiredWithoutInquiryNestedInput = {
-    create?: XOR<userCreateWithoutInquiryInput, userUncheckedCreateWithoutInquiryInput>
-    connectOrCreate?: userCreateOrConnectWithoutInquiryInput
-    upsert?: userUpsertWithoutInquiryInput
-    connect?: userWhereUniqueInput
-    update?: XOR<XOR<userUpdateToOneWithWhereWithoutInquiryInput, userUpdateWithoutInquiryInput>, userUncheckedUpdateWithoutInquiryInput>
-  }
-
   export type meal_timeCreateNestedOneWithoutMeal_alertInput = {
     create?: XOR<meal_timeCreateWithoutMeal_alertInput, meal_timeUncheckedCreateWithoutMeal_alertInput>
     connectOrCreate?: meal_timeCreateOrConnectWithoutMeal_alertInput
     connect?: meal_timeWhereUniqueInput
-  }
-
-  export type userCreateNestedOneWithoutMeal_alertInput = {
-    create?: XOR<userCreateWithoutMeal_alertInput, userUncheckedCreateWithoutMeal_alertInput>
-    connectOrCreate?: userCreateOrConnectWithoutMeal_alertInput
-    connect?: userWhereUniqueInput
   }
 
   export type meal_timeUpdateOneRequiredWithoutMeal_alertNestedInput = {
@@ -9953,14 +14541,6 @@ export namespace Prisma {
     upsert?: meal_timeUpsertWithoutMeal_alertInput
     connect?: meal_timeWhereUniqueInput
     update?: XOR<XOR<meal_timeUpdateToOneWithWhereWithoutMeal_alertInput, meal_timeUpdateWithoutMeal_alertInput>, meal_timeUncheckedUpdateWithoutMeal_alertInput>
-  }
-
-  export type userUpdateOneRequiredWithoutMeal_alertNestedInput = {
-    create?: XOR<userCreateWithoutMeal_alertInput, userUncheckedCreateWithoutMeal_alertInput>
-    connectOrCreate?: userCreateOrConnectWithoutMeal_alertInput
-    upsert?: userUpsertWithoutMeal_alertInput
-    connect?: userWhereUniqueInput
-    update?: XOR<XOR<userUpdateToOneWithWhereWithoutMeal_alertInput, userUpdateWithoutMeal_alertInput>, userUncheckedUpdateWithoutMeal_alertInput>
   }
 
   export type meal_alertCreateNestedManyWithoutMeal_timeInput = {
@@ -10033,6 +14613,40 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutUser_allergyInput, userUpdateWithoutUser_allergyInput>, userUncheckedUpdateWithoutUser_allergyInput>
   }
 
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type userCreateNestedOneWithoutPreferInput = {
+    create?: XOR<userCreateWithoutPreferInput, userUncheckedCreateWithoutPreferInput>
+    connectOrCreate?: userCreateOrConnectWithoutPreferInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type Enumprefer_preferFieldUpdateOperationsInput = {
+    set?: $Enums.prefer_prefer
+  }
+
+  export type userUpdateOneRequiredWithoutPreferNestedInput = {
+    create?: XOR<userCreateWithoutPreferInput, userUncheckedCreateWithoutPreferInput>
+    connectOrCreate?: userCreateOrConnectWithoutPreferInput
+    upsert?: userUpsertWithoutPreferInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutPreferInput, userUpdateWithoutPreferInput>, userUncheckedUpdateWithoutPreferInput>
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -10064,6 +14678,22 @@ export namespace Prisma {
     in?: $Enums.user_exercise[] | null
     notIn?: $Enums.user_exercise[] | null
     not?: NestedEnumuser_exerciseNullableFilter<$PrismaModel> | $Enums.user_exercise | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10143,22 +14773,6 @@ export namespace Prisma {
     _max?: NestedEnumuser_exerciseNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
@@ -10181,6 +14795,97 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedEnumprefer_preferFilter<$PrismaModel = never> = {
+    equals?: $Enums.prefer_prefer | Enumprefer_preferFieldRefInput<$PrismaModel>
+    in?: $Enums.prefer_prefer[]
+    notIn?: $Enums.prefer_prefer[]
+    not?: NestedEnumprefer_preferFilter<$PrismaModel> | $Enums.prefer_prefer
+  }
+
+  export type NestedEnumprefer_preferWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.prefer_prefer | Enumprefer_preferFieldRefInput<$PrismaModel>
+    in?: $Enums.prefer_prefer[]
+    notIn?: $Enums.prefer_prefer[]
+    not?: NestedEnumprefer_preferWithAggregatesFilter<$PrismaModel> | $Enums.prefer_prefer
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumprefer_preferFilter<$PrismaModel>
+    _max?: NestedEnumprefer_preferFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type agreement_consentCreateWithoutUserInput = {
     id?: bigint | number
     terms_of_service?: boolean | null
@@ -10188,6 +14893,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentUncheckedCreateWithoutUserInput = {
@@ -10197,6 +14903,7 @@ export namespace Prisma {
     location_service?: boolean | null
     is_over14?: boolean | null
     created_at?: Date | string | null
+    marketing_consent?: boolean | null
   }
 
   export type agreement_consentCreateOrConnectWithoutUserInput = {
@@ -10204,54 +14911,23 @@ export namespace Prisma {
     create: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
   }
 
-  export type agreement_consentCreateManyUserInputEnvelope = {
-    data: agreement_consentCreateManyUserInput | agreement_consentCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type preferCreateWithoutUserInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
   }
 
-  export type inquiryCreateWithoutUserInput = {
-    id: bigint | number
-    title?: string | null
-    content?: string | null
-    created_at?: Date | string | null
+  export type preferUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
   }
 
-  export type inquiryUncheckedCreateWithoutUserInput = {
-    id: bigint | number
-    title?: string | null
-    content?: string | null
-    created_at?: Date | string | null
+  export type preferCreateOrConnectWithoutUserInput = {
+    where: preferWhereUniqueInput
+    create: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput>
   }
 
-  export type inquiryCreateOrConnectWithoutUserInput = {
-    where: inquiryWhereUniqueInput
-    create: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput>
-  }
-
-  export type inquiryCreateManyUserInputEnvelope = {
-    data: inquiryCreateManyUserInput | inquiryCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type meal_alertCreateWithoutUserInput = {
-    enabled?: boolean | null
-    alarm_time?: Date | string | null
-    meal_time: meal_timeCreateNestedOneWithoutMeal_alertInput
-  }
-
-  export type meal_alertUncheckedCreateWithoutUserInput = {
-    meal_id: bigint | number
-    enabled?: boolean | null
-    alarm_time?: Date | string | null
-  }
-
-  export type meal_alertCreateOrConnectWithoutUserInput = {
-    where: meal_alertWhereUniqueInput
-    create: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput>
-  }
-
-  export type meal_alertCreateManyUserInputEnvelope = {
-    data: meal_alertCreateManyUserInput | meal_alertCreateManyUserInput[]
+  export type preferCreateManyUserInputEnvelope = {
+    data: preferCreateManyUserInput | preferCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10273,86 +14949,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type agreement_consentUpsertWithWhereUniqueWithoutUserInput = {
-    where: agreement_consentWhereUniqueInput
+  export type agreement_consentUpsertWithoutUserInput = {
     update: XOR<agreement_consentUpdateWithoutUserInput, agreement_consentUncheckedUpdateWithoutUserInput>
     create: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
+    where?: agreement_consentWhereInput
   }
 
-  export type agreement_consentUpdateWithWhereUniqueWithoutUserInput = {
-    where: agreement_consentWhereUniqueInput
+  export type agreement_consentUpdateToOneWithWhereWithoutUserInput = {
+    where?: agreement_consentWhereInput
     data: XOR<agreement_consentUpdateWithoutUserInput, agreement_consentUncheckedUpdateWithoutUserInput>
   }
 
-  export type agreement_consentUpdateManyWithWhereWithoutUserInput = {
-    where: agreement_consentScalarWhereInput
-    data: XOR<agreement_consentUpdateManyMutationInput, agreement_consentUncheckedUpdateManyWithoutUserInput>
+  export type agreement_consentUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    terms_of_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    privacy_policy?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
-  export type agreement_consentScalarWhereInput = {
-    AND?: agreement_consentScalarWhereInput | agreement_consentScalarWhereInput[]
-    OR?: agreement_consentScalarWhereInput[]
-    NOT?: agreement_consentScalarWhereInput | agreement_consentScalarWhereInput[]
-    id?: BigIntFilter<"agreement_consent"> | bigint | number
-    user_id?: BigIntFilter<"agreement_consent"> | bigint | number
-    terms_of_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
-    privacy_policy?: BoolNullableFilter<"agreement_consent"> | boolean | null
-    location_service?: BoolNullableFilter<"agreement_consent"> | boolean | null
-    is_over14?: BoolNullableFilter<"agreement_consent"> | boolean | null
-    created_at?: DateTimeNullableFilter<"agreement_consent"> | Date | string | null
+  export type agreement_consentUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    terms_of_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    privacy_policy?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    marketing_consent?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
-  export type inquiryUpsertWithWhereUniqueWithoutUserInput = {
-    where: inquiryWhereUniqueInput
-    update: XOR<inquiryUpdateWithoutUserInput, inquiryUncheckedUpdateWithoutUserInput>
-    create: XOR<inquiryCreateWithoutUserInput, inquiryUncheckedCreateWithoutUserInput>
+  export type preferUpsertWithWhereUniqueWithoutUserInput = {
+    where: preferWhereUniqueInput
+    update: XOR<preferUpdateWithoutUserInput, preferUncheckedUpdateWithoutUserInput>
+    create: XOR<preferCreateWithoutUserInput, preferUncheckedCreateWithoutUserInput>
   }
 
-  export type inquiryUpdateWithWhereUniqueWithoutUserInput = {
-    where: inquiryWhereUniqueInput
-    data: XOR<inquiryUpdateWithoutUserInput, inquiryUncheckedUpdateWithoutUserInput>
+  export type preferUpdateWithWhereUniqueWithoutUserInput = {
+    where: preferWhereUniqueInput
+    data: XOR<preferUpdateWithoutUserInput, preferUncheckedUpdateWithoutUserInput>
   }
 
-  export type inquiryUpdateManyWithWhereWithoutUserInput = {
-    where: inquiryScalarWhereInput
-    data: XOR<inquiryUpdateManyMutationInput, inquiryUncheckedUpdateManyWithoutUserInput>
+  export type preferUpdateManyWithWhereWithoutUserInput = {
+    where: preferScalarWhereInput
+    data: XOR<preferUpdateManyMutationInput, preferUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type inquiryScalarWhereInput = {
-    AND?: inquiryScalarWhereInput | inquiryScalarWhereInput[]
-    OR?: inquiryScalarWhereInput[]
-    NOT?: inquiryScalarWhereInput | inquiryScalarWhereInput[]
-    id?: BigIntFilter<"inquiry"> | bigint | number
-    user_id?: BigIntFilter<"inquiry"> | bigint | number
-    title?: StringNullableFilter<"inquiry"> | string | null
-    content?: StringNullableFilter<"inquiry"> | string | null
-    created_at?: DateTimeNullableFilter<"inquiry"> | Date | string | null
-  }
-
-  export type meal_alertUpsertWithWhereUniqueWithoutUserInput = {
-    where: meal_alertWhereUniqueInput
-    update: XOR<meal_alertUpdateWithoutUserInput, meal_alertUncheckedUpdateWithoutUserInput>
-    create: XOR<meal_alertCreateWithoutUserInput, meal_alertUncheckedCreateWithoutUserInput>
-  }
-
-  export type meal_alertUpdateWithWhereUniqueWithoutUserInput = {
-    where: meal_alertWhereUniqueInput
-    data: XOR<meal_alertUpdateWithoutUserInput, meal_alertUncheckedUpdateWithoutUserInput>
-  }
-
-  export type meal_alertUpdateManyWithWhereWithoutUserInput = {
-    where: meal_alertScalarWhereInput
-    data: XOR<meal_alertUpdateManyMutationInput, meal_alertUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type meal_alertScalarWhereInput = {
-    AND?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
-    OR?: meal_alertScalarWhereInput[]
-    NOT?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
-    user_id?: BigIntFilter<"meal_alert"> | bigint | number
-    meal_id?: BigIntFilter<"meal_alert"> | bigint | number
-    enabled?: BoolNullableFilter<"meal_alert"> | boolean | null
-    alarm_time?: DateTimeNullableFilter<"meal_alert"> | Date | string | null
+  export type preferScalarWhereInput = {
+    AND?: preferScalarWhereInput | preferScalarWhereInput[]
+    OR?: preferScalarWhereInput[]
+    NOT?: preferScalarWhereInput | preferScalarWhereInput[]
+    id?: BigIntFilter<"prefer"> | bigint | number
+    prefer?: Enumprefer_preferFilter<"prefer"> | $Enums.prefer_prefer
+    user_id?: BigIntFilter<"prefer"> | bigint | number
   }
 
   export type user_allergyUpsertWithWhereUniqueWithoutUserInput = {
@@ -10384,8 +15034,9 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    inquiry?: inquiryCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
   }
 
@@ -10394,8 +15045,9 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    inquiry?: inquiryUncheckedCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertUncheckedCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -10420,8 +15072,9 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    inquiry?: inquiryUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
   }
 
@@ -10430,8 +15083,9 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    inquiry?: inquiryUncheckedUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUncheckedUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -10469,62 +15123,6 @@ export namespace Prisma {
     data: XOR<user_allergyUpdateManyMutationInput, user_allergyUncheckedUpdateManyWithoutAllergy_minInput>
   }
 
-  export type userCreateWithoutInquiryInput = {
-    id: bigint | number
-    phone_num?: string | null
-    nickname?: string | null
-    exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertCreateNestedManyWithoutUserInput
-    user_allergy?: user_allergyCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutInquiryInput = {
-    id: bigint | number
-    phone_num?: string | null
-    nickname?: string | null
-    exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertUncheckedCreateNestedManyWithoutUserInput
-    user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutInquiryInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutInquiryInput, userUncheckedCreateWithoutInquiryInput>
-  }
-
-  export type userUpsertWithoutInquiryInput = {
-    update: XOR<userUpdateWithoutInquiryInput, userUncheckedUpdateWithoutInquiryInput>
-    create: XOR<userCreateWithoutInquiryInput, userUncheckedCreateWithoutInquiryInput>
-    where?: userWhereInput
-  }
-
-  export type userUpdateToOneWithWhereWithoutInquiryInput = {
-    where?: userWhereInput
-    data: XOR<userUpdateWithoutInquiryInput, userUncheckedUpdateWithoutInquiryInput>
-  }
-
-  export type userUpdateWithoutInquiryInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUpdateManyWithoutUserNestedInput
-    user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutInquiryInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUncheckedUpdateManyWithoutUserNestedInput
-    user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type meal_timeCreateWithoutMeal_alertInput = {
     id?: bigint | number
     alert_time?: Date | string | null
@@ -10540,31 +15138,6 @@ export namespace Prisma {
   export type meal_timeCreateOrConnectWithoutMeal_alertInput = {
     where: meal_timeWhereUniqueInput
     create: XOR<meal_timeCreateWithoutMeal_alertInput, meal_timeUncheckedCreateWithoutMeal_alertInput>
-  }
-
-  export type userCreateWithoutMeal_alertInput = {
-    id: bigint | number
-    phone_num?: string | null
-    nickname?: string | null
-    exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
-    inquiry?: inquiryCreateNestedManyWithoutUserInput
-    user_allergy?: user_allergyCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutMeal_alertInput = {
-    id: bigint | number
-    phone_num?: string | null
-    nickname?: string | null
-    exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
-    inquiry?: inquiryUncheckedCreateNestedManyWithoutUserInput
-    user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutMeal_alertInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutMeal_alertInput, userUncheckedCreateWithoutMeal_alertInput>
   }
 
   export type meal_timeUpsertWithoutMeal_alertInput = {
@@ -10590,41 +15163,10 @@ export namespace Prisma {
     comment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type userUpsertWithoutMeal_alertInput = {
-    update: XOR<userUpdateWithoutMeal_alertInput, userUncheckedUpdateWithoutMeal_alertInput>
-    create: XOR<userCreateWithoutMeal_alertInput, userUncheckedCreateWithoutMeal_alertInput>
-    where?: userWhereInput
-  }
-
-  export type userUpdateToOneWithWhereWithoutMeal_alertInput = {
-    where?: userWhereInput
-    data: XOR<userUpdateWithoutMeal_alertInput, userUncheckedUpdateWithoutMeal_alertInput>
-  }
-
-  export type userUpdateWithoutMeal_alertInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUpdateManyWithoutUserNestedInput
-    user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutMeal_alertInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUncheckedUpdateManyWithoutUserNestedInput
-    user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type meal_alertCreateWithoutMeal_timeInput = {
+    user_id: bigint | number
     enabled?: boolean | null
     alarm_time?: Date | string | null
-    user: userCreateNestedOneWithoutMeal_alertInput
   }
 
   export type meal_alertUncheckedCreateWithoutMeal_timeInput = {
@@ -10659,6 +15201,16 @@ export namespace Prisma {
     data: XOR<meal_alertUpdateManyMutationInput, meal_alertUncheckedUpdateManyWithoutMeal_timeInput>
   }
 
+  export type meal_alertScalarWhereInput = {
+    AND?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
+    OR?: meal_alertScalarWhereInput[]
+    NOT?: meal_alertScalarWhereInput | meal_alertScalarWhereInput[]
+    user_id?: BigIntFilter<"meal_alert"> | bigint | number
+    meal_id?: BigIntFilter<"meal_alert"> | bigint | number
+    enabled?: BoolNullableFilter<"meal_alert"> | boolean | null
+    alarm_time?: DateTimeNullableFilter<"meal_alert"> | Date | string | null
+  }
+
   export type allergy_minCreateWithoutUser_allergyInput = {
     id?: bigint | number
     allergy?: string | null
@@ -10679,9 +15231,10 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentCreateNestedManyWithoutUserInput
-    inquiry?: inquiryCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
+    prefer?: preferCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutUser_allergyInput = {
@@ -10689,9 +15242,10 @@ export namespace Prisma {
     phone_num?: string | null
     nickname?: string | null
     exercise?: $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedCreateNestedManyWithoutUserInput
-    inquiry?: inquiryUncheckedCreateNestedManyWithoutUserInput
-    meal_alert?: meal_alertUncheckedCreateNestedManyWithoutUserInput
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
+    prefer?: preferUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutUser_allergyInput = {
@@ -10736,9 +15290,10 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
+    prefer?: preferUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutUser_allergyInput = {
@@ -10746,101 +15301,94 @@ export namespace Prisma {
     phone_num?: NullableStringFieldUpdateOperationsInput | string | null
     nickname?: NullableStringFieldUpdateOperationsInput | string | null
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
-    agreement_consent?: agreement_consentUncheckedUpdateManyWithoutUserNestedInput
-    inquiry?: inquiryUncheckedUpdateManyWithoutUserNestedInput
-    meal_alert?: meal_alertUncheckedUpdateManyWithoutUserNestedInput
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
+    prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type agreement_consentCreateManyUserInput = {
-    id?: bigint | number
-    terms_of_service?: boolean | null
-    privacy_policy?: boolean | null
-    location_service?: boolean | null
-    is_over14?: boolean | null
-    created_at?: Date | string | null
-  }
-
-  export type inquiryCreateManyUserInput = {
+  export type userCreateWithoutPreferInput = {
     id: bigint | number
-    title?: string | null
-    content?: string | null
-    created_at?: Date | string | null
+    phone_num?: string | null
+    nickname?: string | null
+    exercise?: $Enums.user_exercise | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
+    user_allergy?: user_allergyCreateNestedManyWithoutUserInput
   }
 
-  export type meal_alertCreateManyUserInput = {
-    meal_id: bigint | number
-    enabled?: boolean | null
-    alarm_time?: Date | string | null
+  export type userUncheckedCreateWithoutPreferInput = {
+    id: bigint | number
+    phone_num?: string | null
+    nickname?: string | null
+    exercise?: $Enums.user_exercise | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
+    user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutPreferInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutPreferInput, userUncheckedCreateWithoutPreferInput>
+  }
+
+  export type userUpsertWithoutPreferInput = {
+    update: XOR<userUpdateWithoutPreferInput, userUncheckedUpdateWithoutPreferInput>
+    create: XOR<userCreateWithoutPreferInput, userUncheckedCreateWithoutPreferInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutPreferInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutPreferInput, userUncheckedUpdateWithoutPreferInput>
+  }
+
+  export type userUpdateWithoutPreferInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
+    user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutPreferInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
+    user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type preferCreateManyUserInput = {
+    id?: bigint | number
+    prefer: $Enums.prefer_prefer
   }
 
   export type user_allergyCreateManyUserInput = {
     allergy_id: bigint | number
   }
 
-  export type agreement_consentUpdateWithoutUserInput = {
+  export type preferUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    terms_of_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    privacy_policy?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
   }
 
-  export type agreement_consentUncheckedUpdateWithoutUserInput = {
+  export type preferUncheckedUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    terms_of_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    privacy_policy?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
   }
 
-  export type agreement_consentUncheckedUpdateManyWithoutUserInput = {
+  export type preferUncheckedUpdateManyWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    terms_of_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    privacy_policy?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    location_service?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_over14?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type inquiryUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type inquiryUncheckedUpdateWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type inquiryUncheckedUpdateManyWithoutUserInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    content?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type meal_alertUpdateWithoutUserInput = {
-    enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    meal_time?: meal_timeUpdateOneRequiredWithoutMeal_alertNestedInput
-  }
-
-  export type meal_alertUncheckedUpdateWithoutUserInput = {
-    meal_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type meal_alertUncheckedUpdateManyWithoutUserInput = {
-    meal_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
   }
 
   export type user_allergyUpdateWithoutUserInput = {
@@ -10878,9 +15426,9 @@ export namespace Prisma {
   }
 
   export type meal_alertUpdateWithoutMeal_timeInput = {
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     enabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     alarm_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user?: userUpdateOneRequiredWithoutMeal_alertNestedInput
   }
 
   export type meal_alertUncheckedUpdateWithoutMeal_timeInput = {
