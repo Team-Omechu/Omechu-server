@@ -39,7 +39,7 @@ model allergy_min {
 }
 
 model inquiry {
-  id         BigInt    @id
+  id         BigInt    @id @default(autoincrement())
   user_id    BigInt
   title      String?   @db.VarChar(100)
   content    String?   @db.Text

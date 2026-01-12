@@ -43,6 +43,7 @@ import {
   handleUpdateMealAlerts,
   handleToggleMealAlerts
  } from "./controllers/mealAlert.controller.js";
+ import { handleSubmitInquiry } from "./controllers/inquiry.controller.js";
 dotenv.config();
 
 const app = express();
@@ -241,6 +242,8 @@ app.post("/user/withdraw", isLoggedIn, handleWithdraw);
 app.get("/user/meal-alerts", isLoggedIn, handleGetMealAlerts);
 app.patch("/user/meal-alerts", isLoggedIn, handleUpdateMealAlerts);
 app.patch("/user/meal-alerts/toggle", isLoggedIn, handleToggleMealAlerts);
+app.post("/user/inquiry", isLoggedIn, handleSubmitInquiry);
+
 
 
 // 약관 관련 API
