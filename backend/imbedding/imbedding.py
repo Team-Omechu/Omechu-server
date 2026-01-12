@@ -171,10 +171,12 @@ def deduplicate(results):
 
 
 @app.get("/recommend")
+@app.get("/recommend/")
 def root():
     return {"status": "ok", "service": "Menu Recommender"}
 
 @app.post("/recommend/menu", response_model=RecommendResponse)
+@app.post("/recommend/menu/", response_model=RecommendResponse)
 def recommend_api(body: QueryBody):
     q_obj = {"언제": body.언제, "식사목적": body.식사목적, "날씨": body.날씨, "동반자": body.동반자, "예산": body.예산,"운동상태":body.운동상태,"선호음식":body.선호음식,"제외음식":body.제외음식}
     print("q_obj",q_obj)
