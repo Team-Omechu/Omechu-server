@@ -61,6 +61,16 @@ services:
     volumes:
       - omechu_db_data:/var/lib/mysql
 
+  imbedding_api:
+    build:
+      context: ./imbedding
+    container_name: imbedding_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    ports:
+      - "5001:5001"
+
 networks:
   omechu-net:
     external: true
