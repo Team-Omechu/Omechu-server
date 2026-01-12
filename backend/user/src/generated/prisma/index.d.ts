@@ -13301,7 +13301,7 @@ export namespace Prisma {
   }
 
   export type inquiryCreateInput = {
-    id: bigint | number
+    id?: bigint | number
     user_id: bigint | number
     title?: string | null
     content?: string | null
@@ -13309,7 +13309,7 @@ export namespace Prisma {
   }
 
   export type inquiryUncheckedCreateInput = {
-    id: bigint | number
+    id?: bigint | number
     user_id: bigint | number
     title?: string | null
     content?: string | null
@@ -13333,7 +13333,7 @@ export namespace Prisma {
   }
 
   export type inquiryCreateManyInput = {
-    id: bigint | number
+    id?: bigint | number
     user_id: bigint | number
     title?: string | null
     content?: string | null
