@@ -4,5 +4,7 @@ node_modules/
 # dotenv environment variable files
 .env
 .env.*
-!.env.example
-/src/generated/prisma
+!backend/.env.example
+
+# generated files
+**/src/generated/prisma
