@@ -6,11 +6,13 @@ import re
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json
+import os
 
 with open('menu_data.json','r',encoding='utf-8') as f:
     menu_data=json.load(f)
 
-app = FastAPI(title="Menu Recommender", version="1.0.0")
+app = FastAPI(title="Menu Recommender", version="1.0.0", docs_url="/recommend/docs",
+    openapi_url="/recommend/openapi.json")
 
 # CORS 설정 - 모든 도메인에서 API 호출 허용
 app.add_middleware(
@@ -20,11 +22,24 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+os.makedirs("/app/data", exist_ok=True)
+EMB_PATH = "/app/data/menu_embeddings.pt"
 
-model_name = 'sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens'
-model=SentenceTransformer(model_name)
+model_name = "sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens"
+model = SentenceTransformer(model_name)
+
 menu_texts = [m["text"] for m in menu_data]
-menu_embeddings=model.encode(menu_texts,show_progress_bar=True,normalize_embeddings=True)
+
+if os.path.exists(EMB_PATH):
+    menu_embeddings = torch.load(EMB_PATH, map_location="cpu")
+else:
+    menu_embeddings = model.encode(
+        menu_texts,
+        show_progress_bar=True,
+        normalize_embeddings=True
+    )
+    menu_embeddings = torch.tensor(menu_embeddings)
+    torch.save(menu_embeddings, EMB_PATH)
 
 
 def obj_to_natural_setence(q,menu="메뉴"):
@@ -85,6 +100,7 @@ def recommend_core(q_obj, topk=10,exclude_allergens=None,exclude_foods=None):
     print("q_text",q_text)
     # print("exclude_allergens",exclude_allergens)
     q_emb = model.encode([q_text], normalize_embeddings=True)
+    q_emb = torch.tensor(q_emb)
     sim = util.cos_sim(torch.tensor(q_emb), torch.tensor(menu_embeddings))[0]
 
     # 핵심 속성 정확 매칭 보너스
@@ -154,11 +170,11 @@ def deduplicate(results):
 
 
 
-@app.get("/")
+@app.get("/recommend")
 def root():
     return {"status": "ok", "service": "Menu Recommender"}
 
-@app.post("/recommend", response_model=RecommendResponse)
+@app.post("/recommend/menu", response_model=RecommendResponse)
 def recommend_api(body: QueryBody):
     q_obj = {"언제": body.언제, "식사목적": body.식사목적, "날씨": body.날씨, "동반자": body.동반자, "예산": body.예산,"운동상태":body.운동상태,"선호음식":body.선호음식,"제외음식":body.제외음식}
     print("q_obj",q_obj)
@@ -171,9 +187,6 @@ def recommend_api(body: QueryBody):
         results=[RecommendItem(score=round(s, 6), text=t) for s, t in results]
     )   
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("imbedding:app", host="0.0.0.0", port=5001, reload=True)
 
 # font_path = '/System/Library/Fonts/AppleSDGothicNeo.ttc'
 # font_name = fm.FontProperties(fname=font_path).get_name()
