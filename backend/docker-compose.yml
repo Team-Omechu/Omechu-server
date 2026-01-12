@@ -70,7 +70,6 @@ services:
       - omechu-net
     ports:
       - "5001:5001"
-
 networks:
   omechu-net:
     external: true
