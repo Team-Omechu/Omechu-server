@@ -78,8 +78,19 @@ export const handleFetchGooglePlaces = async (req, res) => {
                 type: 'string', 
                 example: '대한민국 서울특별시 서초구 방배본동 동광로 67' 
               },
-              rating: { type: 'number', example: 4.1 },
-              userRatingCount: { type: 'integer', example: 335 },
+              primaryType: { type: 'string', example: '중식당', description: '음식점 종류 (한국어)' },
+              priceLevel: { type: 'string', example: '10,000~20,000', description: '가격대 범위' },
+              photo: { 
+                type: 'object',
+                properties: {
+                  name: { type: 'string', example: 'places/ChIJ86MmmAGhfDUR1C6TNesYXDM/photos/xxx' }
+                }
+              },
+              distance: { 
+                type: 'integer', 
+                example: 1250,
+                description: '요청 위치로부터의 거리 (미터)'
+              },
               displayName: { 
                 type: 'object',
                 properties: {
