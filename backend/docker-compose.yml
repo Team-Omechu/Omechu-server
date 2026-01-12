@@ -1,0 +1,79 @@
+services:
+  default_container:
+    build:
+      context: ./default_container
+    container_name: default_container
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - omechu-net
+  auth_api:
+    build:
+      context: ./auth
+    container_name: auth_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    env_file:
+      - ./auth/.env
+    depends_on:
+      - omechu_db
+
+  menu_api:
+    build:
+      context: ./menu
+    container_name: menu_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    env_file:
+      - ./menu/.env
+    depends_on:
+      - omechu_db
+
+  user_api:
+    build:
+      context: ./user
+    container_name: user_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    env_file:
+      - ./user/.env
+    depends_on:
+      - omechu_db
+
+  omechu_db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=omechu1234
+      - MYSQL_DATABASE=omechu_db
+      - MYSQL_USER=omechu1234
+      - MYSQL_PASSWORD=omechu1234
+    container_name: omechu_db
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - omechu-net
+    volumes:
+      - omechu_db_data:/var/lib/mysql
+
+  imbedding_api:
+    build:
+      context: ./imbedding
+    container_name: imbedding_api
+    restart: unless-stopped
+    networks:
+      - omechu-net
+    ports:
+      - "5001:5001"
+
+networks:
+  omechu-net:
+    external: true
+
+volumes:
+  omechu_db_data:

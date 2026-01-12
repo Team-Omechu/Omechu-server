@@ -1,0 +1,126 @@
+import { fetchGooglePlacesService } from "../services/fetchGooglePlaces.service.js";
+
+export const handleFetchGooglePlaces = async (req, res) => {
+  const info = {
+    keyword: req.body.keyword,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    radius: req.body.radius,
+    pageSize: req.body.pageSize,
+  };
+
+  try {
+    const places = await fetchGooglePlacesService(info);
+    if (places && places.length > 0) {
+      res.status(200).json(places);
+    } else {
+      res.status(404).json({ message: "No places found" });
+    }
+  } catch (error) {
+    console.error("Error fetching Google places:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+  /*
+  #swagger.tags = ["Restaurant"]
+  #swagger.summary = "Google Places API를 이용한 장소 검색 API"
+  #swagger.description = "Google Places API를 사용하여 특정 위치 주변의 장소를 검색하는 API입니다."
+
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          required: ['latitude', 'longitude', 'radius', 'keyword', 'pageSize'],
+          properties: {
+            latitude: { 
+              type: 'number', 
+              example: 37.4895246,
+              description: "검색할 위치의 위도"
+            },
+            longitude: { 
+              type: 'number', 
+              example: 126.986331,
+              description: "검색할 위치의 경도"
+            },
+            radius: { 
+              type: 'integer', 
+              example: 3000,
+              description: "검색 반경 (미터 단위)"
+            },
+            keyword: { 
+              type: 'string', 
+              example: "젤라또",
+              description: "검색할 키워드"
+            },
+            pageSize: { 
+              type: 'integer', 
+              example: 5,
+              description: "반환할 결과 개수"
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #swagger.responses[200] = {
+    description: "장소 검색 성공",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', example: 'ChIJ86MmmAGhfDUR1C6TNesYXDM' },
+              formattedAddress: { 
+                type: 'string', 
+                example: '대한민국 서울특별시 서초구 방배본동 동광로 67' 
+              },
+              rating: { type: 'number', example: 4.1 },
+              userRatingCount: { type: 'integer', example: 335 },
+              displayName: { 
+                type: 'object',
+                properties: {
+                  text: { type: 'string', example: '일일향 방배점' },
+                  languageCode: { type: 'string', example: 'ko' }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+//
+
+  #swagger.responses[404] = {
+    description: "장소를 찾을 수 없음",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            message: { type: 'string', example: 'No places found' }
+          }
+        }
+      }
+    }
+  }
+
+  #swagger.responses[500] = {
+    description: "서버 내부 오류",
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            message: { type: 'string', example: 'Internal server error' }
+          }
+        }
+      }
+    }
+  }
+  */
+};
