@@ -23,6 +23,13 @@ import {
 } from "./controllers/mukburim.controller.js";
 import { handleSearchRestaurant } from "./controllers/getSearchRestaurant.controller.js";
 import { handleSuggestion } from "./controllers/suggestions.controller.js";
+
+import { createServer } from "http";
+import { Server } from "socket.io";
+import battleRoutes from "./routes/battle.routes.js";
+import { setupBattleSocket } from "./websocket/battle.socket.js";
+import { startBattleCleanupCron } from "./utils/battle.cron.js";
+
 dotenv.config();
 
 const app = express();
@@ -98,6 +105,8 @@ app.use(
     },
   })
 );
+//battle routes
+app.use("/api/battles", battleRoutes);
 
 // Swagger (auth 서비스 전용)
 // ... (상단 import 및 app 설정들)
@@ -120,7 +129,10 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 메뉴 관련 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/menu" }],
+    servers: [
+    { url: "http://localhost:3000", description: "Local Development" },  // ← 추가!
+    { url: "https://omechu-api.log8.kr/menu", description: "Production" }
+  ],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -274,6 +286,31 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Auth API listening on port ${port}`);
+const httpServer = createServer(app);
+
+// Socket.io 설정
+const io = new Server(httpServer, {
+  cors: {
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "http://127.0.0.1:3000",
+      "https://omechu.log8.kr",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  },
+});
+
+// WebSocket 핸들러 설정
+setupBattleSocket(io);
+console.log("Socket.io initialized for battle system");
+
+// Cron Job 시작
+startBattleCleanupCron(io);
+console.log("Battle cleanup cron started");
+
+// HTTP Server 시작
+httpServer.listen(port, () => {
+  console.log(`Menu service (with Socket.io) listening on port ${port}`);
 });

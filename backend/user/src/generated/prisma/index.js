@@ -194,7 +194,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/user/src/generated/prisma",
+      "value": "C:\\Users\\mhdmj\\OneDrive\\바탕 화면\\Omechu_final\\Omechu-server\\backend\\user\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -203,12 +203,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/user/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\mhdmj\\OneDrive\\바탕 화면\\Omechu_final\\Omechu-server\\backend\\user\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -271,8 +271,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "src/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")

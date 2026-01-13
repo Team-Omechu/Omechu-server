@@ -29,26 +29,6 @@ export type mukburim = $Result.DefaultSelection<Prisma.$mukburimPayload>
  */
 export type menu_tag = $Result.DefaultSelection<Prisma.$menu_tagPayload>
 /**
- * Model allery
- * 
- */
-export type allery = $Result.DefaultSelection<Prisma.$alleryPayload>
-/**
- * Model battle
- * 
- */
-export type battle = $Result.DefaultSelection<Prisma.$battlePayload>
-/**
- * Model battle_menu
- * 
- */
-export type battle_menu = $Result.DefaultSelection<Prisma.$battle_menuPayload>
-/**
- * Model battle_participant
- * 
- */
-export type battle_participant = $Result.DefaultSelection<Prisma.$battle_participantPayload>
-/**
  * Model menu_allery
  * 
  */
@@ -59,15 +39,58 @@ export type menu_allery = $Result.DefaultSelection<Prisma.$menu_alleryPayload>
  */
 export type menu_vitamin = $Result.DefaultSelection<Prisma.$menu_vitaminPayload>
 /**
- * Model spin_result
- * 
- */
-export type spin_result = $Result.DefaultSelection<Prisma.$spin_resultPayload>
-/**
  * Model vitamin
  * 
  */
 export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
+/**
+ * Model allergy
+ * 
+ */
+export type allergy = $Result.DefaultSelection<Prisma.$allergyPayload>
+/**
+ * Model battles
+ * 
+ */
+export type battles = $Result.DefaultSelection<Prisma.$battlesPayload>
+/**
+ * Model battle_participants
+ * 
+ */
+export type battle_participants = $Result.DefaultSelection<Prisma.$battle_participantsPayload>
+/**
+ * Model battle_menus
+ * 
+ */
+export type battle_menus = $Result.DefaultSelection<Prisma.$battle_menusPayload>
+/**
+ * Model spin_results
+ * 
+ */
+export type spin_results = $Result.DefaultSelection<Prisma.$spin_resultsPayload>
+/**
+ * Model sessions
+ * 
+ */
+export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const battles_status: {
+  waiting: 'waiting',
+  active: 'active',
+  finished: 'finished'
+};
+
+export type battles_status = (typeof battles_status)[keyof typeof battles_status]
+
+}
+
+export type battles_status = $Enums.battles_status
+
+export const battles_status: typeof $Enums.battles_status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -85,7 +108,7 @@ export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -117,13 +140,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -225,46 +241,6 @@ export class PrismaClient<
   get menu_tag(): Prisma.menu_tagDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.allery`: Exposes CRUD operations for the **allery** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Alleries
-    * const alleries = await prisma.allery.findMany()
-    * ```
-    */
-  get allery(): Prisma.alleryDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.battle`: Exposes CRUD operations for the **battle** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Battles
-    * const battles = await prisma.battle.findMany()
-    * ```
-    */
-  get battle(): Prisma.battleDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.battle_menu`: Exposes CRUD operations for the **battle_menu** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Battle_menus
-    * const battle_menus = await prisma.battle_menu.findMany()
-    * ```
-    */
-  get battle_menu(): Prisma.battle_menuDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.battle_participant`: Exposes CRUD operations for the **battle_participant** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Battle_participants
-    * const battle_participants = await prisma.battle_participant.findMany()
-    * ```
-    */
-  get battle_participant(): Prisma.battle_participantDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.menu_allery`: Exposes CRUD operations for the **menu_allery** model.
     * Example usage:
     * ```ts
@@ -285,16 +261,6 @@ export class PrismaClient<
   get menu_vitamin(): Prisma.menu_vitaminDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.spin_result`: Exposes CRUD operations for the **spin_result** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Spin_results
-    * const spin_results = await prisma.spin_result.findMany()
-    * ```
-    */
-  get spin_result(): Prisma.spin_resultDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.vitamin`: Exposes CRUD operations for the **vitamin** model.
     * Example usage:
     * ```ts
@@ -303,6 +269,66 @@ export class PrismaClient<
     * ```
     */
   get vitamin(): Prisma.vitaminDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.allergy`: Exposes CRUD operations for the **allergy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Allergies
+    * const allergies = await prisma.allergy.findMany()
+    * ```
+    */
+  get allergy(): Prisma.allergyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.battles`: Exposes CRUD operations for the **battles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Battles
+    * const battles = await prisma.battles.findMany()
+    * ```
+    */
+  get battles(): Prisma.battlesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.battle_participants`: Exposes CRUD operations for the **battle_participants** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Battle_participants
+    * const battle_participants = await prisma.battle_participants.findMany()
+    * ```
+    */
+  get battle_participants(): Prisma.battle_participantsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.battle_menus`: Exposes CRUD operations for the **battle_menus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Battle_menus
+    * const battle_menus = await prisma.battle_menus.findMany()
+    * ```
+    */
+  get battle_menus(): Prisma.battle_menusDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spin_results`: Exposes CRUD operations for the **spin_results** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Spin_results
+    * const spin_results = await prisma.spin_results.findMany()
+    * ```
+    */
+  get spin_results(): Prisma.spin_resultsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessions`: Exposes CRUD operations for the **sessions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.sessions.findMany()
+    * ```
+    */
+  get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -361,8 +387,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.12.0
-   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+   * Prisma Client JS version: 6.19.1
+   * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
     client: string
@@ -375,6 +401,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -746,14 +773,15 @@ export namespace Prisma {
     menu: 'menu',
     mukburim: 'mukburim',
     menu_tag: 'menu_tag',
-    allery: 'allery',
-    battle: 'battle',
-    battle_menu: 'battle_menu',
-    battle_participant: 'battle_participant',
     menu_allery: 'menu_allery',
     menu_vitamin: 'menu_vitamin',
-    spin_result: 'spin_result',
-    vitamin: 'vitamin'
+    vitamin: 'vitamin',
+    allergy: 'allergy',
+    battles: 'battles',
+    battle_participants: 'battle_participants',
+    battle_menus: 'battle_menus',
+    spin_results: 'spin_results',
+    sessions: 'sessions'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -772,7 +800,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "menu" | "mukburim" | "menu_tag" | "allery" | "battle" | "battle_menu" | "battle_participant" | "menu_allery" | "menu_vitamin" | "spin_result" | "vitamin"
+      modelProps: "menu" | "mukburim" | "menu_tag" | "menu_allery" | "menu_vitamin" | "vitamin" | "allergy" | "battles" | "battle_participants" | "battle_menus" | "spin_results" | "sessions"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -974,270 +1002,6 @@ export namespace Prisma {
           }
         }
       }
-      allery: {
-        payload: Prisma.$alleryPayload<ExtArgs>
-        fields: Prisma.alleryFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.alleryFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.alleryFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          findFirst: {
-            args: Prisma.alleryFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.alleryFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          findMany: {
-            args: Prisma.alleryFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>[]
-          }
-          create: {
-            args: Prisma.alleryCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          createMany: {
-            args: Prisma.alleryCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.alleryDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          update: {
-            args: Prisma.alleryUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          deleteMany: {
-            args: Prisma.alleryDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.alleryUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.alleryUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$alleryPayload>
-          }
-          aggregate: {
-            args: Prisma.AlleryAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAllery>
-          }
-          groupBy: {
-            args: Prisma.alleryGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AlleryGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.alleryCountArgs<ExtArgs>
-            result: $Utils.Optional<AlleryCountAggregateOutputType> | number
-          }
-        }
-      }
-      battle: {
-        payload: Prisma.$battlePayload<ExtArgs>
-        fields: Prisma.battleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.battleFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.battleFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          findFirst: {
-            args: Prisma.battleFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.battleFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          findMany: {
-            args: Prisma.battleFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>[]
-          }
-          create: {
-            args: Prisma.battleCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          createMany: {
-            args: Prisma.battleCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.battleDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          update: {
-            args: Prisma.battleUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          deleteMany: {
-            args: Prisma.battleDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.battleUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.battleUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battlePayload>
-          }
-          aggregate: {
-            args: Prisma.BattleAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBattle>
-          }
-          groupBy: {
-            args: Prisma.battleGroupByArgs<ExtArgs>
-            result: $Utils.Optional<BattleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.battleCountArgs<ExtArgs>
-            result: $Utils.Optional<BattleCountAggregateOutputType> | number
-          }
-        }
-      }
-      battle_menu: {
-        payload: Prisma.$battle_menuPayload<ExtArgs>
-        fields: Prisma.battle_menuFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.battle_menuFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.battle_menuFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          findFirst: {
-            args: Prisma.battle_menuFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.battle_menuFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          findMany: {
-            args: Prisma.battle_menuFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>[]
-          }
-          create: {
-            args: Prisma.battle_menuCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          createMany: {
-            args: Prisma.battle_menuCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.battle_menuDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          update: {
-            args: Prisma.battle_menuUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          deleteMany: {
-            args: Prisma.battle_menuDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.battle_menuUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.battle_menuUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_menuPayload>
-          }
-          aggregate: {
-            args: Prisma.Battle_menuAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBattle_menu>
-          }
-          groupBy: {
-            args: Prisma.battle_menuGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Battle_menuGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.battle_menuCountArgs<ExtArgs>
-            result: $Utils.Optional<Battle_menuCountAggregateOutputType> | number
-          }
-        }
-      }
-      battle_participant: {
-        payload: Prisma.$battle_participantPayload<ExtArgs>
-        fields: Prisma.battle_participantFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.battle_participantFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.battle_participantFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          findFirst: {
-            args: Prisma.battle_participantFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.battle_participantFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          findMany: {
-            args: Prisma.battle_participantFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>[]
-          }
-          create: {
-            args: Prisma.battle_participantCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          createMany: {
-            args: Prisma.battle_participantCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.battle_participantDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          update: {
-            args: Prisma.battle_participantUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          deleteMany: {
-            args: Prisma.battle_participantDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.battle_participantUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.battle_participantUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$battle_participantPayload>
-          }
-          aggregate: {
-            args: Prisma.Battle_participantAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBattle_participant>
-          }
-          groupBy: {
-            args: Prisma.battle_participantGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Battle_participantGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.battle_participantCountArgs<ExtArgs>
-            result: $Utils.Optional<Battle_participantCountAggregateOutputType> | number
-          }
-        }
-      }
       menu_allery: {
         payload: Prisma.$menu_alleryPayload<ExtArgs>
         fields: Prisma.menu_alleryFieldRefs
@@ -1370,72 +1134,6 @@ export namespace Prisma {
           }
         }
       }
-      spin_result: {
-        payload: Prisma.$spin_resultPayload<ExtArgs>
-        fields: Prisma.spin_resultFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.spin_resultFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.spin_resultFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          findFirst: {
-            args: Prisma.spin_resultFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.spin_resultFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          findMany: {
-            args: Prisma.spin_resultFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>[]
-          }
-          create: {
-            args: Prisma.spin_resultCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          createMany: {
-            args: Prisma.spin_resultCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.spin_resultDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          update: {
-            args: Prisma.spin_resultUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          deleteMany: {
-            args: Prisma.spin_resultDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.spin_resultUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.spin_resultUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$spin_resultPayload>
-          }
-          aggregate: {
-            args: Prisma.Spin_resultAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSpin_result>
-          }
-          groupBy: {
-            args: Prisma.spin_resultGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Spin_resultGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.spin_resultCountArgs<ExtArgs>
-            result: $Utils.Optional<Spin_resultCountAggregateOutputType> | number
-          }
-        }
-      }
       vitamin: {
         payload: Prisma.$vitaminPayload<ExtArgs>
         fields: Prisma.vitaminFieldRefs
@@ -1502,6 +1200,402 @@ export namespace Prisma {
           }
         }
       }
+      allergy: {
+        payload: Prisma.$allergyPayload<ExtArgs>
+        fields: Prisma.allergyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.allergyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.allergyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          findFirst: {
+            args: Prisma.allergyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.allergyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          findMany: {
+            args: Prisma.allergyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>[]
+          }
+          create: {
+            args: Prisma.allergyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          createMany: {
+            args: Prisma.allergyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.allergyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          update: {
+            args: Prisma.allergyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          deleteMany: {
+            args: Prisma.allergyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.allergyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.allergyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$allergyPayload>
+          }
+          aggregate: {
+            args: Prisma.AllergyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAllergy>
+          }
+          groupBy: {
+            args: Prisma.allergyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AllergyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.allergyCountArgs<ExtArgs>
+            result: $Utils.Optional<AllergyCountAggregateOutputType> | number
+          }
+        }
+      }
+      battles: {
+        payload: Prisma.$battlesPayload<ExtArgs>
+        fields: Prisma.battlesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.battlesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.battlesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          findFirst: {
+            args: Prisma.battlesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.battlesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          findMany: {
+            args: Prisma.battlesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>[]
+          }
+          create: {
+            args: Prisma.battlesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          createMany: {
+            args: Prisma.battlesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.battlesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          update: {
+            args: Prisma.battlesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          deleteMany: {
+            args: Prisma.battlesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.battlesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.battlesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battlesPayload>
+          }
+          aggregate: {
+            args: Prisma.BattlesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattles>
+          }
+          groupBy: {
+            args: Prisma.battlesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BattlesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.battlesCountArgs<ExtArgs>
+            result: $Utils.Optional<BattlesCountAggregateOutputType> | number
+          }
+        }
+      }
+      battle_participants: {
+        payload: Prisma.$battle_participantsPayload<ExtArgs>
+        fields: Prisma.battle_participantsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.battle_participantsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.battle_participantsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          findFirst: {
+            args: Prisma.battle_participantsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.battle_participantsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          findMany: {
+            args: Prisma.battle_participantsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>[]
+          }
+          create: {
+            args: Prisma.battle_participantsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          createMany: {
+            args: Prisma.battle_participantsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.battle_participantsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          update: {
+            args: Prisma.battle_participantsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          deleteMany: {
+            args: Prisma.battle_participantsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.battle_participantsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.battle_participantsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_participantsPayload>
+          }
+          aggregate: {
+            args: Prisma.Battle_participantsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattle_participants>
+          }
+          groupBy: {
+            args: Prisma.battle_participantsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Battle_participantsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.battle_participantsCountArgs<ExtArgs>
+            result: $Utils.Optional<Battle_participantsCountAggregateOutputType> | number
+          }
+        }
+      }
+      battle_menus: {
+        payload: Prisma.$battle_menusPayload<ExtArgs>
+        fields: Prisma.battle_menusFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.battle_menusFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.battle_menusFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          findFirst: {
+            args: Prisma.battle_menusFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.battle_menusFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          findMany: {
+            args: Prisma.battle_menusFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>[]
+          }
+          create: {
+            args: Prisma.battle_menusCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          createMany: {
+            args: Prisma.battle_menusCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.battle_menusDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          update: {
+            args: Prisma.battle_menusUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          deleteMany: {
+            args: Prisma.battle_menusDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.battle_menusUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.battle_menusUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$battle_menusPayload>
+          }
+          aggregate: {
+            args: Prisma.Battle_menusAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBattle_menus>
+          }
+          groupBy: {
+            args: Prisma.battle_menusGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Battle_menusGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.battle_menusCountArgs<ExtArgs>
+            result: $Utils.Optional<Battle_menusCountAggregateOutputType> | number
+          }
+        }
+      }
+      spin_results: {
+        payload: Prisma.$spin_resultsPayload<ExtArgs>
+        fields: Prisma.spin_resultsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.spin_resultsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.spin_resultsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          findFirst: {
+            args: Prisma.spin_resultsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.spin_resultsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          findMany: {
+            args: Prisma.spin_resultsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>[]
+          }
+          create: {
+            args: Prisma.spin_resultsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          createMany: {
+            args: Prisma.spin_resultsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.spin_resultsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          update: {
+            args: Prisma.spin_resultsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          deleteMany: {
+            args: Prisma.spin_resultsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.spin_resultsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.spin_resultsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spin_resultsPayload>
+          }
+          aggregate: {
+            args: Prisma.Spin_resultsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpin_results>
+          }
+          groupBy: {
+            args: Prisma.spin_resultsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Spin_resultsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.spin_resultsCountArgs<ExtArgs>
+            result: $Utils.Optional<Spin_resultsCountAggregateOutputType> | number
+          }
+        }
+      }
+      sessions: {
+        payload: Prisma.$sessionsPayload<ExtArgs>
+        fields: Prisma.sessionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.sessionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.sessionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findFirst: {
+            args: Prisma.sessionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.sessionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findMany: {
+            args: Prisma.sessionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>[]
+          }
+          create: {
+            args: Prisma.sessionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          createMany: {
+            args: Prisma.sessionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.sessionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          update: {
+            args: Prisma.sessionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.sessionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.sessionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.sessionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessions>
+          }
+          groupBy: {
+            args: Prisma.sessionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.sessionsCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1545,16 +1639,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1569,6 +1671,10 @@ export namespace Prisma {
       timeout?: number
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
+    /**
+     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
+     */
+    adapter?: runtime.SqlDriverAdapterFactory | null
     /**
      * Global configuration for omitting model fields by default.
      * 
@@ -1589,14 +1695,15 @@ export namespace Prisma {
     menu?: menuOmit
     mukburim?: mukburimOmit
     menu_tag?: menu_tagOmit
-    allery?: alleryOmit
-    battle?: battleOmit
-    battle_menu?: battle_menuOmit
-    battle_participant?: battle_participantOmit
     menu_allery?: menu_alleryOmit
     menu_vitamin?: menu_vitaminOmit
-    spin_result?: spin_resultOmit
     vitamin?: vitaminOmit
+    allergy?: allergyOmit
+    battles?: battlesOmit
+    battle_participants?: battle_participantsOmit
+    battle_menus?: battle_menusOmit
+    spin_results?: spin_resultsOmit
+    sessions?: sessionsOmit
   }
 
   /* Types for Logging */
@@ -1606,10 +1713,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1650,25 +1762,6 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
-
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -1691,21 +1784,21 @@ export namespace Prisma {
    */
 
   export type MenuCountOutputType = {
-    battle_menu: number
+    battle_menus: number
     menu_allery: number
     menu_tag: number
     menu_vitamin: number
     mukburim: number
-    spin_result: number
+    spin_results: number
   }
 
   export type MenuCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menu?: boolean | MenuCountOutputTypeCountBattle_menuArgs
+    battle_menus?: boolean | MenuCountOutputTypeCountBattle_menusArgs
     menu_allery?: boolean | MenuCountOutputTypeCountMenu_alleryArgs
     menu_tag?: boolean | MenuCountOutputTypeCountMenu_tagArgs
     menu_vitamin?: boolean | MenuCountOutputTypeCountMenu_vitaminArgs
     mukburim?: boolean | MenuCountOutputTypeCountMukburimArgs
-    spin_result?: boolean | MenuCountOutputTypeCountSpin_resultArgs
+    spin_results?: boolean | MenuCountOutputTypeCountSpin_resultsArgs
   }
 
   // Custom InputTypes
@@ -1722,8 +1815,8 @@ export namespace Prisma {
   /**
    * MenuCountOutputType without action
    */
-  export type MenuCountOutputTypeCountBattle_menuArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_menuWhereInput
+  export type MenuCountOutputTypeCountBattle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_menusWhereInput
   }
 
   /**
@@ -1757,88 +1850,8 @@ export namespace Prisma {
   /**
    * MenuCountOutputType without action
    */
-  export type MenuCountOutputTypeCountSpin_resultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: spin_resultWhereInput
-  }
-
-
-  /**
-   * Count Type AlleryCountOutputType
-   */
-
-  export type AlleryCountOutputType = {
-    menu_allery: number
-  }
-
-  export type AlleryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_allery?: boolean | AlleryCountOutputTypeCountMenu_alleryArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AlleryCountOutputType without action
-   */
-  export type AlleryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AlleryCountOutputType
-     */
-    select?: AlleryCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AlleryCountOutputType without action
-   */
-  export type AlleryCountOutputTypeCountMenu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menu_alleryWhereInput
-  }
-
-
-  /**
-   * Count Type BattleCountOutputType
-   */
-
-  export type BattleCountOutputType = {
-    battle_menu: number
-    battle_participant: number
-    spin_result: number
-  }
-
-  export type BattleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menu?: boolean | BattleCountOutputTypeCountBattle_menuArgs
-    battle_participant?: boolean | BattleCountOutputTypeCountBattle_participantArgs
-    spin_result?: boolean | BattleCountOutputTypeCountSpin_resultArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * BattleCountOutputType without action
-   */
-  export type BattleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BattleCountOutputType
-     */
-    select?: BattleCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * BattleCountOutputType without action
-   */
-  export type BattleCountOutputTypeCountBattle_menuArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_menuWhereInput
-  }
-
-  /**
-   * BattleCountOutputType without action
-   */
-  export type BattleCountOutputTypeCountBattle_participantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_participantWhereInput
-  }
-
-  /**
-   * BattleCountOutputType without action
-   */
-  export type BattleCountOutputTypeCountSpin_resultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: spin_resultWhereInput
+  export type MenuCountOutputTypeCountSpin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spin_resultsWhereInput
   }
 
 
@@ -1870,6 +1883,86 @@ export namespace Prisma {
    */
   export type VitaminCountOutputTypeCountMenu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: menu_vitaminWhereInput
+  }
+
+
+  /**
+   * Count Type AllergyCountOutputType
+   */
+
+  export type AllergyCountOutputType = {
+    menu_allery: number
+  }
+
+  export type AllergyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_allery?: boolean | AllergyCountOutputTypeCountMenu_alleryArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllergyCountOutputType
+     */
+    select?: AllergyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeCountMenu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_alleryWhereInput
+  }
+
+
+  /**
+   * Count Type BattlesCountOutputType
+   */
+
+  export type BattlesCountOutputType = {
+    battle_participants: number
+    battle_menus: number
+    spin_results: number
+  }
+
+  export type BattlesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battle_participants?: boolean | BattlesCountOutputTypeCountBattle_participantsArgs
+    battle_menus?: boolean | BattlesCountOutputTypeCountBattle_menusArgs
+    spin_results?: boolean | BattlesCountOutputTypeCountSpin_resultsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattlesCountOutputType
+     */
+    select?: BattlesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountBattle_participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_participantsWhereInput
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountBattle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_menusWhereInput
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountSpin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spin_resultsWhereInput
   }
 
 
@@ -2127,12 +2220,12 @@ export namespace Prisma {
     fat?: boolean
     sodium?: boolean
     image_link?: boolean
-    battle_menu?: boolean | menu$battle_menuArgs<ExtArgs>
+    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
     menu_allery?: boolean | menu$menu_alleryArgs<ExtArgs>
     menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
     mukburim?: boolean | menu$mukburimArgs<ExtArgs>
-    spin_result?: boolean | menu$spin_resultArgs<ExtArgs>
+    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
     _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["menu"]>
 
@@ -2152,24 +2245,24 @@ export namespace Prisma {
 
   export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "sodium" | "image_link", ExtArgs["result"]["menu"]>
   export type menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menu?: boolean | menu$battle_menuArgs<ExtArgs>
+    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
     menu_allery?: boolean | menu$menu_alleryArgs<ExtArgs>
     menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
     menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
     mukburim?: boolean | menu$mukburimArgs<ExtArgs>
-    spin_result?: boolean | menu$spin_resultArgs<ExtArgs>
+    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
     _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $menuPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "menu"
     objects: {
-      battle_menu: Prisma.$battle_menuPayload<ExtArgs>[]
+      battle_menus: Prisma.$battle_menusPayload<ExtArgs>[]
       menu_allery: Prisma.$menu_alleryPayload<ExtArgs>[]
       menu_tag: Prisma.$menu_tagPayload<ExtArgs>[]
       menu_vitamin: Prisma.$menu_vitaminPayload<ExtArgs>[]
       mukburim: Prisma.$mukburimPayload<ExtArgs>[]
-      spin_result: Prisma.$spin_resultPayload<ExtArgs>[]
+      spin_results: Prisma.$spin_resultsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -2521,12 +2614,12 @@ export namespace Prisma {
    */
   export interface Prisma__menuClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle_menu<T extends menu$battle_menuArgs<ExtArgs> = {}>(args?: Subset<T, menu$battle_menuArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    battle_menus<T extends menu$battle_menusArgs<ExtArgs> = {}>(args?: Subset<T, menu$battle_menusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     menu_allery<T extends menu$menu_alleryArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_alleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     menu_tag<T extends menu$menu_tagArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_tagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     menu_vitamin<T extends menu$menu_vitaminArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_vitaminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mukburim<T extends menu$mukburimArgs<ExtArgs> = {}>(args?: Subset<T, menu$mukburimArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    spin_result<T extends menu$spin_resultArgs<ExtArgs> = {}>(args?: Subset<T, menu$spin_resultArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spin_results<T extends menu$spin_resultsArgs<ExtArgs> = {}>(args?: Subset<T, menu$spin_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2908,27 +3001,27 @@ export namespace Prisma {
   }
 
   /**
-   * menu.battle_menu
+   * menu.battle_menus
    */
-  export type menu$battle_menuArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type menu$battle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the battle_menu
+     * Select specific fields to fetch from the battle_menus
      */
-    select?: battle_menuSelect<ExtArgs> | null
+    select?: battle_menusSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the battle_menu
+     * Omit specific fields from the battle_menus
      */
-    omit?: battle_menuOmit<ExtArgs> | null
+    omit?: battle_menusOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: battle_menuInclude<ExtArgs> | null
-    where?: battle_menuWhereInput
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    cursor?: battle_menuWhereUniqueInput
+    include?: battle_menusInclude<ExtArgs> | null
+    where?: battle_menusWhereInput
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    cursor?: battle_menusWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Battle_menuScalarFieldEnum | Battle_menuScalarFieldEnum[]
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
   }
 
   /**
@@ -3028,27 +3121,27 @@ export namespace Prisma {
   }
 
   /**
-   * menu.spin_result
+   * menu.spin_results
    */
-  export type menu$spin_resultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type menu$spin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the spin_result
+     * Select specific fields to fetch from the spin_results
      */
-    select?: spin_resultSelect<ExtArgs> | null
+    select?: spin_resultsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the spin_result
+     * Omit specific fields from the spin_results
      */
-    omit?: spin_resultOmit<ExtArgs> | null
+    omit?: spin_resultsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: spin_resultInclude<ExtArgs> | null
-    where?: spin_resultWhereInput
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    cursor?: spin_resultWhereUniqueInput
+    include?: spin_resultsInclude<ExtArgs> | null
+    where?: spin_resultsWhereInput
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    cursor?: spin_resultsWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Spin_resultScalarFieldEnum | Spin_resultScalarFieldEnum[]
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
   }
 
   /**
@@ -4976,3986 +5069,6 @@ export namespace Prisma {
 
 
   /**
-   * Model allery
-   */
-
-  export type AggregateAllery = {
-    _count: AlleryCountAggregateOutputType | null
-    _avg: AlleryAvgAggregateOutputType | null
-    _sum: AllerySumAggregateOutputType | null
-    _min: AlleryMinAggregateOutputType | null
-    _max: AlleryMaxAggregateOutputType | null
-  }
-
-  export type AlleryAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type AllerySumAggregateOutputType = {
-    id: bigint | null
-  }
-
-  export type AlleryMinAggregateOutputType = {
-    id: bigint | null
-    allergy: string | null
-  }
-
-  export type AlleryMaxAggregateOutputType = {
-    id: bigint | null
-    allergy: string | null
-  }
-
-  export type AlleryCountAggregateOutputType = {
-    id: number
-    allergy: number
-    _all: number
-  }
-
-
-  export type AlleryAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type AllerySumAggregateInputType = {
-    id?: true
-  }
-
-  export type AlleryMinAggregateInputType = {
-    id?: true
-    allergy?: true
-  }
-
-  export type AlleryMaxAggregateInputType = {
-    id?: true
-    allergy?: true
-  }
-
-  export type AlleryCountAggregateInputType = {
-    id?: true
-    allergy?: true
-    _all?: true
-  }
-
-  export type AlleryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which allery to aggregate.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned alleries
-    **/
-    _count?: true | AlleryCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AlleryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AllerySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AlleryMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AlleryMaxAggregateInputType
-  }
-
-  export type GetAlleryAggregateType<T extends AlleryAggregateArgs> = {
-        [P in keyof T & keyof AggregateAllery]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAllery[P]>
-      : GetScalarType<T[P], AggregateAllery[P]>
-  }
-
-
-
-
-  export type alleryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: alleryWhereInput
-    orderBy?: alleryOrderByWithAggregationInput | alleryOrderByWithAggregationInput[]
-    by: AlleryScalarFieldEnum[] | AlleryScalarFieldEnum
-    having?: alleryScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AlleryCountAggregateInputType | true
-    _avg?: AlleryAvgAggregateInputType
-    _sum?: AllerySumAggregateInputType
-    _min?: AlleryMinAggregateInputType
-    _max?: AlleryMaxAggregateInputType
-  }
-
-  export type AlleryGroupByOutputType = {
-    id: bigint
-    allergy: string | null
-    _count: AlleryCountAggregateOutputType | null
-    _avg: AlleryAvgAggregateOutputType | null
-    _sum: AllerySumAggregateOutputType | null
-    _min: AlleryMinAggregateOutputType | null
-    _max: AlleryMaxAggregateOutputType | null
-  }
-
-  type GetAlleryGroupByPayload<T extends alleryGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AlleryGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AlleryGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AlleryGroupByOutputType[P]>
-            : GetScalarType<T[P], AlleryGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type allerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    allergy?: boolean
-    menu_allery?: boolean | allery$menu_alleryArgs<ExtArgs>
-    _count?: boolean | AlleryCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["allery"]>
-
-
-
-  export type allerySelectScalar = {
-    id?: boolean
-    allergy?: boolean
-  }
-
-  export type alleryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "allergy", ExtArgs["result"]["allery"]>
-  export type alleryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_allery?: boolean | allery$menu_alleryArgs<ExtArgs>
-    _count?: boolean | AlleryCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $alleryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "allery"
-    objects: {
-      menu_allery: Prisma.$menu_alleryPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      allergy: string | null
-    }, ExtArgs["result"]["allery"]>
-    composites: {}
-  }
-
-  type alleryGetPayload<S extends boolean | null | undefined | alleryDefaultArgs> = $Result.GetResult<Prisma.$alleryPayload, S>
-
-  type alleryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<alleryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AlleryCountAggregateInputType | true
-    }
-
-  export interface alleryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['allery'], meta: { name: 'allery' } }
-    /**
-     * Find zero or one Allery that matches the filter.
-     * @param {alleryFindUniqueArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends alleryFindUniqueArgs>(args: SelectSubset<T, alleryFindUniqueArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Allery that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {alleryFindUniqueOrThrowArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends alleryFindUniqueOrThrowArgs>(args: SelectSubset<T, alleryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Allery that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindFirstArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends alleryFindFirstArgs>(args?: SelectSubset<T, alleryFindFirstArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Allery that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindFirstOrThrowArgs} args - Arguments to find a Allery
-     * @example
-     * // Get one Allery
-     * const allery = await prisma.allery.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends alleryFindFirstOrThrowArgs>(args?: SelectSubset<T, alleryFindFirstOrThrowArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Alleries that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Alleries
-     * const alleries = await prisma.allery.findMany()
-     * 
-     * // Get first 10 Alleries
-     * const alleries = await prisma.allery.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const alleryWithIdOnly = await prisma.allery.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends alleryFindManyArgs>(args?: SelectSubset<T, alleryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Allery.
-     * @param {alleryCreateArgs} args - Arguments to create a Allery.
-     * @example
-     * // Create one Allery
-     * const Allery = await prisma.allery.create({
-     *   data: {
-     *     // ... data to create a Allery
-     *   }
-     * })
-     * 
-     */
-    create<T extends alleryCreateArgs>(args: SelectSubset<T, alleryCreateArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Alleries.
-     * @param {alleryCreateManyArgs} args - Arguments to create many Alleries.
-     * @example
-     * // Create many Alleries
-     * const allery = await prisma.allery.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends alleryCreateManyArgs>(args?: SelectSubset<T, alleryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Allery.
-     * @param {alleryDeleteArgs} args - Arguments to delete one Allery.
-     * @example
-     * // Delete one Allery
-     * const Allery = await prisma.allery.delete({
-     *   where: {
-     *     // ... filter to delete one Allery
-     *   }
-     * })
-     * 
-     */
-    delete<T extends alleryDeleteArgs>(args: SelectSubset<T, alleryDeleteArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Allery.
-     * @param {alleryUpdateArgs} args - Arguments to update one Allery.
-     * @example
-     * // Update one Allery
-     * const allery = await prisma.allery.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends alleryUpdateArgs>(args: SelectSubset<T, alleryUpdateArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Alleries.
-     * @param {alleryDeleteManyArgs} args - Arguments to filter Alleries to delete.
-     * @example
-     * // Delete a few Alleries
-     * const { count } = await prisma.allery.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends alleryDeleteManyArgs>(args?: SelectSubset<T, alleryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Alleries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Alleries
-     * const allery = await prisma.allery.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends alleryUpdateManyArgs>(args: SelectSubset<T, alleryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Allery.
-     * @param {alleryUpsertArgs} args - Arguments to update or create a Allery.
-     * @example
-     * // Update or create a Allery
-     * const allery = await prisma.allery.upsert({
-     *   create: {
-     *     // ... data to create a Allery
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Allery we want to update
-     *   }
-     * })
-     */
-    upsert<T extends alleryUpsertArgs>(args: SelectSubset<T, alleryUpsertArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Alleries.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryCountArgs} args - Arguments to filter Alleries to count.
-     * @example
-     * // Count the number of Alleries
-     * const count = await prisma.allery.count({
-     *   where: {
-     *     // ... the filter for the Alleries we want to count
-     *   }
-     * })
-    **/
-    count<T extends alleryCountArgs>(
-      args?: Subset<T, alleryCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AlleryCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Allery.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AlleryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AlleryAggregateArgs>(args: Subset<T, AlleryAggregateArgs>): Prisma.PrismaPromise<GetAlleryAggregateType<T>>
-
-    /**
-     * Group by Allery.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {alleryGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends alleryGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: alleryGroupByArgs['orderBy'] }
-        : { orderBy?: alleryGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, alleryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAlleryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the allery model
-   */
-  readonly fields: alleryFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for allery.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__alleryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu_allery<T extends allery$menu_alleryArgs<ExtArgs> = {}>(args?: Subset<T, allery$menu_alleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the allery model
-   */
-  interface alleryFieldRefs {
-    readonly id: FieldRef<"allery", 'BigInt'>
-    readonly allergy: FieldRef<"allery", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * allery findUnique
-   */
-  export type alleryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery findUniqueOrThrow
-   */
-  export type alleryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery findFirst
-   */
-  export type alleryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of alleries.
-     */
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery findFirstOrThrow
-   */
-  export type alleryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which allery to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of alleries.
-     */
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery findMany
-   */
-  export type alleryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter, which alleries to fetch.
-     */
-    where?: alleryWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of alleries to fetch.
-     */
-    orderBy?: alleryOrderByWithRelationInput | alleryOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing alleries.
-     */
-    cursor?: alleryWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` alleries from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` alleries.
-     */
-    skip?: number
-    distinct?: AlleryScalarFieldEnum | AlleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery create
-   */
-  export type alleryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The data needed to create a allery.
-     */
-    data?: XOR<alleryCreateInput, alleryUncheckedCreateInput>
-  }
-
-  /**
-   * allery createMany
-   */
-  export type alleryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many alleries.
-     */
-    data: alleryCreateManyInput | alleryCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * allery update
-   */
-  export type alleryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The data needed to update a allery.
-     */
-    data: XOR<alleryUpdateInput, alleryUncheckedUpdateInput>
-    /**
-     * Choose, which allery to update.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery updateMany
-   */
-  export type alleryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update alleries.
-     */
-    data: XOR<alleryUpdateManyMutationInput, alleryUncheckedUpdateManyInput>
-    /**
-     * Filter which alleries to update
-     */
-    where?: alleryWhereInput
-    /**
-     * Limit how many alleries to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * allery upsert
-   */
-  export type alleryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * The filter to search for the allery to update in case it exists.
-     */
-    where: alleryWhereUniqueInput
-    /**
-     * In case the allery found by the `where` argument doesn't exist, create a new allery with this data.
-     */
-    create: XOR<alleryCreateInput, alleryUncheckedCreateInput>
-    /**
-     * In case the allery was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<alleryUpdateInput, alleryUncheckedUpdateInput>
-  }
-
-  /**
-   * allery delete
-   */
-  export type alleryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-    /**
-     * Filter which allery to delete.
-     */
-    where: alleryWhereUniqueInput
-  }
-
-  /**
-   * allery deleteMany
-   */
-  export type alleryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which alleries to delete
-     */
-    where?: alleryWhereInput
-    /**
-     * Limit how many alleries to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * allery.menu_allery
-   */
-  export type allery$menu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_allery
-     */
-    select?: menu_allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_allery
-     */
-    omit?: menu_alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_alleryInclude<ExtArgs> | null
-    where?: menu_alleryWhereInput
-    orderBy?: menu_alleryOrderByWithRelationInput | menu_alleryOrderByWithRelationInput[]
-    cursor?: menu_alleryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_alleryScalarFieldEnum | Menu_alleryScalarFieldEnum[]
-  }
-
-  /**
-   * allery without action
-   */
-  export type alleryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the allery
-     */
-    select?: allerySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the allery
-     */
-    omit?: alleryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: alleryInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model battle
-   */
-
-  export type AggregateBattle = {
-    _count: BattleCountAggregateOutputType | null
-    _avg: BattleAvgAggregateOutputType | null
-    _sum: BattleSumAggregateOutputType | null
-    _min: BattleMinAggregateOutputType | null
-    _max: BattleMaxAggregateOutputType | null
-  }
-
-  export type BattleAvgAggregateOutputType = {
-    participant_count: number | null
-  }
-
-  export type BattleSumAggregateOutputType = {
-    participant_count: number | null
-  }
-
-  export type BattleMinAggregateOutputType = {
-    id: string | null
-    creater_nickname: string | null
-    status: string | null
-    participant_count: number | null
-    created_at: Date | null
-    finished_at: Date | null
-    expires_at: Date | null
-  }
-
-  export type BattleMaxAggregateOutputType = {
-    id: string | null
-    creater_nickname: string | null
-    status: string | null
-    participant_count: number | null
-    created_at: Date | null
-    finished_at: Date | null
-    expires_at: Date | null
-  }
-
-  export type BattleCountAggregateOutputType = {
-    id: number
-    creater_nickname: number
-    status: number
-    participant_count: number
-    created_at: number
-    finished_at: number
-    expires_at: number
-    _all: number
-  }
-
-
-  export type BattleAvgAggregateInputType = {
-    participant_count?: true
-  }
-
-  export type BattleSumAggregateInputType = {
-    participant_count?: true
-  }
-
-  export type BattleMinAggregateInputType = {
-    id?: true
-    creater_nickname?: true
-    status?: true
-    participant_count?: true
-    created_at?: true
-    finished_at?: true
-    expires_at?: true
-  }
-
-  export type BattleMaxAggregateInputType = {
-    id?: true
-    creater_nickname?: true
-    status?: true
-    participant_count?: true
-    created_at?: true
-    finished_at?: true
-    expires_at?: true
-  }
-
-  export type BattleCountAggregateInputType = {
-    id?: true
-    creater_nickname?: true
-    status?: true
-    participant_count?: true
-    created_at?: true
-    finished_at?: true
-    expires_at?: true
-    _all?: true
-  }
-
-  export type BattleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battle to aggregate.
-     */
-    where?: battleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battles to fetch.
-     */
-    orderBy?: battleOrderByWithRelationInput | battleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: battleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned battles
-    **/
-    _count?: true | BattleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BattleAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BattleSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BattleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BattleMaxAggregateInputType
-  }
-
-  export type GetBattleAggregateType<T extends BattleAggregateArgs> = {
-        [P in keyof T & keyof AggregateBattle]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBattle[P]>
-      : GetScalarType<T[P], AggregateBattle[P]>
-  }
-
-
-
-
-  export type battleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battleWhereInput
-    orderBy?: battleOrderByWithAggregationInput | battleOrderByWithAggregationInput[]
-    by: BattleScalarFieldEnum[] | BattleScalarFieldEnum
-    having?: battleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BattleCountAggregateInputType | true
-    _avg?: BattleAvgAggregateInputType
-    _sum?: BattleSumAggregateInputType
-    _min?: BattleMinAggregateInputType
-    _max?: BattleMaxAggregateInputType
-  }
-
-  export type BattleGroupByOutputType = {
-    id: string
-    creater_nickname: string | null
-    status: string | null
-    participant_count: number | null
-    created_at: Date | null
-    finished_at: Date | null
-    expires_at: Date | null
-    _count: BattleCountAggregateOutputType | null
-    _avg: BattleAvgAggregateOutputType | null
-    _sum: BattleSumAggregateOutputType | null
-    _min: BattleMinAggregateOutputType | null
-    _max: BattleMaxAggregateOutputType | null
-  }
-
-  type GetBattleGroupByPayload<T extends battleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BattleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BattleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BattleGroupByOutputType[P]>
-            : GetScalarType<T[P], BattleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type battleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    creater_nickname?: boolean
-    status?: boolean
-    participant_count?: boolean
-    created_at?: boolean
-    finished_at?: boolean
-    expires_at?: boolean
-    battle_menu?: boolean | battle$battle_menuArgs<ExtArgs>
-    battle_participant?: boolean | battle$battle_participantArgs<ExtArgs>
-    spin_result?: boolean | battle$spin_resultArgs<ExtArgs>
-    _count?: boolean | BattleCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["battle"]>
-
-
-
-  export type battleSelectScalar = {
-    id?: boolean
-    creater_nickname?: boolean
-    status?: boolean
-    participant_count?: boolean
-    created_at?: boolean
-    finished_at?: boolean
-    expires_at?: boolean
-  }
-
-  export type battleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creater_nickname" | "status" | "participant_count" | "created_at" | "finished_at" | "expires_at", ExtArgs["result"]["battle"]>
-  export type battleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menu?: boolean | battle$battle_menuArgs<ExtArgs>
-    battle_participant?: boolean | battle$battle_participantArgs<ExtArgs>
-    spin_result?: boolean | battle$spin_resultArgs<ExtArgs>
-    _count?: boolean | BattleCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $battlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "battle"
-    objects: {
-      battle_menu: Prisma.$battle_menuPayload<ExtArgs>[]
-      battle_participant: Prisma.$battle_participantPayload<ExtArgs>[]
-      spin_result: Prisma.$spin_resultPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      creater_nickname: string | null
-      status: string | null
-      participant_count: number | null
-      created_at: Date | null
-      finished_at: Date | null
-      expires_at: Date | null
-    }, ExtArgs["result"]["battle"]>
-    composites: {}
-  }
-
-  type battleGetPayload<S extends boolean | null | undefined | battleDefaultArgs> = $Result.GetResult<Prisma.$battlePayload, S>
-
-  type battleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<battleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: BattleCountAggregateInputType | true
-    }
-
-  export interface battleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battle'], meta: { name: 'battle' } }
-    /**
-     * Find zero or one Battle that matches the filter.
-     * @param {battleFindUniqueArgs} args - Arguments to find a Battle
-     * @example
-     * // Get one Battle
-     * const battle = await prisma.battle.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends battleFindUniqueArgs>(args: SelectSubset<T, battleFindUniqueArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Battle that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {battleFindUniqueOrThrowArgs} args - Arguments to find a Battle
-     * @example
-     * // Get one Battle
-     * const battle = await prisma.battle.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends battleFindUniqueOrThrowArgs>(args: SelectSubset<T, battleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleFindFirstArgs} args - Arguments to find a Battle
-     * @example
-     * // Get one Battle
-     * const battle = await prisma.battle.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends battleFindFirstArgs>(args?: SelectSubset<T, battleFindFirstArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleFindFirstOrThrowArgs} args - Arguments to find a Battle
-     * @example
-     * // Get one Battle
-     * const battle = await prisma.battle.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends battleFindFirstOrThrowArgs>(args?: SelectSubset<T, battleFindFirstOrThrowArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Battles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Battles
-     * const battles = await prisma.battle.findMany()
-     * 
-     * // Get first 10 Battles
-     * const battles = await prisma.battle.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const battleWithIdOnly = await prisma.battle.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends battleFindManyArgs>(args?: SelectSubset<T, battleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Battle.
-     * @param {battleCreateArgs} args - Arguments to create a Battle.
-     * @example
-     * // Create one Battle
-     * const Battle = await prisma.battle.create({
-     *   data: {
-     *     // ... data to create a Battle
-     *   }
-     * })
-     * 
-     */
-    create<T extends battleCreateArgs>(args: SelectSubset<T, battleCreateArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Battles.
-     * @param {battleCreateManyArgs} args - Arguments to create many Battles.
-     * @example
-     * // Create many Battles
-     * const battle = await prisma.battle.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends battleCreateManyArgs>(args?: SelectSubset<T, battleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Battle.
-     * @param {battleDeleteArgs} args - Arguments to delete one Battle.
-     * @example
-     * // Delete one Battle
-     * const Battle = await prisma.battle.delete({
-     *   where: {
-     *     // ... filter to delete one Battle
-     *   }
-     * })
-     * 
-     */
-    delete<T extends battleDeleteArgs>(args: SelectSubset<T, battleDeleteArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Battle.
-     * @param {battleUpdateArgs} args - Arguments to update one Battle.
-     * @example
-     * // Update one Battle
-     * const battle = await prisma.battle.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends battleUpdateArgs>(args: SelectSubset<T, battleUpdateArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Battles.
-     * @param {battleDeleteManyArgs} args - Arguments to filter Battles to delete.
-     * @example
-     * // Delete a few Battles
-     * const { count } = await prisma.battle.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends battleDeleteManyArgs>(args?: SelectSubset<T, battleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Battles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Battles
-     * const battle = await prisma.battle.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends battleUpdateManyArgs>(args: SelectSubset<T, battleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Battle.
-     * @param {battleUpsertArgs} args - Arguments to update or create a Battle.
-     * @example
-     * // Update or create a Battle
-     * const battle = await prisma.battle.upsert({
-     *   create: {
-     *     // ... data to create a Battle
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Battle we want to update
-     *   }
-     * })
-     */
-    upsert<T extends battleUpsertArgs>(args: SelectSubset<T, battleUpsertArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Battles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleCountArgs} args - Arguments to filter Battles to count.
-     * @example
-     * // Count the number of Battles
-     * const count = await prisma.battle.count({
-     *   where: {
-     *     // ... the filter for the Battles we want to count
-     *   }
-     * })
-    **/
-    count<T extends battleCountArgs>(
-      args?: Subset<T, battleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BattleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Battle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BattleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BattleAggregateArgs>(args: Subset<T, BattleAggregateArgs>): Prisma.PrismaPromise<GetBattleAggregateType<T>>
-
-    /**
-     * Group by Battle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends battleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: battleGroupByArgs['orderBy'] }
-        : { orderBy?: battleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, battleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the battle model
-   */
-  readonly fields: battleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for battle.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__battleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle_menu<T extends battle$battle_menuArgs<ExtArgs> = {}>(args?: Subset<T, battle$battle_menuArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    battle_participant<T extends battle$battle_participantArgs<ExtArgs> = {}>(args?: Subset<T, battle$battle_participantArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    spin_result<T extends battle$spin_resultArgs<ExtArgs> = {}>(args?: Subset<T, battle$spin_resultArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the battle model
-   */
-  interface battleFieldRefs {
-    readonly id: FieldRef<"battle", 'String'>
-    readonly creater_nickname: FieldRef<"battle", 'String'>
-    readonly status: FieldRef<"battle", 'String'>
-    readonly participant_count: FieldRef<"battle", 'Int'>
-    readonly created_at: FieldRef<"battle", 'DateTime'>
-    readonly finished_at: FieldRef<"battle", 'DateTime'>
-    readonly expires_at: FieldRef<"battle", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * battle findUnique
-   */
-  export type battleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter, which battle to fetch.
-     */
-    where: battleWhereUniqueInput
-  }
-
-  /**
-   * battle findUniqueOrThrow
-   */
-  export type battleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter, which battle to fetch.
-     */
-    where: battleWhereUniqueInput
-  }
-
-  /**
-   * battle findFirst
-   */
-  export type battleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter, which battle to fetch.
-     */
-    where?: battleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battles to fetch.
-     */
-    orderBy?: battleOrderByWithRelationInput | battleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battles.
-     */
-    cursor?: battleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battles.
-     */
-    distinct?: BattleScalarFieldEnum | BattleScalarFieldEnum[]
-  }
-
-  /**
-   * battle findFirstOrThrow
-   */
-  export type battleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter, which battle to fetch.
-     */
-    where?: battleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battles to fetch.
-     */
-    orderBy?: battleOrderByWithRelationInput | battleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battles.
-     */
-    cursor?: battleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battles.
-     */
-    distinct?: BattleScalarFieldEnum | BattleScalarFieldEnum[]
-  }
-
-  /**
-   * battle findMany
-   */
-  export type battleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter, which battles to fetch.
-     */
-    where?: battleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battles to fetch.
-     */
-    orderBy?: battleOrderByWithRelationInput | battleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing battles.
-     */
-    cursor?: battleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battles.
-     */
-    skip?: number
-    distinct?: BattleScalarFieldEnum | BattleScalarFieldEnum[]
-  }
-
-  /**
-   * battle create
-   */
-  export type battleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a battle.
-     */
-    data: XOR<battleCreateInput, battleUncheckedCreateInput>
-  }
-
-  /**
-   * battle createMany
-   */
-  export type battleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many battles.
-     */
-    data: battleCreateManyInput | battleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * battle update
-   */
-  export type battleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a battle.
-     */
-    data: XOR<battleUpdateInput, battleUncheckedUpdateInput>
-    /**
-     * Choose, which battle to update.
-     */
-    where: battleWhereUniqueInput
-  }
-
-  /**
-   * battle updateMany
-   */
-  export type battleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update battles.
-     */
-    data: XOR<battleUpdateManyMutationInput, battleUncheckedUpdateManyInput>
-    /**
-     * Filter which battles to update
-     */
-    where?: battleWhereInput
-    /**
-     * Limit how many battles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle upsert
-   */
-  export type battleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the battle to update in case it exists.
-     */
-    where: battleWhereUniqueInput
-    /**
-     * In case the battle found by the `where` argument doesn't exist, create a new battle with this data.
-     */
-    create: XOR<battleCreateInput, battleUncheckedCreateInput>
-    /**
-     * In case the battle was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<battleUpdateInput, battleUncheckedUpdateInput>
-  }
-
-  /**
-   * battle delete
-   */
-  export type battleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-    /**
-     * Filter which battle to delete.
-     */
-    where: battleWhereUniqueInput
-  }
-
-  /**
-   * battle deleteMany
-   */
-  export type battleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battles to delete
-     */
-    where?: battleWhereInput
-    /**
-     * Limit how many battles to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle.battle_menu
-   */
-  export type battle$battle_menuArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    where?: battle_menuWhereInput
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    cursor?: battle_menuWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Battle_menuScalarFieldEnum | Battle_menuScalarFieldEnum[]
-  }
-
-  /**
-   * battle.battle_participant
-   */
-  export type battle$battle_participantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    where?: battle_participantWhereInput
-    orderBy?: battle_participantOrderByWithRelationInput | battle_participantOrderByWithRelationInput[]
-    cursor?: battle_participantWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Battle_participantScalarFieldEnum | Battle_participantScalarFieldEnum[]
-  }
-
-  /**
-   * battle.spin_result
-   */
-  export type battle$spin_resultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    where?: spin_resultWhereInput
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    cursor?: spin_resultWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Spin_resultScalarFieldEnum | Spin_resultScalarFieldEnum[]
-  }
-
-  /**
-   * battle without action
-   */
-  export type battleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle
-     */
-    select?: battleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle
-     */
-    omit?: battleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battleInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model battle_menu
-   */
-
-  export type AggregateBattle_menu = {
-    _count: Battle_menuCountAggregateOutputType | null
-    _avg: Battle_menuAvgAggregateOutputType | null
-    _sum: Battle_menuSumAggregateOutputType | null
-    _min: Battle_menuMinAggregateOutputType | null
-    _max: Battle_menuMaxAggregateOutputType | null
-  }
-
-  export type Battle_menuAvgAggregateOutputType = {
-    id: number | null
-    boundary_angle: number | null
-    menu_order: number | null
-    menu_id: number | null
-  }
-
-  export type Battle_menuSumAggregateOutputType = {
-    id: bigint | null
-    boundary_angle: number | null
-    menu_order: number | null
-    menu_id: bigint | null
-  }
-
-  export type Battle_menuMinAggregateOutputType = {
-    id: bigint | null
-    menu_name: string | null
-    boundary_angle: number | null
-    menu_order: number | null
-    battle_id: string | null
-    menu_id: bigint | null
-  }
-
-  export type Battle_menuMaxAggregateOutputType = {
-    id: bigint | null
-    menu_name: string | null
-    boundary_angle: number | null
-    menu_order: number | null
-    battle_id: string | null
-    menu_id: bigint | null
-  }
-
-  export type Battle_menuCountAggregateOutputType = {
-    id: number
-    menu_name: number
-    boundary_angle: number
-    menu_order: number
-    battle_id: number
-    menu_id: number
-    _all: number
-  }
-
-
-  export type Battle_menuAvgAggregateInputType = {
-    id?: true
-    boundary_angle?: true
-    menu_order?: true
-    menu_id?: true
-  }
-
-  export type Battle_menuSumAggregateInputType = {
-    id?: true
-    boundary_angle?: true
-    menu_order?: true
-    menu_id?: true
-  }
-
-  export type Battle_menuMinAggregateInputType = {
-    id?: true
-    menu_name?: true
-    boundary_angle?: true
-    menu_order?: true
-    battle_id?: true
-    menu_id?: true
-  }
-
-  export type Battle_menuMaxAggregateInputType = {
-    id?: true
-    menu_name?: true
-    boundary_angle?: true
-    menu_order?: true
-    battle_id?: true
-    menu_id?: true
-  }
-
-  export type Battle_menuCountAggregateInputType = {
-    id?: true
-    menu_name?: true
-    boundary_angle?: true
-    menu_order?: true
-    battle_id?: true
-    menu_id?: true
-    _all?: true
-  }
-
-  export type Battle_menuAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battle_menu to aggregate.
-     */
-    where?: battle_menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_menus to fetch.
-     */
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: battle_menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned battle_menus
-    **/
-    _count?: true | Battle_menuCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Battle_menuAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Battle_menuSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Battle_menuMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Battle_menuMaxAggregateInputType
-  }
-
-  export type GetBattle_menuAggregateType<T extends Battle_menuAggregateArgs> = {
-        [P in keyof T & keyof AggregateBattle_menu]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBattle_menu[P]>
-      : GetScalarType<T[P], AggregateBattle_menu[P]>
-  }
-
-
-
-
-  export type battle_menuGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_menuWhereInput
-    orderBy?: battle_menuOrderByWithAggregationInput | battle_menuOrderByWithAggregationInput[]
-    by: Battle_menuScalarFieldEnum[] | Battle_menuScalarFieldEnum
-    having?: battle_menuScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Battle_menuCountAggregateInputType | true
-    _avg?: Battle_menuAvgAggregateInputType
-    _sum?: Battle_menuSumAggregateInputType
-    _min?: Battle_menuMinAggregateInputType
-    _max?: Battle_menuMaxAggregateInputType
-  }
-
-  export type Battle_menuGroupByOutputType = {
-    id: bigint
-    menu_name: string | null
-    boundary_angle: number | null
-    menu_order: number | null
-    battle_id: string
-    menu_id: bigint
-    _count: Battle_menuCountAggregateOutputType | null
-    _avg: Battle_menuAvgAggregateOutputType | null
-    _sum: Battle_menuSumAggregateOutputType | null
-    _min: Battle_menuMinAggregateOutputType | null
-    _max: Battle_menuMaxAggregateOutputType | null
-  }
-
-  type GetBattle_menuGroupByPayload<T extends battle_menuGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Battle_menuGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Battle_menuGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Battle_menuGroupByOutputType[P]>
-            : GetScalarType<T[P], Battle_menuGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type battle_menuSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    menu_name?: boolean
-    boundary_angle?: boolean
-    menu_order?: boolean
-    battle_id?: boolean
-    menu_id?: boolean
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["battle_menu"]>
-
-
-
-  export type battle_menuSelectScalar = {
-    id?: boolean
-    menu_name?: boolean
-    boundary_angle?: boolean
-    menu_order?: boolean
-    battle_id?: boolean
-    menu_id?: boolean
-  }
-
-  export type battle_menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_name" | "boundary_angle" | "menu_order" | "battle_id" | "menu_id", ExtArgs["result"]["battle_menu"]>
-  export type battle_menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }
-
-  export type $battle_menuPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "battle_menu"
-    objects: {
-      battle: Prisma.$battlePayload<ExtArgs>
-      menu: Prisma.$menuPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      menu_name: string | null
-      boundary_angle: number | null
-      menu_order: number | null
-      battle_id: string
-      menu_id: bigint
-    }, ExtArgs["result"]["battle_menu"]>
-    composites: {}
-  }
-
-  type battle_menuGetPayload<S extends boolean | null | undefined | battle_menuDefaultArgs> = $Result.GetResult<Prisma.$battle_menuPayload, S>
-
-  type battle_menuCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<battle_menuFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Battle_menuCountAggregateInputType | true
-    }
-
-  export interface battle_menuDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battle_menu'], meta: { name: 'battle_menu' } }
-    /**
-     * Find zero or one Battle_menu that matches the filter.
-     * @param {battle_menuFindUniqueArgs} args - Arguments to find a Battle_menu
-     * @example
-     * // Get one Battle_menu
-     * const battle_menu = await prisma.battle_menu.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends battle_menuFindUniqueArgs>(args: SelectSubset<T, battle_menuFindUniqueArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Battle_menu that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {battle_menuFindUniqueOrThrowArgs} args - Arguments to find a Battle_menu
-     * @example
-     * // Get one Battle_menu
-     * const battle_menu = await prisma.battle_menu.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends battle_menuFindUniqueOrThrowArgs>(args: SelectSubset<T, battle_menuFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle_menu that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuFindFirstArgs} args - Arguments to find a Battle_menu
-     * @example
-     * // Get one Battle_menu
-     * const battle_menu = await prisma.battle_menu.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends battle_menuFindFirstArgs>(args?: SelectSubset<T, battle_menuFindFirstArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle_menu that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuFindFirstOrThrowArgs} args - Arguments to find a Battle_menu
-     * @example
-     * // Get one Battle_menu
-     * const battle_menu = await prisma.battle_menu.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends battle_menuFindFirstOrThrowArgs>(args?: SelectSubset<T, battle_menuFindFirstOrThrowArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Battle_menus that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Battle_menus
-     * const battle_menus = await prisma.battle_menu.findMany()
-     * 
-     * // Get first 10 Battle_menus
-     * const battle_menus = await prisma.battle_menu.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const battle_menuWithIdOnly = await prisma.battle_menu.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends battle_menuFindManyArgs>(args?: SelectSubset<T, battle_menuFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Battle_menu.
-     * @param {battle_menuCreateArgs} args - Arguments to create a Battle_menu.
-     * @example
-     * // Create one Battle_menu
-     * const Battle_menu = await prisma.battle_menu.create({
-     *   data: {
-     *     // ... data to create a Battle_menu
-     *   }
-     * })
-     * 
-     */
-    create<T extends battle_menuCreateArgs>(args: SelectSubset<T, battle_menuCreateArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Battle_menus.
-     * @param {battle_menuCreateManyArgs} args - Arguments to create many Battle_menus.
-     * @example
-     * // Create many Battle_menus
-     * const battle_menu = await prisma.battle_menu.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends battle_menuCreateManyArgs>(args?: SelectSubset<T, battle_menuCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Battle_menu.
-     * @param {battle_menuDeleteArgs} args - Arguments to delete one Battle_menu.
-     * @example
-     * // Delete one Battle_menu
-     * const Battle_menu = await prisma.battle_menu.delete({
-     *   where: {
-     *     // ... filter to delete one Battle_menu
-     *   }
-     * })
-     * 
-     */
-    delete<T extends battle_menuDeleteArgs>(args: SelectSubset<T, battle_menuDeleteArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Battle_menu.
-     * @param {battle_menuUpdateArgs} args - Arguments to update one Battle_menu.
-     * @example
-     * // Update one Battle_menu
-     * const battle_menu = await prisma.battle_menu.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends battle_menuUpdateArgs>(args: SelectSubset<T, battle_menuUpdateArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Battle_menus.
-     * @param {battle_menuDeleteManyArgs} args - Arguments to filter Battle_menus to delete.
-     * @example
-     * // Delete a few Battle_menus
-     * const { count } = await prisma.battle_menu.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends battle_menuDeleteManyArgs>(args?: SelectSubset<T, battle_menuDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Battle_menus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Battle_menus
-     * const battle_menu = await prisma.battle_menu.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends battle_menuUpdateManyArgs>(args: SelectSubset<T, battle_menuUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Battle_menu.
-     * @param {battle_menuUpsertArgs} args - Arguments to update or create a Battle_menu.
-     * @example
-     * // Update or create a Battle_menu
-     * const battle_menu = await prisma.battle_menu.upsert({
-     *   create: {
-     *     // ... data to create a Battle_menu
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Battle_menu we want to update
-     *   }
-     * })
-     */
-    upsert<T extends battle_menuUpsertArgs>(args: SelectSubset<T, battle_menuUpsertArgs<ExtArgs>>): Prisma__battle_menuClient<$Result.GetResult<Prisma.$battle_menuPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Battle_menus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuCountArgs} args - Arguments to filter Battle_menus to count.
-     * @example
-     * // Count the number of Battle_menus
-     * const count = await prisma.battle_menu.count({
-     *   where: {
-     *     // ... the filter for the Battle_menus we want to count
-     *   }
-     * })
-    **/
-    count<T extends battle_menuCountArgs>(
-      args?: Subset<T, battle_menuCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Battle_menuCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Battle_menu.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Battle_menuAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Battle_menuAggregateArgs>(args: Subset<T, Battle_menuAggregateArgs>): Prisma.PrismaPromise<GetBattle_menuAggregateType<T>>
-
-    /**
-     * Group by Battle_menu.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_menuGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends battle_menuGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: battle_menuGroupByArgs['orderBy'] }
-        : { orderBy?: battle_menuGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, battle_menuGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattle_menuGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the battle_menu model
-   */
-  readonly fields: battle_menuFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for battle_menu.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__battle_menuClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle<T extends battleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battleDefaultArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the battle_menu model
-   */
-  interface battle_menuFieldRefs {
-    readonly id: FieldRef<"battle_menu", 'BigInt'>
-    readonly menu_name: FieldRef<"battle_menu", 'String'>
-    readonly boundary_angle: FieldRef<"battle_menu", 'Float'>
-    readonly menu_order: FieldRef<"battle_menu", 'Int'>
-    readonly battle_id: FieldRef<"battle_menu", 'String'>
-    readonly menu_id: FieldRef<"battle_menu", 'BigInt'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * battle_menu findUnique
-   */
-  export type battle_menuFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_menu to fetch.
-     */
-    where: battle_menuWhereUniqueInput
-  }
-
-  /**
-   * battle_menu findUniqueOrThrow
-   */
-  export type battle_menuFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_menu to fetch.
-     */
-    where: battle_menuWhereUniqueInput
-  }
-
-  /**
-   * battle_menu findFirst
-   */
-  export type battle_menuFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_menu to fetch.
-     */
-    where?: battle_menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_menus to fetch.
-     */
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battle_menus.
-     */
-    cursor?: battle_menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battle_menus.
-     */
-    distinct?: Battle_menuScalarFieldEnum | Battle_menuScalarFieldEnum[]
-  }
-
-  /**
-   * battle_menu findFirstOrThrow
-   */
-  export type battle_menuFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_menu to fetch.
-     */
-    where?: battle_menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_menus to fetch.
-     */
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battle_menus.
-     */
-    cursor?: battle_menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battle_menus.
-     */
-    distinct?: Battle_menuScalarFieldEnum | Battle_menuScalarFieldEnum[]
-  }
-
-  /**
-   * battle_menu findMany
-   */
-  export type battle_menuFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_menus to fetch.
-     */
-    where?: battle_menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_menus to fetch.
-     */
-    orderBy?: battle_menuOrderByWithRelationInput | battle_menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing battle_menus.
-     */
-    cursor?: battle_menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_menus.
-     */
-    skip?: number
-    distinct?: Battle_menuScalarFieldEnum | Battle_menuScalarFieldEnum[]
-  }
-
-  /**
-   * battle_menu create
-   */
-  export type battle_menuCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * The data needed to create a battle_menu.
-     */
-    data: XOR<battle_menuCreateInput, battle_menuUncheckedCreateInput>
-  }
-
-  /**
-   * battle_menu createMany
-   */
-  export type battle_menuCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many battle_menus.
-     */
-    data: battle_menuCreateManyInput | battle_menuCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * battle_menu update
-   */
-  export type battle_menuUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * The data needed to update a battle_menu.
-     */
-    data: XOR<battle_menuUpdateInput, battle_menuUncheckedUpdateInput>
-    /**
-     * Choose, which battle_menu to update.
-     */
-    where: battle_menuWhereUniqueInput
-  }
-
-  /**
-   * battle_menu updateMany
-   */
-  export type battle_menuUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update battle_menus.
-     */
-    data: XOR<battle_menuUpdateManyMutationInput, battle_menuUncheckedUpdateManyInput>
-    /**
-     * Filter which battle_menus to update
-     */
-    where?: battle_menuWhereInput
-    /**
-     * Limit how many battle_menus to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle_menu upsert
-   */
-  export type battle_menuUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * The filter to search for the battle_menu to update in case it exists.
-     */
-    where: battle_menuWhereUniqueInput
-    /**
-     * In case the battle_menu found by the `where` argument doesn't exist, create a new battle_menu with this data.
-     */
-    create: XOR<battle_menuCreateInput, battle_menuUncheckedCreateInput>
-    /**
-     * In case the battle_menu was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<battle_menuUpdateInput, battle_menuUncheckedUpdateInput>
-  }
-
-  /**
-   * battle_menu delete
-   */
-  export type battle_menuDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-    /**
-     * Filter which battle_menu to delete.
-     */
-    where: battle_menuWhereUniqueInput
-  }
-
-  /**
-   * battle_menu deleteMany
-   */
-  export type battle_menuDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battle_menus to delete
-     */
-    where?: battle_menuWhereInput
-    /**
-     * Limit how many battle_menus to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle_menu without action
-   */
-  export type battle_menuDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menu
-     */
-    select?: battle_menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menu
-     */
-    omit?: battle_menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menuInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model battle_participant
-   */
-
-  export type AggregateBattle_participant = {
-    _count: Battle_participantCountAggregateOutputType | null
-    _avg: Battle_participantAvgAggregateOutputType | null
-    _sum: Battle_participantSumAggregateOutputType | null
-    _min: Battle_participantMinAggregateOutputType | null
-    _max: Battle_participantMaxAggregateOutputType | null
-  }
-
-  export type Battle_participantAvgAggregateOutputType = {
-    user_id: number | null
-    is_creater: number | null
-  }
-
-  export type Battle_participantSumAggregateOutputType = {
-    user_id: bigint | null
-    is_creater: number | null
-  }
-
-  export type Battle_participantMinAggregateOutputType = {
-    battle_id: string | null
-    user_id: bigint | null
-    nickname: string | null
-    is_creater: number | null
-    joined_at: Date | null
-  }
-
-  export type Battle_participantMaxAggregateOutputType = {
-    battle_id: string | null
-    user_id: bigint | null
-    nickname: string | null
-    is_creater: number | null
-    joined_at: Date | null
-  }
-
-  export type Battle_participantCountAggregateOutputType = {
-    battle_id: number
-    user_id: number
-    nickname: number
-    is_creater: number
-    joined_at: number
-    _all: number
-  }
-
-
-  export type Battle_participantAvgAggregateInputType = {
-    user_id?: true
-    is_creater?: true
-  }
-
-  export type Battle_participantSumAggregateInputType = {
-    user_id?: true
-    is_creater?: true
-  }
-
-  export type Battle_participantMinAggregateInputType = {
-    battle_id?: true
-    user_id?: true
-    nickname?: true
-    is_creater?: true
-    joined_at?: true
-  }
-
-  export type Battle_participantMaxAggregateInputType = {
-    battle_id?: true
-    user_id?: true
-    nickname?: true
-    is_creater?: true
-    joined_at?: true
-  }
-
-  export type Battle_participantCountAggregateInputType = {
-    battle_id?: true
-    user_id?: true
-    nickname?: true
-    is_creater?: true
-    joined_at?: true
-    _all?: true
-  }
-
-  export type Battle_participantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battle_participant to aggregate.
-     */
-    where?: battle_participantWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_participants to fetch.
-     */
-    orderBy?: battle_participantOrderByWithRelationInput | battle_participantOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: battle_participantWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_participants from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_participants.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned battle_participants
-    **/
-    _count?: true | Battle_participantCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Battle_participantAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Battle_participantSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Battle_participantMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Battle_participantMaxAggregateInputType
-  }
-
-  export type GetBattle_participantAggregateType<T extends Battle_participantAggregateArgs> = {
-        [P in keyof T & keyof AggregateBattle_participant]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBattle_participant[P]>
-      : GetScalarType<T[P], AggregateBattle_participant[P]>
-  }
-
-
-
-
-  export type battle_participantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_participantWhereInput
-    orderBy?: battle_participantOrderByWithAggregationInput | battle_participantOrderByWithAggregationInput[]
-    by: Battle_participantScalarFieldEnum[] | Battle_participantScalarFieldEnum
-    having?: battle_participantScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Battle_participantCountAggregateInputType | true
-    _avg?: Battle_participantAvgAggregateInputType
-    _sum?: Battle_participantSumAggregateInputType
-    _min?: Battle_participantMinAggregateInputType
-    _max?: Battle_participantMaxAggregateInputType
-  }
-
-  export type Battle_participantGroupByOutputType = {
-    battle_id: string
-    user_id: bigint
-    nickname: string | null
-    is_creater: number | null
-    joined_at: Date | null
-    _count: Battle_participantCountAggregateOutputType | null
-    _avg: Battle_participantAvgAggregateOutputType | null
-    _sum: Battle_participantSumAggregateOutputType | null
-    _min: Battle_participantMinAggregateOutputType | null
-    _max: Battle_participantMaxAggregateOutputType | null
-  }
-
-  type GetBattle_participantGroupByPayload<T extends battle_participantGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Battle_participantGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Battle_participantGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Battle_participantGroupByOutputType[P]>
-            : GetScalarType<T[P], Battle_participantGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type battle_participantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    battle_id?: boolean
-    user_id?: boolean
-    nickname?: boolean
-    is_creater?: boolean
-    joined_at?: boolean
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["battle_participant"]>
-
-
-
-  export type battle_participantSelectScalar = {
-    battle_id?: boolean
-    user_id?: boolean
-    nickname?: boolean
-    is_creater?: boolean
-    joined_at?: boolean
-  }
-
-  export type battle_participantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"battle_id" | "user_id" | "nickname" | "is_creater" | "joined_at", ExtArgs["result"]["battle_participant"]>
-  export type battle_participantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-  }
-
-  export type $battle_participantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "battle_participant"
-    objects: {
-      battle: Prisma.$battlePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      battle_id: string
-      user_id: bigint
-      nickname: string | null
-      is_creater: number | null
-      joined_at: Date | null
-    }, ExtArgs["result"]["battle_participant"]>
-    composites: {}
-  }
-
-  type battle_participantGetPayload<S extends boolean | null | undefined | battle_participantDefaultArgs> = $Result.GetResult<Prisma.$battle_participantPayload, S>
-
-  type battle_participantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<battle_participantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Battle_participantCountAggregateInputType | true
-    }
-
-  export interface battle_participantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battle_participant'], meta: { name: 'battle_participant' } }
-    /**
-     * Find zero or one Battle_participant that matches the filter.
-     * @param {battle_participantFindUniqueArgs} args - Arguments to find a Battle_participant
-     * @example
-     * // Get one Battle_participant
-     * const battle_participant = await prisma.battle_participant.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends battle_participantFindUniqueArgs>(args: SelectSubset<T, battle_participantFindUniqueArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Battle_participant that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {battle_participantFindUniqueOrThrowArgs} args - Arguments to find a Battle_participant
-     * @example
-     * // Get one Battle_participant
-     * const battle_participant = await prisma.battle_participant.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends battle_participantFindUniqueOrThrowArgs>(args: SelectSubset<T, battle_participantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle_participant that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantFindFirstArgs} args - Arguments to find a Battle_participant
-     * @example
-     * // Get one Battle_participant
-     * const battle_participant = await prisma.battle_participant.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends battle_participantFindFirstArgs>(args?: SelectSubset<T, battle_participantFindFirstArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Battle_participant that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantFindFirstOrThrowArgs} args - Arguments to find a Battle_participant
-     * @example
-     * // Get one Battle_participant
-     * const battle_participant = await prisma.battle_participant.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends battle_participantFindFirstOrThrowArgs>(args?: SelectSubset<T, battle_participantFindFirstOrThrowArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Battle_participants that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Battle_participants
-     * const battle_participants = await prisma.battle_participant.findMany()
-     * 
-     * // Get first 10 Battle_participants
-     * const battle_participants = await prisma.battle_participant.findMany({ take: 10 })
-     * 
-     * // Only select the `battle_id`
-     * const battle_participantWithBattle_idOnly = await prisma.battle_participant.findMany({ select: { battle_id: true } })
-     * 
-     */
-    findMany<T extends battle_participantFindManyArgs>(args?: SelectSubset<T, battle_participantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Battle_participant.
-     * @param {battle_participantCreateArgs} args - Arguments to create a Battle_participant.
-     * @example
-     * // Create one Battle_participant
-     * const Battle_participant = await prisma.battle_participant.create({
-     *   data: {
-     *     // ... data to create a Battle_participant
-     *   }
-     * })
-     * 
-     */
-    create<T extends battle_participantCreateArgs>(args: SelectSubset<T, battle_participantCreateArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Battle_participants.
-     * @param {battle_participantCreateManyArgs} args - Arguments to create many Battle_participants.
-     * @example
-     * // Create many Battle_participants
-     * const battle_participant = await prisma.battle_participant.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends battle_participantCreateManyArgs>(args?: SelectSubset<T, battle_participantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Battle_participant.
-     * @param {battle_participantDeleteArgs} args - Arguments to delete one Battle_participant.
-     * @example
-     * // Delete one Battle_participant
-     * const Battle_participant = await prisma.battle_participant.delete({
-     *   where: {
-     *     // ... filter to delete one Battle_participant
-     *   }
-     * })
-     * 
-     */
-    delete<T extends battle_participantDeleteArgs>(args: SelectSubset<T, battle_participantDeleteArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Battle_participant.
-     * @param {battle_participantUpdateArgs} args - Arguments to update one Battle_participant.
-     * @example
-     * // Update one Battle_participant
-     * const battle_participant = await prisma.battle_participant.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends battle_participantUpdateArgs>(args: SelectSubset<T, battle_participantUpdateArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Battle_participants.
-     * @param {battle_participantDeleteManyArgs} args - Arguments to filter Battle_participants to delete.
-     * @example
-     * // Delete a few Battle_participants
-     * const { count } = await prisma.battle_participant.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends battle_participantDeleteManyArgs>(args?: SelectSubset<T, battle_participantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Battle_participants.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Battle_participants
-     * const battle_participant = await prisma.battle_participant.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends battle_participantUpdateManyArgs>(args: SelectSubset<T, battle_participantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Battle_participant.
-     * @param {battle_participantUpsertArgs} args - Arguments to update or create a Battle_participant.
-     * @example
-     * // Update or create a Battle_participant
-     * const battle_participant = await prisma.battle_participant.upsert({
-     *   create: {
-     *     // ... data to create a Battle_participant
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Battle_participant we want to update
-     *   }
-     * })
-     */
-    upsert<T extends battle_participantUpsertArgs>(args: SelectSubset<T, battle_participantUpsertArgs<ExtArgs>>): Prisma__battle_participantClient<$Result.GetResult<Prisma.$battle_participantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Battle_participants.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantCountArgs} args - Arguments to filter Battle_participants to count.
-     * @example
-     * // Count the number of Battle_participants
-     * const count = await prisma.battle_participant.count({
-     *   where: {
-     *     // ... the filter for the Battle_participants we want to count
-     *   }
-     * })
-    **/
-    count<T extends battle_participantCountArgs>(
-      args?: Subset<T, battle_participantCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Battle_participantCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Battle_participant.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Battle_participantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Battle_participantAggregateArgs>(args: Subset<T, Battle_participantAggregateArgs>): Prisma.PrismaPromise<GetBattle_participantAggregateType<T>>
-
-    /**
-     * Group by Battle_participant.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {battle_participantGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends battle_participantGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: battle_participantGroupByArgs['orderBy'] }
-        : { orderBy?: battle_participantGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, battle_participantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattle_participantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the battle_participant model
-   */
-  readonly fields: battle_participantFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for battle_participant.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__battle_participantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle<T extends battleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battleDefaultArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the battle_participant model
-   */
-  interface battle_participantFieldRefs {
-    readonly battle_id: FieldRef<"battle_participant", 'String'>
-    readonly user_id: FieldRef<"battle_participant", 'BigInt'>
-    readonly nickname: FieldRef<"battle_participant", 'String'>
-    readonly is_creater: FieldRef<"battle_participant", 'Int'>
-    readonly joined_at: FieldRef<"battle_participant", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * battle_participant findUnique
-   */
-  export type battle_participantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_participant to fetch.
-     */
-    where: battle_participantWhereUniqueInput
-  }
-
-  /**
-   * battle_participant findUniqueOrThrow
-   */
-  export type battle_participantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_participant to fetch.
-     */
-    where: battle_participantWhereUniqueInput
-  }
-
-  /**
-   * battle_participant findFirst
-   */
-  export type battle_participantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_participant to fetch.
-     */
-    where?: battle_participantWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_participants to fetch.
-     */
-    orderBy?: battle_participantOrderByWithRelationInput | battle_participantOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battle_participants.
-     */
-    cursor?: battle_participantWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_participants from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_participants.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battle_participants.
-     */
-    distinct?: Battle_participantScalarFieldEnum | Battle_participantScalarFieldEnum[]
-  }
-
-  /**
-   * battle_participant findFirstOrThrow
-   */
-  export type battle_participantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_participant to fetch.
-     */
-    where?: battle_participantWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_participants to fetch.
-     */
-    orderBy?: battle_participantOrderByWithRelationInput | battle_participantOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for battle_participants.
-     */
-    cursor?: battle_participantWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_participants from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_participants.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of battle_participants.
-     */
-    distinct?: Battle_participantScalarFieldEnum | Battle_participantScalarFieldEnum[]
-  }
-
-  /**
-   * battle_participant findMany
-   */
-  export type battle_participantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter, which battle_participants to fetch.
-     */
-    where?: battle_participantWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of battle_participants to fetch.
-     */
-    orderBy?: battle_participantOrderByWithRelationInput | battle_participantOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing battle_participants.
-     */
-    cursor?: battle_participantWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` battle_participants from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` battle_participants.
-     */
-    skip?: number
-    distinct?: Battle_participantScalarFieldEnum | Battle_participantScalarFieldEnum[]
-  }
-
-  /**
-   * battle_participant create
-   */
-  export type battle_participantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * The data needed to create a battle_participant.
-     */
-    data: XOR<battle_participantCreateInput, battle_participantUncheckedCreateInput>
-  }
-
-  /**
-   * battle_participant createMany
-   */
-  export type battle_participantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many battle_participants.
-     */
-    data: battle_participantCreateManyInput | battle_participantCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * battle_participant update
-   */
-  export type battle_participantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * The data needed to update a battle_participant.
-     */
-    data: XOR<battle_participantUpdateInput, battle_participantUncheckedUpdateInput>
-    /**
-     * Choose, which battle_participant to update.
-     */
-    where: battle_participantWhereUniqueInput
-  }
-
-  /**
-   * battle_participant updateMany
-   */
-  export type battle_participantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update battle_participants.
-     */
-    data: XOR<battle_participantUpdateManyMutationInput, battle_participantUncheckedUpdateManyInput>
-    /**
-     * Filter which battle_participants to update
-     */
-    where?: battle_participantWhereInput
-    /**
-     * Limit how many battle_participants to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle_participant upsert
-   */
-  export type battle_participantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * The filter to search for the battle_participant to update in case it exists.
-     */
-    where: battle_participantWhereUniqueInput
-    /**
-     * In case the battle_participant found by the `where` argument doesn't exist, create a new battle_participant with this data.
-     */
-    create: XOR<battle_participantCreateInput, battle_participantUncheckedCreateInput>
-    /**
-     * In case the battle_participant was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<battle_participantUpdateInput, battle_participantUncheckedUpdateInput>
-  }
-
-  /**
-   * battle_participant delete
-   */
-  export type battle_participantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-    /**
-     * Filter which battle_participant to delete.
-     */
-    where: battle_participantWhereUniqueInput
-  }
-
-  /**
-   * battle_participant deleteMany
-   */
-  export type battle_participantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which battle_participants to delete
-     */
-    where?: battle_participantWhereInput
-    /**
-     * Limit how many battle_participants to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * battle_participant without action
-   */
-  export type battle_participantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_participant
-     */
-    select?: battle_participantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_participant
-     */
-    omit?: battle_participantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_participantInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model menu_allery
    */
 
@@ -9133,7 +5246,7 @@ export namespace Prisma {
   export type menu_allerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     menu_id?: boolean
     allergy_id?: boolean
-    allery?: boolean | alleryDefaultArgs<ExtArgs>
+    allergy?: boolean | allergyDefaultArgs<ExtArgs>
     menu?: boolean | menuDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["menu_allery"]>
 
@@ -9146,14 +5259,14 @@ export namespace Prisma {
 
   export type menu_alleryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"menu_id" | "allergy_id", ExtArgs["result"]["menu_allery"]>
   export type menu_alleryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    allery?: boolean | alleryDefaultArgs<ExtArgs>
+    allergy?: boolean | allergyDefaultArgs<ExtArgs>
     menu?: boolean | menuDefaultArgs<ExtArgs>
   }
 
   export type $menu_alleryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "menu_allery"
     objects: {
-      allery: Prisma.$alleryPayload<ExtArgs>
+      allergy: Prisma.$allergyPayload<ExtArgs>
       menu: Prisma.$menuPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9499,7 +5612,7 @@ export namespace Prisma {
    */
   export interface Prisma__menu_alleryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    allery<T extends alleryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, alleryDefaultArgs<ExtArgs>>): Prisma__alleryClient<$Result.GetResult<Prisma.$alleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    allergy<T extends allergyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, allergyDefaultArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -10832,1022 +6945,6 @@ export namespace Prisma {
 
 
   /**
-   * Model spin_result
-   */
-
-  export type AggregateSpin_result = {
-    _count: Spin_resultCountAggregateOutputType | null
-    _avg: Spin_resultAvgAggregateOutputType | null
-    _sum: Spin_resultSumAggregateOutputType | null
-    _min: Spin_resultMinAggregateOutputType | null
-    _max: Spin_resultMaxAggregateOutputType | null
-  }
-
-  export type Spin_resultAvgAggregateOutputType = {
-    id: number | null
-    stopped_angle: number | null
-    distance_to_boundary: number | null
-    rank: number | null
-    closest_menu_id: number | null
-  }
-
-  export type Spin_resultSumAggregateOutputType = {
-    id: bigint | null
-    stopped_angle: number | null
-    distance_to_boundary: number | null
-    rank: number | null
-    closest_menu_id: bigint | null
-  }
-
-  export type Spin_resultMinAggregateOutputType = {
-    id: bigint | null
-    nickname: string | null
-    stopped_angle: number | null
-    distance_to_boundary: number | null
-    rank: number | null
-    spin_at: Date | null
-    battle_id: string | null
-    closest_menu_id: bigint | null
-  }
-
-  export type Spin_resultMaxAggregateOutputType = {
-    id: bigint | null
-    nickname: string | null
-    stopped_angle: number | null
-    distance_to_boundary: number | null
-    rank: number | null
-    spin_at: Date | null
-    battle_id: string | null
-    closest_menu_id: bigint | null
-  }
-
-  export type Spin_resultCountAggregateOutputType = {
-    id: number
-    nickname: number
-    stopped_angle: number
-    distance_to_boundary: number
-    rank: number
-    spin_at: number
-    battle_id: number
-    closest_menu_id: number
-    _all: number
-  }
-
-
-  export type Spin_resultAvgAggregateInputType = {
-    id?: true
-    stopped_angle?: true
-    distance_to_boundary?: true
-    rank?: true
-    closest_menu_id?: true
-  }
-
-  export type Spin_resultSumAggregateInputType = {
-    id?: true
-    stopped_angle?: true
-    distance_to_boundary?: true
-    rank?: true
-    closest_menu_id?: true
-  }
-
-  export type Spin_resultMinAggregateInputType = {
-    id?: true
-    nickname?: true
-    stopped_angle?: true
-    distance_to_boundary?: true
-    rank?: true
-    spin_at?: true
-    battle_id?: true
-    closest_menu_id?: true
-  }
-
-  export type Spin_resultMaxAggregateInputType = {
-    id?: true
-    nickname?: true
-    stopped_angle?: true
-    distance_to_boundary?: true
-    rank?: true
-    spin_at?: true
-    battle_id?: true
-    closest_menu_id?: true
-  }
-
-  export type Spin_resultCountAggregateInputType = {
-    id?: true
-    nickname?: true
-    stopped_angle?: true
-    distance_to_boundary?: true
-    rank?: true
-    spin_at?: true
-    battle_id?: true
-    closest_menu_id?: true
-    _all?: true
-  }
-
-  export type Spin_resultAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which spin_result to aggregate.
-     */
-    where?: spin_resultWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of spin_results to fetch.
-     */
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: spin_resultWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` spin_results from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` spin_results.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned spin_results
-    **/
-    _count?: true | Spin_resultCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Spin_resultAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Spin_resultSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Spin_resultMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Spin_resultMaxAggregateInputType
-  }
-
-  export type GetSpin_resultAggregateType<T extends Spin_resultAggregateArgs> = {
-        [P in keyof T & keyof AggregateSpin_result]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSpin_result[P]>
-      : GetScalarType<T[P], AggregateSpin_result[P]>
-  }
-
-
-
-
-  export type spin_resultGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: spin_resultWhereInput
-    orderBy?: spin_resultOrderByWithAggregationInput | spin_resultOrderByWithAggregationInput[]
-    by: Spin_resultScalarFieldEnum[] | Spin_resultScalarFieldEnum
-    having?: spin_resultScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Spin_resultCountAggregateInputType | true
-    _avg?: Spin_resultAvgAggregateInputType
-    _sum?: Spin_resultSumAggregateInputType
-    _min?: Spin_resultMinAggregateInputType
-    _max?: Spin_resultMaxAggregateInputType
-  }
-
-  export type Spin_resultGroupByOutputType = {
-    id: bigint
-    nickname: string | null
-    stopped_angle: number | null
-    distance_to_boundary: number | null
-    rank: number | null
-    spin_at: Date | null
-    battle_id: string
-    closest_menu_id: bigint
-    _count: Spin_resultCountAggregateOutputType | null
-    _avg: Spin_resultAvgAggregateOutputType | null
-    _sum: Spin_resultSumAggregateOutputType | null
-    _min: Spin_resultMinAggregateOutputType | null
-    _max: Spin_resultMaxAggregateOutputType | null
-  }
-
-  type GetSpin_resultGroupByPayload<T extends spin_resultGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Spin_resultGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Spin_resultGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Spin_resultGroupByOutputType[P]>
-            : GetScalarType<T[P], Spin_resultGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type spin_resultSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nickname?: boolean
-    stopped_angle?: boolean
-    distance_to_boundary?: boolean
-    rank?: boolean
-    spin_at?: boolean
-    battle_id?: boolean
-    closest_menu_id?: boolean
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["spin_result"]>
-
-
-
-  export type spin_resultSelectScalar = {
-    id?: boolean
-    nickname?: boolean
-    stopped_angle?: boolean
-    distance_to_boundary?: boolean
-    rank?: boolean
-    spin_at?: boolean
-    battle_id?: boolean
-    closest_menu_id?: boolean
-  }
-
-  export type spin_resultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "stopped_angle" | "distance_to_boundary" | "rank" | "spin_at" | "battle_id" | "closest_menu_id", ExtArgs["result"]["spin_result"]>
-  export type spin_resultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle?: boolean | battleDefaultArgs<ExtArgs>
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }
-
-  export type $spin_resultPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "spin_result"
-    objects: {
-      battle: Prisma.$battlePayload<ExtArgs>
-      menu: Prisma.$menuPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      nickname: string | null
-      stopped_angle: number | null
-      distance_to_boundary: number | null
-      rank: number | null
-      spin_at: Date | null
-      battle_id: string
-      closest_menu_id: bigint
-    }, ExtArgs["result"]["spin_result"]>
-    composites: {}
-  }
-
-  type spin_resultGetPayload<S extends boolean | null | undefined | spin_resultDefaultArgs> = $Result.GetResult<Prisma.$spin_resultPayload, S>
-
-  type spin_resultCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<spin_resultFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Spin_resultCountAggregateInputType | true
-    }
-
-  export interface spin_resultDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['spin_result'], meta: { name: 'spin_result' } }
-    /**
-     * Find zero or one Spin_result that matches the filter.
-     * @param {spin_resultFindUniqueArgs} args - Arguments to find a Spin_result
-     * @example
-     * // Get one Spin_result
-     * const spin_result = await prisma.spin_result.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends spin_resultFindUniqueArgs>(args: SelectSubset<T, spin_resultFindUniqueArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Spin_result that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {spin_resultFindUniqueOrThrowArgs} args - Arguments to find a Spin_result
-     * @example
-     * // Get one Spin_result
-     * const spin_result = await prisma.spin_result.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends spin_resultFindUniqueOrThrowArgs>(args: SelectSubset<T, spin_resultFindUniqueOrThrowArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Spin_result that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultFindFirstArgs} args - Arguments to find a Spin_result
-     * @example
-     * // Get one Spin_result
-     * const spin_result = await prisma.spin_result.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends spin_resultFindFirstArgs>(args?: SelectSubset<T, spin_resultFindFirstArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Spin_result that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultFindFirstOrThrowArgs} args - Arguments to find a Spin_result
-     * @example
-     * // Get one Spin_result
-     * const spin_result = await prisma.spin_result.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends spin_resultFindFirstOrThrowArgs>(args?: SelectSubset<T, spin_resultFindFirstOrThrowArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Spin_results that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Spin_results
-     * const spin_results = await prisma.spin_result.findMany()
-     * 
-     * // Get first 10 Spin_results
-     * const spin_results = await prisma.spin_result.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const spin_resultWithIdOnly = await prisma.spin_result.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends spin_resultFindManyArgs>(args?: SelectSubset<T, spin_resultFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Spin_result.
-     * @param {spin_resultCreateArgs} args - Arguments to create a Spin_result.
-     * @example
-     * // Create one Spin_result
-     * const Spin_result = await prisma.spin_result.create({
-     *   data: {
-     *     // ... data to create a Spin_result
-     *   }
-     * })
-     * 
-     */
-    create<T extends spin_resultCreateArgs>(args: SelectSubset<T, spin_resultCreateArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Spin_results.
-     * @param {spin_resultCreateManyArgs} args - Arguments to create many Spin_results.
-     * @example
-     * // Create many Spin_results
-     * const spin_result = await prisma.spin_result.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends spin_resultCreateManyArgs>(args?: SelectSubset<T, spin_resultCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Spin_result.
-     * @param {spin_resultDeleteArgs} args - Arguments to delete one Spin_result.
-     * @example
-     * // Delete one Spin_result
-     * const Spin_result = await prisma.spin_result.delete({
-     *   where: {
-     *     // ... filter to delete one Spin_result
-     *   }
-     * })
-     * 
-     */
-    delete<T extends spin_resultDeleteArgs>(args: SelectSubset<T, spin_resultDeleteArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Spin_result.
-     * @param {spin_resultUpdateArgs} args - Arguments to update one Spin_result.
-     * @example
-     * // Update one Spin_result
-     * const spin_result = await prisma.spin_result.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends spin_resultUpdateArgs>(args: SelectSubset<T, spin_resultUpdateArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Spin_results.
-     * @param {spin_resultDeleteManyArgs} args - Arguments to filter Spin_results to delete.
-     * @example
-     * // Delete a few Spin_results
-     * const { count } = await prisma.spin_result.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends spin_resultDeleteManyArgs>(args?: SelectSubset<T, spin_resultDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Spin_results.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Spin_results
-     * const spin_result = await prisma.spin_result.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends spin_resultUpdateManyArgs>(args: SelectSubset<T, spin_resultUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Spin_result.
-     * @param {spin_resultUpsertArgs} args - Arguments to update or create a Spin_result.
-     * @example
-     * // Update or create a Spin_result
-     * const spin_result = await prisma.spin_result.upsert({
-     *   create: {
-     *     // ... data to create a Spin_result
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Spin_result we want to update
-     *   }
-     * })
-     */
-    upsert<T extends spin_resultUpsertArgs>(args: SelectSubset<T, spin_resultUpsertArgs<ExtArgs>>): Prisma__spin_resultClient<$Result.GetResult<Prisma.$spin_resultPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Spin_results.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultCountArgs} args - Arguments to filter Spin_results to count.
-     * @example
-     * // Count the number of Spin_results
-     * const count = await prisma.spin_result.count({
-     *   where: {
-     *     // ... the filter for the Spin_results we want to count
-     *   }
-     * })
-    **/
-    count<T extends spin_resultCountArgs>(
-      args?: Subset<T, spin_resultCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Spin_resultCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Spin_result.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Spin_resultAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Spin_resultAggregateArgs>(args: Subset<T, Spin_resultAggregateArgs>): Prisma.PrismaPromise<GetSpin_resultAggregateType<T>>
-
-    /**
-     * Group by Spin_result.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {spin_resultGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends spin_resultGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: spin_resultGroupByArgs['orderBy'] }
-        : { orderBy?: spin_resultGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, spin_resultGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpin_resultGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the spin_result model
-   */
-  readonly fields: spin_resultFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for spin_result.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__spin_resultClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle<T extends battleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battleDefaultArgs<ExtArgs>>): Prisma__battleClient<$Result.GetResult<Prisma.$battlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the spin_result model
-   */
-  interface spin_resultFieldRefs {
-    readonly id: FieldRef<"spin_result", 'BigInt'>
-    readonly nickname: FieldRef<"spin_result", 'String'>
-    readonly stopped_angle: FieldRef<"spin_result", 'Float'>
-    readonly distance_to_boundary: FieldRef<"spin_result", 'Float'>
-    readonly rank: FieldRef<"spin_result", 'Int'>
-    readonly spin_at: FieldRef<"spin_result", 'DateTime'>
-    readonly battle_id: FieldRef<"spin_result", 'String'>
-    readonly closest_menu_id: FieldRef<"spin_result", 'BigInt'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * spin_result findUnique
-   */
-  export type spin_resultFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter, which spin_result to fetch.
-     */
-    where: spin_resultWhereUniqueInput
-  }
-
-  /**
-   * spin_result findUniqueOrThrow
-   */
-  export type spin_resultFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter, which spin_result to fetch.
-     */
-    where: spin_resultWhereUniqueInput
-  }
-
-  /**
-   * spin_result findFirst
-   */
-  export type spin_resultFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter, which spin_result to fetch.
-     */
-    where?: spin_resultWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of spin_results to fetch.
-     */
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for spin_results.
-     */
-    cursor?: spin_resultWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` spin_results from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` spin_results.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of spin_results.
-     */
-    distinct?: Spin_resultScalarFieldEnum | Spin_resultScalarFieldEnum[]
-  }
-
-  /**
-   * spin_result findFirstOrThrow
-   */
-  export type spin_resultFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter, which spin_result to fetch.
-     */
-    where?: spin_resultWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of spin_results to fetch.
-     */
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for spin_results.
-     */
-    cursor?: spin_resultWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` spin_results from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` spin_results.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of spin_results.
-     */
-    distinct?: Spin_resultScalarFieldEnum | Spin_resultScalarFieldEnum[]
-  }
-
-  /**
-   * spin_result findMany
-   */
-  export type spin_resultFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter, which spin_results to fetch.
-     */
-    where?: spin_resultWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of spin_results to fetch.
-     */
-    orderBy?: spin_resultOrderByWithRelationInput | spin_resultOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing spin_results.
-     */
-    cursor?: spin_resultWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` spin_results from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` spin_results.
-     */
-    skip?: number
-    distinct?: Spin_resultScalarFieldEnum | Spin_resultScalarFieldEnum[]
-  }
-
-  /**
-   * spin_result create
-   */
-  export type spin_resultCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * The data needed to create a spin_result.
-     */
-    data: XOR<spin_resultCreateInput, spin_resultUncheckedCreateInput>
-  }
-
-  /**
-   * spin_result createMany
-   */
-  export type spin_resultCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many spin_results.
-     */
-    data: spin_resultCreateManyInput | spin_resultCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * spin_result update
-   */
-  export type spin_resultUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * The data needed to update a spin_result.
-     */
-    data: XOR<spin_resultUpdateInput, spin_resultUncheckedUpdateInput>
-    /**
-     * Choose, which spin_result to update.
-     */
-    where: spin_resultWhereUniqueInput
-  }
-
-  /**
-   * spin_result updateMany
-   */
-  export type spin_resultUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update spin_results.
-     */
-    data: XOR<spin_resultUpdateManyMutationInput, spin_resultUncheckedUpdateManyInput>
-    /**
-     * Filter which spin_results to update
-     */
-    where?: spin_resultWhereInput
-    /**
-     * Limit how many spin_results to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * spin_result upsert
-   */
-  export type spin_resultUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * The filter to search for the spin_result to update in case it exists.
-     */
-    where: spin_resultWhereUniqueInput
-    /**
-     * In case the spin_result found by the `where` argument doesn't exist, create a new spin_result with this data.
-     */
-    create: XOR<spin_resultCreateInput, spin_resultUncheckedCreateInput>
-    /**
-     * In case the spin_result was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<spin_resultUpdateInput, spin_resultUncheckedUpdateInput>
-  }
-
-  /**
-   * spin_result delete
-   */
-  export type spin_resultDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-    /**
-     * Filter which spin_result to delete.
-     */
-    where: spin_resultWhereUniqueInput
-  }
-
-  /**
-   * spin_result deleteMany
-   */
-  export type spin_resultDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which spin_results to delete
-     */
-    where?: spin_resultWhereInput
-    /**
-     * Limit how many spin_results to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * spin_result without action
-   */
-  export type spin_resultDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_result
-     */
-    select?: spin_resultSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_result
-     */
-    omit?: spin_resultOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model vitamin
    */
 
@@ -12804,6 +7901,5903 @@ export namespace Prisma {
 
 
   /**
+   * Model allergy
+   */
+
+  export type AggregateAllergy = {
+    _count: AllergyCountAggregateOutputType | null
+    _avg: AllergyAvgAggregateOutputType | null
+    _sum: AllergySumAggregateOutputType | null
+    _min: AllergyMinAggregateOutputType | null
+    _max: AllergyMaxAggregateOutputType | null
+  }
+
+  export type AllergyAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AllergySumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type AllergyMinAggregateOutputType = {
+    id: bigint | null
+    allergy: string | null
+  }
+
+  export type AllergyMaxAggregateOutputType = {
+    id: bigint | null
+    allergy: string | null
+  }
+
+  export type AllergyCountAggregateOutputType = {
+    id: number
+    allergy: number
+    _all: number
+  }
+
+
+  export type AllergyAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type AllergySumAggregateInputType = {
+    id?: true
+  }
+
+  export type AllergyMinAggregateInputType = {
+    id?: true
+    allergy?: true
+  }
+
+  export type AllergyMaxAggregateInputType = {
+    id?: true
+    allergy?: true
+  }
+
+  export type AllergyCountAggregateInputType = {
+    id?: true
+    allergy?: true
+    _all?: true
+  }
+
+  export type AllergyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which allergy to aggregate.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned allergies
+    **/
+    _count?: true | AllergyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AllergyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AllergySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AllergyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AllergyMaxAggregateInputType
+  }
+
+  export type GetAllergyAggregateType<T extends AllergyAggregateArgs> = {
+        [P in keyof T & keyof AggregateAllergy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAllergy[P]>
+      : GetScalarType<T[P], AggregateAllergy[P]>
+  }
+
+
+
+
+  export type allergyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: allergyWhereInput
+    orderBy?: allergyOrderByWithAggregationInput | allergyOrderByWithAggregationInput[]
+    by: AllergyScalarFieldEnum[] | AllergyScalarFieldEnum
+    having?: allergyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AllergyCountAggregateInputType | true
+    _avg?: AllergyAvgAggregateInputType
+    _sum?: AllergySumAggregateInputType
+    _min?: AllergyMinAggregateInputType
+    _max?: AllergyMaxAggregateInputType
+  }
+
+  export type AllergyGroupByOutputType = {
+    id: bigint
+    allergy: string | null
+    _count: AllergyCountAggregateOutputType | null
+    _avg: AllergyAvgAggregateOutputType | null
+    _sum: AllergySumAggregateOutputType | null
+    _min: AllergyMinAggregateOutputType | null
+    _max: AllergyMaxAggregateOutputType | null
+  }
+
+  type GetAllergyGroupByPayload<T extends allergyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AllergyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AllergyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AllergyGroupByOutputType[P]>
+            : GetScalarType<T[P], AllergyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type allergySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    allergy?: boolean
+    menu_allery?: boolean | allergy$menu_alleryArgs<ExtArgs>
+    _count?: boolean | AllergyCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["allergy"]>
+
+
+
+  export type allergySelectScalar = {
+    id?: boolean
+    allergy?: boolean
+  }
+
+  export type allergyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "allergy", ExtArgs["result"]["allergy"]>
+  export type allergyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_allery?: boolean | allergy$menu_alleryArgs<ExtArgs>
+    _count?: boolean | AllergyCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $allergyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "allergy"
+    objects: {
+      menu_allery: Prisma.$menu_alleryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      allergy: string | null
+    }, ExtArgs["result"]["allergy"]>
+    composites: {}
+  }
+
+  type allergyGetPayload<S extends boolean | null | undefined | allergyDefaultArgs> = $Result.GetResult<Prisma.$allergyPayload, S>
+
+  type allergyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<allergyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AllergyCountAggregateInputType | true
+    }
+
+  export interface allergyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['allergy'], meta: { name: 'allergy' } }
+    /**
+     * Find zero or one Allergy that matches the filter.
+     * @param {allergyFindUniqueArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends allergyFindUniqueArgs>(args: SelectSubset<T, allergyFindUniqueArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Allergy that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {allergyFindUniqueOrThrowArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends allergyFindUniqueOrThrowArgs>(args: SelectSubset<T, allergyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Allergy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindFirstArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends allergyFindFirstArgs>(args?: SelectSubset<T, allergyFindFirstArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Allergy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindFirstOrThrowArgs} args - Arguments to find a Allergy
+     * @example
+     * // Get one Allergy
+     * const allergy = await prisma.allergy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends allergyFindFirstOrThrowArgs>(args?: SelectSubset<T, allergyFindFirstOrThrowArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Allergies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Allergies
+     * const allergies = await prisma.allergy.findMany()
+     * 
+     * // Get first 10 Allergies
+     * const allergies = await prisma.allergy.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const allergyWithIdOnly = await prisma.allergy.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends allergyFindManyArgs>(args?: SelectSubset<T, allergyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Allergy.
+     * @param {allergyCreateArgs} args - Arguments to create a Allergy.
+     * @example
+     * // Create one Allergy
+     * const Allergy = await prisma.allergy.create({
+     *   data: {
+     *     // ... data to create a Allergy
+     *   }
+     * })
+     * 
+     */
+    create<T extends allergyCreateArgs>(args: SelectSubset<T, allergyCreateArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Allergies.
+     * @param {allergyCreateManyArgs} args - Arguments to create many Allergies.
+     * @example
+     * // Create many Allergies
+     * const allergy = await prisma.allergy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends allergyCreateManyArgs>(args?: SelectSubset<T, allergyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Allergy.
+     * @param {allergyDeleteArgs} args - Arguments to delete one Allergy.
+     * @example
+     * // Delete one Allergy
+     * const Allergy = await prisma.allergy.delete({
+     *   where: {
+     *     // ... filter to delete one Allergy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends allergyDeleteArgs>(args: SelectSubset<T, allergyDeleteArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Allergy.
+     * @param {allergyUpdateArgs} args - Arguments to update one Allergy.
+     * @example
+     * // Update one Allergy
+     * const allergy = await prisma.allergy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends allergyUpdateArgs>(args: SelectSubset<T, allergyUpdateArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Allergies.
+     * @param {allergyDeleteManyArgs} args - Arguments to filter Allergies to delete.
+     * @example
+     * // Delete a few Allergies
+     * const { count } = await prisma.allergy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends allergyDeleteManyArgs>(args?: SelectSubset<T, allergyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Allergies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Allergies
+     * const allergy = await prisma.allergy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends allergyUpdateManyArgs>(args: SelectSubset<T, allergyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Allergy.
+     * @param {allergyUpsertArgs} args - Arguments to update or create a Allergy.
+     * @example
+     * // Update or create a Allergy
+     * const allergy = await prisma.allergy.upsert({
+     *   create: {
+     *     // ... data to create a Allergy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Allergy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends allergyUpsertArgs>(args: SelectSubset<T, allergyUpsertArgs<ExtArgs>>): Prisma__allergyClient<$Result.GetResult<Prisma.$allergyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Allergies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyCountArgs} args - Arguments to filter Allergies to count.
+     * @example
+     * // Count the number of Allergies
+     * const count = await prisma.allergy.count({
+     *   where: {
+     *     // ... the filter for the Allergies we want to count
+     *   }
+     * })
+    **/
+    count<T extends allergyCountArgs>(
+      args?: Subset<T, allergyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AllergyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Allergy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AllergyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AllergyAggregateArgs>(args: Subset<T, AllergyAggregateArgs>): Prisma.PrismaPromise<GetAllergyAggregateType<T>>
+
+    /**
+     * Group by Allergy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {allergyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends allergyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: allergyGroupByArgs['orderBy'] }
+        : { orderBy?: allergyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, allergyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAllergyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the allergy model
+   */
+  readonly fields: allergyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for allergy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__allergyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu_allery<T extends allergy$menu_alleryArgs<ExtArgs> = {}>(args?: Subset<T, allergy$menu_alleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_alleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the allergy model
+   */
+  interface allergyFieldRefs {
+    readonly id: FieldRef<"allergy", 'BigInt'>
+    readonly allergy: FieldRef<"allergy", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * allergy findUnique
+   */
+  export type allergyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy findUniqueOrThrow
+   */
+  export type allergyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy findFirst
+   */
+  export type allergyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of allergies.
+     */
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy findFirstOrThrow
+   */
+  export type allergyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergy to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of allergies.
+     */
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy findMany
+   */
+  export type allergyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter, which allergies to fetch.
+     */
+    where?: allergyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of allergies to fetch.
+     */
+    orderBy?: allergyOrderByWithRelationInput | allergyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing allergies.
+     */
+    cursor?: allergyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` allergies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` allergies.
+     */
+    skip?: number
+    distinct?: AllergyScalarFieldEnum | AllergyScalarFieldEnum[]
+  }
+
+  /**
+   * allergy create
+   */
+  export type allergyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a allergy.
+     */
+    data?: XOR<allergyCreateInput, allergyUncheckedCreateInput>
+  }
+
+  /**
+   * allergy createMany
+   */
+  export type allergyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many allergies.
+     */
+    data: allergyCreateManyInput | allergyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * allergy update
+   */
+  export type allergyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a allergy.
+     */
+    data: XOR<allergyUpdateInput, allergyUncheckedUpdateInput>
+    /**
+     * Choose, which allergy to update.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy updateMany
+   */
+  export type allergyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update allergies.
+     */
+    data: XOR<allergyUpdateManyMutationInput, allergyUncheckedUpdateManyInput>
+    /**
+     * Filter which allergies to update
+     */
+    where?: allergyWhereInput
+    /**
+     * Limit how many allergies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * allergy upsert
+   */
+  export type allergyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the allergy to update in case it exists.
+     */
+    where: allergyWhereUniqueInput
+    /**
+     * In case the allergy found by the `where` argument doesn't exist, create a new allergy with this data.
+     */
+    create: XOR<allergyCreateInput, allergyUncheckedCreateInput>
+    /**
+     * In case the allergy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<allergyUpdateInput, allergyUncheckedUpdateInput>
+  }
+
+  /**
+   * allergy delete
+   */
+  export type allergyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+    /**
+     * Filter which allergy to delete.
+     */
+    where: allergyWhereUniqueInput
+  }
+
+  /**
+   * allergy deleteMany
+   */
+  export type allergyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which allergies to delete
+     */
+    where?: allergyWhereInput
+    /**
+     * Limit how many allergies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * allergy.menu_allery
+   */
+  export type allergy$menu_alleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_allery
+     */
+    select?: menu_allerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_allery
+     */
+    omit?: menu_alleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_alleryInclude<ExtArgs> | null
+    where?: menu_alleryWhereInput
+    orderBy?: menu_alleryOrderByWithRelationInput | menu_alleryOrderByWithRelationInput[]
+    cursor?: menu_alleryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_alleryScalarFieldEnum | Menu_alleryScalarFieldEnum[]
+  }
+
+  /**
+   * allergy without action
+   */
+  export type allergyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the allergy
+     */
+    select?: allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the allergy
+     */
+    omit?: allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: allergyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model battles
+   */
+
+  export type AggregateBattles = {
+    _count: BattlesCountAggregateOutputType | null
+    _avg: BattlesAvgAggregateOutputType | null
+    _sum: BattlesSumAggregateOutputType | null
+    _min: BattlesMinAggregateOutputType | null
+    _max: BattlesMaxAggregateOutputType | null
+  }
+
+  export type BattlesAvgAggregateOutputType = {
+    participant_count: number | null
+  }
+
+  export type BattlesSumAggregateOutputType = {
+    participant_count: number | null
+  }
+
+  export type BattlesMinAggregateOutputType = {
+    battle_id: string | null
+    creator_nickname: string | null
+    status: $Enums.battles_status | null
+    participant_count: number | null
+    created_at: Date | null
+    finished_at: Date | null
+    expires_at: Date | null
+  }
+
+  export type BattlesMaxAggregateOutputType = {
+    battle_id: string | null
+    creator_nickname: string | null
+    status: $Enums.battles_status | null
+    participant_count: number | null
+    created_at: Date | null
+    finished_at: Date | null
+    expires_at: Date | null
+  }
+
+  export type BattlesCountAggregateOutputType = {
+    battle_id: number
+    creator_nickname: number
+    status: number
+    participant_count: number
+    created_at: number
+    finished_at: number
+    expires_at: number
+    _all: number
+  }
+
+
+  export type BattlesAvgAggregateInputType = {
+    participant_count?: true
+  }
+
+  export type BattlesSumAggregateInputType = {
+    participant_count?: true
+  }
+
+  export type BattlesMinAggregateInputType = {
+    battle_id?: true
+    creator_nickname?: true
+    status?: true
+    participant_count?: true
+    created_at?: true
+    finished_at?: true
+    expires_at?: true
+  }
+
+  export type BattlesMaxAggregateInputType = {
+    battle_id?: true
+    creator_nickname?: true
+    status?: true
+    participant_count?: true
+    created_at?: true
+    finished_at?: true
+    expires_at?: true
+  }
+
+  export type BattlesCountAggregateInputType = {
+    battle_id?: true
+    creator_nickname?: true
+    status?: true
+    participant_count?: true
+    created_at?: true
+    finished_at?: true
+    expires_at?: true
+    _all?: true
+  }
+
+  export type BattlesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battles to aggregate.
+     */
+    where?: battlesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battles to fetch.
+     */
+    orderBy?: battlesOrderByWithRelationInput | battlesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: battlesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned battles
+    **/
+    _count?: true | BattlesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BattlesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BattlesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BattlesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BattlesMaxAggregateInputType
+  }
+
+  export type GetBattlesAggregateType<T extends BattlesAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattles[P]>
+      : GetScalarType<T[P], AggregateBattles[P]>
+  }
+
+
+
+
+  export type battlesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battlesWhereInput
+    orderBy?: battlesOrderByWithAggregationInput | battlesOrderByWithAggregationInput[]
+    by: BattlesScalarFieldEnum[] | BattlesScalarFieldEnum
+    having?: battlesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BattlesCountAggregateInputType | true
+    _avg?: BattlesAvgAggregateInputType
+    _sum?: BattlesSumAggregateInputType
+    _min?: BattlesMinAggregateInputType
+    _max?: BattlesMaxAggregateInputType
+  }
+
+  export type BattlesGroupByOutputType = {
+    battle_id: string
+    creator_nickname: string
+    status: $Enums.battles_status
+    participant_count: number
+    created_at: Date
+    finished_at: Date | null
+    expires_at: Date
+    _count: BattlesCountAggregateOutputType | null
+    _avg: BattlesAvgAggregateOutputType | null
+    _sum: BattlesSumAggregateOutputType | null
+    _min: BattlesMinAggregateOutputType | null
+    _max: BattlesMaxAggregateOutputType | null
+  }
+
+  type GetBattlesGroupByPayload<T extends battlesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BattlesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BattlesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BattlesGroupByOutputType[P]>
+            : GetScalarType<T[P], BattlesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type battlesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    battle_id?: boolean
+    creator_nickname?: boolean
+    status?: boolean
+    participant_count?: boolean
+    created_at?: boolean
+    finished_at?: boolean
+    expires_at?: boolean
+    battle_participants?: boolean | battles$battle_participantsArgs<ExtArgs>
+    battle_menus?: boolean | battles$battle_menusArgs<ExtArgs>
+    spin_results?: boolean | battles$spin_resultsArgs<ExtArgs>
+    _count?: boolean | BattlesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battles"]>
+
+
+
+  export type battlesSelectScalar = {
+    battle_id?: boolean
+    creator_nickname?: boolean
+    status?: boolean
+    participant_count?: boolean
+    created_at?: boolean
+    finished_at?: boolean
+    expires_at?: boolean
+  }
+
+  export type battlesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"battle_id" | "creator_nickname" | "status" | "participant_count" | "created_at" | "finished_at" | "expires_at", ExtArgs["result"]["battles"]>
+  export type battlesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battle_participants?: boolean | battles$battle_participantsArgs<ExtArgs>
+    battle_menus?: boolean | battles$battle_menusArgs<ExtArgs>
+    spin_results?: boolean | battles$spin_resultsArgs<ExtArgs>
+    _count?: boolean | BattlesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $battlesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "battles"
+    objects: {
+      battle_participants: Prisma.$battle_participantsPayload<ExtArgs>[]
+      battle_menus: Prisma.$battle_menusPayload<ExtArgs>[]
+      spin_results: Prisma.$spin_resultsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      battle_id: string
+      creator_nickname: string
+      status: $Enums.battles_status
+      participant_count: number
+      created_at: Date
+      finished_at: Date | null
+      expires_at: Date
+    }, ExtArgs["result"]["battles"]>
+    composites: {}
+  }
+
+  type battlesGetPayload<S extends boolean | null | undefined | battlesDefaultArgs> = $Result.GetResult<Prisma.$battlesPayload, S>
+
+  type battlesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<battlesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BattlesCountAggregateInputType | true
+    }
+
+  export interface battlesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battles'], meta: { name: 'battles' } }
+    /**
+     * Find zero or one Battles that matches the filter.
+     * @param {battlesFindUniqueArgs} args - Arguments to find a Battles
+     * @example
+     * // Get one Battles
+     * const battles = await prisma.battles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends battlesFindUniqueArgs>(args: SelectSubset<T, battlesFindUniqueArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Battles that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {battlesFindUniqueOrThrowArgs} args - Arguments to find a Battles
+     * @example
+     * // Get one Battles
+     * const battles = await prisma.battles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends battlesFindUniqueOrThrowArgs>(args: SelectSubset<T, battlesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesFindFirstArgs} args - Arguments to find a Battles
+     * @example
+     * // Get one Battles
+     * const battles = await prisma.battles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends battlesFindFirstArgs>(args?: SelectSubset<T, battlesFindFirstArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesFindFirstOrThrowArgs} args - Arguments to find a Battles
+     * @example
+     * // Get one Battles
+     * const battles = await prisma.battles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends battlesFindFirstOrThrowArgs>(args?: SelectSubset<T, battlesFindFirstOrThrowArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Battles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Battles
+     * const battles = await prisma.battles.findMany()
+     * 
+     * // Get first 10 Battles
+     * const battles = await prisma.battles.findMany({ take: 10 })
+     * 
+     * // Only select the `battle_id`
+     * const battlesWithBattle_idOnly = await prisma.battles.findMany({ select: { battle_id: true } })
+     * 
+     */
+    findMany<T extends battlesFindManyArgs>(args?: SelectSubset<T, battlesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Battles.
+     * @param {battlesCreateArgs} args - Arguments to create a Battles.
+     * @example
+     * // Create one Battles
+     * const Battles = await prisma.battles.create({
+     *   data: {
+     *     // ... data to create a Battles
+     *   }
+     * })
+     * 
+     */
+    create<T extends battlesCreateArgs>(args: SelectSubset<T, battlesCreateArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Battles.
+     * @param {battlesCreateManyArgs} args - Arguments to create many Battles.
+     * @example
+     * // Create many Battles
+     * const battles = await prisma.battles.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends battlesCreateManyArgs>(args?: SelectSubset<T, battlesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Battles.
+     * @param {battlesDeleteArgs} args - Arguments to delete one Battles.
+     * @example
+     * // Delete one Battles
+     * const Battles = await prisma.battles.delete({
+     *   where: {
+     *     // ... filter to delete one Battles
+     *   }
+     * })
+     * 
+     */
+    delete<T extends battlesDeleteArgs>(args: SelectSubset<T, battlesDeleteArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Battles.
+     * @param {battlesUpdateArgs} args - Arguments to update one Battles.
+     * @example
+     * // Update one Battles
+     * const battles = await prisma.battles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends battlesUpdateArgs>(args: SelectSubset<T, battlesUpdateArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Battles.
+     * @param {battlesDeleteManyArgs} args - Arguments to filter Battles to delete.
+     * @example
+     * // Delete a few Battles
+     * const { count } = await prisma.battles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends battlesDeleteManyArgs>(args?: SelectSubset<T, battlesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Battles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Battles
+     * const battles = await prisma.battles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends battlesUpdateManyArgs>(args: SelectSubset<T, battlesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Battles.
+     * @param {battlesUpsertArgs} args - Arguments to update or create a Battles.
+     * @example
+     * // Update or create a Battles
+     * const battles = await prisma.battles.upsert({
+     *   create: {
+     *     // ... data to create a Battles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Battles we want to update
+     *   }
+     * })
+     */
+    upsert<T extends battlesUpsertArgs>(args: SelectSubset<T, battlesUpsertArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Battles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesCountArgs} args - Arguments to filter Battles to count.
+     * @example
+     * // Count the number of Battles
+     * const count = await prisma.battles.count({
+     *   where: {
+     *     // ... the filter for the Battles we want to count
+     *   }
+     * })
+    **/
+    count<T extends battlesCountArgs>(
+      args?: Subset<T, battlesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BattlesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Battles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BattlesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BattlesAggregateArgs>(args: Subset<T, BattlesAggregateArgs>): Prisma.PrismaPromise<GetBattlesAggregateType<T>>
+
+    /**
+     * Group by Battles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battlesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends battlesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: battlesGroupByArgs['orderBy'] }
+        : { orderBy?: battlesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, battlesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattlesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the battles model
+   */
+  readonly fields: battlesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for battles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__battlesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    battle_participants<T extends battles$battle_participantsArgs<ExtArgs> = {}>(args?: Subset<T, battles$battle_participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    battle_menus<T extends battles$battle_menusArgs<ExtArgs> = {}>(args?: Subset<T, battles$battle_menusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spin_results<T extends battles$spin_resultsArgs<ExtArgs> = {}>(args?: Subset<T, battles$spin_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the battles model
+   */
+  interface battlesFieldRefs {
+    readonly battle_id: FieldRef<"battles", 'String'>
+    readonly creator_nickname: FieldRef<"battles", 'String'>
+    readonly status: FieldRef<"battles", 'battles_status'>
+    readonly participant_count: FieldRef<"battles", 'Int'>
+    readonly created_at: FieldRef<"battles", 'DateTime'>
+    readonly finished_at: FieldRef<"battles", 'DateTime'>
+    readonly expires_at: FieldRef<"battles", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * battles findUnique
+   */
+  export type battlesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter, which battles to fetch.
+     */
+    where: battlesWhereUniqueInput
+  }
+
+  /**
+   * battles findUniqueOrThrow
+   */
+  export type battlesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter, which battles to fetch.
+     */
+    where: battlesWhereUniqueInput
+  }
+
+  /**
+   * battles findFirst
+   */
+  export type battlesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter, which battles to fetch.
+     */
+    where?: battlesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battles to fetch.
+     */
+    orderBy?: battlesOrderByWithRelationInput | battlesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battles.
+     */
+    cursor?: battlesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battles.
+     */
+    distinct?: BattlesScalarFieldEnum | BattlesScalarFieldEnum[]
+  }
+
+  /**
+   * battles findFirstOrThrow
+   */
+  export type battlesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter, which battles to fetch.
+     */
+    where?: battlesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battles to fetch.
+     */
+    orderBy?: battlesOrderByWithRelationInput | battlesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battles.
+     */
+    cursor?: battlesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battles.
+     */
+    distinct?: BattlesScalarFieldEnum | BattlesScalarFieldEnum[]
+  }
+
+  /**
+   * battles findMany
+   */
+  export type battlesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter, which battles to fetch.
+     */
+    where?: battlesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battles to fetch.
+     */
+    orderBy?: battlesOrderByWithRelationInput | battlesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing battles.
+     */
+    cursor?: battlesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battles.
+     */
+    skip?: number
+    distinct?: BattlesScalarFieldEnum | BattlesScalarFieldEnum[]
+  }
+
+  /**
+   * battles create
+   */
+  export type battlesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a battles.
+     */
+    data: XOR<battlesCreateInput, battlesUncheckedCreateInput>
+  }
+
+  /**
+   * battles createMany
+   */
+  export type battlesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many battles.
+     */
+    data: battlesCreateManyInput | battlesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * battles update
+   */
+  export type battlesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a battles.
+     */
+    data: XOR<battlesUpdateInput, battlesUncheckedUpdateInput>
+    /**
+     * Choose, which battles to update.
+     */
+    where: battlesWhereUniqueInput
+  }
+
+  /**
+   * battles updateMany
+   */
+  export type battlesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update battles.
+     */
+    data: XOR<battlesUpdateManyMutationInput, battlesUncheckedUpdateManyInput>
+    /**
+     * Filter which battles to update
+     */
+    where?: battlesWhereInput
+    /**
+     * Limit how many battles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * battles upsert
+   */
+  export type battlesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the battles to update in case it exists.
+     */
+    where: battlesWhereUniqueInput
+    /**
+     * In case the battles found by the `where` argument doesn't exist, create a new battles with this data.
+     */
+    create: XOR<battlesCreateInput, battlesUncheckedCreateInput>
+    /**
+     * In case the battles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<battlesUpdateInput, battlesUncheckedUpdateInput>
+  }
+
+  /**
+   * battles delete
+   */
+  export type battlesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+    /**
+     * Filter which battles to delete.
+     */
+    where: battlesWhereUniqueInput
+  }
+
+  /**
+   * battles deleteMany
+   */
+  export type battlesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battles to delete
+     */
+    where?: battlesWhereInput
+    /**
+     * Limit how many battles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * battles.battle_participants
+   */
+  export type battles$battle_participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    where?: battle_participantsWhereInput
+    orderBy?: battle_participantsOrderByWithRelationInput | battle_participantsOrderByWithRelationInput[]
+    cursor?: battle_participantsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Battle_participantsScalarFieldEnum | Battle_participantsScalarFieldEnum[]
+  }
+
+  /**
+   * battles.battle_menus
+   */
+  export type battles$battle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    where?: battle_menusWhereInput
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    cursor?: battle_menusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
+  }
+
+  /**
+   * battles.spin_results
+   */
+  export type battles$spin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    where?: spin_resultsWhereInput
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    cursor?: spin_resultsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * battles without action
+   */
+  export type battlesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battles
+     */
+    select?: battlesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battles
+     */
+    omit?: battlesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battlesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model battle_participants
+   */
+
+  export type AggregateBattle_participants = {
+    _count: Battle_participantsCountAggregateOutputType | null
+    _avg: Battle_participantsAvgAggregateOutputType | null
+    _sum: Battle_participantsSumAggregateOutputType | null
+    _min: Battle_participantsMinAggregateOutputType | null
+    _max: Battle_participantsMaxAggregateOutputType | null
+  }
+
+  export type Battle_participantsAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type Battle_participantsSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type Battle_participantsMinAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    nickname: string | null
+    is_creator: boolean | null
+    joined_at: Date | null
+  }
+
+  export type Battle_participantsMaxAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    nickname: string | null
+    is_creator: boolean | null
+    joined_at: Date | null
+  }
+
+  export type Battle_participantsCountAggregateOutputType = {
+    id: number
+    battle_id: number
+    nickname: number
+    is_creator: number
+    joined_at: number
+    _all: number
+  }
+
+
+  export type Battle_participantsAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type Battle_participantsSumAggregateInputType = {
+    id?: true
+  }
+
+  export type Battle_participantsMinAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    is_creator?: true
+    joined_at?: true
+  }
+
+  export type Battle_participantsMaxAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    is_creator?: true
+    joined_at?: true
+  }
+
+  export type Battle_participantsCountAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    is_creator?: true
+    joined_at?: true
+    _all?: true
+  }
+
+  export type Battle_participantsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battle_participants to aggregate.
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_participants to fetch.
+     */
+    orderBy?: battle_participantsOrderByWithRelationInput | battle_participantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: battle_participantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_participants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_participants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned battle_participants
+    **/
+    _count?: true | Battle_participantsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Battle_participantsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Battle_participantsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Battle_participantsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Battle_participantsMaxAggregateInputType
+  }
+
+  export type GetBattle_participantsAggregateType<T extends Battle_participantsAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattle_participants]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattle_participants[P]>
+      : GetScalarType<T[P], AggregateBattle_participants[P]>
+  }
+
+
+
+
+  export type battle_participantsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_participantsWhereInput
+    orderBy?: battle_participantsOrderByWithAggregationInput | battle_participantsOrderByWithAggregationInput[]
+    by: Battle_participantsScalarFieldEnum[] | Battle_participantsScalarFieldEnum
+    having?: battle_participantsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Battle_participantsCountAggregateInputType | true
+    _avg?: Battle_participantsAvgAggregateInputType
+    _sum?: Battle_participantsSumAggregateInputType
+    _min?: Battle_participantsMinAggregateInputType
+    _max?: Battle_participantsMaxAggregateInputType
+  }
+
+  export type Battle_participantsGroupByOutputType = {
+    id: bigint
+    battle_id: string
+    nickname: string
+    is_creator: boolean
+    joined_at: Date
+    _count: Battle_participantsCountAggregateOutputType | null
+    _avg: Battle_participantsAvgAggregateOutputType | null
+    _sum: Battle_participantsSumAggregateOutputType | null
+    _min: Battle_participantsMinAggregateOutputType | null
+    _max: Battle_participantsMaxAggregateOutputType | null
+  }
+
+  type GetBattle_participantsGroupByPayload<T extends battle_participantsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Battle_participantsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Battle_participantsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Battle_participantsGroupByOutputType[P]>
+            : GetScalarType<T[P], Battle_participantsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type battle_participantsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    battle_id?: boolean
+    nickname?: boolean
+    is_creator?: boolean
+    joined_at?: boolean
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battle_participants"]>
+
+
+
+  export type battle_participantsSelectScalar = {
+    id?: boolean
+    battle_id?: boolean
+    nickname?: boolean
+    is_creator?: boolean
+    joined_at?: boolean
+  }
+
+  export type battle_participantsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "battle_id" | "nickname" | "is_creator" | "joined_at", ExtArgs["result"]["battle_participants"]>
+  export type battle_participantsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+  }
+
+  export type $battle_participantsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "battle_participants"
+    objects: {
+      battles: Prisma.$battlesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      battle_id: string
+      nickname: string
+      is_creator: boolean
+      joined_at: Date
+    }, ExtArgs["result"]["battle_participants"]>
+    composites: {}
+  }
+
+  type battle_participantsGetPayload<S extends boolean | null | undefined | battle_participantsDefaultArgs> = $Result.GetResult<Prisma.$battle_participantsPayload, S>
+
+  type battle_participantsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<battle_participantsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Battle_participantsCountAggregateInputType | true
+    }
+
+  export interface battle_participantsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battle_participants'], meta: { name: 'battle_participants' } }
+    /**
+     * Find zero or one Battle_participants that matches the filter.
+     * @param {battle_participantsFindUniqueArgs} args - Arguments to find a Battle_participants
+     * @example
+     * // Get one Battle_participants
+     * const battle_participants = await prisma.battle_participants.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends battle_participantsFindUniqueArgs>(args: SelectSubset<T, battle_participantsFindUniqueArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Battle_participants that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {battle_participantsFindUniqueOrThrowArgs} args - Arguments to find a Battle_participants
+     * @example
+     * // Get one Battle_participants
+     * const battle_participants = await prisma.battle_participants.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends battle_participantsFindUniqueOrThrowArgs>(args: SelectSubset<T, battle_participantsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battle_participants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsFindFirstArgs} args - Arguments to find a Battle_participants
+     * @example
+     * // Get one Battle_participants
+     * const battle_participants = await prisma.battle_participants.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends battle_participantsFindFirstArgs>(args?: SelectSubset<T, battle_participantsFindFirstArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battle_participants that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsFindFirstOrThrowArgs} args - Arguments to find a Battle_participants
+     * @example
+     * // Get one Battle_participants
+     * const battle_participants = await prisma.battle_participants.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends battle_participantsFindFirstOrThrowArgs>(args?: SelectSubset<T, battle_participantsFindFirstOrThrowArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Battle_participants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Battle_participants
+     * const battle_participants = await prisma.battle_participants.findMany()
+     * 
+     * // Get first 10 Battle_participants
+     * const battle_participants = await prisma.battle_participants.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const battle_participantsWithIdOnly = await prisma.battle_participants.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends battle_participantsFindManyArgs>(args?: SelectSubset<T, battle_participantsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Battle_participants.
+     * @param {battle_participantsCreateArgs} args - Arguments to create a Battle_participants.
+     * @example
+     * // Create one Battle_participants
+     * const Battle_participants = await prisma.battle_participants.create({
+     *   data: {
+     *     // ... data to create a Battle_participants
+     *   }
+     * })
+     * 
+     */
+    create<T extends battle_participantsCreateArgs>(args: SelectSubset<T, battle_participantsCreateArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Battle_participants.
+     * @param {battle_participantsCreateManyArgs} args - Arguments to create many Battle_participants.
+     * @example
+     * // Create many Battle_participants
+     * const battle_participants = await prisma.battle_participants.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends battle_participantsCreateManyArgs>(args?: SelectSubset<T, battle_participantsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Battle_participants.
+     * @param {battle_participantsDeleteArgs} args - Arguments to delete one Battle_participants.
+     * @example
+     * // Delete one Battle_participants
+     * const Battle_participants = await prisma.battle_participants.delete({
+     *   where: {
+     *     // ... filter to delete one Battle_participants
+     *   }
+     * })
+     * 
+     */
+    delete<T extends battle_participantsDeleteArgs>(args: SelectSubset<T, battle_participantsDeleteArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Battle_participants.
+     * @param {battle_participantsUpdateArgs} args - Arguments to update one Battle_participants.
+     * @example
+     * // Update one Battle_participants
+     * const battle_participants = await prisma.battle_participants.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends battle_participantsUpdateArgs>(args: SelectSubset<T, battle_participantsUpdateArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Battle_participants.
+     * @param {battle_participantsDeleteManyArgs} args - Arguments to filter Battle_participants to delete.
+     * @example
+     * // Delete a few Battle_participants
+     * const { count } = await prisma.battle_participants.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends battle_participantsDeleteManyArgs>(args?: SelectSubset<T, battle_participantsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Battle_participants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Battle_participants
+     * const battle_participants = await prisma.battle_participants.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends battle_participantsUpdateManyArgs>(args: SelectSubset<T, battle_participantsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Battle_participants.
+     * @param {battle_participantsUpsertArgs} args - Arguments to update or create a Battle_participants.
+     * @example
+     * // Update or create a Battle_participants
+     * const battle_participants = await prisma.battle_participants.upsert({
+     *   create: {
+     *     // ... data to create a Battle_participants
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Battle_participants we want to update
+     *   }
+     * })
+     */
+    upsert<T extends battle_participantsUpsertArgs>(args: SelectSubset<T, battle_participantsUpsertArgs<ExtArgs>>): Prisma__battle_participantsClient<$Result.GetResult<Prisma.$battle_participantsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Battle_participants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsCountArgs} args - Arguments to filter Battle_participants to count.
+     * @example
+     * // Count the number of Battle_participants
+     * const count = await prisma.battle_participants.count({
+     *   where: {
+     *     // ... the filter for the Battle_participants we want to count
+     *   }
+     * })
+    **/
+    count<T extends battle_participantsCountArgs>(
+      args?: Subset<T, battle_participantsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Battle_participantsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Battle_participants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Battle_participantsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Battle_participantsAggregateArgs>(args: Subset<T, Battle_participantsAggregateArgs>): Prisma.PrismaPromise<GetBattle_participantsAggregateType<T>>
+
+    /**
+     * Group by Battle_participants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_participantsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends battle_participantsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: battle_participantsGroupByArgs['orderBy'] }
+        : { orderBy?: battle_participantsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, battle_participantsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattle_participantsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the battle_participants model
+   */
+  readonly fields: battle_participantsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for battle_participants.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__battle_participantsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    battles<T extends battlesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battlesDefaultArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the battle_participants model
+   */
+  interface battle_participantsFieldRefs {
+    readonly id: FieldRef<"battle_participants", 'BigInt'>
+    readonly battle_id: FieldRef<"battle_participants", 'String'>
+    readonly nickname: FieldRef<"battle_participants", 'String'>
+    readonly is_creator: FieldRef<"battle_participants", 'Boolean'>
+    readonly joined_at: FieldRef<"battle_participants", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * battle_participants findUnique
+   */
+  export type battle_participantsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_participants to fetch.
+     */
+    where: battle_participantsWhereUniqueInput
+  }
+
+  /**
+   * battle_participants findUniqueOrThrow
+   */
+  export type battle_participantsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_participants to fetch.
+     */
+    where: battle_participantsWhereUniqueInput
+  }
+
+  /**
+   * battle_participants findFirst
+   */
+  export type battle_participantsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_participants to fetch.
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_participants to fetch.
+     */
+    orderBy?: battle_participantsOrderByWithRelationInput | battle_participantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battle_participants.
+     */
+    cursor?: battle_participantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_participants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_participants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battle_participants.
+     */
+    distinct?: Battle_participantsScalarFieldEnum | Battle_participantsScalarFieldEnum[]
+  }
+
+  /**
+   * battle_participants findFirstOrThrow
+   */
+  export type battle_participantsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_participants to fetch.
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_participants to fetch.
+     */
+    orderBy?: battle_participantsOrderByWithRelationInput | battle_participantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battle_participants.
+     */
+    cursor?: battle_participantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_participants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_participants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battle_participants.
+     */
+    distinct?: Battle_participantsScalarFieldEnum | Battle_participantsScalarFieldEnum[]
+  }
+
+  /**
+   * battle_participants findMany
+   */
+  export type battle_participantsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_participants to fetch.
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_participants to fetch.
+     */
+    orderBy?: battle_participantsOrderByWithRelationInput | battle_participantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing battle_participants.
+     */
+    cursor?: battle_participantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_participants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_participants.
+     */
+    skip?: number
+    distinct?: Battle_participantsScalarFieldEnum | Battle_participantsScalarFieldEnum[]
+  }
+
+  /**
+   * battle_participants create
+   */
+  export type battle_participantsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a battle_participants.
+     */
+    data: XOR<battle_participantsCreateInput, battle_participantsUncheckedCreateInput>
+  }
+
+  /**
+   * battle_participants createMany
+   */
+  export type battle_participantsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many battle_participants.
+     */
+    data: battle_participantsCreateManyInput | battle_participantsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * battle_participants update
+   */
+  export type battle_participantsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a battle_participants.
+     */
+    data: XOR<battle_participantsUpdateInput, battle_participantsUncheckedUpdateInput>
+    /**
+     * Choose, which battle_participants to update.
+     */
+    where: battle_participantsWhereUniqueInput
+  }
+
+  /**
+   * battle_participants updateMany
+   */
+  export type battle_participantsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update battle_participants.
+     */
+    data: XOR<battle_participantsUpdateManyMutationInput, battle_participantsUncheckedUpdateManyInput>
+    /**
+     * Filter which battle_participants to update
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * Limit how many battle_participants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * battle_participants upsert
+   */
+  export type battle_participantsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the battle_participants to update in case it exists.
+     */
+    where: battle_participantsWhereUniqueInput
+    /**
+     * In case the battle_participants found by the `where` argument doesn't exist, create a new battle_participants with this data.
+     */
+    create: XOR<battle_participantsCreateInput, battle_participantsUncheckedCreateInput>
+    /**
+     * In case the battle_participants was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<battle_participantsUpdateInput, battle_participantsUncheckedUpdateInput>
+  }
+
+  /**
+   * battle_participants delete
+   */
+  export type battle_participantsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+    /**
+     * Filter which battle_participants to delete.
+     */
+    where: battle_participantsWhereUniqueInput
+  }
+
+  /**
+   * battle_participants deleteMany
+   */
+  export type battle_participantsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battle_participants to delete
+     */
+    where?: battle_participantsWhereInput
+    /**
+     * Limit how many battle_participants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * battle_participants without action
+   */
+  export type battle_participantsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_participants
+     */
+    select?: battle_participantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_participants
+     */
+    omit?: battle_participantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_participantsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model battle_menus
+   */
+
+  export type AggregateBattle_menus = {
+    _count: Battle_menusCountAggregateOutputType | null
+    _avg: Battle_menusAvgAggregateOutputType | null
+    _sum: Battle_menusSumAggregateOutputType | null
+    _min: Battle_menusMinAggregateOutputType | null
+    _max: Battle_menusMaxAggregateOutputType | null
+  }
+
+  export type Battle_menusAvgAggregateOutputType = {
+    id: number | null
+    menu_id: number | null
+    boundary_angle: Decimal | null
+    menu_order: number | null
+  }
+
+  export type Battle_menusSumAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    boundary_angle: Decimal | null
+    menu_order: number | null
+  }
+
+  export type Battle_menusMinAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    menu_id: bigint | null
+    menu_name: string | null
+    boundary_angle: Decimal | null
+    menu_order: number | null
+  }
+
+  export type Battle_menusMaxAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    menu_id: bigint | null
+    menu_name: string | null
+    boundary_angle: Decimal | null
+    menu_order: number | null
+  }
+
+  export type Battle_menusCountAggregateOutputType = {
+    id: number
+    battle_id: number
+    menu_id: number
+    menu_name: number
+    boundary_angle: number
+    menu_order: number
+    _all: number
+  }
+
+
+  export type Battle_menusAvgAggregateInputType = {
+    id?: true
+    menu_id?: true
+    boundary_angle?: true
+    menu_order?: true
+  }
+
+  export type Battle_menusSumAggregateInputType = {
+    id?: true
+    menu_id?: true
+    boundary_angle?: true
+    menu_order?: true
+  }
+
+  export type Battle_menusMinAggregateInputType = {
+    id?: true
+    battle_id?: true
+    menu_id?: true
+    menu_name?: true
+    boundary_angle?: true
+    menu_order?: true
+  }
+
+  export type Battle_menusMaxAggregateInputType = {
+    id?: true
+    battle_id?: true
+    menu_id?: true
+    menu_name?: true
+    boundary_angle?: true
+    menu_order?: true
+  }
+
+  export type Battle_menusCountAggregateInputType = {
+    id?: true
+    battle_id?: true
+    menu_id?: true
+    menu_name?: true
+    boundary_angle?: true
+    menu_order?: true
+    _all?: true
+  }
+
+  export type Battle_menusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battle_menus to aggregate.
+     */
+    where?: battle_menusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_menus to fetch.
+     */
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: battle_menusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned battle_menus
+    **/
+    _count?: true | Battle_menusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Battle_menusAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Battle_menusSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Battle_menusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Battle_menusMaxAggregateInputType
+  }
+
+  export type GetBattle_menusAggregateType<T extends Battle_menusAggregateArgs> = {
+        [P in keyof T & keyof AggregateBattle_menus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBattle_menus[P]>
+      : GetScalarType<T[P], AggregateBattle_menus[P]>
+  }
+
+
+
+
+  export type battle_menusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_menusWhereInput
+    orderBy?: battle_menusOrderByWithAggregationInput | battle_menusOrderByWithAggregationInput[]
+    by: Battle_menusScalarFieldEnum[] | Battle_menusScalarFieldEnum
+    having?: battle_menusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Battle_menusCountAggregateInputType | true
+    _avg?: Battle_menusAvgAggregateInputType
+    _sum?: Battle_menusSumAggregateInputType
+    _min?: Battle_menusMinAggregateInputType
+    _max?: Battle_menusMaxAggregateInputType
+  }
+
+  export type Battle_menusGroupByOutputType = {
+    id: bigint
+    battle_id: string
+    menu_id: bigint
+    menu_name: string
+    boundary_angle: Decimal
+    menu_order: number
+    _count: Battle_menusCountAggregateOutputType | null
+    _avg: Battle_menusAvgAggregateOutputType | null
+    _sum: Battle_menusSumAggregateOutputType | null
+    _min: Battle_menusMinAggregateOutputType | null
+    _max: Battle_menusMaxAggregateOutputType | null
+  }
+
+  type GetBattle_menusGroupByPayload<T extends battle_menusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Battle_menusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Battle_menusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Battle_menusGroupByOutputType[P]>
+            : GetScalarType<T[P], Battle_menusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type battle_menusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    battle_id?: boolean
+    menu_id?: boolean
+    menu_name?: boolean
+    boundary_angle?: boolean
+    menu_order?: boolean
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["battle_menus"]>
+
+
+
+  export type battle_menusSelectScalar = {
+    id?: boolean
+    battle_id?: boolean
+    menu_id?: boolean
+    menu_name?: boolean
+    boundary_angle?: boolean
+    menu_order?: boolean
+  }
+
+  export type battle_menusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "battle_id" | "menu_id" | "menu_name" | "boundary_angle" | "menu_order", ExtArgs["result"]["battle_menus"]>
+  export type battle_menusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }
+
+  export type $battle_menusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "battle_menus"
+    objects: {
+      battles: Prisma.$battlesPayload<ExtArgs>
+      menu: Prisma.$menuPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      battle_id: string
+      menu_id: bigint
+      menu_name: string
+      boundary_angle: Prisma.Decimal
+      menu_order: number
+    }, ExtArgs["result"]["battle_menus"]>
+    composites: {}
+  }
+
+  type battle_menusGetPayload<S extends boolean | null | undefined | battle_menusDefaultArgs> = $Result.GetResult<Prisma.$battle_menusPayload, S>
+
+  type battle_menusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<battle_menusFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Battle_menusCountAggregateInputType | true
+    }
+
+  export interface battle_menusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['battle_menus'], meta: { name: 'battle_menus' } }
+    /**
+     * Find zero or one Battle_menus that matches the filter.
+     * @param {battle_menusFindUniqueArgs} args - Arguments to find a Battle_menus
+     * @example
+     * // Get one Battle_menus
+     * const battle_menus = await prisma.battle_menus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends battle_menusFindUniqueArgs>(args: SelectSubset<T, battle_menusFindUniqueArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Battle_menus that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {battle_menusFindUniqueOrThrowArgs} args - Arguments to find a Battle_menus
+     * @example
+     * // Get one Battle_menus
+     * const battle_menus = await prisma.battle_menus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends battle_menusFindUniqueOrThrowArgs>(args: SelectSubset<T, battle_menusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battle_menus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusFindFirstArgs} args - Arguments to find a Battle_menus
+     * @example
+     * // Get one Battle_menus
+     * const battle_menus = await prisma.battle_menus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends battle_menusFindFirstArgs>(args?: SelectSubset<T, battle_menusFindFirstArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Battle_menus that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusFindFirstOrThrowArgs} args - Arguments to find a Battle_menus
+     * @example
+     * // Get one Battle_menus
+     * const battle_menus = await prisma.battle_menus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends battle_menusFindFirstOrThrowArgs>(args?: SelectSubset<T, battle_menusFindFirstOrThrowArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Battle_menus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Battle_menus
+     * const battle_menus = await prisma.battle_menus.findMany()
+     * 
+     * // Get first 10 Battle_menus
+     * const battle_menus = await prisma.battle_menus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const battle_menusWithIdOnly = await prisma.battle_menus.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends battle_menusFindManyArgs>(args?: SelectSubset<T, battle_menusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Battle_menus.
+     * @param {battle_menusCreateArgs} args - Arguments to create a Battle_menus.
+     * @example
+     * // Create one Battle_menus
+     * const Battle_menus = await prisma.battle_menus.create({
+     *   data: {
+     *     // ... data to create a Battle_menus
+     *   }
+     * })
+     * 
+     */
+    create<T extends battle_menusCreateArgs>(args: SelectSubset<T, battle_menusCreateArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Battle_menus.
+     * @param {battle_menusCreateManyArgs} args - Arguments to create many Battle_menus.
+     * @example
+     * // Create many Battle_menus
+     * const battle_menus = await prisma.battle_menus.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends battle_menusCreateManyArgs>(args?: SelectSubset<T, battle_menusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Battle_menus.
+     * @param {battle_menusDeleteArgs} args - Arguments to delete one Battle_menus.
+     * @example
+     * // Delete one Battle_menus
+     * const Battle_menus = await prisma.battle_menus.delete({
+     *   where: {
+     *     // ... filter to delete one Battle_menus
+     *   }
+     * })
+     * 
+     */
+    delete<T extends battle_menusDeleteArgs>(args: SelectSubset<T, battle_menusDeleteArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Battle_menus.
+     * @param {battle_menusUpdateArgs} args - Arguments to update one Battle_menus.
+     * @example
+     * // Update one Battle_menus
+     * const battle_menus = await prisma.battle_menus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends battle_menusUpdateArgs>(args: SelectSubset<T, battle_menusUpdateArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Battle_menus.
+     * @param {battle_menusDeleteManyArgs} args - Arguments to filter Battle_menus to delete.
+     * @example
+     * // Delete a few Battle_menus
+     * const { count } = await prisma.battle_menus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends battle_menusDeleteManyArgs>(args?: SelectSubset<T, battle_menusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Battle_menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Battle_menus
+     * const battle_menus = await prisma.battle_menus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends battle_menusUpdateManyArgs>(args: SelectSubset<T, battle_menusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Battle_menus.
+     * @param {battle_menusUpsertArgs} args - Arguments to update or create a Battle_menus.
+     * @example
+     * // Update or create a Battle_menus
+     * const battle_menus = await prisma.battle_menus.upsert({
+     *   create: {
+     *     // ... data to create a Battle_menus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Battle_menus we want to update
+     *   }
+     * })
+     */
+    upsert<T extends battle_menusUpsertArgs>(args: SelectSubset<T, battle_menusUpsertArgs<ExtArgs>>): Prisma__battle_menusClient<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Battle_menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusCountArgs} args - Arguments to filter Battle_menus to count.
+     * @example
+     * // Count the number of Battle_menus
+     * const count = await prisma.battle_menus.count({
+     *   where: {
+     *     // ... the filter for the Battle_menus we want to count
+     *   }
+     * })
+    **/
+    count<T extends battle_menusCountArgs>(
+      args?: Subset<T, battle_menusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Battle_menusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Battle_menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Battle_menusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Battle_menusAggregateArgs>(args: Subset<T, Battle_menusAggregateArgs>): Prisma.PrismaPromise<GetBattle_menusAggregateType<T>>
+
+    /**
+     * Group by Battle_menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {battle_menusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends battle_menusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: battle_menusGroupByArgs['orderBy'] }
+        : { orderBy?: battle_menusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, battle_menusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBattle_menusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the battle_menus model
+   */
+  readonly fields: battle_menusFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for battle_menus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__battle_menusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    battles<T extends battlesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battlesDefaultArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the battle_menus model
+   */
+  interface battle_menusFieldRefs {
+    readonly id: FieldRef<"battle_menus", 'BigInt'>
+    readonly battle_id: FieldRef<"battle_menus", 'String'>
+    readonly menu_id: FieldRef<"battle_menus", 'BigInt'>
+    readonly menu_name: FieldRef<"battle_menus", 'String'>
+    readonly boundary_angle: FieldRef<"battle_menus", 'Decimal'>
+    readonly menu_order: FieldRef<"battle_menus", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * battle_menus findUnique
+   */
+  export type battle_menusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_menus to fetch.
+     */
+    where: battle_menusWhereUniqueInput
+  }
+
+  /**
+   * battle_menus findUniqueOrThrow
+   */
+  export type battle_menusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_menus to fetch.
+     */
+    where: battle_menusWhereUniqueInput
+  }
+
+  /**
+   * battle_menus findFirst
+   */
+  export type battle_menusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_menus to fetch.
+     */
+    where?: battle_menusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_menus to fetch.
+     */
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battle_menus.
+     */
+    cursor?: battle_menusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battle_menus.
+     */
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
+  }
+
+  /**
+   * battle_menus findFirstOrThrow
+   */
+  export type battle_menusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_menus to fetch.
+     */
+    where?: battle_menusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_menus to fetch.
+     */
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for battle_menus.
+     */
+    cursor?: battle_menusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of battle_menus.
+     */
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
+  }
+
+  /**
+   * battle_menus findMany
+   */
+  export type battle_menusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter, which battle_menus to fetch.
+     */
+    where?: battle_menusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of battle_menus to fetch.
+     */
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing battle_menus.
+     */
+    cursor?: battle_menusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` battle_menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` battle_menus.
+     */
+    skip?: number
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
+  }
+
+  /**
+   * battle_menus create
+   */
+  export type battle_menusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * The data needed to create a battle_menus.
+     */
+    data: XOR<battle_menusCreateInput, battle_menusUncheckedCreateInput>
+  }
+
+  /**
+   * battle_menus createMany
+   */
+  export type battle_menusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many battle_menus.
+     */
+    data: battle_menusCreateManyInput | battle_menusCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * battle_menus update
+   */
+  export type battle_menusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * The data needed to update a battle_menus.
+     */
+    data: XOR<battle_menusUpdateInput, battle_menusUncheckedUpdateInput>
+    /**
+     * Choose, which battle_menus to update.
+     */
+    where: battle_menusWhereUniqueInput
+  }
+
+  /**
+   * battle_menus updateMany
+   */
+  export type battle_menusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update battle_menus.
+     */
+    data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyInput>
+    /**
+     * Filter which battle_menus to update
+     */
+    where?: battle_menusWhereInput
+    /**
+     * Limit how many battle_menus to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * battle_menus upsert
+   */
+  export type battle_menusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * The filter to search for the battle_menus to update in case it exists.
+     */
+    where: battle_menusWhereUniqueInput
+    /**
+     * In case the battle_menus found by the `where` argument doesn't exist, create a new battle_menus with this data.
+     */
+    create: XOR<battle_menusCreateInput, battle_menusUncheckedCreateInput>
+    /**
+     * In case the battle_menus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<battle_menusUpdateInput, battle_menusUncheckedUpdateInput>
+  }
+
+  /**
+   * battle_menus delete
+   */
+  export type battle_menusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    /**
+     * Filter which battle_menus to delete.
+     */
+    where: battle_menusWhereUniqueInput
+  }
+
+  /**
+   * battle_menus deleteMany
+   */
+  export type battle_menusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which battle_menus to delete
+     */
+    where?: battle_menusWhereInput
+    /**
+     * Limit how many battle_menus to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * battle_menus without action
+   */
+  export type battle_menusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model spin_results
+   */
+
+  export type AggregateSpin_results = {
+    _count: Spin_resultsCountAggregateOutputType | null
+    _avg: Spin_resultsAvgAggregateOutputType | null
+    _sum: Spin_resultsSumAggregateOutputType | null
+    _min: Spin_resultsMinAggregateOutputType | null
+    _max: Spin_resultsMaxAggregateOutputType | null
+  }
+
+  export type Spin_resultsAvgAggregateOutputType = {
+    id: number | null
+    stopped_angle: Decimal | null
+    closest_menu_id: number | null
+    distance_to_boundary: Decimal | null
+    rank: number | null
+  }
+
+  export type Spin_resultsSumAggregateOutputType = {
+    id: bigint | null
+    stopped_angle: Decimal | null
+    closest_menu_id: bigint | null
+    distance_to_boundary: Decimal | null
+    rank: number | null
+  }
+
+  export type Spin_resultsMinAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    nickname: string | null
+    stopped_angle: Decimal | null
+    closest_menu_id: bigint | null
+    closest_menu_name: string | null
+    distance_to_boundary: Decimal | null
+    rank: number | null
+    spun_at: Date | null
+  }
+
+  export type Spin_resultsMaxAggregateOutputType = {
+    id: bigint | null
+    battle_id: string | null
+    nickname: string | null
+    stopped_angle: Decimal | null
+    closest_menu_id: bigint | null
+    closest_menu_name: string | null
+    distance_to_boundary: Decimal | null
+    rank: number | null
+    spun_at: Date | null
+  }
+
+  export type Spin_resultsCountAggregateOutputType = {
+    id: number
+    battle_id: number
+    nickname: number
+    stopped_angle: number
+    closest_menu_id: number
+    closest_menu_name: number
+    distance_to_boundary: number
+    rank: number
+    spun_at: number
+    _all: number
+  }
+
+
+  export type Spin_resultsAvgAggregateInputType = {
+    id?: true
+    stopped_angle?: true
+    closest_menu_id?: true
+    distance_to_boundary?: true
+    rank?: true
+  }
+
+  export type Spin_resultsSumAggregateInputType = {
+    id?: true
+    stopped_angle?: true
+    closest_menu_id?: true
+    distance_to_boundary?: true
+    rank?: true
+  }
+
+  export type Spin_resultsMinAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    stopped_angle?: true
+    closest_menu_id?: true
+    closest_menu_name?: true
+    distance_to_boundary?: true
+    rank?: true
+    spun_at?: true
+  }
+
+  export type Spin_resultsMaxAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    stopped_angle?: true
+    closest_menu_id?: true
+    closest_menu_name?: true
+    distance_to_boundary?: true
+    rank?: true
+    spun_at?: true
+  }
+
+  export type Spin_resultsCountAggregateInputType = {
+    id?: true
+    battle_id?: true
+    nickname?: true
+    stopped_angle?: true
+    closest_menu_id?: true
+    closest_menu_name?: true
+    distance_to_boundary?: true
+    rank?: true
+    spun_at?: true
+    _all?: true
+  }
+
+  export type Spin_resultsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spin_results to aggregate.
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spin_results to fetch.
+     */
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: spin_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spin_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spin_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned spin_results
+    **/
+    _count?: true | Spin_resultsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Spin_resultsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Spin_resultsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Spin_resultsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Spin_resultsMaxAggregateInputType
+  }
+
+  export type GetSpin_resultsAggregateType<T extends Spin_resultsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpin_results]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpin_results[P]>
+      : GetScalarType<T[P], AggregateSpin_results[P]>
+  }
+
+
+
+
+  export type spin_resultsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spin_resultsWhereInput
+    orderBy?: spin_resultsOrderByWithAggregationInput | spin_resultsOrderByWithAggregationInput[]
+    by: Spin_resultsScalarFieldEnum[] | Spin_resultsScalarFieldEnum
+    having?: spin_resultsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Spin_resultsCountAggregateInputType | true
+    _avg?: Spin_resultsAvgAggregateInputType
+    _sum?: Spin_resultsSumAggregateInputType
+    _min?: Spin_resultsMinAggregateInputType
+    _max?: Spin_resultsMaxAggregateInputType
+  }
+
+  export type Spin_resultsGroupByOutputType = {
+    id: bigint
+    battle_id: string
+    nickname: string
+    stopped_angle: Decimal
+    closest_menu_id: bigint
+    closest_menu_name: string
+    distance_to_boundary: Decimal
+    rank: number
+    spun_at: Date
+    _count: Spin_resultsCountAggregateOutputType | null
+    _avg: Spin_resultsAvgAggregateOutputType | null
+    _sum: Spin_resultsSumAggregateOutputType | null
+    _min: Spin_resultsMinAggregateOutputType | null
+    _max: Spin_resultsMaxAggregateOutputType | null
+  }
+
+  type GetSpin_resultsGroupByPayload<T extends spin_resultsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Spin_resultsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Spin_resultsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Spin_resultsGroupByOutputType[P]>
+            : GetScalarType<T[P], Spin_resultsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type spin_resultsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    battle_id?: boolean
+    nickname?: boolean
+    stopped_angle?: boolean
+    closest_menu_id?: boolean
+    closest_menu_name?: boolean
+    distance_to_boundary?: boolean
+    rank?: boolean
+    spun_at?: boolean
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spin_results"]>
+
+
+
+  export type spin_resultsSelectScalar = {
+    id?: boolean
+    battle_id?: boolean
+    nickname?: boolean
+    stopped_angle?: boolean
+    closest_menu_id?: boolean
+    closest_menu_name?: boolean
+    distance_to_boundary?: boolean
+    rank?: boolean
+    spun_at?: boolean
+  }
+
+  export type spin_resultsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "battle_id" | "nickname" | "stopped_angle" | "closest_menu_id" | "closest_menu_name" | "distance_to_boundary" | "rank" | "spun_at", ExtArgs["result"]["spin_results"]>
+  export type spin_resultsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battles?: boolean | battlesDefaultArgs<ExtArgs>
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }
+
+  export type $spin_resultsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "spin_results"
+    objects: {
+      battles: Prisma.$battlesPayload<ExtArgs>
+      menu: Prisma.$menuPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      battle_id: string
+      nickname: string
+      stopped_angle: Prisma.Decimal
+      closest_menu_id: bigint
+      closest_menu_name: string
+      distance_to_boundary: Prisma.Decimal
+      rank: number
+      spun_at: Date
+    }, ExtArgs["result"]["spin_results"]>
+    composites: {}
+  }
+
+  type spin_resultsGetPayload<S extends boolean | null | undefined | spin_resultsDefaultArgs> = $Result.GetResult<Prisma.$spin_resultsPayload, S>
+
+  type spin_resultsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<spin_resultsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Spin_resultsCountAggregateInputType | true
+    }
+
+  export interface spin_resultsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['spin_results'], meta: { name: 'spin_results' } }
+    /**
+     * Find zero or one Spin_results that matches the filter.
+     * @param {spin_resultsFindUniqueArgs} args - Arguments to find a Spin_results
+     * @example
+     * // Get one Spin_results
+     * const spin_results = await prisma.spin_results.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends spin_resultsFindUniqueArgs>(args: SelectSubset<T, spin_resultsFindUniqueArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Spin_results that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {spin_resultsFindUniqueOrThrowArgs} args - Arguments to find a Spin_results
+     * @example
+     * // Get one Spin_results
+     * const spin_results = await prisma.spin_results.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends spin_resultsFindUniqueOrThrowArgs>(args: SelectSubset<T, spin_resultsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spin_results that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsFindFirstArgs} args - Arguments to find a Spin_results
+     * @example
+     * // Get one Spin_results
+     * const spin_results = await prisma.spin_results.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends spin_resultsFindFirstArgs>(args?: SelectSubset<T, spin_resultsFindFirstArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spin_results that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsFindFirstOrThrowArgs} args - Arguments to find a Spin_results
+     * @example
+     * // Get one Spin_results
+     * const spin_results = await prisma.spin_results.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends spin_resultsFindFirstOrThrowArgs>(args?: SelectSubset<T, spin_resultsFindFirstOrThrowArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Spin_results that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Spin_results
+     * const spin_results = await prisma.spin_results.findMany()
+     * 
+     * // Get first 10 Spin_results
+     * const spin_results = await prisma.spin_results.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const spin_resultsWithIdOnly = await prisma.spin_results.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends spin_resultsFindManyArgs>(args?: SelectSubset<T, spin_resultsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Spin_results.
+     * @param {spin_resultsCreateArgs} args - Arguments to create a Spin_results.
+     * @example
+     * // Create one Spin_results
+     * const Spin_results = await prisma.spin_results.create({
+     *   data: {
+     *     // ... data to create a Spin_results
+     *   }
+     * })
+     * 
+     */
+    create<T extends spin_resultsCreateArgs>(args: SelectSubset<T, spin_resultsCreateArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Spin_results.
+     * @param {spin_resultsCreateManyArgs} args - Arguments to create many Spin_results.
+     * @example
+     * // Create many Spin_results
+     * const spin_results = await prisma.spin_results.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends spin_resultsCreateManyArgs>(args?: SelectSubset<T, spin_resultsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Spin_results.
+     * @param {spin_resultsDeleteArgs} args - Arguments to delete one Spin_results.
+     * @example
+     * // Delete one Spin_results
+     * const Spin_results = await prisma.spin_results.delete({
+     *   where: {
+     *     // ... filter to delete one Spin_results
+     *   }
+     * })
+     * 
+     */
+    delete<T extends spin_resultsDeleteArgs>(args: SelectSubset<T, spin_resultsDeleteArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Spin_results.
+     * @param {spin_resultsUpdateArgs} args - Arguments to update one Spin_results.
+     * @example
+     * // Update one Spin_results
+     * const spin_results = await prisma.spin_results.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends spin_resultsUpdateArgs>(args: SelectSubset<T, spin_resultsUpdateArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Spin_results.
+     * @param {spin_resultsDeleteManyArgs} args - Arguments to filter Spin_results to delete.
+     * @example
+     * // Delete a few Spin_results
+     * const { count } = await prisma.spin_results.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends spin_resultsDeleteManyArgs>(args?: SelectSubset<T, spin_resultsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spin_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Spin_results
+     * const spin_results = await prisma.spin_results.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends spin_resultsUpdateManyArgs>(args: SelectSubset<T, spin_resultsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Spin_results.
+     * @param {spin_resultsUpsertArgs} args - Arguments to update or create a Spin_results.
+     * @example
+     * // Update or create a Spin_results
+     * const spin_results = await prisma.spin_results.upsert({
+     *   create: {
+     *     // ... data to create a Spin_results
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Spin_results we want to update
+     *   }
+     * })
+     */
+    upsert<T extends spin_resultsUpsertArgs>(args: SelectSubset<T, spin_resultsUpsertArgs<ExtArgs>>): Prisma__spin_resultsClient<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Spin_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsCountArgs} args - Arguments to filter Spin_results to count.
+     * @example
+     * // Count the number of Spin_results
+     * const count = await prisma.spin_results.count({
+     *   where: {
+     *     // ... the filter for the Spin_results we want to count
+     *   }
+     * })
+    **/
+    count<T extends spin_resultsCountArgs>(
+      args?: Subset<T, spin_resultsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Spin_resultsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Spin_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Spin_resultsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Spin_resultsAggregateArgs>(args: Subset<T, Spin_resultsAggregateArgs>): Prisma.PrismaPromise<GetSpin_resultsAggregateType<T>>
+
+    /**
+     * Group by Spin_results.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spin_resultsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends spin_resultsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: spin_resultsGroupByArgs['orderBy'] }
+        : { orderBy?: spin_resultsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, spin_resultsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpin_resultsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the spin_results model
+   */
+  readonly fields: spin_resultsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for spin_results.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__spin_resultsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    battles<T extends battlesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, battlesDefaultArgs<ExtArgs>>): Prisma__battlesClient<$Result.GetResult<Prisma.$battlesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the spin_results model
+   */
+  interface spin_resultsFieldRefs {
+    readonly id: FieldRef<"spin_results", 'BigInt'>
+    readonly battle_id: FieldRef<"spin_results", 'String'>
+    readonly nickname: FieldRef<"spin_results", 'String'>
+    readonly stopped_angle: FieldRef<"spin_results", 'Decimal'>
+    readonly closest_menu_id: FieldRef<"spin_results", 'BigInt'>
+    readonly closest_menu_name: FieldRef<"spin_results", 'String'>
+    readonly distance_to_boundary: FieldRef<"spin_results", 'Decimal'>
+    readonly rank: FieldRef<"spin_results", 'Int'>
+    readonly spun_at: FieldRef<"spin_results", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * spin_results findUnique
+   */
+  export type spin_resultsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which spin_results to fetch.
+     */
+    where: spin_resultsWhereUniqueInput
+  }
+
+  /**
+   * spin_results findUniqueOrThrow
+   */
+  export type spin_resultsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which spin_results to fetch.
+     */
+    where: spin_resultsWhereUniqueInput
+  }
+
+  /**
+   * spin_results findFirst
+   */
+  export type spin_resultsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which spin_results to fetch.
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spin_results to fetch.
+     */
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spin_results.
+     */
+    cursor?: spin_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spin_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spin_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spin_results.
+     */
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * spin_results findFirstOrThrow
+   */
+  export type spin_resultsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which spin_results to fetch.
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spin_results to fetch.
+     */
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spin_results.
+     */
+    cursor?: spin_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spin_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spin_results.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spin_results.
+     */
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * spin_results findMany
+   */
+  export type spin_resultsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter, which spin_results to fetch.
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spin_results to fetch.
+     */
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing spin_results.
+     */
+    cursor?: spin_resultsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spin_results from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spin_results.
+     */
+    skip?: number
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * spin_results create
+   */
+  export type spin_resultsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a spin_results.
+     */
+    data: XOR<spin_resultsCreateInput, spin_resultsUncheckedCreateInput>
+  }
+
+  /**
+   * spin_results createMany
+   */
+  export type spin_resultsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many spin_results.
+     */
+    data: spin_resultsCreateManyInput | spin_resultsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * spin_results update
+   */
+  export type spin_resultsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a spin_results.
+     */
+    data: XOR<spin_resultsUpdateInput, spin_resultsUncheckedUpdateInput>
+    /**
+     * Choose, which spin_results to update.
+     */
+    where: spin_resultsWhereUniqueInput
+  }
+
+  /**
+   * spin_results updateMany
+   */
+  export type spin_resultsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update spin_results.
+     */
+    data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyInput>
+    /**
+     * Filter which spin_results to update
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * Limit how many spin_results to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * spin_results upsert
+   */
+  export type spin_resultsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the spin_results to update in case it exists.
+     */
+    where: spin_resultsWhereUniqueInput
+    /**
+     * In case the spin_results found by the `where` argument doesn't exist, create a new spin_results with this data.
+     */
+    create: XOR<spin_resultsCreateInput, spin_resultsUncheckedCreateInput>
+    /**
+     * In case the spin_results was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<spin_resultsUpdateInput, spin_resultsUncheckedUpdateInput>
+  }
+
+  /**
+   * spin_results delete
+   */
+  export type spin_resultsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    /**
+     * Filter which spin_results to delete.
+     */
+    where: spin_resultsWhereUniqueInput
+  }
+
+  /**
+   * spin_results deleteMany
+   */
+  export type spin_resultsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spin_results to delete
+     */
+    where?: spin_resultsWhereInput
+    /**
+     * Limit how many spin_results to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * spin_results without action
+   */
+  export type spin_resultsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model sessions
+   */
+
+  export type AggregateSessions = {
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  export type SessionsAvgAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsSumAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsMinAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsMaxAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsCountAggregateOutputType = {
+    session_id: number
+    expires: number
+    data: number
+    _all: number
+  }
+
+
+  export type SessionsAvgAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsSumAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsMinAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsMaxAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsCountAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+    _all?: true
+  }
+
+  export type SessionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to aggregate.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sessions
+    **/
+    _count?: true | SessionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type GetSessionsAggregateType<T extends SessionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessions[P]>
+      : GetScalarType<T[P], AggregateSessions[P]>
+  }
+
+
+
+
+  export type sessionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithAggregationInput | sessionsOrderByWithAggregationInput[]
+    by: SessionsScalarFieldEnum[] | SessionsScalarFieldEnum
+    having?: sessionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionsCountAggregateInputType | true
+    _avg?: SessionsAvgAggregateInputType
+    _sum?: SessionsSumAggregateInputType
+    _min?: SessionsMinAggregateInputType
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type SessionsGroupByOutputType = {
+    session_id: string
+    expires: number
+    data: string | null
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  type GetSessionsGroupByPayload<T extends sessionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type sessionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }, ExtArgs["result"]["sessions"]>
+
+
+
+  export type sessionsSelectScalar = {
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }
+
+  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "expires" | "data", ExtArgs["result"]["sessions"]>
+
+  export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "sessions"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      session_id: string
+      expires: number
+      data: string | null
+    }, ExtArgs["result"]["sessions"]>
+    composites: {}
+  }
+
+  type sessionsGetPayload<S extends boolean | null | undefined | sessionsDefaultArgs> = $Result.GetResult<Prisma.$sessionsPayload, S>
+
+  type sessionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<sessionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionsCountAggregateInputType | true
+    }
+
+  export interface sessionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sessions'], meta: { name: 'sessions' } }
+    /**
+     * Find zero or one Sessions that matches the filter.
+     * @param {sessionsFindUniqueArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends sessionsFindUniqueArgs>(args: SelectSubset<T, sessionsFindUniqueArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Sessions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {sessionsFindUniqueOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends sessionsFindUniqueOrThrowArgs>(args: SelectSubset<T, sessionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends sessionsFindFirstArgs>(args?: SelectSubset<T, sessionsFindFirstArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends sessionsFindFirstOrThrowArgs>(args?: SelectSubset<T, sessionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sessions
+     * const sessions = await prisma.sessions.findMany()
+     * 
+     * // Get first 10 Sessions
+     * const sessions = await prisma.sessions.findMany({ take: 10 })
+     * 
+     * // Only select the `session_id`
+     * const sessionsWithSession_idOnly = await prisma.sessions.findMany({ select: { session_id: true } })
+     * 
+     */
+    findMany<T extends sessionsFindManyArgs>(args?: SelectSubset<T, sessionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Sessions.
+     * @param {sessionsCreateArgs} args - Arguments to create a Sessions.
+     * @example
+     * // Create one Sessions
+     * const Sessions = await prisma.sessions.create({
+     *   data: {
+     *     // ... data to create a Sessions
+     *   }
+     * })
+     * 
+     */
+    create<T extends sessionsCreateArgs>(args: SelectSubset<T, sessionsCreateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sessions.
+     * @param {sessionsCreateManyArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const sessions = await prisma.sessions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends sessionsCreateManyArgs>(args?: SelectSubset<T, sessionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Sessions.
+     * @param {sessionsDeleteArgs} args - Arguments to delete one Sessions.
+     * @example
+     * // Delete one Sessions
+     * const Sessions = await prisma.sessions.delete({
+     *   where: {
+     *     // ... filter to delete one Sessions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends sessionsDeleteArgs>(args: SelectSubset<T, sessionsDeleteArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Sessions.
+     * @param {sessionsUpdateArgs} args - Arguments to update one Sessions.
+     * @example
+     * // Update one Sessions
+     * const sessions = await prisma.sessions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends sessionsUpdateArgs>(args: SelectSubset<T, sessionsUpdateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sessions.
+     * @param {sessionsDeleteManyArgs} args - Arguments to filter Sessions to delete.
+     * @example
+     * // Delete a few Sessions
+     * const { count } = await prisma.sessions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends sessionsDeleteManyArgs>(args?: SelectSubset<T, sessionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sessions
+     * const sessions = await prisma.sessions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends sessionsUpdateManyArgs>(args: SelectSubset<T, sessionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Sessions.
+     * @param {sessionsUpsertArgs} args - Arguments to update or create a Sessions.
+     * @example
+     * // Update or create a Sessions
+     * const sessions = await prisma.sessions.upsert({
+     *   create: {
+     *     // ... data to create a Sessions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sessions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends sessionsUpsertArgs>(args: SelectSubset<T, sessionsUpsertArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsCountArgs} args - Arguments to filter Sessions to count.
+     * @example
+     * // Count the number of Sessions
+     * const count = await prisma.sessions.count({
+     *   where: {
+     *     // ... the filter for the Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends sessionsCountArgs>(
+      args?: Subset<T, sessionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionsAggregateArgs>(args: Subset<T, SessionsAggregateArgs>): Prisma.PrismaPromise<GetSessionsAggregateType<T>>
+
+    /**
+     * Group by Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends sessionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: sessionsGroupByArgs['orderBy'] }
+        : { orderBy?: sessionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, sessionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the sessions model
+   */
+  readonly fields: sessionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for sessions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the sessions model
+   */
+  interface sessionsFieldRefs {
+    readonly session_id: FieldRef<"sessions", 'String'>
+    readonly expires: FieldRef<"sessions", 'Int'>
+    readonly data: FieldRef<"sessions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * sessions findUnique
+   */
+  export type sessionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findUniqueOrThrow
+   */
+  export type sessionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findFirst
+   */
+  export type sessionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findFirstOrThrow
+   */
+  export type sessionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findMany
+   */
+  export type sessionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions create
+   */
+  export type sessionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a sessions.
+     */
+    data: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+  }
+
+  /**
+   * sessions createMany
+   */
+  export type sessionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sessions.
+     */
+    data: sessionsCreateManyInput | sessionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * sessions update
+   */
+  export type sessionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a sessions.
+     */
+    data: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+    /**
+     * Choose, which sessions to update.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions updateMany
+   */
+  export type sessionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sessions.
+     */
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyInput>
+    /**
+     * Filter which sessions to update
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions upsert
+   */
+  export type sessionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the sessions to update in case it exists.
+     */
+    where: sessionsWhereUniqueInput
+    /**
+     * In case the sessions found by the `where` argument doesn't exist, create a new sessions with this data.
+     */
+    create: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+    /**
+     * In case the sessions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+  }
+
+  /**
+   * sessions delete
+   */
+  export type sessionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter which sessions to delete.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions deleteMany
+   */
+  export type sessionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to delete
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions without action
+   */
+  export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12851,50 +13845,6 @@ export namespace Prisma {
   export type Menu_tagScalarFieldEnum = (typeof Menu_tagScalarFieldEnum)[keyof typeof Menu_tagScalarFieldEnum]
 
 
-  export const AlleryScalarFieldEnum: {
-    id: 'id',
-    allergy: 'allergy'
-  };
-
-  export type AlleryScalarFieldEnum = (typeof AlleryScalarFieldEnum)[keyof typeof AlleryScalarFieldEnum]
-
-
-  export const BattleScalarFieldEnum: {
-    id: 'id',
-    creater_nickname: 'creater_nickname',
-    status: 'status',
-    participant_count: 'participant_count',
-    created_at: 'created_at',
-    finished_at: 'finished_at',
-    expires_at: 'expires_at'
-  };
-
-  export type BattleScalarFieldEnum = (typeof BattleScalarFieldEnum)[keyof typeof BattleScalarFieldEnum]
-
-
-  export const Battle_menuScalarFieldEnum: {
-    id: 'id',
-    menu_name: 'menu_name',
-    boundary_angle: 'boundary_angle',
-    menu_order: 'menu_order',
-    battle_id: 'battle_id',
-    menu_id: 'menu_id'
-  };
-
-  export type Battle_menuScalarFieldEnum = (typeof Battle_menuScalarFieldEnum)[keyof typeof Battle_menuScalarFieldEnum]
-
-
-  export const Battle_participantScalarFieldEnum: {
-    battle_id: 'battle_id',
-    user_id: 'user_id',
-    nickname: 'nickname',
-    is_creater: 'is_creater',
-    joined_at: 'joined_at'
-  };
-
-  export type Battle_participantScalarFieldEnum = (typeof Battle_participantScalarFieldEnum)[keyof typeof Battle_participantScalarFieldEnum]
-
-
   export const Menu_alleryScalarFieldEnum: {
     menu_id: 'menu_id',
     allergy_id: 'allergy_id'
@@ -12911,26 +13861,80 @@ export namespace Prisma {
   export type Menu_vitaminScalarFieldEnum = (typeof Menu_vitaminScalarFieldEnum)[keyof typeof Menu_vitaminScalarFieldEnum]
 
 
-  export const Spin_resultScalarFieldEnum: {
-    id: 'id',
-    nickname: 'nickname',
-    stopped_angle: 'stopped_angle',
-    distance_to_boundary: 'distance_to_boundary',
-    rank: 'rank',
-    spin_at: 'spin_at',
-    battle_id: 'battle_id',
-    closest_menu_id: 'closest_menu_id'
-  };
-
-  export type Spin_resultScalarFieldEnum = (typeof Spin_resultScalarFieldEnum)[keyof typeof Spin_resultScalarFieldEnum]
-
-
   export const VitaminScalarFieldEnum: {
     id: 'id',
     vitamin: 'vitamin'
   };
 
   export type VitaminScalarFieldEnum = (typeof VitaminScalarFieldEnum)[keyof typeof VitaminScalarFieldEnum]
+
+
+  export const AllergyScalarFieldEnum: {
+    id: 'id',
+    allergy: 'allergy'
+  };
+
+  export type AllergyScalarFieldEnum = (typeof AllergyScalarFieldEnum)[keyof typeof AllergyScalarFieldEnum]
+
+
+  export const BattlesScalarFieldEnum: {
+    battle_id: 'battle_id',
+    creator_nickname: 'creator_nickname',
+    status: 'status',
+    participant_count: 'participant_count',
+    created_at: 'created_at',
+    finished_at: 'finished_at',
+    expires_at: 'expires_at'
+  };
+
+  export type BattlesScalarFieldEnum = (typeof BattlesScalarFieldEnum)[keyof typeof BattlesScalarFieldEnum]
+
+
+  export const Battle_participantsScalarFieldEnum: {
+    id: 'id',
+    battle_id: 'battle_id',
+    nickname: 'nickname',
+    is_creator: 'is_creator',
+    joined_at: 'joined_at'
+  };
+
+  export type Battle_participantsScalarFieldEnum = (typeof Battle_participantsScalarFieldEnum)[keyof typeof Battle_participantsScalarFieldEnum]
+
+
+  export const Battle_menusScalarFieldEnum: {
+    id: 'id',
+    battle_id: 'battle_id',
+    menu_id: 'menu_id',
+    menu_name: 'menu_name',
+    boundary_angle: 'boundary_angle',
+    menu_order: 'menu_order'
+  };
+
+  export type Battle_menusScalarFieldEnum = (typeof Battle_menusScalarFieldEnum)[keyof typeof Battle_menusScalarFieldEnum]
+
+
+  export const Spin_resultsScalarFieldEnum: {
+    id: 'id',
+    battle_id: 'battle_id',
+    nickname: 'nickname',
+    stopped_angle: 'stopped_angle',
+    closest_menu_id: 'closest_menu_id',
+    closest_menu_name: 'closest_menu_name',
+    distance_to_boundary: 'distance_to_boundary',
+    rank: 'rank',
+    spun_at: 'spun_at'
+  };
+
+  export type Spin_resultsScalarFieldEnum = (typeof Spin_resultsScalarFieldEnum)[keyof typeof Spin_resultsScalarFieldEnum]
+
+
+  export const SessionsScalarFieldEnum: {
+    session_id: 'session_id',
+    expires: 'expires',
+    data: 'data'
+  };
+
+  export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12965,51 +13969,59 @@ export namespace Prisma {
   export type menu_tagOrderByRelevanceFieldEnum = (typeof menu_tagOrderByRelevanceFieldEnum)[keyof typeof menu_tagOrderByRelevanceFieldEnum]
 
 
-  export const alleryOrderByRelevanceFieldEnum: {
-    allergy: 'allergy'
-  };
-
-  export type alleryOrderByRelevanceFieldEnum = (typeof alleryOrderByRelevanceFieldEnum)[keyof typeof alleryOrderByRelevanceFieldEnum]
-
-
-  export const battleOrderByRelevanceFieldEnum: {
-    id: 'id',
-    creater_nickname: 'creater_nickname',
-    status: 'status'
-  };
-
-  export type battleOrderByRelevanceFieldEnum = (typeof battleOrderByRelevanceFieldEnum)[keyof typeof battleOrderByRelevanceFieldEnum]
-
-
-  export const battle_menuOrderByRelevanceFieldEnum: {
-    menu_name: 'menu_name',
-    battle_id: 'battle_id'
-  };
-
-  export type battle_menuOrderByRelevanceFieldEnum = (typeof battle_menuOrderByRelevanceFieldEnum)[keyof typeof battle_menuOrderByRelevanceFieldEnum]
-
-
-  export const battle_participantOrderByRelevanceFieldEnum: {
-    battle_id: 'battle_id',
-    nickname: 'nickname'
-  };
-
-  export type battle_participantOrderByRelevanceFieldEnum = (typeof battle_participantOrderByRelevanceFieldEnum)[keyof typeof battle_participantOrderByRelevanceFieldEnum]
-
-
-  export const spin_resultOrderByRelevanceFieldEnum: {
-    nickname: 'nickname',
-    battle_id: 'battle_id'
-  };
-
-  export type spin_resultOrderByRelevanceFieldEnum = (typeof spin_resultOrderByRelevanceFieldEnum)[keyof typeof spin_resultOrderByRelevanceFieldEnum]
-
-
   export const vitaminOrderByRelevanceFieldEnum: {
     vitamin: 'vitamin'
   };
 
   export type vitaminOrderByRelevanceFieldEnum = (typeof vitaminOrderByRelevanceFieldEnum)[keyof typeof vitaminOrderByRelevanceFieldEnum]
+
+
+  export const allergyOrderByRelevanceFieldEnum: {
+    allergy: 'allergy'
+  };
+
+  export type allergyOrderByRelevanceFieldEnum = (typeof allergyOrderByRelevanceFieldEnum)[keyof typeof allergyOrderByRelevanceFieldEnum]
+
+
+  export const battlesOrderByRelevanceFieldEnum: {
+    battle_id: 'battle_id',
+    creator_nickname: 'creator_nickname'
+  };
+
+  export type battlesOrderByRelevanceFieldEnum = (typeof battlesOrderByRelevanceFieldEnum)[keyof typeof battlesOrderByRelevanceFieldEnum]
+
+
+  export const battle_participantsOrderByRelevanceFieldEnum: {
+    battle_id: 'battle_id',
+    nickname: 'nickname'
+  };
+
+  export type battle_participantsOrderByRelevanceFieldEnum = (typeof battle_participantsOrderByRelevanceFieldEnum)[keyof typeof battle_participantsOrderByRelevanceFieldEnum]
+
+
+  export const battle_menusOrderByRelevanceFieldEnum: {
+    battle_id: 'battle_id',
+    menu_name: 'menu_name'
+  };
+
+  export type battle_menusOrderByRelevanceFieldEnum = (typeof battle_menusOrderByRelevanceFieldEnum)[keyof typeof battle_menusOrderByRelevanceFieldEnum]
+
+
+  export const spin_resultsOrderByRelevanceFieldEnum: {
+    battle_id: 'battle_id',
+    nickname: 'nickname',
+    closest_menu_name: 'closest_menu_name'
+  };
+
+  export type spin_resultsOrderByRelevanceFieldEnum = (typeof spin_resultsOrderByRelevanceFieldEnum)[keyof typeof spin_resultsOrderByRelevanceFieldEnum]
+
+
+  export const sessionsOrderByRelevanceFieldEnum: {
+    session_id: 'session_id',
+    data: 'data'
+  };
+
+  export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
 
 
   /**
@@ -13039,9 +14051,30 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'battles_status'
+   */
+  export type Enumbattles_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'battles_status'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
@@ -13068,12 +14101,12 @@ export namespace Prisma {
     fat?: BigIntNullableFilter<"menu"> | bigint | number | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
-    battle_menu?: Battle_menuListRelationFilter
+    battle_menus?: Battle_menusListRelationFilter
     menu_allery?: Menu_alleryListRelationFilter
     menu_tag?: Menu_tagListRelationFilter
     menu_vitamin?: Menu_vitaminListRelationFilter
     mukburim?: MukburimListRelationFilter
-    spin_result?: Spin_resultListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
   }
 
   export type menuOrderByWithRelationInput = {
@@ -13086,12 +14119,12 @@ export namespace Prisma {
     fat?: SortOrderInput | SortOrder
     sodium?: SortOrderInput | SortOrder
     image_link?: SortOrderInput | SortOrder
-    battle_menu?: battle_menuOrderByRelationAggregateInput
+    battle_menus?: battle_menusOrderByRelationAggregateInput
     menu_allery?: menu_alleryOrderByRelationAggregateInput
     menu_tag?: menu_tagOrderByRelationAggregateInput
     menu_vitamin?: menu_vitaminOrderByRelationAggregateInput
     mukburim?: mukburimOrderByRelationAggregateInput
-    spin_result?: spin_resultOrderByRelationAggregateInput
+    spin_results?: spin_resultsOrderByRelationAggregateInput
     _relevance?: menuOrderByRelevanceInput
   }
 
@@ -13108,12 +14141,12 @@ export namespace Prisma {
     fat?: BigIntNullableFilter<"menu"> | bigint | number | null
     sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
     image_link?: StringNullableFilter<"menu"> | string | null
-    battle_menu?: Battle_menuListRelationFilter
+    battle_menus?: Battle_menusListRelationFilter
     menu_allery?: Menu_alleryListRelationFilter
     menu_tag?: Menu_tagListRelationFilter
     menu_vitamin?: Menu_vitaminListRelationFilter
     mukburim?: MukburimListRelationFilter
-    spin_result?: Spin_resultListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
   }, "id">
 
   export type menuOrderByWithAggregationInput = {
@@ -13248,262 +14281,20 @@ export namespace Prisma {
     tag?: StringNullableWithAggregatesFilter<"menu_tag"> | string | null
   }
 
-  export type alleryWhereInput = {
-    AND?: alleryWhereInput | alleryWhereInput[]
-    OR?: alleryWhereInput[]
-    NOT?: alleryWhereInput | alleryWhereInput[]
-    id?: BigIntFilter<"allery"> | bigint | number
-    allergy?: StringNullableFilter<"allery"> | string | null
-    menu_allery?: Menu_alleryListRelationFilter
-  }
-
-  export type alleryOrderByWithRelationInput = {
-    id?: SortOrder
-    allergy?: SortOrderInput | SortOrder
-    menu_allery?: menu_alleryOrderByRelationAggregateInput
-    _relevance?: alleryOrderByRelevanceInput
-  }
-
-  export type alleryWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: alleryWhereInput | alleryWhereInput[]
-    OR?: alleryWhereInput[]
-    NOT?: alleryWhereInput | alleryWhereInput[]
-    allergy?: StringNullableFilter<"allery"> | string | null
-    menu_allery?: Menu_alleryListRelationFilter
-  }, "id">
-
-  export type alleryOrderByWithAggregationInput = {
-    id?: SortOrder
-    allergy?: SortOrderInput | SortOrder
-    _count?: alleryCountOrderByAggregateInput
-    _avg?: alleryAvgOrderByAggregateInput
-    _max?: alleryMaxOrderByAggregateInput
-    _min?: alleryMinOrderByAggregateInput
-    _sum?: allerySumOrderByAggregateInput
-  }
-
-  export type alleryScalarWhereWithAggregatesInput = {
-    AND?: alleryScalarWhereWithAggregatesInput | alleryScalarWhereWithAggregatesInput[]
-    OR?: alleryScalarWhereWithAggregatesInput[]
-    NOT?: alleryScalarWhereWithAggregatesInput | alleryScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"allery"> | bigint | number
-    allergy?: StringNullableWithAggregatesFilter<"allery"> | string | null
-  }
-
-  export type battleWhereInput = {
-    AND?: battleWhereInput | battleWhereInput[]
-    OR?: battleWhereInput[]
-    NOT?: battleWhereInput | battleWhereInput[]
-    id?: StringFilter<"battle"> | string
-    creater_nickname?: StringNullableFilter<"battle"> | string | null
-    status?: StringNullableFilter<"battle"> | string | null
-    participant_count?: IntNullableFilter<"battle"> | number | null
-    created_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    finished_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    expires_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    battle_menu?: Battle_menuListRelationFilter
-    battle_participant?: Battle_participantListRelationFilter
-    spin_result?: Spin_resultListRelationFilter
-  }
-
-  export type battleOrderByWithRelationInput = {
-    id?: SortOrder
-    creater_nickname?: SortOrderInput | SortOrder
-    status?: SortOrderInput | SortOrder
-    participant_count?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
-    finished_at?: SortOrderInput | SortOrder
-    expires_at?: SortOrderInput | SortOrder
-    battle_menu?: battle_menuOrderByRelationAggregateInput
-    battle_participant?: battle_participantOrderByRelationAggregateInput
-    spin_result?: spin_resultOrderByRelationAggregateInput
-    _relevance?: battleOrderByRelevanceInput
-  }
-
-  export type battleWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: battleWhereInput | battleWhereInput[]
-    OR?: battleWhereInput[]
-    NOT?: battleWhereInput | battleWhereInput[]
-    creater_nickname?: StringNullableFilter<"battle"> | string | null
-    status?: StringNullableFilter<"battle"> | string | null
-    participant_count?: IntNullableFilter<"battle"> | number | null
-    created_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    finished_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    expires_at?: DateTimeNullableFilter<"battle"> | Date | string | null
-    battle_menu?: Battle_menuListRelationFilter
-    battle_participant?: Battle_participantListRelationFilter
-    spin_result?: Spin_resultListRelationFilter
-  }, "id">
-
-  export type battleOrderByWithAggregationInput = {
-    id?: SortOrder
-    creater_nickname?: SortOrderInput | SortOrder
-    status?: SortOrderInput | SortOrder
-    participant_count?: SortOrderInput | SortOrder
-    created_at?: SortOrderInput | SortOrder
-    finished_at?: SortOrderInput | SortOrder
-    expires_at?: SortOrderInput | SortOrder
-    _count?: battleCountOrderByAggregateInput
-    _avg?: battleAvgOrderByAggregateInput
-    _max?: battleMaxOrderByAggregateInput
-    _min?: battleMinOrderByAggregateInput
-    _sum?: battleSumOrderByAggregateInput
-  }
-
-  export type battleScalarWhereWithAggregatesInput = {
-    AND?: battleScalarWhereWithAggregatesInput | battleScalarWhereWithAggregatesInput[]
-    OR?: battleScalarWhereWithAggregatesInput[]
-    NOT?: battleScalarWhereWithAggregatesInput | battleScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"battle"> | string
-    creater_nickname?: StringNullableWithAggregatesFilter<"battle"> | string | null
-    status?: StringNullableWithAggregatesFilter<"battle"> | string | null
-    participant_count?: IntNullableWithAggregatesFilter<"battle"> | number | null
-    created_at?: DateTimeNullableWithAggregatesFilter<"battle"> | Date | string | null
-    finished_at?: DateTimeNullableWithAggregatesFilter<"battle"> | Date | string | null
-    expires_at?: DateTimeNullableWithAggregatesFilter<"battle"> | Date | string | null
-  }
-
-  export type battle_menuWhereInput = {
-    AND?: battle_menuWhereInput | battle_menuWhereInput[]
-    OR?: battle_menuWhereInput[]
-    NOT?: battle_menuWhereInput | battle_menuWhereInput[]
-    id?: BigIntFilter<"battle_menu"> | bigint | number
-    menu_name?: StringNullableFilter<"battle_menu"> | string | null
-    boundary_angle?: FloatNullableFilter<"battle_menu"> | number | null
-    menu_order?: IntNullableFilter<"battle_menu"> | number | null
-    battle_id?: StringFilter<"battle_menu"> | string
-    menu_id?: BigIntFilter<"battle_menu"> | bigint | number
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }
-
-  export type battle_menuOrderByWithRelationInput = {
-    id?: SortOrder
-    menu_name?: SortOrderInput | SortOrder
-    boundary_angle?: SortOrderInput | SortOrder
-    menu_order?: SortOrderInput | SortOrder
-    battle_id?: SortOrder
-    menu_id?: SortOrder
-    battle?: battleOrderByWithRelationInput
-    menu?: menuOrderByWithRelationInput
-    _relevance?: battle_menuOrderByRelevanceInput
-  }
-
-  export type battle_menuWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: battle_menuWhereInput | battle_menuWhereInput[]
-    OR?: battle_menuWhereInput[]
-    NOT?: battle_menuWhereInput | battle_menuWhereInput[]
-    menu_name?: StringNullableFilter<"battle_menu"> | string | null
-    boundary_angle?: FloatNullableFilter<"battle_menu"> | number | null
-    menu_order?: IntNullableFilter<"battle_menu"> | number | null
-    battle_id?: StringFilter<"battle_menu"> | string
-    menu_id?: BigIntFilter<"battle_menu"> | bigint | number
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }, "id">
-
-  export type battle_menuOrderByWithAggregationInput = {
-    id?: SortOrder
-    menu_name?: SortOrderInput | SortOrder
-    boundary_angle?: SortOrderInput | SortOrder
-    menu_order?: SortOrderInput | SortOrder
-    battle_id?: SortOrder
-    menu_id?: SortOrder
-    _count?: battle_menuCountOrderByAggregateInput
-    _avg?: battle_menuAvgOrderByAggregateInput
-    _max?: battle_menuMaxOrderByAggregateInput
-    _min?: battle_menuMinOrderByAggregateInput
-    _sum?: battle_menuSumOrderByAggregateInput
-  }
-
-  export type battle_menuScalarWhereWithAggregatesInput = {
-    AND?: battle_menuScalarWhereWithAggregatesInput | battle_menuScalarWhereWithAggregatesInput[]
-    OR?: battle_menuScalarWhereWithAggregatesInput[]
-    NOT?: battle_menuScalarWhereWithAggregatesInput | battle_menuScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"battle_menu"> | bigint | number
-    menu_name?: StringNullableWithAggregatesFilter<"battle_menu"> | string | null
-    boundary_angle?: FloatNullableWithAggregatesFilter<"battle_menu"> | number | null
-    menu_order?: IntNullableWithAggregatesFilter<"battle_menu"> | number | null
-    battle_id?: StringWithAggregatesFilter<"battle_menu"> | string
-    menu_id?: BigIntWithAggregatesFilter<"battle_menu"> | bigint | number
-  }
-
-  export type battle_participantWhereInput = {
-    AND?: battle_participantWhereInput | battle_participantWhereInput[]
-    OR?: battle_participantWhereInput[]
-    NOT?: battle_participantWhereInput | battle_participantWhereInput[]
-    battle_id?: StringFilter<"battle_participant"> | string
-    user_id?: BigIntFilter<"battle_participant"> | bigint | number
-    nickname?: StringNullableFilter<"battle_participant"> | string | null
-    is_creater?: IntNullableFilter<"battle_participant"> | number | null
-    joined_at?: DateTimeNullableFilter<"battle_participant"> | Date | string | null
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-  }
-
-  export type battle_participantOrderByWithRelationInput = {
-    battle_id?: SortOrder
-    user_id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
-    is_creater?: SortOrderInput | SortOrder
-    joined_at?: SortOrderInput | SortOrder
-    battle?: battleOrderByWithRelationInput
-    _relevance?: battle_participantOrderByRelevanceInput
-  }
-
-  export type battle_participantWhereUniqueInput = Prisma.AtLeast<{
-    user_id_battle_id?: battle_participantUser_idBattle_idCompoundUniqueInput
-    AND?: battle_participantWhereInput | battle_participantWhereInput[]
-    OR?: battle_participantWhereInput[]
-    NOT?: battle_participantWhereInput | battle_participantWhereInput[]
-    battle_id?: StringFilter<"battle_participant"> | string
-    user_id?: BigIntFilter<"battle_participant"> | bigint | number
-    nickname?: StringNullableFilter<"battle_participant"> | string | null
-    is_creater?: IntNullableFilter<"battle_participant"> | number | null
-    joined_at?: DateTimeNullableFilter<"battle_participant"> | Date | string | null
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-  }, "user_id_battle_id">
-
-  export type battle_participantOrderByWithAggregationInput = {
-    battle_id?: SortOrder
-    user_id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
-    is_creater?: SortOrderInput | SortOrder
-    joined_at?: SortOrderInput | SortOrder
-    _count?: battle_participantCountOrderByAggregateInput
-    _avg?: battle_participantAvgOrderByAggregateInput
-    _max?: battle_participantMaxOrderByAggregateInput
-    _min?: battle_participantMinOrderByAggregateInput
-    _sum?: battle_participantSumOrderByAggregateInput
-  }
-
-  export type battle_participantScalarWhereWithAggregatesInput = {
-    AND?: battle_participantScalarWhereWithAggregatesInput | battle_participantScalarWhereWithAggregatesInput[]
-    OR?: battle_participantScalarWhereWithAggregatesInput[]
-    NOT?: battle_participantScalarWhereWithAggregatesInput | battle_participantScalarWhereWithAggregatesInput[]
-    battle_id?: StringWithAggregatesFilter<"battle_participant"> | string
-    user_id?: BigIntWithAggregatesFilter<"battle_participant"> | bigint | number
-    nickname?: StringNullableWithAggregatesFilter<"battle_participant"> | string | null
-    is_creater?: IntNullableWithAggregatesFilter<"battle_participant"> | number | null
-    joined_at?: DateTimeNullableWithAggregatesFilter<"battle_participant"> | Date | string | null
-  }
-
   export type menu_alleryWhereInput = {
     AND?: menu_alleryWhereInput | menu_alleryWhereInput[]
     OR?: menu_alleryWhereInput[]
     NOT?: menu_alleryWhereInput | menu_alleryWhereInput[]
     menu_id?: BigIntFilter<"menu_allery"> | bigint | number
     allergy_id?: BigIntFilter<"menu_allery"> | bigint | number
-    allery?: XOR<AlleryScalarRelationFilter, alleryWhereInput>
+    allergy?: XOR<AllergyScalarRelationFilter, allergyWhereInput>
     menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
   }
 
   export type menu_alleryOrderByWithRelationInput = {
     menu_id?: SortOrder
     allergy_id?: SortOrder
-    allery?: alleryOrderByWithRelationInput
+    allergy?: allergyOrderByWithRelationInput
     menu?: menuOrderByWithRelationInput
   }
 
@@ -13514,7 +14305,7 @@ export namespace Prisma {
     NOT?: menu_alleryWhereInput | menu_alleryWhereInput[]
     menu_id?: BigIntFilter<"menu_allery"> | bigint | number
     allergy_id?: BigIntFilter<"menu_allery"> | bigint | number
-    allery?: XOR<AlleryScalarRelationFilter, alleryWhereInput>
+    allergy?: XOR<AllergyScalarRelationFilter, allergyWhereInput>
     menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
   }, "menu_id_allergy_id">
 
@@ -13582,82 +14373,6 @@ export namespace Prisma {
     vitamin_id?: BigIntWithAggregatesFilter<"menu_vitamin"> | bigint | number
   }
 
-  export type spin_resultWhereInput = {
-    AND?: spin_resultWhereInput | spin_resultWhereInput[]
-    OR?: spin_resultWhereInput[]
-    NOT?: spin_resultWhereInput | spin_resultWhereInput[]
-    id?: BigIntFilter<"spin_result"> | bigint | number
-    nickname?: StringNullableFilter<"spin_result"> | string | null
-    stopped_angle?: FloatNullableFilter<"spin_result"> | number | null
-    distance_to_boundary?: FloatNullableFilter<"spin_result"> | number | null
-    rank?: IntNullableFilter<"spin_result"> | number | null
-    spin_at?: DateTimeNullableFilter<"spin_result"> | Date | string | null
-    battle_id?: StringFilter<"spin_result"> | string
-    closest_menu_id?: BigIntFilter<"spin_result"> | bigint | number
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }
-
-  export type spin_resultOrderByWithRelationInput = {
-    id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
-    stopped_angle?: SortOrderInput | SortOrder
-    distance_to_boundary?: SortOrderInput | SortOrder
-    rank?: SortOrderInput | SortOrder
-    spin_at?: SortOrderInput | SortOrder
-    battle_id?: SortOrder
-    closest_menu_id?: SortOrder
-    battle?: battleOrderByWithRelationInput
-    menu?: menuOrderByWithRelationInput
-    _relevance?: spin_resultOrderByRelevanceInput
-  }
-
-  export type spin_resultWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: spin_resultWhereInput | spin_resultWhereInput[]
-    OR?: spin_resultWhereInput[]
-    NOT?: spin_resultWhereInput | spin_resultWhereInput[]
-    nickname?: StringNullableFilter<"spin_result"> | string | null
-    stopped_angle?: FloatNullableFilter<"spin_result"> | number | null
-    distance_to_boundary?: FloatNullableFilter<"spin_result"> | number | null
-    rank?: IntNullableFilter<"spin_result"> | number | null
-    spin_at?: DateTimeNullableFilter<"spin_result"> | Date | string | null
-    battle_id?: StringFilter<"spin_result"> | string
-    closest_menu_id?: BigIntFilter<"spin_result"> | bigint | number
-    battle?: XOR<BattleScalarRelationFilter, battleWhereInput>
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }, "id">
-
-  export type spin_resultOrderByWithAggregationInput = {
-    id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
-    stopped_angle?: SortOrderInput | SortOrder
-    distance_to_boundary?: SortOrderInput | SortOrder
-    rank?: SortOrderInput | SortOrder
-    spin_at?: SortOrderInput | SortOrder
-    battle_id?: SortOrder
-    closest_menu_id?: SortOrder
-    _count?: spin_resultCountOrderByAggregateInput
-    _avg?: spin_resultAvgOrderByAggregateInput
-    _max?: spin_resultMaxOrderByAggregateInput
-    _min?: spin_resultMinOrderByAggregateInput
-    _sum?: spin_resultSumOrderByAggregateInput
-  }
-
-  export type spin_resultScalarWhereWithAggregatesInput = {
-    AND?: spin_resultScalarWhereWithAggregatesInput | spin_resultScalarWhereWithAggregatesInput[]
-    OR?: spin_resultScalarWhereWithAggregatesInput[]
-    NOT?: spin_resultScalarWhereWithAggregatesInput | spin_resultScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"spin_result"> | bigint | number
-    nickname?: StringNullableWithAggregatesFilter<"spin_result"> | string | null
-    stopped_angle?: FloatNullableWithAggregatesFilter<"spin_result"> | number | null
-    distance_to_boundary?: FloatNullableWithAggregatesFilter<"spin_result"> | number | null
-    rank?: IntNullableWithAggregatesFilter<"spin_result"> | number | null
-    spin_at?: DateTimeNullableWithAggregatesFilter<"spin_result"> | Date | string | null
-    battle_id?: StringWithAggregatesFilter<"spin_result"> | string
-    closest_menu_id?: BigIntWithAggregatesFilter<"spin_result"> | bigint | number
-  }
-
   export type vitaminWhereInput = {
     AND?: vitaminWhereInput | vitaminWhereInput[]
     OR?: vitaminWhereInput[]
@@ -13701,6 +14416,376 @@ export namespace Prisma {
     vitamin?: StringNullableWithAggregatesFilter<"vitamin"> | string | null
   }
 
+  export type allergyWhereInput = {
+    AND?: allergyWhereInput | allergyWhereInput[]
+    OR?: allergyWhereInput[]
+    NOT?: allergyWhereInput | allergyWhereInput[]
+    id?: BigIntFilter<"allergy"> | bigint | number
+    allergy?: StringNullableFilter<"allergy"> | string | null
+    menu_allery?: Menu_alleryListRelationFilter
+  }
+
+  export type allergyOrderByWithRelationInput = {
+    id?: SortOrder
+    allergy?: SortOrderInput | SortOrder
+    menu_allery?: menu_alleryOrderByRelationAggregateInput
+    _relevance?: allergyOrderByRelevanceInput
+  }
+
+  export type allergyWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: allergyWhereInput | allergyWhereInput[]
+    OR?: allergyWhereInput[]
+    NOT?: allergyWhereInput | allergyWhereInput[]
+    allergy?: StringNullableFilter<"allergy"> | string | null
+    menu_allery?: Menu_alleryListRelationFilter
+  }, "id">
+
+  export type allergyOrderByWithAggregationInput = {
+    id?: SortOrder
+    allergy?: SortOrderInput | SortOrder
+    _count?: allergyCountOrderByAggregateInput
+    _avg?: allergyAvgOrderByAggregateInput
+    _max?: allergyMaxOrderByAggregateInput
+    _min?: allergyMinOrderByAggregateInput
+    _sum?: allergySumOrderByAggregateInput
+  }
+
+  export type allergyScalarWhereWithAggregatesInput = {
+    AND?: allergyScalarWhereWithAggregatesInput | allergyScalarWhereWithAggregatesInput[]
+    OR?: allergyScalarWhereWithAggregatesInput[]
+    NOT?: allergyScalarWhereWithAggregatesInput | allergyScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"allergy"> | bigint | number
+    allergy?: StringNullableWithAggregatesFilter<"allergy"> | string | null
+  }
+
+  export type battlesWhereInput = {
+    AND?: battlesWhereInput | battlesWhereInput[]
+    OR?: battlesWhereInput[]
+    NOT?: battlesWhereInput | battlesWhereInput[]
+    battle_id?: StringFilter<"battles"> | string
+    creator_nickname?: StringFilter<"battles"> | string
+    status?: Enumbattles_statusFilter<"battles"> | $Enums.battles_status
+    participant_count?: IntFilter<"battles"> | number
+    created_at?: DateTimeFilter<"battles"> | Date | string
+    finished_at?: DateTimeNullableFilter<"battles"> | Date | string | null
+    expires_at?: DateTimeFilter<"battles"> | Date | string
+    battle_participants?: Battle_participantsListRelationFilter
+    battle_menus?: Battle_menusListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
+  }
+
+  export type battlesOrderByWithRelationInput = {
+    battle_id?: SortOrder
+    creator_nickname?: SortOrder
+    status?: SortOrder
+    participant_count?: SortOrder
+    created_at?: SortOrder
+    finished_at?: SortOrderInput | SortOrder
+    expires_at?: SortOrder
+    battle_participants?: battle_participantsOrderByRelationAggregateInput
+    battle_menus?: battle_menusOrderByRelationAggregateInput
+    spin_results?: spin_resultsOrderByRelationAggregateInput
+    _relevance?: battlesOrderByRelevanceInput
+  }
+
+  export type battlesWhereUniqueInput = Prisma.AtLeast<{
+    battle_id?: string
+    AND?: battlesWhereInput | battlesWhereInput[]
+    OR?: battlesWhereInput[]
+    NOT?: battlesWhereInput | battlesWhereInput[]
+    creator_nickname?: StringFilter<"battles"> | string
+    status?: Enumbattles_statusFilter<"battles"> | $Enums.battles_status
+    participant_count?: IntFilter<"battles"> | number
+    created_at?: DateTimeFilter<"battles"> | Date | string
+    finished_at?: DateTimeNullableFilter<"battles"> | Date | string | null
+    expires_at?: DateTimeFilter<"battles"> | Date | string
+    battle_participants?: Battle_participantsListRelationFilter
+    battle_menus?: Battle_menusListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
+  }, "battle_id">
+
+  export type battlesOrderByWithAggregationInput = {
+    battle_id?: SortOrder
+    creator_nickname?: SortOrder
+    status?: SortOrder
+    participant_count?: SortOrder
+    created_at?: SortOrder
+    finished_at?: SortOrderInput | SortOrder
+    expires_at?: SortOrder
+    _count?: battlesCountOrderByAggregateInput
+    _avg?: battlesAvgOrderByAggregateInput
+    _max?: battlesMaxOrderByAggregateInput
+    _min?: battlesMinOrderByAggregateInput
+    _sum?: battlesSumOrderByAggregateInput
+  }
+
+  export type battlesScalarWhereWithAggregatesInput = {
+    AND?: battlesScalarWhereWithAggregatesInput | battlesScalarWhereWithAggregatesInput[]
+    OR?: battlesScalarWhereWithAggregatesInput[]
+    NOT?: battlesScalarWhereWithAggregatesInput | battlesScalarWhereWithAggregatesInput[]
+    battle_id?: StringWithAggregatesFilter<"battles"> | string
+    creator_nickname?: StringWithAggregatesFilter<"battles"> | string
+    status?: Enumbattles_statusWithAggregatesFilter<"battles"> | $Enums.battles_status
+    participant_count?: IntWithAggregatesFilter<"battles"> | number
+    created_at?: DateTimeWithAggregatesFilter<"battles"> | Date | string
+    finished_at?: DateTimeNullableWithAggregatesFilter<"battles"> | Date | string | null
+    expires_at?: DateTimeWithAggregatesFilter<"battles"> | Date | string
+  }
+
+  export type battle_participantsWhereInput = {
+    AND?: battle_participantsWhereInput | battle_participantsWhereInput[]
+    OR?: battle_participantsWhereInput[]
+    NOT?: battle_participantsWhereInput | battle_participantsWhereInput[]
+    id?: BigIntFilter<"battle_participants"> | bigint | number
+    battle_id?: StringFilter<"battle_participants"> | string
+    nickname?: StringFilter<"battle_participants"> | string
+    is_creator?: BoolFilter<"battle_participants"> | boolean
+    joined_at?: DateTimeFilter<"battle_participants"> | Date | string
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+  }
+
+  export type battle_participantsOrderByWithRelationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    is_creator?: SortOrder
+    joined_at?: SortOrder
+    battles?: battlesOrderByWithRelationInput
+    _relevance?: battle_participantsOrderByRelevanceInput
+  }
+
+  export type battle_participantsWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    battle_id_nickname?: battle_participantsBattle_idNicknameCompoundUniqueInput
+    AND?: battle_participantsWhereInput | battle_participantsWhereInput[]
+    OR?: battle_participantsWhereInput[]
+    NOT?: battle_participantsWhereInput | battle_participantsWhereInput[]
+    battle_id?: StringFilter<"battle_participants"> | string
+    nickname?: StringFilter<"battle_participants"> | string
+    is_creator?: BoolFilter<"battle_participants"> | boolean
+    joined_at?: DateTimeFilter<"battle_participants"> | Date | string
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+  }, "id" | "battle_id_nickname">
+
+  export type battle_participantsOrderByWithAggregationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    is_creator?: SortOrder
+    joined_at?: SortOrder
+    _count?: battle_participantsCountOrderByAggregateInput
+    _avg?: battle_participantsAvgOrderByAggregateInput
+    _max?: battle_participantsMaxOrderByAggregateInput
+    _min?: battle_participantsMinOrderByAggregateInput
+    _sum?: battle_participantsSumOrderByAggregateInput
+  }
+
+  export type battle_participantsScalarWhereWithAggregatesInput = {
+    AND?: battle_participantsScalarWhereWithAggregatesInput | battle_participantsScalarWhereWithAggregatesInput[]
+    OR?: battle_participantsScalarWhereWithAggregatesInput[]
+    NOT?: battle_participantsScalarWhereWithAggregatesInput | battle_participantsScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"battle_participants"> | bigint | number
+    battle_id?: StringWithAggregatesFilter<"battle_participants"> | string
+    nickname?: StringWithAggregatesFilter<"battle_participants"> | string
+    is_creator?: BoolWithAggregatesFilter<"battle_participants"> | boolean
+    joined_at?: DateTimeWithAggregatesFilter<"battle_participants"> | Date | string
+  }
+
+  export type battle_menusWhereInput = {
+    AND?: battle_menusWhereInput | battle_menusWhereInput[]
+    OR?: battle_menusWhereInput[]
+    NOT?: battle_menusWhereInput | battle_menusWhereInput[]
+    id?: BigIntFilter<"battle_menus"> | bigint | number
+    battle_id?: StringFilter<"battle_menus"> | string
+    menu_id?: BigIntFilter<"battle_menus"> | bigint | number
+    menu_name?: StringFilter<"battle_menus"> | string
+    boundary_angle?: DecimalFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFilter<"battle_menus"> | number
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }
+
+  export type battle_menusOrderByWithRelationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    menu_id?: SortOrder
+    menu_name?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+    battles?: battlesOrderByWithRelationInput
+    menu?: menuOrderByWithRelationInput
+    _relevance?: battle_menusOrderByRelevanceInput
+  }
+
+  export type battle_menusWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    battle_id_menu_id?: battle_menusBattle_idMenu_idCompoundUniqueInput
+    AND?: battle_menusWhereInput | battle_menusWhereInput[]
+    OR?: battle_menusWhereInput[]
+    NOT?: battle_menusWhereInput | battle_menusWhereInput[]
+    battle_id?: StringFilter<"battle_menus"> | string
+    menu_id?: BigIntFilter<"battle_menus"> | bigint | number
+    menu_name?: StringFilter<"battle_menus"> | string
+    boundary_angle?: DecimalFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFilter<"battle_menus"> | number
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }, "id" | "battle_id_menu_id">
+
+  export type battle_menusOrderByWithAggregationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    menu_id?: SortOrder
+    menu_name?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+    _count?: battle_menusCountOrderByAggregateInput
+    _avg?: battle_menusAvgOrderByAggregateInput
+    _max?: battle_menusMaxOrderByAggregateInput
+    _min?: battle_menusMinOrderByAggregateInput
+    _sum?: battle_menusSumOrderByAggregateInput
+  }
+
+  export type battle_menusScalarWhereWithAggregatesInput = {
+    AND?: battle_menusScalarWhereWithAggregatesInput | battle_menusScalarWhereWithAggregatesInput[]
+    OR?: battle_menusScalarWhereWithAggregatesInput[]
+    NOT?: battle_menusScalarWhereWithAggregatesInput | battle_menusScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"battle_menus"> | bigint | number
+    battle_id?: StringWithAggregatesFilter<"battle_menus"> | string
+    menu_id?: BigIntWithAggregatesFilter<"battle_menus"> | bigint | number
+    menu_name?: StringWithAggregatesFilter<"battle_menus"> | string
+    boundary_angle?: DecimalWithAggregatesFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
+    menu_order?: IntWithAggregatesFilter<"battle_menus"> | number
+  }
+
+  export type spin_resultsWhereInput = {
+    AND?: spin_resultsWhereInput | spin_resultsWhereInput[]
+    OR?: spin_resultsWhereInput[]
+    NOT?: spin_resultsWhereInput | spin_resultsWhereInput[]
+    id?: BigIntFilter<"spin_results"> | bigint | number
+    battle_id?: StringFilter<"spin_results"> | string
+    nickname?: StringFilter<"spin_results"> | string
+    stopped_angle?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFilter<"spin_results"> | bigint | number
+    closest_menu_name?: StringFilter<"spin_results"> | string
+    distance_to_boundary?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    rank?: IntFilter<"spin_results"> | number
+    spun_at?: DateTimeFilter<"spin_results"> | Date | string
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }
+
+  export type spin_resultsOrderByWithRelationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    closest_menu_name?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+    spun_at?: SortOrder
+    battles?: battlesOrderByWithRelationInput
+    menu?: menuOrderByWithRelationInput
+    _relevance?: spin_resultsOrderByRelevanceInput
+  }
+
+  export type spin_resultsWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    battle_id_nickname?: spin_resultsBattle_idNicknameCompoundUniqueInput
+    AND?: spin_resultsWhereInput | spin_resultsWhereInput[]
+    OR?: spin_resultsWhereInput[]
+    NOT?: spin_resultsWhereInput | spin_resultsWhereInput[]
+    battle_id?: StringFilter<"spin_results"> | string
+    nickname?: StringFilter<"spin_results"> | string
+    stopped_angle?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFilter<"spin_results"> | bigint | number
+    closest_menu_name?: StringFilter<"spin_results"> | string
+    distance_to_boundary?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    rank?: IntFilter<"spin_results"> | number
+    spun_at?: DateTimeFilter<"spin_results"> | Date | string
+    battles?: XOR<BattlesScalarRelationFilter, battlesWhereInput>
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }, "id" | "battle_id_nickname">
+
+  export type spin_resultsOrderByWithAggregationInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    closest_menu_name?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+    spun_at?: SortOrder
+    _count?: spin_resultsCountOrderByAggregateInput
+    _avg?: spin_resultsAvgOrderByAggregateInput
+    _max?: spin_resultsMaxOrderByAggregateInput
+    _min?: spin_resultsMinOrderByAggregateInput
+    _sum?: spin_resultsSumOrderByAggregateInput
+  }
+
+  export type spin_resultsScalarWhereWithAggregatesInput = {
+    AND?: spin_resultsScalarWhereWithAggregatesInput | spin_resultsScalarWhereWithAggregatesInput[]
+    OR?: spin_resultsScalarWhereWithAggregatesInput[]
+    NOT?: spin_resultsScalarWhereWithAggregatesInput | spin_resultsScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"spin_results"> | bigint | number
+    battle_id?: StringWithAggregatesFilter<"spin_results"> | string
+    nickname?: StringWithAggregatesFilter<"spin_results"> | string
+    stopped_angle?: DecimalWithAggregatesFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntWithAggregatesFilter<"spin_results"> | bigint | number
+    closest_menu_name?: StringWithAggregatesFilter<"spin_results"> | string
+    distance_to_boundary?: DecimalWithAggregatesFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    rank?: IntWithAggregatesFilter<"spin_results"> | number
+    spun_at?: DateTimeWithAggregatesFilter<"spin_results"> | Date | string
+  }
+
+  export type sessionsWhereInput = {
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    session_id?: StringFilter<"sessions"> | string
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }
+
+  export type sessionsOrderByWithRelationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _relevance?: sessionsOrderByRelevanceInput
+  }
+
+  export type sessionsWhereUniqueInput = Prisma.AtLeast<{
+    session_id?: string
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }, "session_id">
+
+  export type sessionsOrderByWithAggregationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _count?: sessionsCountOrderByAggregateInput
+    _avg?: sessionsAvgOrderByAggregateInput
+    _max?: sessionsMaxOrderByAggregateInput
+    _min?: sessionsMinOrderByAggregateInput
+    _sum?: sessionsSumOrderByAggregateInput
+  }
+
+  export type sessionsScalarWhereWithAggregatesInput = {
+    AND?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    OR?: sessionsScalarWhereWithAggregatesInput[]
+    NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    session_id?: StringWithAggregatesFilter<"sessions"> | string
+    expires?: IntWithAggregatesFilter<"sessions"> | number
+    data?: StringNullableWithAggregatesFilter<"sessions"> | string | null
+  }
+
   export type menuCreateInput = {
     id?: bigint | number
     name: string
@@ -13711,12 +14796,12 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
     mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
   }
 
   export type menuUncheckedCreateInput = {
@@ -13729,12 +14814,12 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
   }
 
   export type menuUpdateInput = {
@@ -13747,12 +14832,12 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
   }
 
   export type menuUncheckedUpdateInput = {
@@ -13765,12 +14850,12 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
   export type menuCreateManyInput = {
@@ -13898,245 +14983,8 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type alleryCreateInput = {
-    id?: bigint | number
-    allergy?: string | null
-    menu_allery?: menu_alleryCreateNestedManyWithoutAlleryInput
-  }
-
-  export type alleryUncheckedCreateInput = {
-    id?: bigint | number
-    allergy?: string | null
-    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutAlleryInput
-  }
-
-  export type alleryUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUpdateManyWithoutAlleryNestedInput
-  }
-
-  export type alleryUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput
-  }
-
-  export type alleryCreateManyInput = {
-    id?: bigint | number
-    allergy?: string | null
-  }
-
-  export type alleryUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type alleryUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    allergy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type battleCreateInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutBattleInput
-    battle_participant?: battle_participantCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleUncheckedCreateInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutBattleInput
-    battle_participant?: battle_participantUncheckedCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUpdateManyWithoutBattleNestedInput
-    battle_participant?: battle_participantUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUpdateManyWithoutBattleNestedInput
-  }
-
-  export type battleUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutBattleNestedInput
-    battle_participant?: battle_participantUncheckedUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutBattleNestedInput
-  }
-
-  export type battleCreateManyInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-  }
-
-  export type battleUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battleUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battle_menuCreateInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    battle: battleCreateNestedOneWithoutBattle_menuInput
-    menu: menuCreateNestedOneWithoutBattle_menuInput
-  }
-
-  export type battle_menuUncheckedCreateInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    battle_id: string
-    menu_id: bigint | number
-  }
-
-  export type battle_menuUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    battle?: battleUpdateOneRequiredWithoutBattle_menuNestedInput
-    menu?: menuUpdateOneRequiredWithoutBattle_menuNestedInput
-  }
-
-  export type battle_menuUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    battle_id?: StringFieldUpdateOperationsInput | string
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_menuCreateManyInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    battle_id: string
-    menu_id: bigint | number
-  }
-
-  export type battle_menuUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type battle_menuUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    battle_id?: StringFieldUpdateOperationsInput | string
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_participantCreateInput = {
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-    battle: battleCreateNestedOneWithoutBattle_participantInput
-  }
-
-  export type battle_participantUncheckedCreateInput = {
-    battle_id: string
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-  }
-
-  export type battle_participantUpdateInput = {
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle?: battleUpdateOneRequiredWithoutBattle_participantNestedInput
-  }
-
-  export type battle_participantUncheckedUpdateInput = {
-    battle_id?: StringFieldUpdateOperationsInput | string
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battle_participantCreateManyInput = {
-    battle_id: string
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-  }
-
-  export type battle_participantUpdateManyMutationInput = {
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battle_participantUncheckedUpdateManyInput = {
-    battle_id?: StringFieldUpdateOperationsInput | string
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type menu_alleryCreateInput = {
-    allery: alleryCreateNestedOneWithoutMenu_alleryInput
+    allergy: allergyCreateNestedOneWithoutMenu_alleryInput
     menu: menuCreateNestedOneWithoutMenu_alleryInput
   }
 
@@ -14146,7 +14994,7 @@ export namespace Prisma {
   }
 
   export type menu_alleryUpdateInput = {
-    allery?: alleryUpdateOneRequiredWithoutMenu_alleryNestedInput
+    allergy?: allergyUpdateOneRequiredWithoutMenu_alleryNestedInput
     menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
   }
 
@@ -14203,81 +15051,6 @@ export namespace Prisma {
     vitamin_id?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
-  export type spin_resultCreateInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    battle: battleCreateNestedOneWithoutSpin_resultInput
-    menu: menuCreateNestedOneWithoutSpin_resultInput
-  }
-
-  export type spin_resultUncheckedCreateInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    battle_id: string
-    closest_menu_id: bigint | number
-  }
-
-  export type spin_resultUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle?: battleUpdateOneRequiredWithoutSpin_resultNestedInput
-    menu?: menuUpdateOneRequiredWithoutSpin_resultNestedInput
-  }
-
-  export type spin_resultUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_id?: StringFieldUpdateOperationsInput | string
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type spin_resultCreateManyInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    battle_id: string
-    closest_menu_id: bigint | number
-  }
-
-  export type spin_resultUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type spin_resultUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_id?: StringFieldUpdateOperationsInput | string
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
   export type vitaminCreateInput = {
     id?: bigint | number
     vitamin?: string | null
@@ -14315,6 +15088,367 @@ export namespace Prisma {
   export type vitaminUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type allergyCreateInput = {
+    id?: bigint | number
+    allergy?: string | null
+    menu_allery?: menu_alleryCreateNestedManyWithoutAllergyInput
+  }
+
+  export type allergyUncheckedCreateInput = {
+    id?: bigint | number
+    allergy?: string | null
+    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutAllergyInput
+  }
+
+  export type allergyUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUpdateManyWithoutAllergyNestedInput
+  }
+
+  export type allergyUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUncheckedUpdateManyWithoutAllergyNestedInput
+  }
+
+  export type allergyCreateManyInput = {
+    id?: bigint | number
+    allergy?: string | null
+  }
+
+  export type allergyUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type allergyUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    allergy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type battlesCreateInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsCreateNestedManyWithoutBattlesInput
+    battle_menus?: battle_menusCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesUncheckedCreateInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsUncheckedCreateNestedManyWithoutBattlesInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesUpdateInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUpdateManyWithoutBattlesNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesUncheckedUpdateInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesCreateManyInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+  }
+
+  export type battlesUpdateManyMutationInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battlesUncheckedUpdateManyInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsCreateInput = {
+    id?: bigint | number
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+    battles: battlesCreateNestedOneWithoutBattle_participantsInput
+  }
+
+  export type battle_participantsUncheckedCreateInput = {
+    id?: bigint | number
+    battle_id: string
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type battle_participantsUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battles?: battlesUpdateOneRequiredWithoutBattle_participantsNestedInput
+  }
+
+  export type battle_participantsUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsCreateManyInput = {
+    id?: bigint | number
+    battle_id: string
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type battle_participantsUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_menusCreateInput = {
+    id?: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+    battles: battlesCreateNestedOneWithoutBattle_menusInput
+    menu: menuCreateNestedOneWithoutBattle_menusInput
+  }
+
+  export type battle_menusUncheckedCreateInput = {
+    id?: bigint | number
+    battle_id: string
+    menu_id: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type battle_menusUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+    battles?: battlesUpdateOneRequiredWithoutBattle_menusNestedInput
+    menu?: menuUpdateOneRequiredWithoutBattle_menusNestedInput
+  }
+
+  export type battle_menusUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type battle_menusCreateManyInput = {
+    id?: bigint | number
+    battle_id: string
+    menu_id: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type battle_menusUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type battle_menusUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type spin_resultsCreateInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+    battles: battlesCreateNestedOneWithoutSpin_resultsInput
+    menu: menuCreateNestedOneWithoutSpin_resultsInput
+  }
+
+  export type spin_resultsUncheckedCreateInput = {
+    id?: bigint | number
+    battle_id: string
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_id: bigint | number
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type spin_resultsUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battles?: battlesUpdateOneRequiredWithoutSpin_resultsNestedInput
+    menu?: menuUpdateOneRequiredWithoutSpin_resultsNestedInput
+  }
+
+  export type spin_resultsUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spin_resultsCreateManyInput = {
+    id?: bigint | number
+    battle_id: string
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_id: bigint | number
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type spin_resultsUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spin_resultsUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    battle_id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type sessionsCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUncheckedCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsCreateManyInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateManyMutationInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateManyInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -14369,10 +15503,10 @@ export namespace Prisma {
     not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
-  export type Battle_menuListRelationFilter = {
-    every?: battle_menuWhereInput
-    some?: battle_menuWhereInput
-    none?: battle_menuWhereInput
+  export type Battle_menusListRelationFilter = {
+    every?: battle_menusWhereInput
+    some?: battle_menusWhereInput
+    none?: battle_menusWhereInput
   }
 
   export type Menu_alleryListRelationFilter = {
@@ -14399,10 +15533,10 @@ export namespace Prisma {
     none?: mukburimWhereInput
   }
 
-  export type Spin_resultListRelationFilter = {
-    every?: spin_resultWhereInput
-    some?: spin_resultWhereInput
-    none?: spin_resultWhereInput
+  export type Spin_resultsListRelationFilter = {
+    every?: spin_resultsWhereInput
+    some?: spin_resultsWhereInput
+    none?: spin_resultsWhereInput
   }
 
   export type SortOrderInput = {
@@ -14410,7 +15544,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type battle_menuOrderByRelationAggregateInput = {
+  export type battle_menusOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14430,7 +15564,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type spin_resultOrderByRelationAggregateInput = {
+  export type spin_resultsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14659,243 +15793,9 @@ export namespace Prisma {
     menu_id?: SortOrder
   }
 
-  export type alleryOrderByRelevanceInput = {
-    fields: alleryOrderByRelevanceFieldEnum | alleryOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type alleryCountOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type alleryAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type alleryMaxOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type alleryMinOrderByAggregateInput = {
-    id?: SortOrder
-    allergy?: SortOrder
-  }
-
-  export type allerySumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type Battle_participantListRelationFilter = {
-    every?: battle_participantWhereInput
-    some?: battle_participantWhereInput
-    none?: battle_participantWhereInput
-  }
-
-  export type battle_participantOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type battleOrderByRelevanceInput = {
-    fields: battleOrderByRelevanceFieldEnum | battleOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type battleCountOrderByAggregateInput = {
-    id?: SortOrder
-    creater_nickname?: SortOrder
-    status?: SortOrder
-    participant_count?: SortOrder
-    created_at?: SortOrder
-    finished_at?: SortOrder
-    expires_at?: SortOrder
-  }
-
-  export type battleAvgOrderByAggregateInput = {
-    participant_count?: SortOrder
-  }
-
-  export type battleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    creater_nickname?: SortOrder
-    status?: SortOrder
-    participant_count?: SortOrder
-    created_at?: SortOrder
-    finished_at?: SortOrder
-    expires_at?: SortOrder
-  }
-
-  export type battleMinOrderByAggregateInput = {
-    id?: SortOrder
-    creater_nickname?: SortOrder
-    status?: SortOrder
-    participant_count?: SortOrder
-    created_at?: SortOrder
-    finished_at?: SortOrder
-    expires_at?: SortOrder
-  }
-
-  export type battleSumOrderByAggregateInput = {
-    participant_count?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type BattleScalarRelationFilter = {
-    is?: battleWhereInput
-    isNot?: battleWhereInput
-  }
-
-  export type battle_menuOrderByRelevanceInput = {
-    fields: battle_menuOrderByRelevanceFieldEnum | battle_menuOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type battle_menuCountOrderByAggregateInput = {
-    id?: SortOrder
-    menu_name?: SortOrder
-    boundary_angle?: SortOrder
-    menu_order?: SortOrder
-    battle_id?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type battle_menuAvgOrderByAggregateInput = {
-    id?: SortOrder
-    boundary_angle?: SortOrder
-    menu_order?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type battle_menuMaxOrderByAggregateInput = {
-    id?: SortOrder
-    menu_name?: SortOrder
-    boundary_angle?: SortOrder
-    menu_order?: SortOrder
-    battle_id?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type battle_menuMinOrderByAggregateInput = {
-    id?: SortOrder
-    menu_name?: SortOrder
-    boundary_angle?: SortOrder
-    menu_order?: SortOrder
-    battle_id?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type battle_menuSumOrderByAggregateInput = {
-    id?: SortOrder
-    boundary_angle?: SortOrder
-    menu_order?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type battle_participantOrderByRelevanceInput = {
-    fields: battle_participantOrderByRelevanceFieldEnum | battle_participantOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type battle_participantUser_idBattle_idCompoundUniqueInput = {
-    user_id: bigint | number
-    battle_id: string
-  }
-
-  export type battle_participantCountOrderByAggregateInput = {
-    battle_id?: SortOrder
-    user_id?: SortOrder
-    nickname?: SortOrder
-    is_creater?: SortOrder
-    joined_at?: SortOrder
-  }
-
-  export type battle_participantAvgOrderByAggregateInput = {
-    user_id?: SortOrder
-    is_creater?: SortOrder
-  }
-
-  export type battle_participantMaxOrderByAggregateInput = {
-    battle_id?: SortOrder
-    user_id?: SortOrder
-    nickname?: SortOrder
-    is_creater?: SortOrder
-    joined_at?: SortOrder
-  }
-
-  export type battle_participantMinOrderByAggregateInput = {
-    battle_id?: SortOrder
-    user_id?: SortOrder
-    nickname?: SortOrder
-    is_creater?: SortOrder
-    joined_at?: SortOrder
-  }
-
-  export type battle_participantSumOrderByAggregateInput = {
-    user_id?: SortOrder
-    is_creater?: SortOrder
-  }
-
-  export type AlleryScalarRelationFilter = {
-    is?: alleryWhereInput
-    isNot?: alleryWhereInput
+  export type AllergyScalarRelationFilter = {
+    is?: allergyWhereInput
+    isNot?: allergyWhereInput
   }
 
   export type menu_alleryMenu_idAllergy_idCompoundUniqueInput = {
@@ -14963,61 +15863,6 @@ export namespace Prisma {
     vitamin_id?: SortOrder
   }
 
-  export type spin_resultOrderByRelevanceInput = {
-    fields: spin_resultOrderByRelevanceFieldEnum | spin_resultOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type spin_resultCountOrderByAggregateInput = {
-    id?: SortOrder
-    nickname?: SortOrder
-    stopped_angle?: SortOrder
-    distance_to_boundary?: SortOrder
-    rank?: SortOrder
-    spin_at?: SortOrder
-    battle_id?: SortOrder
-    closest_menu_id?: SortOrder
-  }
-
-  export type spin_resultAvgOrderByAggregateInput = {
-    id?: SortOrder
-    stopped_angle?: SortOrder
-    distance_to_boundary?: SortOrder
-    rank?: SortOrder
-    closest_menu_id?: SortOrder
-  }
-
-  export type spin_resultMaxOrderByAggregateInput = {
-    id?: SortOrder
-    nickname?: SortOrder
-    stopped_angle?: SortOrder
-    distance_to_boundary?: SortOrder
-    rank?: SortOrder
-    spin_at?: SortOrder
-    battle_id?: SortOrder
-    closest_menu_id?: SortOrder
-  }
-
-  export type spin_resultMinOrderByAggregateInput = {
-    id?: SortOrder
-    nickname?: SortOrder
-    stopped_angle?: SortOrder
-    distance_to_boundary?: SortOrder
-    rank?: SortOrder
-    spin_at?: SortOrder
-    battle_id?: SortOrder
-    closest_menu_id?: SortOrder
-  }
-
-  export type spin_resultSumOrderByAggregateInput = {
-    id?: SortOrder
-    stopped_angle?: SortOrder
-    distance_to_boundary?: SortOrder
-    rank?: SortOrder
-    closest_menu_id?: SortOrder
-  }
-
   export type vitaminOrderByRelevanceInput = {
     fields: vitaminOrderByRelevanceFieldEnum | vitaminOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -15047,11 +15892,398 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type battle_menuCreateNestedManyWithoutMenuInput = {
-    create?: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput> | battle_menuCreateWithoutMenuInput[] | battle_menuUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutMenuInput | battle_menuCreateOrConnectWithoutMenuInput[]
-    createMany?: battle_menuCreateManyMenuInputEnvelope
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
+  export type allergyOrderByRelevanceInput = {
+    fields: allergyOrderByRelevanceFieldEnum | allergyOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type allergyCountOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergyAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type allergyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergyMinOrderByAggregateInput = {
+    id?: SortOrder
+    allergy?: SortOrder
+  }
+
+  export type allergySumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type Enumbattles_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.battles_status | Enumbattles_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.battles_status[]
+    notIn?: $Enums.battles_status[]
+    not?: NestedEnumbattles_statusFilter<$PrismaModel> | $Enums.battles_status
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type Battle_participantsListRelationFilter = {
+    every?: battle_participantsWhereInput
+    some?: battle_participantsWhereInput
+    none?: battle_participantsWhereInput
+  }
+
+  export type battle_participantsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type battlesOrderByRelevanceInput = {
+    fields: battlesOrderByRelevanceFieldEnum | battlesOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type battlesCountOrderByAggregateInput = {
+    battle_id?: SortOrder
+    creator_nickname?: SortOrder
+    status?: SortOrder
+    participant_count?: SortOrder
+    created_at?: SortOrder
+    finished_at?: SortOrder
+    expires_at?: SortOrder
+  }
+
+  export type battlesAvgOrderByAggregateInput = {
+    participant_count?: SortOrder
+  }
+
+  export type battlesMaxOrderByAggregateInput = {
+    battle_id?: SortOrder
+    creator_nickname?: SortOrder
+    status?: SortOrder
+    participant_count?: SortOrder
+    created_at?: SortOrder
+    finished_at?: SortOrder
+    expires_at?: SortOrder
+  }
+
+  export type battlesMinOrderByAggregateInput = {
+    battle_id?: SortOrder
+    creator_nickname?: SortOrder
+    status?: SortOrder
+    participant_count?: SortOrder
+    created_at?: SortOrder
+    finished_at?: SortOrder
+    expires_at?: SortOrder
+  }
+
+  export type battlesSumOrderByAggregateInput = {
+    participant_count?: SortOrder
+  }
+
+  export type Enumbattles_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.battles_status | Enumbattles_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.battles_status[]
+    notIn?: $Enums.battles_status[]
+    not?: NestedEnumbattles_statusWithAggregatesFilter<$PrismaModel> | $Enums.battles_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbattles_statusFilter<$PrismaModel>
+    _max?: NestedEnumbattles_statusFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type BattlesScalarRelationFilter = {
+    is?: battlesWhereInput
+    isNot?: battlesWhereInput
+  }
+
+  export type battle_participantsOrderByRelevanceInput = {
+    fields: battle_participantsOrderByRelevanceFieldEnum | battle_participantsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type battle_participantsBattle_idNicknameCompoundUniqueInput = {
+    battle_id: string
+    nickname: string
+  }
+
+  export type battle_participantsCountOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    is_creator?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type battle_participantsAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type battle_participantsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    is_creator?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type battle_participantsMinOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    is_creator?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type battle_participantsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type battle_menusOrderByRelevanceInput = {
+    fields: battle_menusOrderByRelevanceFieldEnum | battle_menusOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type battle_menusBattle_idMenu_idCompoundUniqueInput = {
+    battle_id: string
+    menu_id: bigint | number
+  }
+
+  export type battle_menusCountOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    menu_id?: SortOrder
+    menu_name?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+  }
+
+  export type battle_menusAvgOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+  }
+
+  export type battle_menusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    menu_id?: SortOrder
+    menu_name?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+  }
+
+  export type battle_menusMinOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    menu_id?: SortOrder
+    menu_name?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+  }
+
+  export type battle_menusSumOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    boundary_angle?: SortOrder
+    menu_order?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type spin_resultsOrderByRelevanceInput = {
+    fields: spin_resultsOrderByRelevanceFieldEnum | spin_resultsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type spin_resultsBattle_idNicknameCompoundUniqueInput = {
+    battle_id: string
+    nickname: string
+  }
+
+  export type spin_resultsCountOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    closest_menu_name?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+    spun_at?: SortOrder
+  }
+
+  export type spin_resultsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+  }
+
+  export type spin_resultsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    closest_menu_name?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+    spun_at?: SortOrder
+  }
+
+  export type spin_resultsMinOrderByAggregateInput = {
+    id?: SortOrder
+    battle_id?: SortOrder
+    nickname?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    closest_menu_name?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+    spun_at?: SortOrder
+  }
+
+  export type spin_resultsSumOrderByAggregateInput = {
+    id?: SortOrder
+    stopped_angle?: SortOrder
+    closest_menu_id?: SortOrder
+    distance_to_boundary?: SortOrder
+    rank?: SortOrder
+  }
+
+  export type sessionsOrderByRelevanceInput = {
+    fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type sessionsCountOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsAvgOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type sessionsMaxOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsMinOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsSumOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type battle_menusCreateNestedManyWithoutMenuInput = {
+    create?: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput> | battle_menusCreateWithoutMenuInput[] | battle_menusUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutMenuInput | battle_menusCreateOrConnectWithoutMenuInput[]
+    createMany?: battle_menusCreateManyMenuInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
   }
 
   export type menu_alleryCreateNestedManyWithoutMenuInput = {
@@ -15082,18 +16314,18 @@ export namespace Prisma {
     connect?: mukburimWhereUniqueInput | mukburimWhereUniqueInput[]
   }
 
-  export type spin_resultCreateNestedManyWithoutMenuInput = {
-    create?: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput> | spin_resultCreateWithoutMenuInput[] | spin_resultUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutMenuInput | spin_resultCreateOrConnectWithoutMenuInput[]
-    createMany?: spin_resultCreateManyMenuInputEnvelope
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
+  export type spin_resultsCreateNestedManyWithoutMenuInput = {
+    create?: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput> | spin_resultsCreateWithoutMenuInput[] | spin_resultsUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutMenuInput | spin_resultsCreateOrConnectWithoutMenuInput[]
+    createMany?: spin_resultsCreateManyMenuInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
   }
 
-  export type battle_menuUncheckedCreateNestedManyWithoutMenuInput = {
-    create?: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput> | battle_menuCreateWithoutMenuInput[] | battle_menuUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutMenuInput | battle_menuCreateOrConnectWithoutMenuInput[]
-    createMany?: battle_menuCreateManyMenuInputEnvelope
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
+  export type battle_menusUncheckedCreateNestedManyWithoutMenuInput = {
+    create?: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput> | battle_menusCreateWithoutMenuInput[] | battle_menusUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutMenuInput | battle_menusCreateOrConnectWithoutMenuInput[]
+    createMany?: battle_menusCreateManyMenuInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
   }
 
   export type menu_alleryUncheckedCreateNestedManyWithoutMenuInput = {
@@ -15124,11 +16356,11 @@ export namespace Prisma {
     connect?: mukburimWhereUniqueInput | mukburimWhereUniqueInput[]
   }
 
-  export type spin_resultUncheckedCreateNestedManyWithoutMenuInput = {
-    create?: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput> | spin_resultCreateWithoutMenuInput[] | spin_resultUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutMenuInput | spin_resultCreateOrConnectWithoutMenuInput[]
-    createMany?: spin_resultCreateManyMenuInputEnvelope
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
+  export type spin_resultsUncheckedCreateNestedManyWithoutMenuInput = {
+    create?: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput> | spin_resultsCreateWithoutMenuInput[] | spin_resultsUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutMenuInput | spin_resultsCreateOrConnectWithoutMenuInput[]
+    createMany?: spin_resultsCreateManyMenuInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
   }
 
   export type BigIntFieldUpdateOperationsInput = {
@@ -15155,18 +16387,18 @@ export namespace Prisma {
     divide?: bigint | number
   }
 
-  export type battle_menuUpdateManyWithoutMenuNestedInput = {
-    create?: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput> | battle_menuCreateWithoutMenuInput[] | battle_menuUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutMenuInput | battle_menuCreateOrConnectWithoutMenuInput[]
-    upsert?: battle_menuUpsertWithWhereUniqueWithoutMenuInput | battle_menuUpsertWithWhereUniqueWithoutMenuInput[]
-    createMany?: battle_menuCreateManyMenuInputEnvelope
-    set?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    disconnect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    delete?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    update?: battle_menuUpdateWithWhereUniqueWithoutMenuInput | battle_menuUpdateWithWhereUniqueWithoutMenuInput[]
-    updateMany?: battle_menuUpdateManyWithWhereWithoutMenuInput | battle_menuUpdateManyWithWhereWithoutMenuInput[]
-    deleteMany?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
+  export type battle_menusUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput> | battle_menusCreateWithoutMenuInput[] | battle_menusUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutMenuInput | battle_menusCreateOrConnectWithoutMenuInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutMenuInput | battle_menusUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: battle_menusCreateManyMenuInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutMenuInput | battle_menusUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutMenuInput | battle_menusUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
   }
 
   export type menu_alleryUpdateManyWithoutMenuNestedInput = {
@@ -15225,32 +16457,32 @@ export namespace Prisma {
     deleteMany?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
   }
 
-  export type spin_resultUpdateManyWithoutMenuNestedInput = {
-    create?: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput> | spin_resultCreateWithoutMenuInput[] | spin_resultUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutMenuInput | spin_resultCreateOrConnectWithoutMenuInput[]
-    upsert?: spin_resultUpsertWithWhereUniqueWithoutMenuInput | spin_resultUpsertWithWhereUniqueWithoutMenuInput[]
-    createMany?: spin_resultCreateManyMenuInputEnvelope
-    set?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    disconnect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    delete?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    update?: spin_resultUpdateWithWhereUniqueWithoutMenuInput | spin_resultUpdateWithWhereUniqueWithoutMenuInput[]
-    updateMany?: spin_resultUpdateManyWithWhereWithoutMenuInput | spin_resultUpdateManyWithWhereWithoutMenuInput[]
-    deleteMany?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
+  export type spin_resultsUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput> | spin_resultsCreateWithoutMenuInput[] | spin_resultsUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutMenuInput | spin_resultsCreateOrConnectWithoutMenuInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutMenuInput | spin_resultsUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: spin_resultsCreateManyMenuInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutMenuInput | spin_resultsUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutMenuInput | spin_resultsUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
   }
 
-  export type battle_menuUncheckedUpdateManyWithoutMenuNestedInput = {
-    create?: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput> | battle_menuCreateWithoutMenuInput[] | battle_menuUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutMenuInput | battle_menuCreateOrConnectWithoutMenuInput[]
-    upsert?: battle_menuUpsertWithWhereUniqueWithoutMenuInput | battle_menuUpsertWithWhereUniqueWithoutMenuInput[]
-    createMany?: battle_menuCreateManyMenuInputEnvelope
-    set?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    disconnect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    delete?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    update?: battle_menuUpdateWithWhereUniqueWithoutMenuInput | battle_menuUpdateWithWhereUniqueWithoutMenuInput[]
-    updateMany?: battle_menuUpdateManyWithWhereWithoutMenuInput | battle_menuUpdateManyWithWhereWithoutMenuInput[]
-    deleteMany?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
+  export type battle_menusUncheckedUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput> | battle_menusCreateWithoutMenuInput[] | battle_menusUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutMenuInput | battle_menusCreateOrConnectWithoutMenuInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutMenuInput | battle_menusUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: battle_menusCreateManyMenuInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutMenuInput | battle_menusUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutMenuInput | battle_menusUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
   }
 
   export type menu_alleryUncheckedUpdateManyWithoutMenuNestedInput = {
@@ -15309,18 +16541,18 @@ export namespace Prisma {
     deleteMany?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
   }
 
-  export type spin_resultUncheckedUpdateManyWithoutMenuNestedInput = {
-    create?: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput> | spin_resultCreateWithoutMenuInput[] | spin_resultUncheckedCreateWithoutMenuInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutMenuInput | spin_resultCreateOrConnectWithoutMenuInput[]
-    upsert?: spin_resultUpsertWithWhereUniqueWithoutMenuInput | spin_resultUpsertWithWhereUniqueWithoutMenuInput[]
-    createMany?: spin_resultCreateManyMenuInputEnvelope
-    set?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    disconnect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    delete?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    update?: spin_resultUpdateWithWhereUniqueWithoutMenuInput | spin_resultUpdateWithWhereUniqueWithoutMenuInput[]
-    updateMany?: spin_resultUpdateManyWithWhereWithoutMenuInput | spin_resultUpdateManyWithWhereWithoutMenuInput[]
-    deleteMany?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
+  export type spin_resultsUncheckedUpdateManyWithoutMenuNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput> | spin_resultsCreateWithoutMenuInput[] | spin_resultsUncheckedCreateWithoutMenuInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutMenuInput | spin_resultsCreateOrConnectWithoutMenuInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutMenuInput | spin_resultsUpsertWithWhereUniqueWithoutMenuInput[]
+    createMany?: spin_resultsCreateManyMenuInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutMenuInput | spin_resultsUpdateWithWhereUniqueWithoutMenuInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutMenuInput | spin_resultsUpdateManyWithWhereWithoutMenuInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
   }
 
   export type menuCreateNestedOneWithoutMukburimInput = {
@@ -15355,236 +16587,10 @@ export namespace Prisma {
     update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMenu_tagInput, menuUpdateWithoutMenu_tagInput>, menuUncheckedUpdateWithoutMenu_tagInput>
   }
 
-  export type menu_alleryCreateNestedManyWithoutAlleryInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-  }
-
-  export type menu_alleryUncheckedCreateNestedManyWithoutAlleryInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-  }
-
-  export type menu_alleryUpdateManyWithoutAlleryNestedInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
-    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
-    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
-  }
-
-  export type menu_alleryUncheckedUpdateManyWithoutAlleryNestedInput = {
-    create?: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput> | menu_alleryCreateWithoutAlleryInput[] | menu_alleryUncheckedCreateWithoutAlleryInput[]
-    connectOrCreate?: menu_alleryCreateOrConnectWithoutAlleryInput | menu_alleryCreateOrConnectWithoutAlleryInput[]
-    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAlleryInput | menu_alleryUpsertWithWhereUniqueWithoutAlleryInput[]
-    createMany?: menu_alleryCreateManyAlleryInputEnvelope
-    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
-    update?: menu_alleryUpdateWithWhereUniqueWithoutAlleryInput | menu_alleryUpdateWithWhereUniqueWithoutAlleryInput[]
-    updateMany?: menu_alleryUpdateManyWithWhereWithoutAlleryInput | menu_alleryUpdateManyWithWhereWithoutAlleryInput[]
-    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
-  }
-
-  export type battle_menuCreateNestedManyWithoutBattleInput = {
-    create?: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput> | battle_menuCreateWithoutBattleInput[] | battle_menuUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutBattleInput | battle_menuCreateOrConnectWithoutBattleInput[]
-    createMany?: battle_menuCreateManyBattleInputEnvelope
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-  }
-
-  export type battle_participantCreateNestedManyWithoutBattleInput = {
-    create?: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput> | battle_participantCreateWithoutBattleInput[] | battle_participantUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_participantCreateOrConnectWithoutBattleInput | battle_participantCreateOrConnectWithoutBattleInput[]
-    createMany?: battle_participantCreateManyBattleInputEnvelope
-    connect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-  }
-
-  export type spin_resultCreateNestedManyWithoutBattleInput = {
-    create?: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput> | spin_resultCreateWithoutBattleInput[] | spin_resultUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutBattleInput | spin_resultCreateOrConnectWithoutBattleInput[]
-    createMany?: spin_resultCreateManyBattleInputEnvelope
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-  }
-
-  export type battle_menuUncheckedCreateNestedManyWithoutBattleInput = {
-    create?: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput> | battle_menuCreateWithoutBattleInput[] | battle_menuUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutBattleInput | battle_menuCreateOrConnectWithoutBattleInput[]
-    createMany?: battle_menuCreateManyBattleInputEnvelope
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-  }
-
-  export type battle_participantUncheckedCreateNestedManyWithoutBattleInput = {
-    create?: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput> | battle_participantCreateWithoutBattleInput[] | battle_participantUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_participantCreateOrConnectWithoutBattleInput | battle_participantCreateOrConnectWithoutBattleInput[]
-    createMany?: battle_participantCreateManyBattleInputEnvelope
-    connect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-  }
-
-  export type spin_resultUncheckedCreateNestedManyWithoutBattleInput = {
-    create?: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput> | spin_resultCreateWithoutBattleInput[] | spin_resultUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutBattleInput | spin_resultCreateOrConnectWithoutBattleInput[]
-    createMany?: spin_resultCreateManyBattleInputEnvelope
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type battle_menuUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput> | battle_menuCreateWithoutBattleInput[] | battle_menuUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutBattleInput | battle_menuCreateOrConnectWithoutBattleInput[]
-    upsert?: battle_menuUpsertWithWhereUniqueWithoutBattleInput | battle_menuUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: battle_menuCreateManyBattleInputEnvelope
-    set?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    disconnect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    delete?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    update?: battle_menuUpdateWithWhereUniqueWithoutBattleInput | battle_menuUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: battle_menuUpdateManyWithWhereWithoutBattleInput | battle_menuUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
-  }
-
-  export type battle_participantUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput> | battle_participantCreateWithoutBattleInput[] | battle_participantUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_participantCreateOrConnectWithoutBattleInput | battle_participantCreateOrConnectWithoutBattleInput[]
-    upsert?: battle_participantUpsertWithWhereUniqueWithoutBattleInput | battle_participantUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: battle_participantCreateManyBattleInputEnvelope
-    set?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    disconnect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    delete?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    connect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    update?: battle_participantUpdateWithWhereUniqueWithoutBattleInput | battle_participantUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: battle_participantUpdateManyWithWhereWithoutBattleInput | battle_participantUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: battle_participantScalarWhereInput | battle_participantScalarWhereInput[]
-  }
-
-  export type spin_resultUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput> | spin_resultCreateWithoutBattleInput[] | spin_resultUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutBattleInput | spin_resultCreateOrConnectWithoutBattleInput[]
-    upsert?: spin_resultUpsertWithWhereUniqueWithoutBattleInput | spin_resultUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: spin_resultCreateManyBattleInputEnvelope
-    set?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    disconnect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    delete?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    update?: spin_resultUpdateWithWhereUniqueWithoutBattleInput | spin_resultUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: spin_resultUpdateManyWithWhereWithoutBattleInput | spin_resultUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
-  }
-
-  export type battle_menuUncheckedUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput> | battle_menuCreateWithoutBattleInput[] | battle_menuUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_menuCreateOrConnectWithoutBattleInput | battle_menuCreateOrConnectWithoutBattleInput[]
-    upsert?: battle_menuUpsertWithWhereUniqueWithoutBattleInput | battle_menuUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: battle_menuCreateManyBattleInputEnvelope
-    set?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    disconnect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    delete?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    connect?: battle_menuWhereUniqueInput | battle_menuWhereUniqueInput[]
-    update?: battle_menuUpdateWithWhereUniqueWithoutBattleInput | battle_menuUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: battle_menuUpdateManyWithWhereWithoutBattleInput | battle_menuUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
-  }
-
-  export type battle_participantUncheckedUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput> | battle_participantCreateWithoutBattleInput[] | battle_participantUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: battle_participantCreateOrConnectWithoutBattleInput | battle_participantCreateOrConnectWithoutBattleInput[]
-    upsert?: battle_participantUpsertWithWhereUniqueWithoutBattleInput | battle_participantUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: battle_participantCreateManyBattleInputEnvelope
-    set?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    disconnect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    delete?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    connect?: battle_participantWhereUniqueInput | battle_participantWhereUniqueInput[]
-    update?: battle_participantUpdateWithWhereUniqueWithoutBattleInput | battle_participantUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: battle_participantUpdateManyWithWhereWithoutBattleInput | battle_participantUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: battle_participantScalarWhereInput | battle_participantScalarWhereInput[]
-  }
-
-  export type spin_resultUncheckedUpdateManyWithoutBattleNestedInput = {
-    create?: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput> | spin_resultCreateWithoutBattleInput[] | spin_resultUncheckedCreateWithoutBattleInput[]
-    connectOrCreate?: spin_resultCreateOrConnectWithoutBattleInput | spin_resultCreateOrConnectWithoutBattleInput[]
-    upsert?: spin_resultUpsertWithWhereUniqueWithoutBattleInput | spin_resultUpsertWithWhereUniqueWithoutBattleInput[]
-    createMany?: spin_resultCreateManyBattleInputEnvelope
-    set?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    disconnect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    delete?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    connect?: spin_resultWhereUniqueInput | spin_resultWhereUniqueInput[]
-    update?: spin_resultUpdateWithWhereUniqueWithoutBattleInput | spin_resultUpdateWithWhereUniqueWithoutBattleInput[]
-    updateMany?: spin_resultUpdateManyWithWhereWithoutBattleInput | spin_resultUpdateManyWithWhereWithoutBattleInput[]
-    deleteMany?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
-  }
-
-  export type battleCreateNestedOneWithoutBattle_menuInput = {
-    create?: XOR<battleCreateWithoutBattle_menuInput, battleUncheckedCreateWithoutBattle_menuInput>
-    connectOrCreate?: battleCreateOrConnectWithoutBattle_menuInput
-    connect?: battleWhereUniqueInput
-  }
-
-  export type menuCreateNestedOneWithoutBattle_menuInput = {
-    create?: XOR<menuCreateWithoutBattle_menuInput, menuUncheckedCreateWithoutBattle_menuInput>
-    connectOrCreate?: menuCreateOrConnectWithoutBattle_menuInput
-    connect?: menuWhereUniqueInput
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type battleUpdateOneRequiredWithoutBattle_menuNestedInput = {
-    create?: XOR<battleCreateWithoutBattle_menuInput, battleUncheckedCreateWithoutBattle_menuInput>
-    connectOrCreate?: battleCreateOrConnectWithoutBattle_menuInput
-    upsert?: battleUpsertWithoutBattle_menuInput
-    connect?: battleWhereUniqueInput
-    update?: XOR<XOR<battleUpdateToOneWithWhereWithoutBattle_menuInput, battleUpdateWithoutBattle_menuInput>, battleUncheckedUpdateWithoutBattle_menuInput>
-  }
-
-  export type menuUpdateOneRequiredWithoutBattle_menuNestedInput = {
-    create?: XOR<menuCreateWithoutBattle_menuInput, menuUncheckedCreateWithoutBattle_menuInput>
-    connectOrCreate?: menuCreateOrConnectWithoutBattle_menuInput
-    upsert?: menuUpsertWithoutBattle_menuInput
-    connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutBattle_menuInput, menuUpdateWithoutBattle_menuInput>, menuUncheckedUpdateWithoutBattle_menuInput>
-  }
-
-  export type battleCreateNestedOneWithoutBattle_participantInput = {
-    create?: XOR<battleCreateWithoutBattle_participantInput, battleUncheckedCreateWithoutBattle_participantInput>
-    connectOrCreate?: battleCreateOrConnectWithoutBattle_participantInput
-    connect?: battleWhereUniqueInput
-  }
-
-  export type battleUpdateOneRequiredWithoutBattle_participantNestedInput = {
-    create?: XOR<battleCreateWithoutBattle_participantInput, battleUncheckedCreateWithoutBattle_participantInput>
-    connectOrCreate?: battleCreateOrConnectWithoutBattle_participantInput
-    upsert?: battleUpsertWithoutBattle_participantInput
-    connect?: battleWhereUniqueInput
-    update?: XOR<XOR<battleUpdateToOneWithWhereWithoutBattle_participantInput, battleUpdateWithoutBattle_participantInput>, battleUncheckedUpdateWithoutBattle_participantInput>
-  }
-
-  export type alleryCreateNestedOneWithoutMenu_alleryInput = {
-    create?: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    connectOrCreate?: alleryCreateOrConnectWithoutMenu_alleryInput
-    connect?: alleryWhereUniqueInput
+  export type allergyCreateNestedOneWithoutMenu_alleryInput = {
+    create?: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_alleryInput
+    connect?: allergyWhereUniqueInput
   }
 
   export type menuCreateNestedOneWithoutMenu_alleryInput = {
@@ -15593,12 +16599,12 @@ export namespace Prisma {
     connect?: menuWhereUniqueInput
   }
 
-  export type alleryUpdateOneRequiredWithoutMenu_alleryNestedInput = {
-    create?: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    connectOrCreate?: alleryCreateOrConnectWithoutMenu_alleryInput
-    upsert?: alleryUpsertWithoutMenu_alleryInput
-    connect?: alleryWhereUniqueInput
-    update?: XOR<XOR<alleryUpdateToOneWithWhereWithoutMenu_alleryInput, alleryUpdateWithoutMenu_alleryInput>, alleryUncheckedUpdateWithoutMenu_alleryInput>
+  export type allergyUpdateOneRequiredWithoutMenu_alleryNestedInput = {
+    create?: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_alleryInput
+    upsert?: allergyUpsertWithoutMenu_alleryInput
+    connect?: allergyWhereUniqueInput
+    update?: XOR<XOR<allergyUpdateToOneWithWhereWithoutMenu_alleryInput, allergyUpdateWithoutMenu_alleryInput>, allergyUncheckedUpdateWithoutMenu_alleryInput>
   }
 
   export type menuUpdateOneRequiredWithoutMenu_alleryNestedInput = {
@@ -15635,34 +16641,6 @@ export namespace Prisma {
     upsert?: vitaminUpsertWithoutMenu_vitaminInput
     connect?: vitaminWhereUniqueInput
     update?: XOR<XOR<vitaminUpdateToOneWithWhereWithoutMenu_vitaminInput, vitaminUpdateWithoutMenu_vitaminInput>, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
-  }
-
-  export type battleCreateNestedOneWithoutSpin_resultInput = {
-    create?: XOR<battleCreateWithoutSpin_resultInput, battleUncheckedCreateWithoutSpin_resultInput>
-    connectOrCreate?: battleCreateOrConnectWithoutSpin_resultInput
-    connect?: battleWhereUniqueInput
-  }
-
-  export type menuCreateNestedOneWithoutSpin_resultInput = {
-    create?: XOR<menuCreateWithoutSpin_resultInput, menuUncheckedCreateWithoutSpin_resultInput>
-    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultInput
-    connect?: menuWhereUniqueInput
-  }
-
-  export type battleUpdateOneRequiredWithoutSpin_resultNestedInput = {
-    create?: XOR<battleCreateWithoutSpin_resultInput, battleUncheckedCreateWithoutSpin_resultInput>
-    connectOrCreate?: battleCreateOrConnectWithoutSpin_resultInput
-    upsert?: battleUpsertWithoutSpin_resultInput
-    connect?: battleWhereUniqueInput
-    update?: XOR<XOR<battleUpdateToOneWithWhereWithoutSpin_resultInput, battleUpdateWithoutSpin_resultInput>, battleUncheckedUpdateWithoutSpin_resultInput>
-  }
-
-  export type menuUpdateOneRequiredWithoutSpin_resultNestedInput = {
-    create?: XOR<menuCreateWithoutSpin_resultInput, menuUncheckedCreateWithoutSpin_resultInput>
-    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultInput
-    upsert?: menuUpsertWithoutSpin_resultInput
-    connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutSpin_resultInput, menuUpdateWithoutSpin_resultInput>, menuUncheckedUpdateWithoutSpin_resultInput>
   }
 
   export type menu_vitaminCreateNestedManyWithoutVitaminInput = {
@@ -15705,6 +16683,272 @@ export namespace Prisma {
     update?: menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput | menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput[]
     updateMany?: menu_vitaminUpdateManyWithWhereWithoutVitaminInput | menu_vitaminUpdateManyWithWhereWithoutVitaminInput[]
     deleteMany?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
+  }
+
+  export type menu_alleryCreateNestedManyWithoutAllergyInput = {
+    create?: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput> | menu_alleryCreateWithoutAllergyInput[] | menu_alleryUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAllergyInput | menu_alleryCreateOrConnectWithoutAllergyInput[]
+    createMany?: menu_alleryCreateManyAllergyInputEnvelope
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+  }
+
+  export type menu_alleryUncheckedCreateNestedManyWithoutAllergyInput = {
+    create?: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput> | menu_alleryCreateWithoutAllergyInput[] | menu_alleryUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAllergyInput | menu_alleryCreateOrConnectWithoutAllergyInput[]
+    createMany?: menu_alleryCreateManyAllergyInputEnvelope
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+  }
+
+  export type menu_alleryUpdateManyWithoutAllergyNestedInput = {
+    create?: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput> | menu_alleryCreateWithoutAllergyInput[] | menu_alleryUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAllergyInput | menu_alleryCreateOrConnectWithoutAllergyInput[]
+    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAllergyInput | menu_alleryUpsertWithWhereUniqueWithoutAllergyInput[]
+    createMany?: menu_alleryCreateManyAllergyInputEnvelope
+    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    update?: menu_alleryUpdateWithWhereUniqueWithoutAllergyInput | menu_alleryUpdateWithWhereUniqueWithoutAllergyInput[]
+    updateMany?: menu_alleryUpdateManyWithWhereWithoutAllergyInput | menu_alleryUpdateManyWithWhereWithoutAllergyInput[]
+    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
+  }
+
+  export type menu_alleryUncheckedUpdateManyWithoutAllergyNestedInput = {
+    create?: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput> | menu_alleryCreateWithoutAllergyInput[] | menu_alleryUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_alleryCreateOrConnectWithoutAllergyInput | menu_alleryCreateOrConnectWithoutAllergyInput[]
+    upsert?: menu_alleryUpsertWithWhereUniqueWithoutAllergyInput | menu_alleryUpsertWithWhereUniqueWithoutAllergyInput[]
+    createMany?: menu_alleryCreateManyAllergyInputEnvelope
+    set?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    disconnect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    delete?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    connect?: menu_alleryWhereUniqueInput | menu_alleryWhereUniqueInput[]
+    update?: menu_alleryUpdateWithWhereUniqueWithoutAllergyInput | menu_alleryUpdateWithWhereUniqueWithoutAllergyInput[]
+    updateMany?: menu_alleryUpdateManyWithWhereWithoutAllergyInput | menu_alleryUpdateManyWithWhereWithoutAllergyInput[]
+    deleteMany?: menu_alleryScalarWhereInput | menu_alleryScalarWhereInput[]
+  }
+
+  export type battle_participantsCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+  }
+
+  export type battle_menusCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+  }
+
+  export type spin_resultsCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+  }
+
+  export type battle_participantsUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+  }
+
+  export type battle_menusUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+  }
+
+  export type spin_resultsUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+  }
+
+  export type Enumbattles_statusFieldUpdateOperationsInput = {
+    set?: $Enums.battles_status
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type battle_participantsUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+  }
+
+  export type battle_menusUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+  }
+
+  export type spin_resultsUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+  }
+
+  export type battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+  }
+
+  export type battle_menusUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+  }
+
+  export type spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+  }
+
+  export type battlesCreateNestedOneWithoutBattle_participantsInput = {
+    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type battlesUpdateOneRequiredWithoutBattle_participantsNestedInput = {
+    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
+    upsert?: battlesUpsertWithoutBattle_participantsInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_participantsInput, battlesUpdateWithoutBattle_participantsInput>, battlesUncheckedUpdateWithoutBattle_participantsInput>
+  }
+
+  export type battlesCreateNestedOneWithoutBattle_menusInput = {
+    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type menuCreateNestedOneWithoutBattle_menusInput = {
+    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type battlesUpdateOneRequiredWithoutBattle_menusNestedInput = {
+    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
+    upsert?: battlesUpsertWithoutBattle_menusInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_menusInput, battlesUpdateWithoutBattle_menusInput>, battlesUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type menuUpdateOneRequiredWithoutBattle_menusNestedInput = {
+    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
+    upsert?: menuUpsertWithoutBattle_menusInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutBattle_menusInput, menuUpdateWithoutBattle_menusInput>, menuUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type battlesCreateNestedOneWithoutSpin_resultsInput = {
+    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type menuCreateNestedOneWithoutSpin_resultsInput = {
+    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type battlesUpdateOneRequiredWithoutSpin_resultsNestedInput = {
+    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
+    upsert?: battlesUpsertWithoutSpin_resultsInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutSpin_resultsInput, battlesUpdateWithoutSpin_resultsInput>, battlesUncheckedUpdateWithoutSpin_resultsInput>
+  }
+
+  export type menuUpdateOneRequiredWithoutSpin_resultsNestedInput = {
+    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
+    upsert?: menuUpsertWithoutSpin_resultsInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutSpin_resultsInput, menuUpdateWithoutSpin_resultsInput>, menuUncheckedUpdateWithoutSpin_resultsInput>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -15896,66 +17140,132 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+  export type NestedEnumbattles_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.battles_status | Enumbattles_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.battles_status[]
+    notIn?: $Enums.battles_status[]
+    not?: NestedEnumbattles_statusFilter<$PrismaModel> | $Enums.battles_status
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedEnumbattles_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.battles_status | Enumbattles_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.battles_status[]
+    notIn?: $Enums.battles_status[]
+    not?: NestedEnumbattles_statusWithAggregatesFilter<$PrismaModel> | $Enums.battles_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbattles_statusFilter<$PrismaModel>
+    _max?: NestedEnumbattles_statusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type battle_menuCreateWithoutMenuInput = {
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type battle_menusCreateWithoutMenuInput = {
     id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    battle: battleCreateNestedOneWithoutBattle_menuInput
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+    battles: battlesCreateNestedOneWithoutBattle_menusInput
   }
 
-  export type battle_menuUncheckedCreateWithoutMenuInput = {
+  export type battle_menusUncheckedCreateWithoutMenuInput = {
     id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
     battle_id: string
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
   }
 
-  export type battle_menuCreateOrConnectWithoutMenuInput = {
-    where: battle_menuWhereUniqueInput
-    create: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput>
+  export type battle_menusCreateOrConnectWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
   }
 
-  export type battle_menuCreateManyMenuInputEnvelope = {
-    data: battle_menuCreateManyMenuInput | battle_menuCreateManyMenuInput[]
+  export type battle_menusCreateManyMenuInputEnvelope = {
+    data: battle_menusCreateManyMenuInput | battle_menusCreateManyMenuInput[]
     skipDuplicates?: boolean
   }
 
   export type menu_alleryCreateWithoutMenuInput = {
-    allery: alleryCreateNestedOneWithoutMenu_alleryInput
+    allergy: allergyCreateNestedOneWithoutMenu_alleryInput
   }
 
   export type menu_alleryUncheckedCreateWithoutMenuInput = {
@@ -16032,62 +17342,64 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type spin_resultCreateWithoutMenuInput = {
+  export type spin_resultsCreateWithoutMenuInput = {
     id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    battle: battleCreateNestedOneWithoutSpin_resultInput
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+    battles: battlesCreateNestedOneWithoutSpin_resultsInput
   }
 
-  export type spin_resultUncheckedCreateWithoutMenuInput = {
+  export type spin_resultsUncheckedCreateWithoutMenuInput = {
     id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
     battle_id: string
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
   }
 
-  export type spin_resultCreateOrConnectWithoutMenuInput = {
-    where: spin_resultWhereUniqueInput
-    create: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput>
+  export type spin_resultsCreateOrConnectWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
   }
 
-  export type spin_resultCreateManyMenuInputEnvelope = {
-    data: spin_resultCreateManyMenuInput | spin_resultCreateManyMenuInput[]
+  export type spin_resultsCreateManyMenuInputEnvelope = {
+    data: spin_resultsCreateManyMenuInput | spin_resultsCreateManyMenuInput[]
     skipDuplicates?: boolean
   }
 
-  export type battle_menuUpsertWithWhereUniqueWithoutMenuInput = {
-    where: battle_menuWhereUniqueInput
-    update: XOR<battle_menuUpdateWithoutMenuInput, battle_menuUncheckedUpdateWithoutMenuInput>
-    create: XOR<battle_menuCreateWithoutMenuInput, battle_menuUncheckedCreateWithoutMenuInput>
+  export type battle_menusUpsertWithWhereUniqueWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    update: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
+    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
   }
 
-  export type battle_menuUpdateWithWhereUniqueWithoutMenuInput = {
-    where: battle_menuWhereUniqueInput
-    data: XOR<battle_menuUpdateWithoutMenuInput, battle_menuUncheckedUpdateWithoutMenuInput>
+  export type battle_menusUpdateWithWhereUniqueWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    data: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
   }
 
-  export type battle_menuUpdateManyWithWhereWithoutMenuInput = {
-    where: battle_menuScalarWhereInput
-    data: XOR<battle_menuUpdateManyMutationInput, battle_menuUncheckedUpdateManyWithoutMenuInput>
+  export type battle_menusUpdateManyWithWhereWithoutMenuInput = {
+    where: battle_menusScalarWhereInput
+    data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyWithoutMenuInput>
   }
 
-  export type battle_menuScalarWhereInput = {
-    AND?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
-    OR?: battle_menuScalarWhereInput[]
-    NOT?: battle_menuScalarWhereInput | battle_menuScalarWhereInput[]
-    id?: BigIntFilter<"battle_menu"> | bigint | number
-    menu_name?: StringNullableFilter<"battle_menu"> | string | null
-    boundary_angle?: FloatNullableFilter<"battle_menu"> | number | null
-    menu_order?: IntNullableFilter<"battle_menu"> | number | null
-    battle_id?: StringFilter<"battle_menu"> | string
-    menu_id?: BigIntFilter<"battle_menu"> | bigint | number
+  export type battle_menusScalarWhereInput = {
+    AND?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+    OR?: battle_menusScalarWhereInput[]
+    NOT?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+    id?: BigIntFilter<"battle_menus"> | bigint | number
+    battle_id?: StringFilter<"battle_menus"> | string
+    menu_id?: BigIntFilter<"battle_menus"> | bigint | number
+    menu_name?: StringFilter<"battle_menus"> | string
+    boundary_angle?: DecimalFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFilter<"battle_menus"> | number
   }
 
   export type menu_alleryUpsertWithWhereUniqueWithoutMenuInput = {
@@ -16189,34 +17501,35 @@ export namespace Prisma {
     date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
   }
 
-  export type spin_resultUpsertWithWhereUniqueWithoutMenuInput = {
-    where: spin_resultWhereUniqueInput
-    update: XOR<spin_resultUpdateWithoutMenuInput, spin_resultUncheckedUpdateWithoutMenuInput>
-    create: XOR<spin_resultCreateWithoutMenuInput, spin_resultUncheckedCreateWithoutMenuInput>
+  export type spin_resultsUpsertWithWhereUniqueWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    update: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
+    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
   }
 
-  export type spin_resultUpdateWithWhereUniqueWithoutMenuInput = {
-    where: spin_resultWhereUniqueInput
-    data: XOR<spin_resultUpdateWithoutMenuInput, spin_resultUncheckedUpdateWithoutMenuInput>
+  export type spin_resultsUpdateWithWhereUniqueWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    data: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
   }
 
-  export type spin_resultUpdateManyWithWhereWithoutMenuInput = {
-    where: spin_resultScalarWhereInput
-    data: XOR<spin_resultUpdateManyMutationInput, spin_resultUncheckedUpdateManyWithoutMenuInput>
+  export type spin_resultsUpdateManyWithWhereWithoutMenuInput = {
+    where: spin_resultsScalarWhereInput
+    data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyWithoutMenuInput>
   }
 
-  export type spin_resultScalarWhereInput = {
-    AND?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
-    OR?: spin_resultScalarWhereInput[]
-    NOT?: spin_resultScalarWhereInput | spin_resultScalarWhereInput[]
-    id?: BigIntFilter<"spin_result"> | bigint | number
-    nickname?: StringNullableFilter<"spin_result"> | string | null
-    stopped_angle?: FloatNullableFilter<"spin_result"> | number | null
-    distance_to_boundary?: FloatNullableFilter<"spin_result"> | number | null
-    rank?: IntNullableFilter<"spin_result"> | number | null
-    spin_at?: DateTimeNullableFilter<"spin_result"> | Date | string | null
-    battle_id?: StringFilter<"spin_result"> | string
-    closest_menu_id?: BigIntFilter<"spin_result"> | bigint | number
+  export type spin_resultsScalarWhereInput = {
+    AND?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+    OR?: spin_resultsScalarWhereInput[]
+    NOT?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+    id?: BigIntFilter<"spin_results"> | bigint | number
+    battle_id?: StringFilter<"spin_results"> | string
+    nickname?: StringFilter<"spin_results"> | string
+    stopped_angle?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFilter<"spin_results"> | bigint | number
+    closest_menu_name?: StringFilter<"spin_results"> | string
+    distance_to_boundary?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    rank?: IntFilter<"spin_results"> | number
+    spun_at?: DateTimeFilter<"spin_results"> | Date | string
   }
 
   export type menuCreateWithoutMukburimInput = {
@@ -16229,11 +17542,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
   }
 
   export type menuUncheckedCreateWithoutMukburimInput = {
@@ -16246,11 +17559,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
   }
 
   export type menuCreateOrConnectWithoutMukburimInput = {
@@ -16279,11 +17592,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
   }
 
   export type menuUncheckedUpdateWithoutMukburimInput = {
@@ -16296,11 +17609,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
   export type menuCreateWithoutMenu_tagInput = {
@@ -16313,11 +17626,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
     mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
   }
 
   export type menuUncheckedCreateWithoutMenu_tagInput = {
@@ -16330,11 +17643,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
   }
 
   export type menuCreateOrConnectWithoutMenu_tagInput = {
@@ -16363,11 +17676,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
   }
 
   export type menuUncheckedUpdateWithoutMenu_tagInput = {
@@ -16380,411 +17693,26 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
-  export type menu_alleryCreateWithoutAlleryInput = {
-    menu: menuCreateNestedOneWithoutMenu_alleryInput
-  }
-
-  export type menu_alleryUncheckedCreateWithoutAlleryInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_alleryCreateOrConnectWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
-  }
-
-  export type menu_alleryCreateManyAlleryInputEnvelope = {
-    data: menu_alleryCreateManyAlleryInput | menu_alleryCreateManyAlleryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_alleryUpsertWithWhereUniqueWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    update: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
-    create: XOR<menu_alleryCreateWithoutAlleryInput, menu_alleryUncheckedCreateWithoutAlleryInput>
-  }
-
-  export type menu_alleryUpdateWithWhereUniqueWithoutAlleryInput = {
-    where: menu_alleryWhereUniqueInput
-    data: XOR<menu_alleryUpdateWithoutAlleryInput, menu_alleryUncheckedUpdateWithoutAlleryInput>
-  }
-
-  export type menu_alleryUpdateManyWithWhereWithoutAlleryInput = {
-    where: menu_alleryScalarWhereInput
-    data: XOR<menu_alleryUpdateManyMutationInput, menu_alleryUncheckedUpdateManyWithoutAlleryInput>
-  }
-
-  export type battle_menuCreateWithoutBattleInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    menu: menuCreateNestedOneWithoutBattle_menuInput
-  }
-
-  export type battle_menuUncheckedCreateWithoutBattleInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    menu_id: bigint | number
-  }
-
-  export type battle_menuCreateOrConnectWithoutBattleInput = {
-    where: battle_menuWhereUniqueInput
-    create: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput>
-  }
-
-  export type battle_menuCreateManyBattleInputEnvelope = {
-    data: battle_menuCreateManyBattleInput | battle_menuCreateManyBattleInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type battle_participantCreateWithoutBattleInput = {
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-  }
-
-  export type battle_participantUncheckedCreateWithoutBattleInput = {
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-  }
-
-  export type battle_participantCreateOrConnectWithoutBattleInput = {
-    where: battle_participantWhereUniqueInput
-    create: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput>
-  }
-
-  export type battle_participantCreateManyBattleInputEnvelope = {
-    data: battle_participantCreateManyBattleInput | battle_participantCreateManyBattleInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type spin_resultCreateWithoutBattleInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    menu: menuCreateNestedOneWithoutSpin_resultInput
-  }
-
-  export type spin_resultUncheckedCreateWithoutBattleInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    closest_menu_id: bigint | number
-  }
-
-  export type spin_resultCreateOrConnectWithoutBattleInput = {
-    where: spin_resultWhereUniqueInput
-    create: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput>
-  }
-
-  export type spin_resultCreateManyBattleInputEnvelope = {
-    data: spin_resultCreateManyBattleInput | spin_resultCreateManyBattleInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type battle_menuUpsertWithWhereUniqueWithoutBattleInput = {
-    where: battle_menuWhereUniqueInput
-    update: XOR<battle_menuUpdateWithoutBattleInput, battle_menuUncheckedUpdateWithoutBattleInput>
-    create: XOR<battle_menuCreateWithoutBattleInput, battle_menuUncheckedCreateWithoutBattleInput>
-  }
-
-  export type battle_menuUpdateWithWhereUniqueWithoutBattleInput = {
-    where: battle_menuWhereUniqueInput
-    data: XOR<battle_menuUpdateWithoutBattleInput, battle_menuUncheckedUpdateWithoutBattleInput>
-  }
-
-  export type battle_menuUpdateManyWithWhereWithoutBattleInput = {
-    where: battle_menuScalarWhereInput
-    data: XOR<battle_menuUpdateManyMutationInput, battle_menuUncheckedUpdateManyWithoutBattleInput>
-  }
-
-  export type battle_participantUpsertWithWhereUniqueWithoutBattleInput = {
-    where: battle_participantWhereUniqueInput
-    update: XOR<battle_participantUpdateWithoutBattleInput, battle_participantUncheckedUpdateWithoutBattleInput>
-    create: XOR<battle_participantCreateWithoutBattleInput, battle_participantUncheckedCreateWithoutBattleInput>
-  }
-
-  export type battle_participantUpdateWithWhereUniqueWithoutBattleInput = {
-    where: battle_participantWhereUniqueInput
-    data: XOR<battle_participantUpdateWithoutBattleInput, battle_participantUncheckedUpdateWithoutBattleInput>
-  }
-
-  export type battle_participantUpdateManyWithWhereWithoutBattleInput = {
-    where: battle_participantScalarWhereInput
-    data: XOR<battle_participantUpdateManyMutationInput, battle_participantUncheckedUpdateManyWithoutBattleInput>
-  }
-
-  export type battle_participantScalarWhereInput = {
-    AND?: battle_participantScalarWhereInput | battle_participantScalarWhereInput[]
-    OR?: battle_participantScalarWhereInput[]
-    NOT?: battle_participantScalarWhereInput | battle_participantScalarWhereInput[]
-    battle_id?: StringFilter<"battle_participant"> | string
-    user_id?: BigIntFilter<"battle_participant"> | bigint | number
-    nickname?: StringNullableFilter<"battle_participant"> | string | null
-    is_creater?: IntNullableFilter<"battle_participant"> | number | null
-    joined_at?: DateTimeNullableFilter<"battle_participant"> | Date | string | null
-  }
-
-  export type spin_resultUpsertWithWhereUniqueWithoutBattleInput = {
-    where: spin_resultWhereUniqueInput
-    update: XOR<spin_resultUpdateWithoutBattleInput, spin_resultUncheckedUpdateWithoutBattleInput>
-    create: XOR<spin_resultCreateWithoutBattleInput, spin_resultUncheckedCreateWithoutBattleInput>
-  }
-
-  export type spin_resultUpdateWithWhereUniqueWithoutBattleInput = {
-    where: spin_resultWhereUniqueInput
-    data: XOR<spin_resultUpdateWithoutBattleInput, spin_resultUncheckedUpdateWithoutBattleInput>
-  }
-
-  export type spin_resultUpdateManyWithWhereWithoutBattleInput = {
-    where: spin_resultScalarWhereInput
-    data: XOR<spin_resultUpdateManyMutationInput, spin_resultUncheckedUpdateManyWithoutBattleInput>
-  }
-
-  export type battleCreateWithoutBattle_menuInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_participant?: battle_participantCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleUncheckedCreateWithoutBattle_menuInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_participant?: battle_participantUncheckedCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleCreateOrConnectWithoutBattle_menuInput = {
-    where: battleWhereUniqueInput
-    create: XOR<battleCreateWithoutBattle_menuInput, battleUncheckedCreateWithoutBattle_menuInput>
-  }
-
-  export type menuCreateWithoutBattle_menuInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUncheckedCreateWithoutBattle_menuInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuCreateOrConnectWithoutBattle_menuInput = {
-    where: menuWhereUniqueInput
-    create: XOR<menuCreateWithoutBattle_menuInput, menuUncheckedCreateWithoutBattle_menuInput>
-  }
-
-  export type battleUpsertWithoutBattle_menuInput = {
-    update: XOR<battleUpdateWithoutBattle_menuInput, battleUncheckedUpdateWithoutBattle_menuInput>
-    create: XOR<battleCreateWithoutBattle_menuInput, battleUncheckedCreateWithoutBattle_menuInput>
-    where?: battleWhereInput
-  }
-
-  export type battleUpdateToOneWithWhereWithoutBattle_menuInput = {
-    where?: battleWhereInput
-    data: XOR<battleUpdateWithoutBattle_menuInput, battleUncheckedUpdateWithoutBattle_menuInput>
-  }
-
-  export type battleUpdateWithoutBattle_menuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_participant?: battle_participantUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUpdateManyWithoutBattleNestedInput
-  }
-
-  export type battleUncheckedUpdateWithoutBattle_menuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_participant?: battle_participantUncheckedUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutBattleNestedInput
-  }
-
-  export type menuUpsertWithoutBattle_menuInput = {
-    update: XOR<menuUpdateWithoutBattle_menuInput, menuUncheckedUpdateWithoutBattle_menuInput>
-    create: XOR<menuCreateWithoutBattle_menuInput, menuUncheckedCreateWithoutBattle_menuInput>
-    where?: menuWhereInput
-  }
-
-  export type menuUpdateToOneWithWhereWithoutBattle_menuInput = {
-    where?: menuWhereInput
-    data: XOR<menuUpdateWithoutBattle_menuInput, menuUncheckedUpdateWithoutBattle_menuInput>
-  }
-
-  export type menuUpdateWithoutBattle_menuInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateWithoutBattle_menuInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
-  }
-
-  export type battleCreateWithoutBattle_participantInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleUncheckedCreateWithoutBattle_participantInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutBattleInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleCreateOrConnectWithoutBattle_participantInput = {
-    where: battleWhereUniqueInput
-    create: XOR<battleCreateWithoutBattle_participantInput, battleUncheckedCreateWithoutBattle_participantInput>
-  }
-
-  export type battleUpsertWithoutBattle_participantInput = {
-    update: XOR<battleUpdateWithoutBattle_participantInput, battleUncheckedUpdateWithoutBattle_participantInput>
-    create: XOR<battleCreateWithoutBattle_participantInput, battleUncheckedCreateWithoutBattle_participantInput>
-    where?: battleWhereInput
-  }
-
-  export type battleUpdateToOneWithWhereWithoutBattle_participantInput = {
-    where?: battleWhereInput
-    data: XOR<battleUpdateWithoutBattle_participantInput, battleUncheckedUpdateWithoutBattle_participantInput>
-  }
-
-  export type battleUpdateWithoutBattle_participantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUpdateManyWithoutBattleNestedInput
-  }
-
-  export type battleUncheckedUpdateWithoutBattle_participantInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutBattleNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutBattleNestedInput
-  }
-
-  export type alleryCreateWithoutMenu_alleryInput = {
+  export type allergyCreateWithoutMenu_alleryInput = {
     id?: bigint | number
     allergy?: string | null
   }
 
-  export type alleryUncheckedCreateWithoutMenu_alleryInput = {
+  export type allergyUncheckedCreateWithoutMenu_alleryInput = {
     id?: bigint | number
     allergy?: string | null
   }
 
-  export type alleryCreateOrConnectWithoutMenu_alleryInput = {
-    where: alleryWhereUniqueInput
-    create: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
+  export type allergyCreateOrConnectWithoutMenu_alleryInput = {
+    where: allergyWhereUniqueInput
+    create: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
   }
 
   export type menuCreateWithoutMenu_alleryInput = {
@@ -16797,11 +17725,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
     mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
   }
 
   export type menuUncheckedCreateWithoutMenu_alleryInput = {
@@ -16814,11 +17742,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
   }
 
   export type menuCreateOrConnectWithoutMenu_alleryInput = {
@@ -16826,23 +17754,23 @@ export namespace Prisma {
     create: XOR<menuCreateWithoutMenu_alleryInput, menuUncheckedCreateWithoutMenu_alleryInput>
   }
 
-  export type alleryUpsertWithoutMenu_alleryInput = {
-    update: XOR<alleryUpdateWithoutMenu_alleryInput, alleryUncheckedUpdateWithoutMenu_alleryInput>
-    create: XOR<alleryCreateWithoutMenu_alleryInput, alleryUncheckedCreateWithoutMenu_alleryInput>
-    where?: alleryWhereInput
+  export type allergyUpsertWithoutMenu_alleryInput = {
+    update: XOR<allergyUpdateWithoutMenu_alleryInput, allergyUncheckedUpdateWithoutMenu_alleryInput>
+    create: XOR<allergyCreateWithoutMenu_alleryInput, allergyUncheckedCreateWithoutMenu_alleryInput>
+    where?: allergyWhereInput
   }
 
-  export type alleryUpdateToOneWithWhereWithoutMenu_alleryInput = {
-    where?: alleryWhereInput
-    data: XOR<alleryUpdateWithoutMenu_alleryInput, alleryUncheckedUpdateWithoutMenu_alleryInput>
+  export type allergyUpdateToOneWithWhereWithoutMenu_alleryInput = {
+    where?: allergyWhereInput
+    data: XOR<allergyUpdateWithoutMenu_alleryInput, allergyUncheckedUpdateWithoutMenu_alleryInput>
   }
 
-  export type alleryUpdateWithoutMenu_alleryInput = {
+  export type allergyUpdateWithoutMenu_alleryInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type alleryUncheckedUpdateWithoutMenu_alleryInput = {
+  export type allergyUncheckedUpdateWithoutMenu_alleryInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -16868,11 +17796,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
   }
 
   export type menuUncheckedUpdateWithoutMenu_alleryInput = {
@@ -16885,11 +17813,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
   export type menuCreateWithoutMenu_vitaminInput = {
@@ -16902,11 +17830,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
     mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
   }
 
   export type menuUncheckedCreateWithoutMenu_vitaminInput = {
@@ -16919,11 +17847,11 @@ export namespace Prisma {
     fat?: bigint | number | null
     sodium?: bigint | number | null
     image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
     menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
     menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
     mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_result?: spin_resultUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
   }
 
   export type menuCreateOrConnectWithoutMenu_vitaminInput = {
@@ -16967,11 +17895,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
   }
 
   export type menuUncheckedUpdateWithoutMenu_vitaminInput = {
@@ -16984,11 +17912,11 @@ export namespace Prisma {
     fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
     image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
     menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_result?: spin_resultUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
   export type vitaminUpsertWithoutMenu_vitaminInput = {
@@ -17010,154 +17938,6 @@ export namespace Prisma {
   export type vitaminUncheckedUpdateWithoutMenu_vitaminInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type battleCreateWithoutSpin_resultInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutBattleInput
-    battle_participant?: battle_participantCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleUncheckedCreateWithoutSpin_resultInput = {
-    id: string
-    creater_nickname?: string | null
-    status?: string | null
-    participant_count?: number | null
-    created_at?: Date | string | null
-    finished_at?: Date | string | null
-    expires_at?: Date | string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutBattleInput
-    battle_participant?: battle_participantUncheckedCreateNestedManyWithoutBattleInput
-  }
-
-  export type battleCreateOrConnectWithoutSpin_resultInput = {
-    where: battleWhereUniqueInput
-    create: XOR<battleCreateWithoutSpin_resultInput, battleUncheckedCreateWithoutSpin_resultInput>
-  }
-
-  export type menuCreateWithoutSpin_resultInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menu?: battle_menuCreateNestedManyWithoutMenuInput
-    menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUncheckedCreateWithoutSpin_resultInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menu?: battle_menuUncheckedCreateNestedManyWithoutMenuInput
-    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuCreateOrConnectWithoutSpin_resultInput = {
-    where: menuWhereUniqueInput
-    create: XOR<menuCreateWithoutSpin_resultInput, menuUncheckedCreateWithoutSpin_resultInput>
-  }
-
-  export type battleUpsertWithoutSpin_resultInput = {
-    update: XOR<battleUpdateWithoutSpin_resultInput, battleUncheckedUpdateWithoutSpin_resultInput>
-    create: XOR<battleCreateWithoutSpin_resultInput, battleUncheckedCreateWithoutSpin_resultInput>
-    where?: battleWhereInput
-  }
-
-  export type battleUpdateToOneWithWhereWithoutSpin_resultInput = {
-    where?: battleWhereInput
-    data: XOR<battleUpdateWithoutSpin_resultInput, battleUncheckedUpdateWithoutSpin_resultInput>
-  }
-
-  export type battleUpdateWithoutSpin_resultInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUpdateManyWithoutBattleNestedInput
-    battle_participant?: battle_participantUpdateManyWithoutBattleNestedInput
-  }
-
-  export type battleUncheckedUpdateWithoutSpin_resultInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    creater_nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    participant_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutBattleNestedInput
-    battle_participant?: battle_participantUncheckedUpdateManyWithoutBattleNestedInput
-  }
-
-  export type menuUpsertWithoutSpin_resultInput = {
-    update: XOR<menuUpdateWithoutSpin_resultInput, menuUncheckedUpdateWithoutSpin_resultInput>
-    create: XOR<menuCreateWithoutSpin_resultInput, menuUncheckedCreateWithoutSpin_resultInput>
-    where?: menuWhereInput
-  }
-
-  export type menuUpdateToOneWithWhereWithoutSpin_resultInput = {
-    where?: menuWhereInput
-    data: XOR<menuUpdateWithoutSpin_resultInput, menuUncheckedUpdateWithoutSpin_resultInput>
-  }
-
-  export type menuUpdateWithoutSpin_resultInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUpdateManyWithoutMenuNestedInput
-    menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateWithoutSpin_resultInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menu?: battle_menuUncheckedUpdateManyWithoutMenuNestedInput
-    menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
   }
 
   export type menu_vitaminCreateWithoutVitaminInput = {
@@ -17194,12 +17974,547 @@ export namespace Prisma {
     data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutVitaminInput>
   }
 
-  export type battle_menuCreateManyMenuInput = {
+  export type menu_alleryCreateWithoutAllergyInput = {
+    menu: menuCreateNestedOneWithoutMenu_alleryInput
+  }
+
+  export type menu_alleryUncheckedCreateWithoutAllergyInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_alleryCreateOrConnectWithoutAllergyInput = {
+    where: menu_alleryWhereUniqueInput
+    create: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput>
+  }
+
+  export type menu_alleryCreateManyAllergyInputEnvelope = {
+    data: menu_alleryCreateManyAllergyInput | menu_alleryCreateManyAllergyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_alleryUpsertWithWhereUniqueWithoutAllergyInput = {
+    where: menu_alleryWhereUniqueInput
+    update: XOR<menu_alleryUpdateWithoutAllergyInput, menu_alleryUncheckedUpdateWithoutAllergyInput>
+    create: XOR<menu_alleryCreateWithoutAllergyInput, menu_alleryUncheckedCreateWithoutAllergyInput>
+  }
+
+  export type menu_alleryUpdateWithWhereUniqueWithoutAllergyInput = {
+    where: menu_alleryWhereUniqueInput
+    data: XOR<menu_alleryUpdateWithoutAllergyInput, menu_alleryUncheckedUpdateWithoutAllergyInput>
+  }
+
+  export type menu_alleryUpdateManyWithWhereWithoutAllergyInput = {
+    where: menu_alleryScalarWhereInput
+    data: XOR<menu_alleryUpdateManyMutationInput, menu_alleryUncheckedUpdateManyWithoutAllergyInput>
+  }
+
+  export type battle_participantsCreateWithoutBattlesInput = {
     id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type battle_participantsUncheckedCreateWithoutBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type battle_participantsCreateOrConnectWithoutBattlesInput = {
+    where: battle_participantsWhereUniqueInput
+    create: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type battle_participantsCreateManyBattlesInputEnvelope = {
+    data: battle_participantsCreateManyBattlesInput | battle_participantsCreateManyBattlesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type battle_menusCreateWithoutBattlesInput = {
+    id?: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+    menu: menuCreateNestedOneWithoutBattle_menusInput
+  }
+
+  export type battle_menusUncheckedCreateWithoutBattlesInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type battle_menusCreateOrConnectWithoutBattlesInput = {
+    where: battle_menusWhereUniqueInput
+    create: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type battle_menusCreateManyBattlesInputEnvelope = {
+    data: battle_menusCreateManyBattlesInput | battle_menusCreateManyBattlesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type spin_resultsCreateWithoutBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+    menu: menuCreateNestedOneWithoutSpin_resultsInput
+  }
+
+  export type spin_resultsUncheckedCreateWithoutBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_id: bigint | number
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type spin_resultsCreateOrConnectWithoutBattlesInput = {
+    where: spin_resultsWhereUniqueInput
+    create: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type spin_resultsCreateManyBattlesInputEnvelope = {
+    data: spin_resultsCreateManyBattlesInput | spin_resultsCreateManyBattlesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type battle_participantsUpsertWithWhereUniqueWithoutBattlesInput = {
+    where: battle_participantsWhereUniqueInput
+    update: XOR<battle_participantsUpdateWithoutBattlesInput, battle_participantsUncheckedUpdateWithoutBattlesInput>
+    create: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type battle_participantsUpdateWithWhereUniqueWithoutBattlesInput = {
+    where: battle_participantsWhereUniqueInput
+    data: XOR<battle_participantsUpdateWithoutBattlesInput, battle_participantsUncheckedUpdateWithoutBattlesInput>
+  }
+
+  export type battle_participantsUpdateManyWithWhereWithoutBattlesInput = {
+    where: battle_participantsScalarWhereInput
+    data: XOR<battle_participantsUpdateManyMutationInput, battle_participantsUncheckedUpdateManyWithoutBattlesInput>
+  }
+
+  export type battle_participantsScalarWhereInput = {
+    AND?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+    OR?: battle_participantsScalarWhereInput[]
+    NOT?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+    id?: BigIntFilter<"battle_participants"> | bigint | number
+    battle_id?: StringFilter<"battle_participants"> | string
+    nickname?: StringFilter<"battle_participants"> | string
+    is_creator?: BoolFilter<"battle_participants"> | boolean
+    joined_at?: DateTimeFilter<"battle_participants"> | Date | string
+  }
+
+  export type battle_menusUpsertWithWhereUniqueWithoutBattlesInput = {
+    where: battle_menusWhereUniqueInput
+    update: XOR<battle_menusUpdateWithoutBattlesInput, battle_menusUncheckedUpdateWithoutBattlesInput>
+    create: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type battle_menusUpdateWithWhereUniqueWithoutBattlesInput = {
+    where: battle_menusWhereUniqueInput
+    data: XOR<battle_menusUpdateWithoutBattlesInput, battle_menusUncheckedUpdateWithoutBattlesInput>
+  }
+
+  export type battle_menusUpdateManyWithWhereWithoutBattlesInput = {
+    where: battle_menusScalarWhereInput
+    data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyWithoutBattlesInput>
+  }
+
+  export type spin_resultsUpsertWithWhereUniqueWithoutBattlesInput = {
+    where: spin_resultsWhereUniqueInput
+    update: XOR<spin_resultsUpdateWithoutBattlesInput, spin_resultsUncheckedUpdateWithoutBattlesInput>
+    create: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput>
+  }
+
+  export type spin_resultsUpdateWithWhereUniqueWithoutBattlesInput = {
+    where: spin_resultsWhereUniqueInput
+    data: XOR<spin_resultsUpdateWithoutBattlesInput, spin_resultsUncheckedUpdateWithoutBattlesInput>
+  }
+
+  export type spin_resultsUpdateManyWithWhereWithoutBattlesInput = {
+    where: spin_resultsScalarWhereInput
+    data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyWithoutBattlesInput>
+  }
+
+  export type battlesCreateWithoutBattle_participantsInput = {
     battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_menus?: battle_menusCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesUncheckedCreateWithoutBattle_participantsInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesCreateOrConnectWithoutBattle_participantsInput = {
+    where: battlesWhereUniqueInput
+    create: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+  }
+
+  export type battlesUpsertWithoutBattle_participantsInput = {
+    update: XOR<battlesUpdateWithoutBattle_participantsInput, battlesUncheckedUpdateWithoutBattle_participantsInput>
+    create: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+    where?: battlesWhereInput
+  }
+
+  export type battlesUpdateToOneWithWhereWithoutBattle_participantsInput = {
+    where?: battlesWhereInput
+    data: XOR<battlesUpdateWithoutBattle_participantsInput, battlesUncheckedUpdateWithoutBattle_participantsInput>
+  }
+
+  export type battlesUpdateWithoutBattle_participantsInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_menus?: battle_menusUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesUncheckedUpdateWithoutBattle_participantsInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesCreateWithoutBattle_menusInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesUncheckedCreateWithoutBattle_menusInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsUncheckedCreateNestedManyWithoutBattlesInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesCreateOrConnectWithoutBattle_menusInput = {
+    where: battlesWhereUniqueInput
+    create: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+  }
+
+  export type menuCreateWithoutBattle_menusInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutBattle_menusInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutBattle_menusInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+  }
+
+  export type battlesUpsertWithoutBattle_menusInput = {
+    update: XOR<battlesUpdateWithoutBattle_menusInput, battlesUncheckedUpdateWithoutBattle_menusInput>
+    create: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+    where?: battlesWhereInput
+  }
+
+  export type battlesUpdateToOneWithWhereWithoutBattle_menusInput = {
+    where?: battlesWhereInput
+    data: XOR<battlesUpdateWithoutBattle_menusInput, battlesUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type battlesUpdateWithoutBattle_menusInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesUncheckedUpdateWithoutBattle_menusInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type menuUpsertWithoutBattle_menusInput = {
+    update: XOR<menuUpdateWithoutBattle_menusInput, menuUncheckedUpdateWithoutBattle_menusInput>
+    create: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutBattle_menusInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutBattle_menusInput, menuUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type menuUpdateWithoutBattle_menusInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutBattle_menusInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type battlesCreateWithoutSpin_resultsInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsCreateNestedManyWithoutBattlesInput
+    battle_menus?: battle_menusCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesUncheckedCreateWithoutSpin_resultsInput = {
+    battle_id: string
+    creator_nickname: string
+    status?: $Enums.battles_status
+    participant_count?: number
+    created_at?: Date | string
+    finished_at?: Date | string | null
+    expires_at: Date | string
+    battle_participants?: battle_participantsUncheckedCreateNestedManyWithoutBattlesInput
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutBattlesInput
+  }
+
+  export type battlesCreateOrConnectWithoutSpin_resultsInput = {
+    where: battlesWhereUniqueInput
+    create: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+  }
+
+  export type menuCreateWithoutSpin_resultsInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
+    menu_allery?: menu_alleryCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutSpin_resultsInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
+    menu_allery?: menu_alleryUncheckedCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutSpin_resultsInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+  }
+
+  export type battlesUpsertWithoutSpin_resultsInput = {
+    update: XOR<battlesUpdateWithoutSpin_resultsInput, battlesUncheckedUpdateWithoutSpin_resultsInput>
+    create: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+    where?: battlesWhereInput
+  }
+
+  export type battlesUpdateToOneWithWhereWithoutSpin_resultsInput = {
+    where?: battlesWhereInput
+    data: XOR<battlesUpdateWithoutSpin_resultsInput, battlesUncheckedUpdateWithoutSpin_resultsInput>
+  }
+
+  export type battlesUpdateWithoutSpin_resultsInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUpdateManyWithoutBattlesNestedInput
+    battle_menus?: battle_menusUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type battlesUncheckedUpdateWithoutSpin_resultsInput = {
+    battle_id?: StringFieldUpdateOperationsInput | string
+    creator_nickname?: StringFieldUpdateOperationsInput | string
+    status?: Enumbattles_statusFieldUpdateOperationsInput | $Enums.battles_status
+    participant_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battle_participants?: battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutBattlesNestedInput
+  }
+
+  export type menuUpsertWithoutSpin_resultsInput = {
+    update: XOR<menuUpdateWithoutSpin_resultsInput, menuUncheckedUpdateWithoutSpin_resultsInput>
+    create: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutSpin_resultsInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutSpin_resultsInput, menuUncheckedUpdateWithoutSpin_resultsInput>
+  }
+
+  export type menuUpdateWithoutSpin_resultsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
+    menu_allery?: menu_alleryUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutSpin_resultsInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
+    menu_allery?: menu_alleryUncheckedUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type battle_menusCreateManyMenuInput = {
+    id?: bigint | number
+    battle_id: string
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
   }
 
   export type menu_alleryCreateManyMenuInput = {
@@ -17221,42 +18536,43 @@ export namespace Prisma {
     date?: Date | string | null
   }
 
-  export type spin_resultCreateManyMenuInput = {
+  export type spin_resultsCreateManyMenuInput = {
     id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
     battle_id: string
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
   }
 
-  export type battle_menuUpdateWithoutMenuInput = {
+  export type battle_menusUpdateWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    battle?: battleUpdateOneRequiredWithoutBattle_menuNestedInput
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+    battles?: battlesUpdateOneRequiredWithoutBattle_menusNestedInput
   }
 
-  export type battle_menuUncheckedUpdateWithoutMenuInput = {
+  export type battle_menusUncheckedUpdateWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
     battle_id?: StringFieldUpdateOperationsInput | string
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type battle_menuUncheckedUpdateManyWithoutMenuInput = {
+  export type battle_menusUncheckedUpdateManyWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
     battle_id?: StringFieldUpdateOperationsInput | string
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
   }
 
   export type menu_alleryUpdateWithoutMenuInput = {
-    allery?: alleryUpdateOneRequiredWithoutMenu_alleryNestedInput
+    allergy?: allergyUpdateOneRequiredWithoutMenu_alleryNestedInput
   }
 
   export type menu_alleryUncheckedUpdateWithoutMenuInput = {
@@ -17312,150 +18628,37 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type spin_resultUpdateWithoutMenuInput = {
+  export type spin_resultsUpdateWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    battle?: battleUpdateOneRequiredWithoutSpin_resultNestedInput
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    battles?: battlesUpdateOneRequiredWithoutSpin_resultsNestedInput
   }
 
-  export type spin_resultUncheckedUpdateWithoutMenuInput = {
+  export type spin_resultsUncheckedUpdateWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     battle_id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type spin_resultUncheckedUpdateManyWithoutMenuInput = {
+  export type spin_resultsUncheckedUpdateManyWithoutMenuInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     battle_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type menu_alleryCreateManyAlleryInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_alleryUpdateWithoutAlleryInput = {
-    menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
-  }
-
-  export type menu_alleryUncheckedUpdateWithoutAlleryInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type menu_alleryUncheckedUpdateManyWithoutAlleryInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_menuCreateManyBattleInput = {
-    id?: bigint | number
-    menu_name?: string | null
-    boundary_angle?: number | null
-    menu_order?: number | null
-    menu_id: bigint | number
-  }
-
-  export type battle_participantCreateManyBattleInput = {
-    user_id: bigint | number
-    nickname?: string | null
-    is_creater?: number | null
-    joined_at?: Date | string | null
-  }
-
-  export type spin_resultCreateManyBattleInput = {
-    id?: bigint | number
-    nickname?: string | null
-    stopped_angle?: number | null
-    distance_to_boundary?: number | null
-    rank?: number | null
-    spin_at?: Date | string | null
-    closest_menu_id: bigint | number
-  }
-
-  export type battle_menuUpdateWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    menu?: menuUpdateOneRequiredWithoutBattle_menuNestedInput
-  }
-
-  export type battle_menuUncheckedUpdateWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_menuUncheckedUpdateManyWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: NullableStringFieldUpdateOperationsInput | string | null
-    boundary_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    menu_order?: NullableIntFieldUpdateOperationsInput | number | null
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_participantUpdateWithoutBattleInput = {
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battle_participantUncheckedUpdateWithoutBattleInput = {
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type battle_participantUncheckedUpdateManyWithoutBattleInput = {
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    is_creater?: NullableIntFieldUpdateOperationsInput | number | null
-    joined_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type spin_resultUpdateWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    menu?: menuUpdateOneRequiredWithoutSpin_resultNestedInput
-  }
-
-  export type spin_resultUncheckedUpdateWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type spin_resultUncheckedUpdateManyWithoutBattleInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
-    stopped_angle?: NullableFloatFieldUpdateOperationsInput | number | null
-    distance_to_boundary?: NullableFloatFieldUpdateOperationsInput | number | null
-    rank?: NullableIntFieldUpdateOperationsInput | number | null
-    spin_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type menu_vitaminCreateManyVitaminInput = {
@@ -17472,6 +18675,126 @@ export namespace Prisma {
 
   export type menu_vitaminUncheckedUpdateManyWithoutVitaminInput = {
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_alleryCreateManyAllergyInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_alleryUpdateWithoutAllergyInput = {
+    menu?: menuUpdateOneRequiredWithoutMenu_alleryNestedInput
+  }
+
+  export type menu_alleryUncheckedUpdateWithoutAllergyInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_alleryUncheckedUpdateManyWithoutAllergyInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type battle_participantsCreateManyBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type battle_menusCreateManyBattlesInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type spin_resultsCreateManyBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_id: bigint | number
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type battle_participantsUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_menusUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+    menu?: menuUpdateOneRequiredWithoutBattle_menusNestedInput
+  }
+
+  export type battle_menusUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type battle_menusUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type spin_resultsUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    menu?: menuUpdateOneRequiredWithoutSpin_resultsNestedInput
+  }
+
+  export type spin_resultsUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spin_resultsUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
