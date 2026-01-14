@@ -20,6 +20,9 @@ router.post("/:battleId/join", battleController.handleJoinBattle);
 // Execute spin
 router.post("/:battleId/spin", battleController.handleSpin);
 
+// Finish battle (방장만 가능)
+router.patch("/:battleId/finish", battleController.handleFinishBattle);
+
 // Get rankings
 router.get("/:battleId/rankings", battleController.handleGetRankings);
 

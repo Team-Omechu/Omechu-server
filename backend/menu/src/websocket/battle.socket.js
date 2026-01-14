@@ -66,33 +66,32 @@ export const setupBattleSocket = (io) => {
     });
 
     /**
-     * Execute spin
+     * Execute spin (백엔드에서 랜덤 각도 생성)
      * Event: battle:spin
-     * Data: { battleId, nickname, stoppedAngle }
+     * Data: { battleId, nickname }
      */
     socket.on("battle:spin", async (data) => {
       try {
-        const { battleId, nickname, stoppedAngle } = data;
+        const { battleId, nickname } = data;
 
-        if (!battleId || !nickname || stoppedAngle === undefined) {
+        if (!battleId || !nickname) {
           socket.emit("error", {
             errorCode: "SOCKET_002",
-            reason: "battleId, nickname, stoppedAngle은 필수입니다",
+            reason: "battleId와 nickname은 필수입니다",
           });
           return;
         }
 
-        // Execute spin via service
+        // Execute spin via service (stoppedAngle 파라미터 제거!)
         const spinResult = await battleService.executeSpinService(
           battleId,
-          nickname,
-          parseFloat(stoppedAngle)
+          nickname
         );
 
-        // Broadcast spin completed
+        // Broadcast spin completed (백엔드에서 생성한 각도 포함)
         io.to(battleId).emit("spin:completed", {
           nickname: spinResult.nickname,
-          stoppedAngle: spinResult.stoppedAngle,
+          stoppedAngle: spinResult.stoppedAngle, // 백엔드에서 생성된 랜덤 각도!
           closestMenuName: spinResult.closestMenuName,
           distanceToBoundary: spinResult.distanceToBoundary,
           rank: spinResult.rank,
@@ -108,12 +107,55 @@ export const setupBattleSocket = (io) => {
         });
 
         console.log(
-          `[Battle ${battleId}] ${nickname} spun: ${stoppedAngle}° (Rank: ${spinResult.rank})`
+          `[Battle ${battleId}] ${nickname} spun: ${spinResult.stoppedAngle}° (Rank: ${spinResult.rank})`
         );
       } catch (error) {
         console.error("Socket battle:spin error:", error);
         socket.emit("error", {
           errorCode: "SOCKET_002",
+          reason: error.message,
+        });
+      }
+    });
+
+    /**
+     * Finish battle manually
+     * Event: battle:finish
+     * Data: { battleId, nickname }
+     */
+    socket.on("battle:finish", async (data) => {
+      try {
+        const { battleId, nickname } = data;
+
+        if (!battleId || !nickname) {
+          socket.emit("error", {
+            errorCode: "SOCKET_004",
+            reason: "battleId와 nickname은 필수입니다",
+          });
+          return;
+        }
+
+        // Finish battle via service
+        const result = await battleService.finishBattleService(
+          battleId,
+          nickname
+        );
+
+        // Broadcast to all participants
+        io.to(battleId).emit("battle:finished", {
+          battleId: result.battleId,
+          status: result.status,
+          finishedAt: result.finishedAt,
+          winner: result.winner,
+        });
+
+        console.log(
+          `[Battle ${battleId}] Battle finished by ${nickname} (Winner: ${result.winner?.nickname || "None"})`
+        );
+      } catch (error) {
+        console.error("Socket battle:finish error:", error);
+        socket.emit("error", {
+          errorCode: "SOCKET_004",
           reason: error.message,
         });
       }
@@ -178,7 +220,7 @@ export const setupBattleSocket = (io) => {
 
         if (!battleId) {
           socket.emit("error", {
-            errorCode: "SOCKET_004",
+            errorCode: "SOCKET_005",
             reason: "battleId는 필수입니다",
           });
           return;
@@ -192,7 +234,7 @@ export const setupBattleSocket = (io) => {
       } catch (error) {
         console.error("Socket battle:state:request error:", error);
         socket.emit("error", {
-          errorCode: "SOCKET_004",
+          errorCode: "SOCKET_005",
           reason: error.message,
         });
       }
@@ -208,23 +250,7 @@ export const setupBattleSocket = (io) => {
 };
 
 /**
- * Broadcast battle finished event (called from service or cron job)
- * @param {Object} io - Socket.io instance
- * @param {string} battleId - Battle ID
- * @param {Object} winnerInfo - Winner information
- */
-export const broadcastBattleFinished = (io, battleId, winnerInfo) => {
-  io.to(battleId).emit("battle:finished", {
-    battleId,
-    winner: winnerInfo.nickname,
-    winningMenu: winnerInfo.closestMenuName,
-    finishedAt: new Date(),
-  });
-  console.log(`[Battle ${battleId}] Battle finished`);
-};
-
-/**
- * Broadcast battle expired event (called from cron job)
+ * Broadcast battle finished event (called from cron job)
  * @param {Object} io - Socket.io instance
  * @param {string} battleId - Battle ID
  */

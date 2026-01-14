@@ -71,14 +71,11 @@ const validateMenuCount = (count) => {
 };
 
 /**
- * Validate stopped angle
- * @param {number} angle - Stopped angle
- * @throws {Error} If angle is invalid
+ * Generate random stopped angle
+ * @returns {number} Random angle between 0-360
  */
-const validateStoppedAngle = (angle) => {
-  if (angle < 0 || angle >= 360) {
-    throw new Error("각도는 0도에서 360도 사이여야 합니다");
-  }
+const generateRandomAngle = () => {
+  return Math.random() * 360;
 };
 
 // ============================================
@@ -281,16 +278,12 @@ export const joinBattleService = async (battleId, nickname) => {
 };
 
 /**
- * Execute spin
+ * Execute spin (백엔드에서 랜덤 각도 생성)
  * @param {string} battleId - Battle ID
  * @param {string} nickname - Participant's nickname
- * @param {number} stoppedAngle - Angle where roulette stopped
  * @returns {Object} Spin result
  */
-export const executeSpinService = async (battleId, nickname, stoppedAngle) => {
-  // Validation
-  validateStoppedAngle(stoppedAngle);
-
+export const executeSpinService = async (battleId, nickname) => {
   try {
     // Check if battle exists
     const battle = await battleRepository.findBattleById(battleId);
@@ -324,6 +317,9 @@ export const executeSpinService = async (battleId, nickname, stoppedAngle) => {
     if (existingSpin) {
       throw new Error("이미 스핀을 완료했습니다");
     }
+
+    // 🎯 백엔드에서 랜덤 각도 생성!
+    const stoppedAngle = generateRandomAngle();
 
     // Find closest menu
     const battleMenus = await battleRepository.findBattleMenus(battleId);
@@ -408,6 +404,67 @@ export const getRankingsService = async (battleId) => {
   } catch (error) {
     console.error("순위 조회 오류:", error);
     throw new Error(`순위 조회 실패: ${error.message}`);
+  }
+};
+
+/**
+ * Finish battle manually (방장만 가능)
+ * @param {string} battleId - Battle ID
+ * @param {string} nickname - Nickname (must be creator)
+ * @returns {Object} Finish result with winner info
+ */
+export const finishBattleService = async (battleId, nickname) => {
+  try {
+    // Check if battle exists
+    const battle = await battleRepository.findBattleById(battleId);
+
+    if (!battle) {
+      throw new Error("존재하지 않는 배틀입니다");
+    }
+
+    // Check if already finished
+    if (battle.status === "finished") {
+      throw new Error("이미 종료된 배틀입니다");
+    }
+
+    // Check if participant is creator
+    const participant = await battleRepository.findParticipantByNickname(
+      battleId,
+      nickname
+    );
+
+    if (!participant) {
+      throw new Error("배틀에 참가하지 않은 사용자입니다");
+    }
+
+    if (!participant.is_creator) {
+      throw new Error("배틀 방장만 마감할 수 있습니다");
+    }
+
+    // Update battle status to finished
+    const now = new Date();
+    await battleRepository.updateBattleStatus(battleId, "finished", now);
+
+    // Get winner (rank 1)
+    const rankings = await battleRepository.findAllSpinResults(battleId);
+    const winner = rankings.length > 0 ? rankings[0] : null;
+
+    return {
+      battleId: battle.battle_id,
+      status: "finished",
+      finishedAt: now,
+      winner: winner
+        ? {
+            nickname: winner.nickname,
+            closestMenuName: winner.closest_menu_name,
+            distanceToBoundary: parseFloat(winner.distance_to_boundary),
+            rank: winner.rank,
+          }
+        : null,
+    };
+  } catch (error) {
+    console.error("배틀 마감 오류:", error);
+    throw new Error(`배틀 마감 실패: ${error.message}`);
   }
 };
 

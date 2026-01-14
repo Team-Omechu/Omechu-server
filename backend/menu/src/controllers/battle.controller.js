@@ -40,39 +40,7 @@ export const handleCreateBattle = async (req, res) => {
       }
     }
     #swagger.responses[201] = {
-      description: "배틀방 생성 성공",
-      content: {
-        "application/json": {
-          schema: {
-            type: "object",
-            properties: {
-              resultType: { type: "string", example: "SUCCESS" },
-              error: { type: "null" },
-              success: {
-                type: "object",
-                properties: {
-                  battleId: { type: "string", example: "550e8400-e29b-41d4-a716-446655440000" },
-                  creatorNickname: { type: "string", example: "홍길동" },
-                  status: { type: "string", example: "active" },
-                  expiresAt: { type: "string", example: "2024-12-25T15:30:00Z" },
-                  menus: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        menuId: { type: "string" },
-                        menuName: { type: "string" },
-                        boundaryAngle: { type: "number" },
-                        menuOrder: { type: "integer" }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      description: "배틀방 생성 성공"
     }
   */
   try {
@@ -250,14 +218,14 @@ export const handleJoinBattle = async (req, res) => {
 };
 
 /**
- * Execute spin
+ * Execute spin (백엔드에서 랜덤 각도 생성)
  * POST /api/battles/:battleId/spin
  */
 export const handleSpin = async (req, res) => {
   /*
     #swagger.tags = ["Battle"]
     #swagger.summary = "스핀 실행"
-    #swagger.description = "룰렛을 돌리고 결과를 저장합니다"
+    #swagger.description = "룰렛을 돌립니다. 멈춤 버튼 클릭 시 백엔드에서 랜덤 각도를 생성합니다"
     #swagger.parameters['battleId'] = {
       in: 'path',
       description: '배틀 ID (UUID)',
@@ -270,17 +238,12 @@ export const handleSpin = async (req, res) => {
         "application/json": {
           schema: {
             type: "object",
-            required: ["nickname", "stoppedAngle"],
+            required: ["nickname"],
             properties: {
               nickname: {
                 type: "string",
                 description: "참가자 닉네임",
                 example: "김철수"
-              },
-              stoppedAngle: {
-                type: "number",
-                description: "룰렛이 멈춘 각도 (0-360)",
-                example: 115.5
               }
             }
           }
@@ -288,30 +251,50 @@ export const handleSpin = async (req, res) => {
       }
     }
     #swagger.responses[201] = {
-      description: "스핀 실행 성공"
+      description: "스핀 실행 성공",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              resultType: { type: "string", example: "SUCCESS" },
+              error: { type: "null" },
+              success: {
+                type: "object",
+                properties: {
+                  resultId: { type: "string" },
+                  nickname: { type: "string" },
+                  stoppedAngle: { type: "number", description: "백엔드에서 생성된 랜덤 각도", example: 115.5 },
+                  closestMenuName: { type: "string" },
+                  distanceToBoundary: { type: "number" },
+                  rank: { type: "integer" },
+                  spunAt: { type: "string", format: "date-time" }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   */
   try {
     const { battleId } = req.params;
-    const { nickname, stoppedAngle } = req.body;
+    const { nickname } = req.body;
 
-    if (!battleId || !nickname || stoppedAngle === undefined) {
+    if (!battleId || !nickname) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         resultType: "FAIL",
         error: {
           errorCode: "BATTLE_004",
-          reason: "battleId, nickname, stoppedAngle은 필수입니다",
+          reason: "battleId와 nickname은 필수입니다",
           data: null,
         },
         success: null,
       });
     }
 
-    const result = await battleService.executeSpinService(
-      battleId,
-      nickname,
-      parseFloat(stoppedAngle)
-    );
+    // stoppedAngle 파라미터 제거! 백엔드에서 생성
+    const result = await battleService.executeSpinService(battleId, nickname);
 
     return res.status(StatusCodes.CREATED).json({
       resultType: "SUCCESS",
@@ -385,6 +368,114 @@ export const handleGetRankings = async (req, res) => {
       resultType: "FAIL",
       error: {
         errorCode: "BATTLE_005",
+        reason: error.message,
+        data: null,
+      },
+      success: null,
+    });
+  }
+};
+
+/**
+ * Finish battle (방장만 가능)
+ * PATCH /api/battles/:battleId/finish
+ */
+export const handleFinishBattle = async (req, res) => {
+  /*
+    #swagger.tags = ["Battle"]
+    #swagger.summary = "배틀 마감"
+    #swagger.description = "배틀을 수동으로 마감합니다 (방장만 가능)"
+    #swagger.parameters['battleId'] = {
+      in: 'path',
+      description: '배틀 ID (UUID)',
+      required: true,
+      type: 'string'
+    }
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            required: ["nickname"],
+            properties: {
+              nickname: {
+                type: "string",
+                description: "방장 닉네임",
+                example: "홍길동"
+              }
+            }
+          }
+        }
+      }
+    }
+    #swagger.responses[200] = {
+      description: "배틀 마감 성공",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              resultType: { type: "string", example: "SUCCESS" },
+              error: { type: "null" },
+              success: {
+                type: "object",
+                properties: {
+                  battleId: { type: "string" },
+                  status: { type: "string", example: "finished" },
+                  finishedAt: { type: "string", format: "date-time" },
+                  winner: {
+                    type: "object",
+                    properties: {
+                      nickname: { type: "string" },
+                      closestMenuName: { type: "string" },
+                      distanceToBoundary: { type: "number" },
+                      rank: { type: "integer", example: 1 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  */
+  try {
+    const { battleId } = req.params;
+    const { nickname } = req.body;
+
+    if (!battleId || !nickname) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        resultType: "FAIL",
+        error: {
+          errorCode: "BATTLE_007",
+          reason: "battleId와 nickname은 필수입니다",
+          data: null,
+        },
+        success: null,
+      });
+    }
+
+    const result = await battleService.finishBattleService(battleId, nickname);
+
+    return res.status(StatusCodes.OK).json({
+      resultType: "SUCCESS",
+      error: null,
+      success: result,
+    });
+  } catch (error) {
+    console.error("배틀 마감 에러:", error);
+
+    const statusCode =
+      error.message.includes("방장만") || error.message.includes("이미 종료")
+        ? StatusCodes.FORBIDDEN
+        : StatusCodes.BAD_REQUEST;
+
+    return res.status(statusCode).json({
+      resultType: "FAIL",
+      error: {
+        errorCode: "BATTLE_007",
         reason: error.message,
         data: null,
       },

@@ -50,7 +50,7 @@ export const validateJoinBattle = (data) => {
 };
 
 /**
- * Validate spin request
+ * Validate spin request (stoppedAngle 제거!)
  */
 export const validateSpin = (data) => {
   const errors = [];
@@ -59,10 +59,23 @@ export const validateSpin = (data) => {
     errors.push("nickname은 필수 문자열입니다");
   }
 
-  if (data.stoppedAngle === undefined || typeof data.stoppedAngle !== "number") {
-    errors.push("stoppedAngle은 필수 숫자입니다");
-  } else if (data.stoppedAngle < 0 || data.stoppedAngle >= 360) {
-    errors.push("각도는 0도에서 360도 사이여야 합니다");
+  // stoppedAngle 검증 제거!
+  // 백엔드에서 랜덤 생성하므로 필요 없음
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+  };
+};
+
+/**
+ * Validate finish battle request
+ */
+export const validateFinishBattle = (data) => {
+  const errors = [];
+
+  if (!data.nickname || typeof data.nickname !== "string") {
+    errors.push("nickname은 필수 문자열입니다");
   }
 
   return {
