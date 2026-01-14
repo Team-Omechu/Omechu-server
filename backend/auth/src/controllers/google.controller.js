@@ -1,24 +1,26 @@
 import { StatusCodes } from "http-status-codes";
-import {
-  loginWithKakaoService,
-} from "../services/oauth.service.js";
+import { loginWithGoogleService } from "../services/google.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
-import axios from "axios";
 
 const redisClient = createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
 
-export const handleKakaoRedirect = (req, res) => {
-  const redirectUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_LOGIN_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}`;
-  console.log("최종 Redirect URL:", redirectUrl);
+export const handleGoogleRedirect = (req, res) => {
+  const redirectUrl =
+    `https://accounts.google.com/o/oauth2/v2/auth` +
+    `?response_type=code` +
+    `&client_id=${process.env.GOOGLE_CLIENT_ID}` +
+    `&redirect_uri=${process.env.GOOGLE_LOGIN_REDIRECT_URI}` +
+    `&scope=openid email profile`;
+
   res.redirect(redirectUrl);
 };
 
-export const handleKakaoLogin = async (req, res, next) => {
+
+export const handleGoogleLogin = async (req, res, next) => {
   try {
-    const { provider } = req.params;
     const { code } = req.body;
 
     if (!code) {
@@ -28,24 +30,12 @@ export const handleKakaoLogin = async (req, res, next) => {
       });
     }
 
-    let user;
-
-    if (provider === "kakao") {
-      user = await loginWithKakaoService(code);
-    } else {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        resultType: "FAIL",
-        error: { reason: "Unsupported provider" },
-      });
-    }
-
+    const user = await loginWithGoogleService(code);
     const uid = Number(user.id);
 
-    // JWT
     const accessToken = generateAccessToken({ id: uid });
     const refreshToken = generateRefreshToken({ id: uid });
 
-    // Redis
     if (!redisClient.isOpen) {
       await redisClient.connect();
     }
@@ -56,10 +46,13 @@ export const handleKakaoLogin = async (req, res, next) => {
 
     return res.status(StatusCodes.OK).json({
       resultType: "SUCCESS",
-      success: { accessToken, refreshToken },
+      success: {
+        accessToken,
+        refreshToken,
+      },
     });
   } catch (err) {
-    console.error("[OAuth Login Error]", err);
+    console.error("[Google Login Error]", err?.response?.data || err.message);
     next(err);
   }
 };
