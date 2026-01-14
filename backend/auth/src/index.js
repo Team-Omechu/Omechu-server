@@ -27,13 +27,10 @@ import {
   handleKakaoRedirect,
   handleKakaoCallback,
 } from "./controllers/kakao.controller.js";
-import {
-  handleAgreementConsent,
-  getAgreementConsent,
-} from "./controllers/agreement.controller.js";
+
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleGetUserProfile } from "./controllers/mypage.controller.js";
-import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
+import { handleKakaoLogin } from "./controllers/kakao.controller.js";
+import { handleGoogleLogin } from "./controllers/google.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -221,6 +218,9 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp); // o
 app.post("/auth/internal/withdraw", handleInternalWithdraw);
 app.post("/auth/internal/hard-delete", handleInternalHardDelete);
+app.post("/api/v1/auth/login/google", handleGoogleLogin);
+app.post("/api/v1/auth/login/kakao", handleKakaoLogin);
+
 
 app.post("/auth/login", handleUserLoginJWT);
 app.post("/auth/reissue", handleRenewToken);
