@@ -114,7 +114,13 @@ export const fetchGooglePlacesService = async (info) => {
   const response = await fetchGooglePlaces({ info });
   console.log("Fetched places from service:", response.places);
   if (!response || !response.places || response.places.length === 0) {
-    return [];
+    return {
+      page: 1,
+      pageSize: 3,
+      totalCount: 0,
+      totalPages: 0,
+      items: [],
+    };
   }
 
   // 각 장소의 사진 배열에서 첫 번째 사진만 반환하고 priceLevel과 primaryType을 변환
@@ -139,7 +145,7 @@ export const fetchGooglePlacesService = async (info) => {
 
     return result;
   });
-  
+
   // 거리순으로 정렬 (거리가 없는 경우 맨 뒤로)
   placesWithFirstPhoto.sort((a, b) => {
     if (a.distance === undefined && b.distance === undefined) return 0;
@@ -147,6 +153,34 @@ export const fetchGooglePlacesService = async (info) => {
     if (b.distance === undefined) return -1;
     return a.distance - b.distance;
   });
-  
-  return placesWithFirstPhoto;
+
+  // --- 3개 단위 페이지네이션 적용 ---
+  const FIXED_PAGE_SIZE = 3;
+  const requestedPage = parseInt(info.page, 10) || 1;
+
+  const totalCount = placesWithFirstPhoto.length;
+  const totalPages = totalCount === 0 ? 0 : Math.ceil(totalCount / FIXED_PAGE_SIZE);
+
+  // 범위를 벗어난 페이지는 빈 배열을 반환하되 메타 정보는 유지
+  if (requestedPage < 1 || requestedPage > totalPages) {
+    return {
+      page: requestedPage,
+      pageSize: FIXED_PAGE_SIZE,
+      totalCount,
+      totalPages,
+      items: [],
+    };
+  }
+
+  const startIndex = (requestedPage - 1) * FIXED_PAGE_SIZE;
+  const endIndex = startIndex + FIXED_PAGE_SIZE;
+  const paginatedItems = placesWithFirstPhoto.slice(startIndex, endIndex);
+
+  return {
+    page: requestedPage,
+    pageSize: FIXED_PAGE_SIZE,
+    totalCount,
+    totalPages,
+    items: paginatedItems,
+  };
 };

@@ -233,7 +233,7 @@ app.get("/menu", handleGetMenu);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu/menu-info", handleGetMenuInfo);
-app.get("/menu/menu-list", handleGetMenu)
+//app.get("/menu/menu-list", handleGetMenu)
 // Mukburim 기본 기능
 app.post("/menu/mukburim", isLoggedIn, handleInsertMukburim);
 
