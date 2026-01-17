@@ -11,9 +11,9 @@ import { cleanupDeletedUsers } from "./utils/cleanupDeletedUsers.js";
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
-import { 
+import {
   handleUpdateUserInfo,
-  handleCreateUserInternal 
+  handleCreateUserInternal,
 } from "./controllers/user.controller.js";
 
 import {
@@ -82,7 +82,7 @@ app.use(
       "X-Requested-With",
       "Origin",
     ],
-  })
+  }),
 );
 
 // body parser
@@ -111,7 +111,7 @@ app.use(
       secure: false, // HTTPS면 true로
       sameSite: "lax",
     },
-  })
+  }),
 );
 
 // Swagger (auth 서비스 전용)
@@ -135,7 +135,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu User 정보 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/user" }],
+    servers: [{ url: "https://omechu-api.log8.kr" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -145,18 +145,18 @@ const startSwagger = async () => {
   };
 
   /** ===========================
- * 탈퇴 사용자 30일 후 Hard Delete
- * 매일 새벽 4시 실행
- * =========================== */
-cron.schedule("0 4 * * *", async () => {
-  console.log("🧹 [CRON] 탈퇴 사용자 정리 작업 시작");
-  try {
-    await cleanupDeletedUsers();
-    console.log("✅ [CRON] 탈퇴 사용자 정리 완료");
-  } catch (err) {
-    console.error("❌ [CRON] 탈퇴 사용자 정리 실패", err);
-  }
-});
+   * 탈퇴 사용자 30일 후 Hard Delete
+   * 매일 새벽 4시 실행
+   * =========================== */
+  cron.schedule("0 4 * * *", async () => {
+    console.log("🧹 [CRON] 탈퇴 사용자 정리 작업 시작");
+    try {
+      await cleanupDeletedUsers();
+      console.log("✅ [CRON] 탈퇴 사용자 정리 완료");
+    } catch (err) {
+      console.error("❌ [CRON] 탈퇴 사용자 정리 실패", err);
+    }
+  });
 
   const routes = ["./index.js", "./controllers/*.js"];
 
@@ -175,15 +175,12 @@ cron.schedule("0 4 * * *", async () => {
           configUrl: null,
           withCredentials: true,
         },
-      })
+      }),
     );
 
     // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
-    app.get("/openapi.json", forceJsonResponse);
-    app.get("/docs/openapi.json", forceJsonResponse);
     app.get("/user/openapi.json", forceJsonResponse);
-    app.get("/user/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
@@ -233,7 +230,6 @@ app.patch("/user/complete", isLoggedIn, handleUpdateUserInfo);
 app.post("/user/internal", handleCreateUserInternal);
 
 app.post("/user/withdraw", isLoggedIn, handleWithdraw);
-
 
 // 약관 관련 API
 app.post("/user/agreements/consent", isLoggedIn, handleAgreementConsent);
