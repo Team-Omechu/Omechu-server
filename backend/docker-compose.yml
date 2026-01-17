@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     networks:
       - omechu-net
+
   auth_api:
     build:
       context: ./auth
