@@ -170,10 +170,7 @@ const startSwagger = async () => {
 
     // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
-    app.get("/openapi.json", forceJsonResponse);
-    app.get("/docs/openapi.json", forceJsonResponse);
     app.get("/auth/openapi.json", forceJsonResponse);
-    app.get("/auth/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
