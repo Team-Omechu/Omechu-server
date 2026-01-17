@@ -157,7 +157,7 @@ const startSwagger = async () => {
 
     // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
     app.use(
-      ["/auth/docs/", "/auth/docs"],
+      ["/auth/docs", "/docs"],
       swaggerUiExpress.serve,
       swaggerUiExpress.setup(swaggerSpec, {
         swaggerOptions: {
