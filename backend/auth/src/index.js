@@ -139,7 +139,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 인증/인가 서비스 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/auth" }],
+    servers: [{ url: "https://omechu-api.log8.kr" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -215,7 +215,7 @@ app.get("/", (req, res) => {
 });
 
 // --- Auth routes만 남김 ---
-app.post("/signup", handleUserSignUp); // o
+app.post("/auth/signup", handleUserSignUp); // o
 app.post("/internal/withdraw", handleInternalWithdraw);
 app.post("/internal/hard-delete", handleInternalHardDelete);
 
