@@ -216,23 +216,23 @@ app.get("/", (req, res) => {
 
 // --- Auth routes만 남김 ---
 app.post("/auth/signup", handleUserSignUp); // o
-app.post("/internal/withdraw", handleInternalWithdraw);
-app.post("/internal/hard-delete", handleInternalHardDelete);
+app.post("/auth/internal/withdraw", handleInternalWithdraw);
+app.post("/auth/internal/hard-delete", handleInternalHardDelete);
 
-app.post("/login", handleUserLoginJWT);
-app.post("/reissue", handleRenewToken);
-app.post("/logout", isLoggedIn, handleUserLogoutJWT);
+app.post("/auth/login", handleUserLoginJWT);
+app.post("/auth/reissue", handleRenewToken);
+app.post("/auth/logout", isLoggedIn, handleUserLogoutJWT);
 
-app.post("/send", handleSendEmailCode);
-app.post("/verify", handleVerifyEmailCode);
+app.post("/auth/send", handleSendEmailCode);
+app.post("/auth/verify", handleVerifyEmailCode);
 
-app.post("/reset-request", handleResetRequest);
-app.patch("/reset-passwd", handleResetPassword);
+app.post("/auth/reset-request", handleResetRequest);
+app.patch("/auth/reset-passwd", handleResetPassword);
 
-app.patch("/change-passwd", isLoggedIn, handleChangePassword);
+app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 // 카카오 로그인
-app.get("/kakao", handleKakaoRedirect);
-app.get("/kakao/callback", handleKakaoCallback);
+app.get("/auth/kakao", handleKakaoRedirect);
+app.get("/auth/kakao/callback", handleKakaoCallback);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
