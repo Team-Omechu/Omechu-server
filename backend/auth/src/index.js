@@ -236,6 +236,7 @@ app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 
 app.get("/auth/google", handleGoogleRedirect);
 
+
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);

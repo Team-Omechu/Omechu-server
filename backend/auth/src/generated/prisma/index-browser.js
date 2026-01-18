@@ -125,6 +125,8 @@ exports.Prisma.Auth_userScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
+  provider: 'provider',
+  provider_id: 'provider_id',
   is_deleted: 'is_deleted',
   deleted_at: 'deleted_at'
 };
@@ -157,7 +159,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.auth_userOrderByRelevanceFieldEnum = {
   email: 'email',
-  password: 'password'
+  password: 'password',
+  provider: 'provider',
+  provider_id: 'provider_id'
 };
 
 exports.Prisma.email_verificationOrderByRelevanceFieldEnum = {
