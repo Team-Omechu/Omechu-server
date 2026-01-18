@@ -11,8 +11,8 @@ import os
 with open('menu_data.json','r',encoding='utf-8') as f:
     menu_data=json.load(f)
 
-app = FastAPI(title="Menu Recommender", version="1.0.0", docs_url="/docs",
-    openapi_url="/openapi.json")
+app = FastAPI(title="Menu Recommender", version="1.0.0", docs_url="/recommend/docs",
+    openapi_url="/recommend/openapi.json")
 
 # CORS 설정 - 모든 도메인에서 API 호출 허용
 app.add_middleware(
