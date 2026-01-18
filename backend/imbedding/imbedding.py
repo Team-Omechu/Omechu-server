@@ -84,14 +84,15 @@ class QueryBody(BaseModel):
     언제: Optional[str]=Field(None, description="언제 식사하는지",examples=["아침","점심","저녁","야식"])
     운동상태: Optional[str]=Field(None, description="운동 상태",examples=["다이어트 중","증량 중","유지 중"])
     선호음식: Optional[str]=Field(None, description="선호하는 음식",examples=["한식","양식","중식","일식"])
-    제외음식:Optional[List[str]] = []
+    제외음식:Optional[List[str]] = Field([], description="제외하고 싶은 음식",examples=[["리조토","불고기"]])
     예산: Optional[str]=Field(None, description="예산",examples=["1만원 미만","1만원~3만원","3만원~5만원","5만원 "])
     알레르기: Optional[List[str]] = Field([], description="알레르기 유발 음식",examples=[["땅콩","새우","계란"]])
     이전추천메뉴:Optional[List[str]] = Field([], description="이전에 추천받은 메뉴 리스트",examples=[["갈비탕","비빔밥"]])
 
 class RecommendItem(BaseModel):
-    score: float
-    text: dict
+    menu: str
+    text: str
+    allergens: List[str] = []
 
 class RecommendResponse(BaseModel):
     query_text: str
@@ -185,11 +186,23 @@ def recommend_api(body: QueryBody):
     q_text, results = recommend_core(q_obj, 20, exclude_allergens=body.알레르기, exclude_foods=body.제외음식,seen_menus=body.이전추천메뉴)
     results = deduplicate(results)  
     results = results[:3]
-    print("results",results)
+    items = []
+    for score, t in results:
+        sentence = t.get("text", "")
+        menu_name = extract_dish(sentence)
+
+        items.append(
+            RecommendItem(
+                menu=menu_name,
+                text=sentence,
+                allergens=t.get("allergens", []),
+        )
+    )
+
     return RecommendResponse(
         query_text=q_text,
-        results=[RecommendItem(score=round(s, 6), text=t) for s, t in results]
-    )   
+        results=items
+    )
 
 # font_path = '/System/Library/Fonts/AppleSDGothicNeo.ttc'
 # font_name = fm.FontProperties(fname=font_path).get_name()
