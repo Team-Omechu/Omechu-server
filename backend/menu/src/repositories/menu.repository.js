@@ -57,7 +57,7 @@ export const addMenuToDatabase = async (menuData) => {
         JSON.stringify(vitamins),
         JSON.stringify(allergyInfo),
         sodium,
-      ]
+      ],
     );
 
     console.log("Menu added to database:", menuName);
@@ -364,14 +364,14 @@ export const recommendMenu = async (choice, userId) => {
         } catch (error) {
           console.error(
             `Error fetching image for menu ${menuItem.menu}:`,
-            error
+            error,
           );
           return {
             ...menuItem,
             image_link: null,
           };
         }
-      })
+      }),
     );
     console.log("Menu with images:", menuWithImages);
     return menuWithImages;
@@ -406,55 +406,81 @@ export const findRelatedMenu = async (menuName) => {
 };
 
 export const getMenuInfo = async (menuName) => {
-  const menu = await prisma.menu.findFirst({
-    where: { name: menuName },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      calory: true,
-      carbo: true,
-      protein: true,
-      fat: true,
-      sodium: true,
-      image_link: true,
-
-      menu_vitamin: {
-        include: {
-          vitamin: {
-            select: { vitamin: true },
+  try {
+    console.log("Fetching menu info for:", menuName);
+    const menuInfo = await prisma.menu.findFirst({
+      where: { name: menuName },
+      select: {
+        name: true,
+        description: true,
+        calory: true,
+        carbo: true,
+        protein: true,
+        fat: true,
+        sodium: true,
+        image_link: true,
+        menu_vitamin: {
+          select: {
+            vitamin: {
+              select: {
+                vitamin: true,
+              },
+            },
+          },
+        },
+        menu_allergy: {
+          select: {
+            allergy: {
+              select: {
+                allergy: true,
+              },
+            },
           },
         },
       },
+    });
 
-      menu_allergy: {
-        include: {
-          allergy: {
-            select: { allergy: true },
-          },
-        },
-      },
-    },
-  });
+    if (!menuInfo) {
+      console.error(`No menu info found for: ${menuName}`);
+      return null;
+    }
 
-  if (!menu) return null;
+    // 숫자 변환
+    for (const key of ["calory", "carbo", "protein", "fat", "sodium"]) {
+      if (menuInfo[key] !== null && menuInfo[key] !== undefined) {
+        menuInfo[key] = Number(menuInfo[key]);
+      }
+    }
 
-  return {
-    id: menu.id.toString(),
-    name: menu.name,
-    description: menu.description,
-    calory: menu.calory ? Number(menu.calory) : null,
-    carbo: menu.carbo ? Number(menu.carbo) : null,
-    protein: menu.protein ? Number(menu.protein) : null,
-    fat: menu.fat ? Number(menu.fat) : null,
-    sodium: menu.sodium ? Number(menu.sodium) : null,
-    image_link: menu.image_link,
+    // vitamin과 allergy 배열 추출
+    const vitamins = menuInfo.menu_vitamin
+      .map((item) => item.vitamin.vitamin)
+      .filter(Boolean);
+    const allergies = menuInfo.menu_allergy
+      .map((item) => item.allergy.allergy)
+      .filter(Boolean);
 
-    vitamins: menu.menu_vitamin.map(v => v.vitamin.vitamin),
-    allergies: menu.menu_allergy.map(a => a.allergy.allergy),
-  };
+    // 응답 형식
+    const response = {
+      name: menuInfo.name,
+      description: menuInfo.description,
+      calory: menuInfo.calory,
+      carbo: menuInfo.carbo,
+      protein: menuInfo.protein,
+      fat: menuInfo.fat,
+      sodium: menuInfo.sodium,
+      image_link: menuInfo.image_link,
+      vitamin: vitamins,
+      allergic: allergies,
+    };
+
+    console.log("Menu info fetched successfully:", response);
+    return response;
+  } catch (error) {
+    console.error(`Error fetching menu info for ${menuName}:`, error);
+    throw error;
+  }
 };
-
 
 export const recommendRandom = async (addition) => {
   try {
@@ -508,7 +534,6 @@ export const recommendRandom = async (addition) => {
 
     console.log("Menu with image:", menuWithImage);
     return menuWithImage;
-
   } catch (error) {
     console.error("Error handling GPT request:", error);
     throw error;
@@ -524,10 +549,9 @@ export const getMenu = async () => {
     },
   });
 
-  return menus.map(menu => ({
-    id: menu.id.toString(),   
+  return menus.map((menu) => ({
+    id: menu.id.toString(),
     name: menu.name,
     image_link: menu.image_link,
   }));
 };
-

@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from sentence_transformers import SentenceTransformer,util
 import torch
 import re
@@ -76,16 +76,18 @@ def obj_to_natural_setence(q,menu="메뉴"):
         f"현재 운동을 {q.get('운동상태','')}인 분께도 잘 맞습니다.",
         f"예산은 {q.get('예산','')}입니다.",
     ])
+
 class QueryBody(BaseModel):
-    동반자: str
-    식사목적: str
-    날씨: str
-    언제: str
-    운동상태:str
-    선호음식:str
+    동반자: Optional[str]=Field(None, description="혼자, 친구, 가족 등",examples=["혼자","친구","가족"])
+    식사목적: Optional[str]=Field(None, description="식사 목적",examples=["든든한 한 끼 식사","술 안주","간식","기념일 식사"])
+    날씨: Optional[str]=Field(None, description="날씨",examples=["맑음","추움","비","더움"])
+    언제: Optional[str]=Field(None, description="언제 식사하는지",examples=["아침","점심","저녁","야식"])
+    운동상태: Optional[str]=Field(None, description="운동 상태",examples=["다이어트 중","증량 중","유지 중"])
+    선호음식: Optional[str]=Field(None, description="선호하는 음식",examples=["한식","양식","중식","일식"])
     제외음식:Optional[List[str]] = []
-    예산: str
-    알레르기: Optional[List[str]] = []
+    예산: Optional[str]=Field(None, description="예산",examples=["1만원 미만","1만원~3만원","3만원~5만원","5만원 "])
+    알레르기: Optional[List[str]] = Field([], description="알레르기 유발 음식",examples=[["땅콩","새우","계란"]])
+    이전추천메뉴:Optional[List[str]] = Field([], description="이전에 추천받은 메뉴 리스트",examples=[["갈비탕","비빔밥"]])
 
 class RecommendItem(BaseModel):
     score: float
@@ -95,20 +97,18 @@ class RecommendResponse(BaseModel):
     query_text: str
     results: List[RecommendItem]
 
-def recommend_core(q_obj, topk=10,exclude_allergens=None,exclude_foods=None):
+def recommend_core(q_obj, topk=10,exclude_allergens=None,exclude_foods=None,seen_menus=None):
     q_text = obj_to_natural_setence(q_obj)
     print("q_text",q_text)
     # print("exclude_allergens",exclude_allergens)
     q_emb = model.encode([q_text], normalize_embeddings=True)
-    q_emb = torch.tensor(q_emb)
     sim = util.cos_sim(torch.tensor(q_emb), torch.tensor(menu_embeddings))[0]
 
     # 핵심 속성 정확 매칭 보너스
     prefer = q_obj.get("선호음식")
     when = q_obj.get("언제")
     purpose = q_obj.get("식사목적")
-    allergy=q_obj.get("알레르기")
-    print("allergy",allergy)
+
     bonus = []
     for m in menu_data:
         text = m.get("text", "")
@@ -127,13 +127,17 @@ def recommend_core(q_obj, topk=10,exclude_allergens=None,exclude_foods=None):
     bonus_tensor = torch.tensor(bonus, dtype=sim.dtype)
     sim = sim + bonus_tensor
 
+    total_exclude = set(exclude_foods or [])
+    if seen_menus:
+        total_exclude.update(seen_menus)
+
     # 제외음식 필터링
     # 입력한 제외음식이 메뉴 text에 포함되어 있으면 점수를 -1e9로 만들어 100% 제외
-    if exclude_foods:
+    if total_exclude:
         mask = []
         for m in menu_data:
             text = m.get("text", "")
-            has_excluded_food = any(food in text for food in exclude_foods)
+            has_excluded_food = any(food in text for food in total_exclude)
             mask.append(0.0 if has_excluded_food else 1.0)
         mask_tensor = torch.tensor(mask, dtype=sim.dtype)
         sim = sim * mask_tensor + (mask_tensor.eq(0) * (-1e9))
@@ -170,18 +174,15 @@ def deduplicate(results):
 
 
 
-@app.get("")
-@app.get("/")
+@app.get("/recommend")
 def root():
-    print("GET /recommend", flush=True)
     return {"status": "ok", "service": "Menu Recommender"}
 
-@app.post("/menu", response_model=RecommendResponse)
-@app.post("/menu/", response_model=RecommendResponse)
+@app.post("/recommend/menu", response_model=RecommendResponse)
 def recommend_api(body: QueryBody):
     q_obj = {"언제": body.언제, "식사목적": body.식사목적, "날씨": body.날씨, "동반자": body.동반자, "예산": body.예산,"운동상태":body.운동상태,"선호음식":body.선호음식,"제외음식":body.제외음식}
     print("q_obj",q_obj)
-    q_text, results = recommend_core(q_obj, 10, exclude_allergens=body.알레르기, exclude_foods=body.제외음식)
+    q_text, results = recommend_core(q_obj, 20, exclude_allergens=body.알레르기, exclude_foods=body.제외음식,seen_menus=body.이전추천메뉴)
     results = deduplicate(results)  
     results = results[:3]
     print("results",results)
@@ -189,7 +190,6 @@ def recommend_api(body: QueryBody):
         query_text=q_text,
         results=[RecommendItem(score=round(s, 6), text=t) for s, t in results]
     )   
-
 
 # font_path = '/System/Library/Fonts/AppleSDGothicNeo.ttc'
 # font_name = fm.FontProperties(fname=font_path).get_name()

@@ -8,18 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id                BigInt             @id
-  phone_num         String?            @db.VarChar(21)
-  nickname          String?            @db.VarChar(30)
-  exercise          user_exercise?
-  is_deleted        Boolean?           @default(false)
-  deleted_at        DateTime?          @db.DateTime(0)
-  agreement_consent agreement_consent?
-  prefer            prefer[]
-  user_allergy      user_allergy[]
-}
-
 model agreement_consent {
   id                BigInt    @id @default(autoincrement())
   user_id           BigInt    @unique(map: "uk_agreement_user")
@@ -39,7 +27,7 @@ model allergy_min {
 }
 
 model inquiry {
-  id         BigInt    @id
+  id         BigInt    @id @default(autoincrement())
   user_id    BigInt
   title      String?   @db.VarChar(100)
   content    String?   @db.Text
@@ -48,11 +36,12 @@ model inquiry {
   @@index([user_id], map: "inquiry_user_id_fk")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model meal_alert {
   user_id    BigInt
   meal_id    BigInt
   enabled    Boolean?
-  alarm_time DateTime? @db.DateTime(0)
+  alarm_time DateTime? @db.Time(0)
   meal_time  meal_time @relation(fields: [meal_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "meal_alert_meal_time_id_fk")
 
   @@id([user_id, meal_id])
@@ -64,22 +53,6 @@ model meal_time {
   alert_time DateTime?    @db.Time(0)
   comment    String?      @db.VarChar(20)
   meal_alert meal_alert[]
-}
-
-model user_allergy {
-  user_id     BigInt
-  allergy_id  BigInt
-  allergy_min allergy_min @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_allergy_min_id_fk")
-  user        user        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_user_id_fk")
-
-  @@id([user_id, allergy_id])
-  @@index([allergy_id], map: "user_allergy_allergy_min_id_fk")
-}
-
-model sessions {
-  session_id String  @id @db.VarChar(128)
-  expires    Int     @db.UnsignedInt
-  data       String? @db.MediumText
 }
 
 model prefer {
@@ -103,17 +76,39 @@ model recommend_except {
   @@index([user_id], map: "idx_recommend_except_user")
 }
 
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  expires    Int     @db.UnsignedInt
+  data       String? @db.MediumText
+}
+
+model user {
+  id                BigInt             @id
+  phone_num         String?            @db.VarChar(21)
+  nickname          String?            @db.VarChar(30)
+  exercise          user_exercise?
+  is_deleted        Boolean?           @default(false)
+  deleted_at        DateTime?          @db.DateTime(0)
+  agreement_consent agreement_consent?
+  prefer            prefer[]
+  user_allergy      user_allergy[]
+}
+
+model user_allergy {
+  user_id     BigInt
+  allergy_id  BigInt
+  allergy_min allergy_min @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_allergy_min_id_fk")
+  user        user        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_allergy_user_id_fk")
+
+  @@id([user_id, allergy_id])
+  @@index([allergy_id], map: "user_allergy_allergy_min_id_fk")
+}
+
 model user_withdrawal {
   id         BigInt   @id @default(autoincrement())
   user_id    BigInt
   reason     String   @db.VarChar(100)
   created_at DateTime @default(now()) @db.DateTime(0)
-}
-
-enum user_exercise {
-  dieting     @map("다이어트 중")
-  bulking     @map("증량 중")
-  maintaining @map("유지 중")
 }
 
 enum prefer_prefer {
@@ -122,4 +117,10 @@ enum prefer_prefer {
   chinese
   japanese
   other
+}
+
+enum user_exercise {
+  cutting
+  bulking
+  maintenance
 }

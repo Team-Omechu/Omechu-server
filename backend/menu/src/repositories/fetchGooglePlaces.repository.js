@@ -6,7 +6,6 @@ export const fetchGooglePlaces = async ({ info }) => {
 
   const body = {
     textQuery: info.keyword,
-    openNow: true,
     pageSize: info.pageSize,
     languageCode: "ko",
     locationBias: {
@@ -24,7 +23,7 @@ export const fetchGooglePlaces = async ({ info }) => {
       "Content-Type": "application/json",
       "X-Goog-Api-Key": KEY,
       "X-Goog-FieldMask":
-        "places.displayName,places.formattedAddress,places.id,places.rating,places.userRatingCount",
+        "places.displayName,places.formattedAddress,places.id,places.primaryType,places.priceLevel,places.photos,places.location",
     },
     body: JSON.stringify(body),
   });

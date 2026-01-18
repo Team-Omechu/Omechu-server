@@ -1,46 +1,57 @@
 import { StatusCodes } from "http-status-codes";
-import {
-  exchangeCodeForTokenService,
-  findOrCreateKakaoUserService,
-} from "../services/kakao.service.js";
+import axios from "axios";
+import { loginWithKakaoService } from "../services/kakao.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
 
 const redisClient = createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
-await redisClient.connect();
 
-export const handleKakaoRedirect = (req, res) => {
-  const redirectUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_LOGIN_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}`;
-  console.log("최종 Redirect URL:", redirectUrl);
-  res.redirect(redirectUrl);
-};
+const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
 
-export const handleKakaoCallback = async (req, res, next) => {
+export const handleKakaoLogin = async (req, res, next) => {
   try {
-    const code = req.query.code;
+    const { code } = req.body;
 
-    // 카카오에서 유저 정보 가져오기
-    const kakaoUserInfo = await exchangeCodeForTokenService(code);
+    if (!code) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "P001",
+        reason: "code is required",
+      });
+    }
 
-    // DB에서 사용자 찾거나 신규 생성
-    const user = await findOrCreateKakaoUserService(kakaoUserInfo);
+    const user = await loginWithKakaoService(code);
+    const uid = Number(user.id);
 
-    // JWT 발급
-    const accessToken = generateAccessToken({ payload: user.id.toString() });
-    const refreshToken = generateRefreshToken({ payload: user.id.toString() });
+    await axios.post(
+      `${USER_SERVICE_URL}/user/internal`,
+      { userId: uid },
+      {
+        headers: {
+          "x-internal-key": process.env.INTERNAL_API_KEY,
+        },
+        timeout: 3000,
+      },
+    );
 
-    // Redis에 RefreshToken 저장
-    await redisClient.set(`refresh:${user.id}`, refreshToken, {
-      EX: 60 * 60 * 24 * 7, // 7일 유효
+    const accessToken = generateAccessToken({ id: uid });
+    const refreshToken = generateRefreshToken({ id: uid });
+
+    if (!redisClient.isOpen) {
+      await redisClient.connect();
+    }
+
+    //     await redisClient.set(`refresh:${uid}`, refreshToken, {
+    //       EX: 60 * 60 * 24 * 7,
+    //     });
+
+    return res.status(StatusCodes.OK).success({
+      accessToken,
+      refreshToken,
     });
-
-    // 클라이언트에 리다이렉트하면서 토큰 전달
-    res.redirect(`https://omechu.log8.kr/auth/callback?accessToken=${accessToken}&refreshToken=${refreshToken}`);
-
   } catch (err) {
-    console.error("카카오 로그인 에러:", err);
+    console.error("[Kakao OAuth Login Error]", err);
     next(err);
   }
 };

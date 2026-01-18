@@ -162,8 +162,6 @@ export const handleRecommendMenu = async (req, res) => {
     */
 };
 
-
-
 export const handleGetMenuInfo = async (req, res) => {
   const { name } = req.body;
   try {
@@ -212,12 +210,12 @@ export const handleGetMenuInfo = async (req, res) => {
             type: 'object',
             properties: {
               name: { type: 'string', example: '짜장면' },
-              description: { type: 'string', example: '간장 소스로 볶은 중화풍 면 요리' },
-              calory: { type: 'number', example: 800 },
-              carbo: { type: 'number', example: 90 },
-              protein: { type: 'number', example: 20 },
-              fat: { type: 'number', example: 30 },
-              sodium: { type: 'number', example: 1200 },
+              description: { type: 'string', nullable: true, example: '간장 소스로 볶은 중화풍 면 요리' },
+              calory: { type: 'number', nullable: true, example: 800 },
+              carbo: { type: 'number', nullable: true, example: 90 },
+              protein: { type: 'number', nullable: true, example: 20 },
+              fat: { type: 'number', nullable: true, example: 30 },
+              sodium: { type: 'number', nullable: true, example: 1200 },
               vitamin: {
                 type: 'array',
                 items: { type: 'string' },
@@ -230,19 +228,8 @@ export const handleGetMenuInfo = async (req, res) => {
               },
               image_link: { 
                 type: 'string', 
+                nullable: true,
                 example: 'https://example.com/image.jpg' 
-              },
-              recipe_link: {
-                type: 'string',
-                example: 'https://www.youtube.com/watch?v=YMbnuHN_TfE'
-              },
-              recipe_link_source: {
-                type: 'string',
-                example: '김대석 셰프TV'
-              },
-              recipe_video_name: {
-                type: 'string',
-                example: '전문점 뺨치는 짜장면 비밀레시피 공개합니다'
               }
             }
           }
@@ -387,8 +374,8 @@ export const handleGetMenu = async (req, res) => {
 
   /*
     #swagger.tags = ["Menu"]
-    #swagger.summary = "전체 메뉴 조회 API"
-    #swagger.description = "데이터베이스에 저장된 모든 메뉴 목록을 조회하는 API입니다."
+    #swagger.summary = "전체 메뉴 목록 조회 API (GET /menu)"
+    #swagger.description = "특정 메뉴 한 개가 아니라, 데이터베이스에 저장된 모든 메뉴 목록을 한 번에 조회하는 API입니다. 요청 바디나 쿼리 파라미터 없이 GET /menu 로 호출합니다."
 
     #swagger.responses[200] = {
       description: "메뉴 목록 조회 성공",

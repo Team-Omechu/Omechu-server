@@ -3,8 +3,8 @@
 import { StatusCodes } from "http-status-codes";
 import {
   getMukburimStatisticsService,
-  getMukburimCalendarService,
-  getMukburimByDateService,
+  //getMukburimCalendarService,
+  //getMukburimByDateService,
   insertMukburimService,
 } from "../services/mukburim.service.js";
 /**
@@ -192,7 +192,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
       cleanPeriod,
       cleanStartDate,
       cleanEndDate,
-      cleanSortBy
+      cleanSortBy,
     );
 
     res.status(StatusCodes.OK).success(result);

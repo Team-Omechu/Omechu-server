@@ -133,8 +133,8 @@ export const handleGetMenuSearch = async (req, res) => {
             error: {
               type: 'object',
               properties: {
-                errorCode: { type: 'string', example: 'M007' },
-                reason: { type: 'string', example: '필터링된 메뉴 조회 중 오류 발생' },
+                errorCode: { type: 'string', example: 'M010' },
+                reason: { type: 'string', example: '메뉴 검색 중 오류 발생' },
                 data: { type: 'null', example: null }
               }
             },

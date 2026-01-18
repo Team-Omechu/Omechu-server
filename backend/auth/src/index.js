@@ -23,17 +23,10 @@ import {
 } from "./controllers/passwordReset.controller.js";
 import { handleChangePassword } from "./controllers/passwordChange.controller.js";
 
-import {
-  handleKakaoRedirect,
-  handleKakaoCallback,
-} from "./controllers/kakao.controller.js";
-import {
-  handleAgreementConsent,
-  getAgreementConsent,
-} from "./controllers/agreement.controller.js";
+import { handleKakaoLogin } from "./controllers/kakao.controller.js";
+
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleGetUserProfile } from "./controllers/mypage.controller.js";
-import { handleUpdateUserProfile } from "./controllers/mypage.controller.js";
+import { handleGoogleLogin } from "./controllers/google.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -139,7 +132,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 인증/인가 서비스 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr" }],
+    servers: [{ url: "http://localhost:3000" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -157,7 +150,7 @@ const startSwagger = async () => {
 
     // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
     app.use(
-      ["/auth/docs", "/docs"],
+      ["/docs", "/auth/docs"],
       swaggerUiExpress.serve,
       swaggerUiExpress.setup(swaggerSpec, {
         swaggerOptions: {
@@ -218,6 +211,8 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp); // o
 app.post("/auth/internal/withdraw", handleInternalWithdraw);
 app.post("/auth/internal/hard-delete", handleInternalHardDelete);
+app.post("/auth/login/google", handleGoogleLogin);
+app.post("/auth/login/kakao", handleKakaoLogin);
 
 app.post("/auth/login", handleUserLoginJWT);
 app.post("/auth/reissue", handleRenewToken);
@@ -230,9 +225,6 @@ app.post("/auth/reset-request", handleResetRequest);
 app.patch("/auth/reset-passwd", handleResetPassword);
 
 app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
-// 카카오 로그인
-app.get("/auth/kakao", handleKakaoRedirect);
-app.get("/auth/kakao/callback", handleKakaoCallback);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {

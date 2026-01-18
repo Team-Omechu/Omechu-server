@@ -7,12 +7,14 @@ export const handleFetchGooglePlaces = async (req, res) => {
     longitude: req.body.longitude,
     radius: req.body.radius,
     pageSize: req.body.pageSize,
+    page: req.body.page, // 페이지 번호 (1부터 시작)
   };
 
   try {
-    const places = await fetchGooglePlacesService(info);
-    if (places && places.length > 0) {
-      res.status(200).json(places);
+    const result = await fetchGooglePlacesService(info);
+
+    if (result && result.items && result.items.length > 0) {
+      res.status(200).json(result);
     } else {
       res.status(404).json({ message: "No places found" });
     }
@@ -57,6 +59,11 @@ export const handleFetchGooglePlaces = async (req, res) => {
               type: 'integer', 
               example: 5,
               description: "반환할 결과 개수"
+            },
+            page: {
+              type: 'integer',
+              example: 1,
+              description: "요청할 페이지 번호 (1부터 시작)"
             }
           }
         }
@@ -69,22 +76,42 @@ export const handleFetchGooglePlaces = async (req, res) => {
     content: {
       'application/json': {
         schema: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              id: { type: 'string', example: 'ChIJ86MmmAGhfDUR1C6TNesYXDM' },
-              formattedAddress: { 
-                type: 'string', 
-                example: '대한민국 서울특별시 서초구 방배본동 동광로 67' 
-              },
-              rating: { type: 'number', example: 4.1 },
-              userRatingCount: { type: 'integer', example: 335 },
-              displayName: { 
+          type: 'object',
+          properties: {
+            page: { type: 'integer', example: 1, description: '현재 페이지 번호' },
+            pageSize: { type: 'integer', example: 3, description: '페이지당 항목 수 (고정 3개)' },
+            totalCount: { type: 'integer', example: 24, description: '전체 검색 결과 수' },
+            totalPages: { type: 'integer', example: 8, description: '전체 페이지 수' },
+            items: {
+              type: 'array',
+              items: {
                 type: 'object',
                 properties: {
-                  text: { type: 'string', example: '일일향 방배점' },
-                  languageCode: { type: 'string', example: 'ko' }
+                  id: { type: 'string', example: 'ChIJ86MmmAGhfDUR1C6TNesYXDM' },
+                  formattedAddress: { 
+                    type: 'string', 
+                    example: '대한민국 서울특별시 서초구 방배본동 동광로 67' 
+                  },
+                  primaryType: { type: 'string', example: '중식당', description: '음식점 종류 (한국어)' },
+                  priceLevel: { type: 'string', example: '10,000~20,000', description: '가격대 범위' },
+                  photo: { 
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string', example: 'places/ChIJ86MmmAGhfDUR1C6TNesYXDM/photos/xxx' }
+                    }
+                  },
+                  distance: { 
+                    type: 'integer', 
+                    example: 1250,
+                    description: '요청 위치로부터의 거리 (미터)'
+                  },
+                  displayName: { 
+                    type: 'object',
+                    properties: {
+                      text: { type: 'string', example: '일일향 방배점' },
+                      languageCode: { type: 'string', example: 'ko' }
+                    }
+                  }
                 }
               }
             }
