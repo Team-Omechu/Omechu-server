@@ -1,25 +1,34 @@
 import axios from "axios";
 import qs from "qs";
-import { findUserByProvider, createUser } from "../repositories/user.repository.js";
+import {
+  findUserByProvider,
+  createOAuthUser,
+} from "../repositories/user.repository.js";
 
 export const loginWithGoogleService = async (code) => {
+  const decodedCode = decodeURIComponent(code);
 
+  // code → token
   const tokenRes = await axios.post(
     "https://oauth2.googleapis.com/token",
-    qs.stringify({
-      code,
+    new URLSearchParams({
+      code: decodedCode, 
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: process.env.GOOGLE_LOGIN_REDIRECT_URI,
       grant_type: "authorization_code",
-    }),
+    }).toString(),
     {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     }
   );
 
+
   const googleAccessToken = tokenRes.data.access_token;
 
+  // token → user info
   const userRes = await axios.get(
     "https://www.googleapis.com/oauth2/v2/userinfo",
     {
@@ -29,31 +38,20 @@ export const loginWithGoogleService = async (code) => {
     }
   );
 
-  const googleId = userRes.data.id;
+  const providerId = String(userRes.data.id);
   const email = userRes.data.email ?? null;
 
-  let user = await findUserByProvider("google", googleId);
+  // provider 기반 조회
+  let user = await findUserByProvider("google", providerId);
 
+  // 없으면 생성 (OAuth 전용)
   if (!user) {
-    user = await createUser({
+    user = await createOAuthUser({
       email,
       provider: "google",
-      provider_id: googleId,
+      providerId,
     });
   }
-
-  const uid = Number(user.id);
-
-  await axios.post(
-    `${process.env.USER_SERVICE_URL}/user/internal`,
-    { userId: uid },
-    {
-      headers: {
-        "x-internal-key": process.env.INTERNAL_API_KEY,
-      },
-      timeout: 3000,
-    }
-  );
 
   return user;
 };

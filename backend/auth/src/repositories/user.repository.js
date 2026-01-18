@@ -45,3 +45,17 @@ export const findUserByProvider = async (provider, providerId) => {
     },
   });
 };
+
+export const createOAuthUser = async ({
+  email,
+  provider,
+  providerId,
+}) => {
+  return prisma.auth_user.create({
+    data: {
+      email: email ?? null,
+      provider,
+      provider_id: providerId,
+    },
+  });
+};
