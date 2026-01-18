@@ -29,7 +29,7 @@ import {
 
 
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleGoogleLogin, handleGoogleRedirect } from "./controllers/google.controller.js";
+import { handleGoogleLogin } from "./controllers/google.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -232,9 +232,6 @@ app.post("/auth/reset-request", handleResetRequest);
 app.patch("/auth/reset-passwd", handleResetPassword);
 
 app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
-
-
-app.get("/auth/google", handleGoogleRedirect);
 
 
 // 에러 처리 미들웨어 (유지)
