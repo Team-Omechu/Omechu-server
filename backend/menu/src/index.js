@@ -68,7 +68,7 @@ app.use(
       "X-Requested-With",
       "Origin",
     ],
-  })
+  }),
 );
 
 // body parser
@@ -97,7 +97,7 @@ app.use(
       secure: false, // HTTPS면 true로
       sameSite: "lax",
     },
-  })
+  }),
 );
 
 // Swagger (auth 서비스 전용)
@@ -121,7 +121,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 메뉴 관련 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/menu" }],
+    servers: [{ url: "https://omechu-api.log8.kr" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -147,15 +147,12 @@ const startSwagger = async () => {
           configUrl: null,
           withCredentials: true,
         },
-      })
+      }),
     );
 
     // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
-    app.get("/openapi.json", forceJsonResponse);
-    app.get("/docs/openapi.json", forceJsonResponse);
     app.get("/menu/openapi.json", forceJsonResponse);
-    app.get("/menu/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {

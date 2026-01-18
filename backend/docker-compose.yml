@@ -16,7 +16,7 @@ services:
     networks:
       - omechu-net
     env_file:
-      - ./auth/.env
+      - ./auth/.env.production
     depends_on:
       - omechu_db
 
@@ -28,7 +28,7 @@ services:
     networks:
       - omechu-net
     env_file:
-      - ./menu/.env
+      - ./menu/.env.production
     depends_on:
       - omechu_db
 
@@ -40,7 +40,7 @@ services:
     networks:
       - omechu-net
     env_file:
-      - ./user/.env
+      - ./user/.env.production
     depends_on:
       - omechu_db
 

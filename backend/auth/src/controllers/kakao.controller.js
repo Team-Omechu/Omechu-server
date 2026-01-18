@@ -20,7 +20,7 @@ export const handleKakaoLogin = async (req, res, next) => {
         reason: "code is required",
       });
     }
-    
+
     const user = await loginWithKakaoService(code);
     const uid = Number(user.id);
 
@@ -32,7 +32,7 @@ export const handleKakaoLogin = async (req, res, next) => {
           "x-internal-key": process.env.INTERNAL_API_KEY,
         },
         timeout: 3000,
-      }
+      },
     );
 
     const accessToken = generateAccessToken({ id: uid });
@@ -42,9 +42,9 @@ export const handleKakaoLogin = async (req, res, next) => {
       await redisClient.connect();
     }
 
-    await redisClient.set(`refresh:${uid}`, refreshToken, {
-      EX: 60 * 60 * 24 * 7,
-    });
+    //     await redisClient.set(`refresh:${uid}`, refreshToken, {
+    //       EX: 60 * 60 * 24 * 7,
+    //     });
 
     return res.status(StatusCodes.OK).success({
       accessToken,

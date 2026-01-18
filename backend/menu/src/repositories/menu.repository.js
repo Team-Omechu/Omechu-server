@@ -57,7 +57,7 @@ export const addMenuToDatabase = async (menuData) => {
         JSON.stringify(vitamins),
         JSON.stringify(allergyInfo),
         sodium,
-      ]
+      ],
     );
 
     console.log("Menu added to database:", menuName);
@@ -364,14 +364,14 @@ export const recommendMenu = async (choice, userId) => {
         } catch (error) {
           console.error(
             `Error fetching image for menu ${menuItem.menu}:`,
-            error
+            error,
           );
           return {
             ...menuItem,
             image_link: null,
           };
         }
-      })
+      }),
     );
     console.log("Menu with images:", menuWithImages);
     return menuWithImages;
@@ -534,7 +534,6 @@ export const recommendRandom = async (addition) => {
 
     console.log("Menu with image:", menuWithImage);
     return menuWithImage;
-
   } catch (error) {
     console.error("Error handling GPT request:", error);
     throw error;
@@ -550,10 +549,9 @@ export const getMenu = async () => {
     },
   });
 
-  return menus.map(menu => ({
-    id: menu.id.toString(),   
+  return menus.map((menu) => ({
+    id: menu.id.toString(),
     name: menu.name,
     image_link: menu.image_link,
   }));
 };
-

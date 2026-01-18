@@ -21,11 +21,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.19.1
+ * Prisma Client JS version: 6.19.2
  * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-  client: "6.19.1",
+  client: "6.19.2",
   engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
 }
 
@@ -121,50 +121,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.MenuScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  calory: 'calory',
-  carbo: 'carbo',
-  protein: 'protein',
-  fat: 'fat',
-  sodium: 'sodium',
-  image_link: 'image_link'
-};
-
-exports.Prisma.MukburimScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  user_id: 'user_id',
-  date: 'date'
-};
-
-exports.Prisma.Menu_tagScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  tag: 'tag'
-};
-
-exports.Prisma.Menu_vitaminScalarFieldEnum = {
-  menu_id: 'menu_id',
-  vitamin_id: 'vitamin_id'
-};
-
-exports.Prisma.VitaminScalarFieldEnum = {
-  id: 'id',
-  vitamin: 'vitamin'
-};
-
 exports.Prisma.AllergyScalarFieldEnum = {
   id: 'id',
   allergy: 'allergy'
-};
-
-exports.Prisma.SessionsScalarFieldEnum = {
-  session_id: 'session_id',
-  expires: 'expires',
-  data: 'data'
 };
 
 exports.Prisma.Battle_menusScalarFieldEnum = {
@@ -194,9 +153,45 @@ exports.Prisma.BattlesScalarFieldEnum = {
   expires_at: 'expires_at'
 };
 
+exports.Prisma.MenuScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  calory: 'calory',
+  carbo: 'carbo',
+  protein: 'protein',
+  fat: 'fat',
+  sodium: 'sodium',
+  image_link: 'image_link'
+};
+
 exports.Prisma.Menu_allergyScalarFieldEnum = {
   menu_id: 'menu_id',
   allergy_id: 'allergy_id'
+};
+
+exports.Prisma.Menu_tagScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  tag: 'tag'
+};
+
+exports.Prisma.Menu_vitaminScalarFieldEnum = {
+  menu_id: 'menu_id',
+  vitamin_id: 'vitamin_id'
+};
+
+exports.Prisma.MukburimScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  user_id: 'user_id',
+  date: 'date'
+};
+
+exports.Prisma.SessionsScalarFieldEnum = {
+  session_id: 'session_id',
+  expires: 'expires',
+  data: 'data'
 };
 
 exports.Prisma.Spin_resultsScalarFieldEnum = {
@@ -211,6 +206,11 @@ exports.Prisma.Spin_resultsScalarFieldEnum = {
   spun_at: 'spun_at'
 };
 
+exports.Prisma.VitaminScalarFieldEnum = {
+  id: 'id',
+  vitamin: 'vitamin'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -221,27 +221,8 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.menuOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description',
-  image_link: 'image_link'
-};
-
-exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
-  tag: 'tag'
-};
-
-exports.Prisma.vitaminOrderByRelevanceFieldEnum = {
-  vitamin: 'vitamin'
-};
-
 exports.Prisma.allergyOrderByRelevanceFieldEnum = {
   allergy: 'allergy'
-};
-
-exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
-  session_id: 'session_id',
-  data: 'data'
 };
 
 exports.Prisma.battle_menusOrderByRelevanceFieldEnum = {
@@ -259,10 +240,29 @@ exports.Prisma.battlesOrderByRelevanceFieldEnum = {
   creator_nickname: 'creator_nickname'
 };
 
+exports.Prisma.menuOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description',
+  image_link: 'image_link'
+};
+
+exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
+  tag: 'tag'
+};
+
+exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
+  session_id: 'session_id',
+  data: 'data'
+};
+
 exports.Prisma.spin_resultsOrderByRelevanceFieldEnum = {
   battle_id: 'battle_id',
   nickname: 'nickname',
   closest_menu_name: 'closest_menu_name'
+};
+
+exports.Prisma.vitaminOrderByRelevanceFieldEnum = {
+  vitamin: 'vitamin'
 };
 exports.battles_status = exports.$Enums.battles_status = {
   waiting: 'waiting',
@@ -271,18 +271,18 @@ exports.battles_status = exports.$Enums.battles_status = {
 };
 
 exports.Prisma.ModelName = {
-  menu: 'menu',
-  mukburim: 'mukburim',
-  menu_tag: 'menu_tag',
-  menu_vitamin: 'menu_vitamin',
-  vitamin: 'vitamin',
   allergy: 'allergy',
-  sessions: 'sessions',
   battle_menus: 'battle_menus',
   battle_participants: 'battle_participants',
   battles: 'battles',
+  menu: 'menu',
   menu_allergy: 'menu_allergy',
-  spin_results: 'spin_results'
+  menu_tag: 'menu_tag',
+  menu_vitamin: 'menu_vitamin',
+  mukburim: 'mukburim',
+  sessions: 'sessions',
+  spin_results: 'spin_results',
+  vitamin: 'vitamin'
 };
 
 /**

@@ -8,69 +8,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model menu {
-  id           BigInt         @id @default(autoincrement())
-  name         String         @db.VarChar(30)
-  description  String?        @db.VarChar(150)
-  calory       BigInt?
-  carbo        BigInt?
-  protein      BigInt?
-  fat          BigInt?
-  sodium       BigInt?
-  image_link   String?
-  battle_menus battle_menus[]
-  menu_allergy menu_allergy[]
-  menu_tag     menu_tag[]
-  menu_vitamin menu_vitamin[]
-  mukburim     mukburim[]
-  spin_results spin_results[]
-}
-
-model mukburim {
-  id      BigInt    @id
-  menu_id BigInt
-  user_id BigInt
-  date    DateTime? @db.DateTime(0)
-  menu    menu      @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "mukburim_menu_id_fk")
-
-  @@index([menu_id], map: "mukburim_menu_id_fk")
-}
-
-model menu_tag {
-  id      BigInt  @id @default(autoincrement())
-  menu_id BigInt
-  tag     String? @db.VarChar(40)
-  menu    menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_tag_ibfk_1")
-
-  @@index([menu_id], map: "menu_tag_menu_id_fk")
-}
-
-model menu_vitamin {
-  menu_id    BigInt
-  vitamin_id BigInt
-  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_vitamin_menu_id_fk")
-  vitamin    vitamin @relation(fields: [vitamin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_vitamin_vitamin_id_fk")
-
-  @@id([menu_id, vitamin_id])
-  @@index([vitamin_id], map: "menu_vitamin_vitamin_id_fk")
-}
-
-model vitamin {
-  id           BigInt         @id @default(autoincrement())
-  vitamin      String?        @db.VarChar(50)
-  menu_vitamin menu_vitamin[]
-}
-
 model allergy {
   id           BigInt         @id @default(autoincrement())
   allergy      String?        @db.VarChar(50)
   menu_allergy menu_allergy[]
-}
-
-model sessions {
-  session_id String  @id @db.VarChar(128)
-  expires    Int     @db.UnsignedInt
-  data       String? @db.MediumText
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -121,6 +62,24 @@ model battles {
   @@index([status], map: "idx_status")
 }
 
+model menu {
+  id           BigInt         @id @default(autoincrement())
+  name         String         @db.VarChar(30)
+  description  String?        @db.VarChar(150)
+  calory       BigInt?
+  carbo        BigInt?
+  protein      BigInt?
+  fat          BigInt?
+  sodium       BigInt?
+  image_link   String?
+  battle_menus battle_menus[]
+  menu_allergy menu_allergy[]
+  menu_tag     menu_tag[]
+  menu_vitamin menu_vitamin[]
+  mukburim     mukburim[]
+  spin_results spin_results[]
+}
+
 model menu_allergy {
   menu_id    BigInt
   allergy_id BigInt
@@ -129,6 +88,41 @@ model menu_allergy {
 
   @@id([menu_id, allergy_id])
   @@index([allergy_id], map: "menu_allergy_allergy_id_fk")
+}
+
+model menu_tag {
+  id      BigInt  @id @default(autoincrement())
+  menu_id BigInt
+  tag     String? @db.VarChar(40)
+  menu    menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_tag_menu_id_fk")
+
+  @@index([menu_id], map: "menu_tag_menu_id_fk")
+}
+
+model menu_vitamin {
+  menu_id    BigInt
+  vitamin_id BigInt
+  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_vitamin_menu_id_fk")
+  vitamin    vitamin @relation(fields: [vitamin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "menu_vitamin_vitamin_id_fk")
+
+  @@id([menu_id, vitamin_id])
+  @@index([vitamin_id], map: "menu_vitamin_vitamin_id_fk")
+}
+
+model mukburim {
+  id      BigInt    @id
+  menu_id BigInt
+  user_id BigInt
+  date    DateTime? @db.DateTime(0)
+  menu    menu      @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "mukburim_menu_id_fk")
+
+  @@index([menu_id], map: "mukburim_menu_id_fk")
+}
+
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  expires    Int     @db.UnsignedInt
+  data       String? @db.MediumText
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -152,6 +146,12 @@ model spin_results {
   @@index([distance_to_boundary], map: "idx_distance")
   @@index([rank], map: "idx_rank")
   @@index([spun_at], map: "idx_spun_at")
+}
+
+model vitamin {
+  id           BigInt         @id @default(autoincrement())
+  vitamin      String?        @db.VarChar(50)
+  menu_vitamin menu_vitamin[]
 }
 
 enum battles_status {

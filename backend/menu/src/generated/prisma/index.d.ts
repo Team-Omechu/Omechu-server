@@ -14,40 +14,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model menu
- * 
- */
-export type menu = $Result.DefaultSelection<Prisma.$menuPayload>
-/**
- * Model mukburim
- * 
- */
-export type mukburim = $Result.DefaultSelection<Prisma.$mukburimPayload>
-/**
- * Model menu_tag
- * 
- */
-export type menu_tag = $Result.DefaultSelection<Prisma.$menu_tagPayload>
-/**
- * Model menu_vitamin
- * 
- */
-export type menu_vitamin = $Result.DefaultSelection<Prisma.$menu_vitaminPayload>
-/**
- * Model vitamin
- * 
- */
-export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
-/**
  * Model allergy
  * 
  */
 export type allergy = $Result.DefaultSelection<Prisma.$allergyPayload>
-/**
- * Model sessions
- * 
- */
-export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
 /**
  * Model battle_menus
  * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -65,16 +35,46 @@ export type battle_participants = $Result.DefaultSelection<Prisma.$battle_partic
  */
 export type battles = $Result.DefaultSelection<Prisma.$battlesPayload>
 /**
+ * Model menu
+ * 
+ */
+export type menu = $Result.DefaultSelection<Prisma.$menuPayload>
+/**
  * Model menu_allergy
  * 
  */
 export type menu_allergy = $Result.DefaultSelection<Prisma.$menu_allergyPayload>
+/**
+ * Model menu_tag
+ * 
+ */
+export type menu_tag = $Result.DefaultSelection<Prisma.$menu_tagPayload>
+/**
+ * Model menu_vitamin
+ * 
+ */
+export type menu_vitamin = $Result.DefaultSelection<Prisma.$menu_vitaminPayload>
+/**
+ * Model mukburim
+ * 
+ */
+export type mukburim = $Result.DefaultSelection<Prisma.$mukburimPayload>
+/**
+ * Model sessions
+ * 
+ */
+export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
 /**
  * Model spin_results
  * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
  * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
  */
 export type spin_results = $Result.DefaultSelection<Prisma.$spin_resultsPayload>
+/**
+ * Model vitamin
+ * 
+ */
+export type vitamin = $Result.DefaultSelection<Prisma.$vitaminPayload>
 
 /**
  * Enums
@@ -101,8 +101,8 @@ export const battles_status: typeof $Enums.battles_status
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Menus
- * const menus = await prisma.menu.findMany()
+ * // Fetch zero or more Allergies
+ * const allergies = await prisma.allergy.findMany()
  * ```
  *
  *
@@ -122,8 +122,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Menus
-   * const menus = await prisma.menu.findMany()
+   * // Fetch zero or more Allergies
+   * const allergies = await prisma.allergy.findMany()
    * ```
    *
    *
@@ -213,56 +213,6 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.menu`: Exposes CRUD operations for the **menu** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Menus
-    * const menus = await prisma.menu.findMany()
-    * ```
-    */
-  get menu(): Prisma.menuDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.mukburim`: Exposes CRUD operations for the **mukburim** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Mukburims
-    * const mukburims = await prisma.mukburim.findMany()
-    * ```
-    */
-  get mukburim(): Prisma.mukburimDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.menu_tag`: Exposes CRUD operations for the **menu_tag** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Menu_tags
-    * const menu_tags = await prisma.menu_tag.findMany()
-    * ```
-    */
-  get menu_tag(): Prisma.menu_tagDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.menu_vitamin`: Exposes CRUD operations for the **menu_vitamin** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Menu_vitamins
-    * const menu_vitamins = await prisma.menu_vitamin.findMany()
-    * ```
-    */
-  get menu_vitamin(): Prisma.menu_vitaminDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.vitamin`: Exposes CRUD operations for the **vitamin** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Vitamins
-    * const vitamins = await prisma.vitamin.findMany()
-    * ```
-    */
-  get vitamin(): Prisma.vitaminDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.allergy`: Exposes CRUD operations for the **allergy** model.
     * Example usage:
     * ```ts
@@ -271,16 +221,6 @@ export class PrismaClient<
     * ```
     */
   get allergy(): Prisma.allergyDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.sessions`: Exposes CRUD operations for the **sessions** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Sessions
-    * const sessions = await prisma.sessions.findMany()
-    * ```
-    */
-  get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.battle_menus`: Exposes CRUD operations for the **battle_menus** model.
@@ -313,6 +253,16 @@ export class PrismaClient<
   get battles(): Prisma.battlesDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.menu`: Exposes CRUD operations for the **menu** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Menus
+    * const menus = await prisma.menu.findMany()
+    * ```
+    */
+  get menu(): Prisma.menuDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.menu_allergy`: Exposes CRUD operations for the **menu_allergy** model.
     * Example usage:
     * ```ts
@@ -323,6 +273,46 @@ export class PrismaClient<
   get menu_allergy(): Prisma.menu_allergyDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.menu_tag`: Exposes CRUD operations for the **menu_tag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Menu_tags
+    * const menu_tags = await prisma.menu_tag.findMany()
+    * ```
+    */
+  get menu_tag(): Prisma.menu_tagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.menu_vitamin`: Exposes CRUD operations for the **menu_vitamin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Menu_vitamins
+    * const menu_vitamins = await prisma.menu_vitamin.findMany()
+    * ```
+    */
+  get menu_vitamin(): Prisma.menu_vitaminDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mukburim`: Exposes CRUD operations for the **mukburim** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Mukburims
+    * const mukburims = await prisma.mukburim.findMany()
+    * ```
+    */
+  get mukburim(): Prisma.mukburimDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sessions`: Exposes CRUD operations for the **sessions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.sessions.findMany()
+    * ```
+    */
+  get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.spin_results`: Exposes CRUD operations for the **spin_results** model.
     * Example usage:
     * ```ts
@@ -331,6 +321,16 @@ export class PrismaClient<
     * ```
     */
   get spin_results(): Prisma.spin_resultsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vitamin`: Exposes CRUD operations for the **vitamin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Vitamins
+    * const vitamins = await prisma.vitamin.findMany()
+    * ```
+    */
+  get vitamin(): Prisma.vitaminDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -389,7 +389,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.19.1
+   * Prisma Client JS version: 6.19.2
    * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
    */
   export type PrismaVersion = {
@@ -772,18 +772,18 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    menu: 'menu',
-    mukburim: 'mukburim',
-    menu_tag: 'menu_tag',
-    menu_vitamin: 'menu_vitamin',
-    vitamin: 'vitamin',
     allergy: 'allergy',
-    sessions: 'sessions',
     battle_menus: 'battle_menus',
     battle_participants: 'battle_participants',
     battles: 'battles',
+    menu: 'menu',
     menu_allergy: 'menu_allergy',
-    spin_results: 'spin_results'
+    menu_tag: 'menu_tag',
+    menu_vitamin: 'menu_vitamin',
+    mukburim: 'mukburim',
+    sessions: 'sessions',
+    spin_results: 'spin_results',
+    vitamin: 'vitamin'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -802,340 +802,10 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "menu" | "mukburim" | "menu_tag" | "menu_vitamin" | "vitamin" | "allergy" | "sessions" | "battle_menus" | "battle_participants" | "battles" | "menu_allergy" | "spin_results"
+      modelProps: "allergy" | "battle_menus" | "battle_participants" | "battles" | "menu" | "menu_allergy" | "menu_tag" | "menu_vitamin" | "mukburim" | "sessions" | "spin_results" | "vitamin"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      menu: {
-        payload: Prisma.$menuPayload<ExtArgs>
-        fields: Prisma.menuFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.menuFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.menuFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          findFirst: {
-            args: Prisma.menuFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.menuFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          findMany: {
-            args: Prisma.menuFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>[]
-          }
-          create: {
-            args: Prisma.menuCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          createMany: {
-            args: Prisma.menuCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.menuDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          update: {
-            args: Prisma.menuUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          deleteMany: {
-            args: Prisma.menuDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.menuUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.menuUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menuPayload>
-          }
-          aggregate: {
-            args: Prisma.MenuAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMenu>
-          }
-          groupBy: {
-            args: Prisma.menuGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MenuGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.menuCountArgs<ExtArgs>
-            result: $Utils.Optional<MenuCountAggregateOutputType> | number
-          }
-        }
-      }
-      mukburim: {
-        payload: Prisma.$mukburimPayload<ExtArgs>
-        fields: Prisma.mukburimFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.mukburimFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.mukburimFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          findFirst: {
-            args: Prisma.mukburimFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.mukburimFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          findMany: {
-            args: Prisma.mukburimFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>[]
-          }
-          create: {
-            args: Prisma.mukburimCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          createMany: {
-            args: Prisma.mukburimCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.mukburimDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          update: {
-            args: Prisma.mukburimUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          deleteMany: {
-            args: Prisma.mukburimDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.mukburimUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.mukburimUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
-          }
-          aggregate: {
-            args: Prisma.MukburimAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMukburim>
-          }
-          groupBy: {
-            args: Prisma.mukburimGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MukburimGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.mukburimCountArgs<ExtArgs>
-            result: $Utils.Optional<MukburimCountAggregateOutputType> | number
-          }
-        }
-      }
-      menu_tag: {
-        payload: Prisma.$menu_tagPayload<ExtArgs>
-        fields: Prisma.menu_tagFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.menu_tagFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.menu_tagFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          findFirst: {
-            args: Prisma.menu_tagFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.menu_tagFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          findMany: {
-            args: Prisma.menu_tagFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>[]
-          }
-          create: {
-            args: Prisma.menu_tagCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          createMany: {
-            args: Prisma.menu_tagCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.menu_tagDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          update: {
-            args: Prisma.menu_tagUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          deleteMany: {
-            args: Prisma.menu_tagDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.menu_tagUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.menu_tagUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
-          }
-          aggregate: {
-            args: Prisma.Menu_tagAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMenu_tag>
-          }
-          groupBy: {
-            args: Prisma.menu_tagGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Menu_tagGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.menu_tagCountArgs<ExtArgs>
-            result: $Utils.Optional<Menu_tagCountAggregateOutputType> | number
-          }
-        }
-      }
-      menu_vitamin: {
-        payload: Prisma.$menu_vitaminPayload<ExtArgs>
-        fields: Prisma.menu_vitaminFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.menu_vitaminFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.menu_vitaminFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          findFirst: {
-            args: Prisma.menu_vitaminFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.menu_vitaminFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          findMany: {
-            args: Prisma.menu_vitaminFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>[]
-          }
-          create: {
-            args: Prisma.menu_vitaminCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          createMany: {
-            args: Prisma.menu_vitaminCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.menu_vitaminDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          update: {
-            args: Prisma.menu_vitaminUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          deleteMany: {
-            args: Prisma.menu_vitaminDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.menu_vitaminUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.menu_vitaminUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
-          }
-          aggregate: {
-            args: Prisma.Menu_vitaminAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMenu_vitamin>
-          }
-          groupBy: {
-            args: Prisma.menu_vitaminGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Menu_vitaminGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.menu_vitaminCountArgs<ExtArgs>
-            result: $Utils.Optional<Menu_vitaminCountAggregateOutputType> | number
-          }
-        }
-      }
-      vitamin: {
-        payload: Prisma.$vitaminPayload<ExtArgs>
-        fields: Prisma.vitaminFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.vitaminFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.vitaminFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          findFirst: {
-            args: Prisma.vitaminFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.vitaminFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          findMany: {
-            args: Prisma.vitaminFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>[]
-          }
-          create: {
-            args: Prisma.vitaminCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          createMany: {
-            args: Prisma.vitaminCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.vitaminDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          update: {
-            args: Prisma.vitaminUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          deleteMany: {
-            args: Prisma.vitaminDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.vitaminUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.vitaminUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
-          }
-          aggregate: {
-            args: Prisma.VitaminAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateVitamin>
-          }
-          groupBy: {
-            args: Prisma.vitaminGroupByArgs<ExtArgs>
-            result: $Utils.Optional<VitaminGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.vitaminCountArgs<ExtArgs>
-            result: $Utils.Optional<VitaminCountAggregateOutputType> | number
-          }
-        }
-      }
       allergy: {
         payload: Prisma.$allergyPayload<ExtArgs>
         fields: Prisma.allergyFieldRefs
@@ -1199,72 +869,6 @@ export namespace Prisma {
           count: {
             args: Prisma.allergyCountArgs<ExtArgs>
             result: $Utils.Optional<AllergyCountAggregateOutputType> | number
-          }
-        }
-      }
-      sessions: {
-        payload: Prisma.$sessionsPayload<ExtArgs>
-        fields: Prisma.sessionsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.sessionsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.sessionsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          findFirst: {
-            args: Prisma.sessionsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.sessionsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          findMany: {
-            args: Prisma.sessionsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>[]
-          }
-          create: {
-            args: Prisma.sessionsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          createMany: {
-            args: Prisma.sessionsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.sessionsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          update: {
-            args: Prisma.sessionsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          deleteMany: {
-            args: Prisma.sessionsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.sessionsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.sessionsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
-          }
-          aggregate: {
-            args: Prisma.SessionsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSessions>
-          }
-          groupBy: {
-            args: Prisma.sessionsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SessionsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.sessionsCountArgs<ExtArgs>
-            result: $Utils.Optional<SessionsCountAggregateOutputType> | number
           }
         }
       }
@@ -1466,6 +1070,72 @@ export namespace Prisma {
           }
         }
       }
+      menu: {
+        payload: Prisma.$menuPayload<ExtArgs>
+        fields: Prisma.menuFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.menuFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.menuFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          findFirst: {
+            args: Prisma.menuFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.menuFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          findMany: {
+            args: Prisma.menuFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>[]
+          }
+          create: {
+            args: Prisma.menuCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          createMany: {
+            args: Prisma.menuCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.menuDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          update: {
+            args: Prisma.menuUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          deleteMany: {
+            args: Prisma.menuDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.menuUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.menuUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menuPayload>
+          }
+          aggregate: {
+            args: Prisma.MenuAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMenu>
+          }
+          groupBy: {
+            args: Prisma.menuGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MenuGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.menuCountArgs<ExtArgs>
+            result: $Utils.Optional<MenuCountAggregateOutputType> | number
+          }
+        }
+      }
       menu_allergy: {
         payload: Prisma.$menu_allergyPayload<ExtArgs>
         fields: Prisma.menu_allergyFieldRefs
@@ -1532,6 +1202,270 @@ export namespace Prisma {
           }
         }
       }
+      menu_tag: {
+        payload: Prisma.$menu_tagPayload<ExtArgs>
+        fields: Prisma.menu_tagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.menu_tagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.menu_tagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          findFirst: {
+            args: Prisma.menu_tagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.menu_tagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          findMany: {
+            args: Prisma.menu_tagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>[]
+          }
+          create: {
+            args: Prisma.menu_tagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          createMany: {
+            args: Prisma.menu_tagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.menu_tagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          update: {
+            args: Prisma.menu_tagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          deleteMany: {
+            args: Prisma.menu_tagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.menu_tagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.menu_tagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_tagPayload>
+          }
+          aggregate: {
+            args: Prisma.Menu_tagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMenu_tag>
+          }
+          groupBy: {
+            args: Prisma.menu_tagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Menu_tagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.menu_tagCountArgs<ExtArgs>
+            result: $Utils.Optional<Menu_tagCountAggregateOutputType> | number
+          }
+        }
+      }
+      menu_vitamin: {
+        payload: Prisma.$menu_vitaminPayload<ExtArgs>
+        fields: Prisma.menu_vitaminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.menu_vitaminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.menu_vitaminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          findFirst: {
+            args: Prisma.menu_vitaminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.menu_vitaminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          findMany: {
+            args: Prisma.menu_vitaminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>[]
+          }
+          create: {
+            args: Prisma.menu_vitaminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          createMany: {
+            args: Prisma.menu_vitaminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.menu_vitaminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          update: {
+            args: Prisma.menu_vitaminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          deleteMany: {
+            args: Prisma.menu_vitaminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.menu_vitaminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.menu_vitaminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$menu_vitaminPayload>
+          }
+          aggregate: {
+            args: Prisma.Menu_vitaminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMenu_vitamin>
+          }
+          groupBy: {
+            args: Prisma.menu_vitaminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Menu_vitaminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.menu_vitaminCountArgs<ExtArgs>
+            result: $Utils.Optional<Menu_vitaminCountAggregateOutputType> | number
+          }
+        }
+      }
+      mukburim: {
+        payload: Prisma.$mukburimPayload<ExtArgs>
+        fields: Prisma.mukburimFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.mukburimFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.mukburimFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          findFirst: {
+            args: Prisma.mukburimFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.mukburimFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          findMany: {
+            args: Prisma.mukburimFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>[]
+          }
+          create: {
+            args: Prisma.mukburimCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          createMany: {
+            args: Prisma.mukburimCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.mukburimDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          update: {
+            args: Prisma.mukburimUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          deleteMany: {
+            args: Prisma.mukburimDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.mukburimUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.mukburimUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$mukburimPayload>
+          }
+          aggregate: {
+            args: Prisma.MukburimAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMukburim>
+          }
+          groupBy: {
+            args: Prisma.mukburimGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MukburimGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.mukburimCountArgs<ExtArgs>
+            result: $Utils.Optional<MukburimCountAggregateOutputType> | number
+          }
+        }
+      }
+      sessions: {
+        payload: Prisma.$sessionsPayload<ExtArgs>
+        fields: Prisma.sessionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.sessionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.sessionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findFirst: {
+            args: Prisma.sessionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.sessionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          findMany: {
+            args: Prisma.sessionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>[]
+          }
+          create: {
+            args: Prisma.sessionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          createMany: {
+            args: Prisma.sessionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.sessionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          update: {
+            args: Prisma.sessionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.sessionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.sessionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.sessionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sessionsPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessions>
+          }
+          groupBy: {
+            args: Prisma.sessionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.sessionsCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionsCountAggregateOutputType> | number
+          }
+        }
+      }
       spin_results: {
         payload: Prisma.$spin_resultsPayload<ExtArgs>
         fields: Prisma.spin_resultsFieldRefs
@@ -1595,6 +1529,72 @@ export namespace Prisma {
           count: {
             args: Prisma.spin_resultsCountArgs<ExtArgs>
             result: $Utils.Optional<Spin_resultsCountAggregateOutputType> | number
+          }
+        }
+      }
+      vitamin: {
+        payload: Prisma.$vitaminPayload<ExtArgs>
+        fields: Prisma.vitaminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.vitaminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.vitaminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          findFirst: {
+            args: Prisma.vitaminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.vitaminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          findMany: {
+            args: Prisma.vitaminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>[]
+          }
+          create: {
+            args: Prisma.vitaminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          createMany: {
+            args: Prisma.vitaminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.vitaminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          update: {
+            args: Prisma.vitaminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          deleteMany: {
+            args: Prisma.vitaminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.vitaminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.vitaminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vitaminPayload>
+          }
+          aggregate: {
+            args: Prisma.VitaminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVitamin>
+          }
+          groupBy: {
+            args: Prisma.vitaminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VitaminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.vitaminCountArgs<ExtArgs>
+            result: $Utils.Optional<VitaminCountAggregateOutputType> | number
           }
         }
       }
@@ -1694,18 +1694,18 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    menu?: menuOmit
-    mukburim?: mukburimOmit
-    menu_tag?: menu_tagOmit
-    menu_vitamin?: menu_vitaminOmit
-    vitamin?: vitaminOmit
     allergy?: allergyOmit
-    sessions?: sessionsOmit
     battle_menus?: battle_menusOmit
     battle_participants?: battle_participantsOmit
     battles?: battlesOmit
+    menu?: menuOmit
     menu_allergy?: menu_allergyOmit
+    menu_tag?: menu_tagOmit
+    menu_vitamin?: menu_vitaminOmit
+    mukburim?: mukburimOmit
+    sessions?: sessionsOmit
     spin_results?: spin_resultsOmit
+    vitamin?: vitaminOmit
   }
 
   /* Types for Logging */
@@ -1779,6 +1779,86 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type AllergyCountOutputType
+   */
+
+  export type AllergyCountOutputType = {
+    menu_allergy: number
+  }
+
+  export type AllergyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_allergy?: boolean | AllergyCountOutputTypeCountMenu_allergyArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AllergyCountOutputType
+     */
+    select?: AllergyCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AllergyCountOutputType without action
+   */
+  export type AllergyCountOutputTypeCountMenu_allergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_allergyWhereInput
+  }
+
+
+  /**
+   * Count Type BattlesCountOutputType
+   */
+
+  export type BattlesCountOutputType = {
+    battle_menus: number
+    battle_participants: number
+    spin_results: number
+  }
+
+  export type BattlesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battle_menus?: boolean | BattlesCountOutputTypeCountBattle_menusArgs
+    battle_participants?: boolean | BattlesCountOutputTypeCountBattle_participantsArgs
+    spin_results?: boolean | BattlesCountOutputTypeCountSpin_resultsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BattlesCountOutputType
+     */
+    select?: BattlesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountBattle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_menusWhereInput
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountBattle_participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: battle_participantsWhereInput
+  }
+
+  /**
+   * BattlesCountOutputType without action
+   */
+  export type BattlesCountOutputTypeCountSpin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spin_resultsWhereInput
+  }
 
 
   /**
@@ -1889,5080 +1969,8 @@ export namespace Prisma {
 
 
   /**
-   * Count Type AllergyCountOutputType
-   */
-
-  export type AllergyCountOutputType = {
-    menu_allergy: number
-  }
-
-  export type AllergyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_allergy?: boolean | AllergyCountOutputTypeCountMenu_allergyArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * AllergyCountOutputType without action
-   */
-  export type AllergyCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AllergyCountOutputType
-     */
-    select?: AllergyCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * AllergyCountOutputType without action
-   */
-  export type AllergyCountOutputTypeCountMenu_allergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menu_allergyWhereInput
-  }
-
-
-  /**
-   * Count Type BattlesCountOutputType
-   */
-
-  export type BattlesCountOutputType = {
-    battle_menus: number
-    battle_participants: number
-    spin_results: number
-  }
-
-  export type BattlesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menus?: boolean | BattlesCountOutputTypeCountBattle_menusArgs
-    battle_participants?: boolean | BattlesCountOutputTypeCountBattle_participantsArgs
-    spin_results?: boolean | BattlesCountOutputTypeCountSpin_resultsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * BattlesCountOutputType without action
-   */
-  export type BattlesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BattlesCountOutputType
-     */
-    select?: BattlesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * BattlesCountOutputType without action
-   */
-  export type BattlesCountOutputTypeCountBattle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_menusWhereInput
-  }
-
-  /**
-   * BattlesCountOutputType without action
-   */
-  export type BattlesCountOutputTypeCountBattle_participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: battle_participantsWhereInput
-  }
-
-  /**
-   * BattlesCountOutputType without action
-   */
-  export type BattlesCountOutputTypeCountSpin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: spin_resultsWhereInput
-  }
-
-
-  /**
    * Models
    */
-
-  /**
-   * Model menu
-   */
-
-  export type AggregateMenu = {
-    _count: MenuCountAggregateOutputType | null
-    _avg: MenuAvgAggregateOutputType | null
-    _sum: MenuSumAggregateOutputType | null
-    _min: MenuMinAggregateOutputType | null
-    _max: MenuMaxAggregateOutputType | null
-  }
-
-  export type MenuAvgAggregateOutputType = {
-    id: number | null
-    calory: number | null
-    carbo: number | null
-    protein: number | null
-    fat: number | null
-    sodium: number | null
-  }
-
-  export type MenuSumAggregateOutputType = {
-    id: bigint | null
-    calory: bigint | null
-    carbo: bigint | null
-    protein: bigint | null
-    fat: bigint | null
-    sodium: bigint | null
-  }
-
-  export type MenuMinAggregateOutputType = {
-    id: bigint | null
-    name: string | null
-    description: string | null
-    calory: bigint | null
-    carbo: bigint | null
-    protein: bigint | null
-    fat: bigint | null
-    sodium: bigint | null
-    image_link: string | null
-  }
-
-  export type MenuMaxAggregateOutputType = {
-    id: bigint | null
-    name: string | null
-    description: string | null
-    calory: bigint | null
-    carbo: bigint | null
-    protein: bigint | null
-    fat: bigint | null
-    sodium: bigint | null
-    image_link: string | null
-  }
-
-  export type MenuCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    calory: number
-    carbo: number
-    protein: number
-    fat: number
-    sodium: number
-    image_link: number
-    _all: number
-  }
-
-
-  export type MenuAvgAggregateInputType = {
-    id?: true
-    calory?: true
-    carbo?: true
-    protein?: true
-    fat?: true
-    sodium?: true
-  }
-
-  export type MenuSumAggregateInputType = {
-    id?: true
-    calory?: true
-    carbo?: true
-    protein?: true
-    fat?: true
-    sodium?: true
-  }
-
-  export type MenuMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    calory?: true
-    carbo?: true
-    protein?: true
-    fat?: true
-    sodium?: true
-    image_link?: true
-  }
-
-  export type MenuMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    calory?: true
-    carbo?: true
-    protein?: true
-    fat?: true
-    sodium?: true
-    image_link?: true
-  }
-
-  export type MenuCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    calory?: true
-    carbo?: true
-    protein?: true
-    fat?: true
-    sodium?: true
-    image_link?: true
-    _all?: true
-  }
-
-  export type MenuAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menu to aggregate.
-     */
-    where?: menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menus to fetch.
-     */
-    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned menus
-    **/
-    _count?: true | MenuCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: MenuAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MenuSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MenuMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MenuMaxAggregateInputType
-  }
-
-  export type GetMenuAggregateType<T extends MenuAggregateArgs> = {
-        [P in keyof T & keyof AggregateMenu]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMenu[P]>
-      : GetScalarType<T[P], AggregateMenu[P]>
-  }
-
-
-
-
-  export type menuGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menuWhereInput
-    orderBy?: menuOrderByWithAggregationInput | menuOrderByWithAggregationInput[]
-    by: MenuScalarFieldEnum[] | MenuScalarFieldEnum
-    having?: menuScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MenuCountAggregateInputType | true
-    _avg?: MenuAvgAggregateInputType
-    _sum?: MenuSumAggregateInputType
-    _min?: MenuMinAggregateInputType
-    _max?: MenuMaxAggregateInputType
-  }
-
-  export type MenuGroupByOutputType = {
-    id: bigint
-    name: string
-    description: string | null
-    calory: bigint | null
-    carbo: bigint | null
-    protein: bigint | null
-    fat: bigint | null
-    sodium: bigint | null
-    image_link: string | null
-    _count: MenuCountAggregateOutputType | null
-    _avg: MenuAvgAggregateOutputType | null
-    _sum: MenuSumAggregateOutputType | null
-    _min: MenuMinAggregateOutputType | null
-    _max: MenuMaxAggregateOutputType | null
-  }
-
-  type GetMenuGroupByPayload<T extends menuGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MenuGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MenuGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MenuGroupByOutputType[P]>
-            : GetScalarType<T[P], MenuGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type menuSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    calory?: boolean
-    carbo?: boolean
-    protein?: boolean
-    fat?: boolean
-    sodium?: boolean
-    image_link?: boolean
-    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
-    menu_allergy?: boolean | menu$menu_allergyArgs<ExtArgs>
-    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
-    menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
-    mukburim?: boolean | menu$mukburimArgs<ExtArgs>
-    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
-    _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["menu"]>
-
-
-
-  export type menuSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    calory?: boolean
-    carbo?: boolean
-    protein?: boolean
-    fat?: boolean
-    sodium?: boolean
-    image_link?: boolean
-  }
-
-  export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "sodium" | "image_link", ExtArgs["result"]["menu"]>
-  export type menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
-    menu_allergy?: boolean | menu$menu_allergyArgs<ExtArgs>
-    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
-    menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
-    mukburim?: boolean | menu$mukburimArgs<ExtArgs>
-    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
-    _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $menuPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "menu"
-    objects: {
-      battle_menus: Prisma.$battle_menusPayload<ExtArgs>[]
-      menu_allergy: Prisma.$menu_allergyPayload<ExtArgs>[]
-      menu_tag: Prisma.$menu_tagPayload<ExtArgs>[]
-      menu_vitamin: Prisma.$menu_vitaminPayload<ExtArgs>[]
-      mukburim: Prisma.$mukburimPayload<ExtArgs>[]
-      spin_results: Prisma.$spin_resultsPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      name: string
-      description: string | null
-      calory: bigint | null
-      carbo: bigint | null
-      protein: bigint | null
-      fat: bigint | null
-      sodium: bigint | null
-      image_link: string | null
-    }, ExtArgs["result"]["menu"]>
-    composites: {}
-  }
-
-  type menuGetPayload<S extends boolean | null | undefined | menuDefaultArgs> = $Result.GetResult<Prisma.$menuPayload, S>
-
-  type menuCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<menuFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MenuCountAggregateInputType | true
-    }
-
-  export interface menuDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu'], meta: { name: 'menu' } }
-    /**
-     * Find zero or one Menu that matches the filter.
-     * @param {menuFindUniqueArgs} args - Arguments to find a Menu
-     * @example
-     * // Get one Menu
-     * const menu = await prisma.menu.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends menuFindUniqueArgs>(args: SelectSubset<T, menuFindUniqueArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Menu that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {menuFindUniqueOrThrowArgs} args - Arguments to find a Menu
-     * @example
-     * // Get one Menu
-     * const menu = await prisma.menu.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends menuFindUniqueOrThrowArgs>(args: SelectSubset<T, menuFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuFindFirstArgs} args - Arguments to find a Menu
-     * @example
-     * // Get one Menu
-     * const menu = await prisma.menu.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends menuFindFirstArgs>(args?: SelectSubset<T, menuFindFirstArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuFindFirstOrThrowArgs} args - Arguments to find a Menu
-     * @example
-     * // Get one Menu
-     * const menu = await prisma.menu.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends menuFindFirstOrThrowArgs>(args?: SelectSubset<T, menuFindFirstOrThrowArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Menus that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Menus
-     * const menus = await prisma.menu.findMany()
-     * 
-     * // Get first 10 Menus
-     * const menus = await prisma.menu.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const menuWithIdOnly = await prisma.menu.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends menuFindManyArgs>(args?: SelectSubset<T, menuFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Menu.
-     * @param {menuCreateArgs} args - Arguments to create a Menu.
-     * @example
-     * // Create one Menu
-     * const Menu = await prisma.menu.create({
-     *   data: {
-     *     // ... data to create a Menu
-     *   }
-     * })
-     * 
-     */
-    create<T extends menuCreateArgs>(args: SelectSubset<T, menuCreateArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Menus.
-     * @param {menuCreateManyArgs} args - Arguments to create many Menus.
-     * @example
-     * // Create many Menus
-     * const menu = await prisma.menu.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends menuCreateManyArgs>(args?: SelectSubset<T, menuCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Menu.
-     * @param {menuDeleteArgs} args - Arguments to delete one Menu.
-     * @example
-     * // Delete one Menu
-     * const Menu = await prisma.menu.delete({
-     *   where: {
-     *     // ... filter to delete one Menu
-     *   }
-     * })
-     * 
-     */
-    delete<T extends menuDeleteArgs>(args: SelectSubset<T, menuDeleteArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Menu.
-     * @param {menuUpdateArgs} args - Arguments to update one Menu.
-     * @example
-     * // Update one Menu
-     * const menu = await prisma.menu.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends menuUpdateArgs>(args: SelectSubset<T, menuUpdateArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Menus.
-     * @param {menuDeleteManyArgs} args - Arguments to filter Menus to delete.
-     * @example
-     * // Delete a few Menus
-     * const { count } = await prisma.menu.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends menuDeleteManyArgs>(args?: SelectSubset<T, menuDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Menus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Menus
-     * const menu = await prisma.menu.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends menuUpdateManyArgs>(args: SelectSubset<T, menuUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Menu.
-     * @param {menuUpsertArgs} args - Arguments to update or create a Menu.
-     * @example
-     * // Update or create a Menu
-     * const menu = await prisma.menu.upsert({
-     *   create: {
-     *     // ... data to create a Menu
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Menu we want to update
-     *   }
-     * })
-     */
-    upsert<T extends menuUpsertArgs>(args: SelectSubset<T, menuUpsertArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Menus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuCountArgs} args - Arguments to filter Menus to count.
-     * @example
-     * // Count the number of Menus
-     * const count = await prisma.menu.count({
-     *   where: {
-     *     // ... the filter for the Menus we want to count
-     *   }
-     * })
-    **/
-    count<T extends menuCountArgs>(
-      args?: Subset<T, menuCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MenuCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Menu.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MenuAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MenuAggregateArgs>(args: Subset<T, MenuAggregateArgs>): Prisma.PrismaPromise<GetMenuAggregateType<T>>
-
-    /**
-     * Group by Menu.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menuGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends menuGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: menuGroupByArgs['orderBy'] }
-        : { orderBy?: menuGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, menuGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenuGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the menu model
-   */
-  readonly fields: menuFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for menu.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__menuClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    battle_menus<T extends menu$battle_menusArgs<ExtArgs> = {}>(args?: Subset<T, menu$battle_menusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    menu_allergy<T extends menu$menu_allergyArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_allergyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    menu_tag<T extends menu$menu_tagArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_tagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    menu_vitamin<T extends menu$menu_vitaminArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_vitaminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    mukburim<T extends menu$mukburimArgs<ExtArgs> = {}>(args?: Subset<T, menu$mukburimArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    spin_results<T extends menu$spin_resultsArgs<ExtArgs> = {}>(args?: Subset<T, menu$spin_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the menu model
-   */
-  interface menuFieldRefs {
-    readonly id: FieldRef<"menu", 'BigInt'>
-    readonly name: FieldRef<"menu", 'String'>
-    readonly description: FieldRef<"menu", 'String'>
-    readonly calory: FieldRef<"menu", 'BigInt'>
-    readonly carbo: FieldRef<"menu", 'BigInt'>
-    readonly protein: FieldRef<"menu", 'BigInt'>
-    readonly fat: FieldRef<"menu", 'BigInt'>
-    readonly sodium: FieldRef<"menu", 'BigInt'>
-    readonly image_link: FieldRef<"menu", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * menu findUnique
-   */
-  export type menuFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter, which menu to fetch.
-     */
-    where: menuWhereUniqueInput
-  }
-
-  /**
-   * menu findUniqueOrThrow
-   */
-  export type menuFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter, which menu to fetch.
-     */
-    where: menuWhereUniqueInput
-  }
-
-  /**
-   * menu findFirst
-   */
-  export type menuFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter, which menu to fetch.
-     */
-    where?: menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menus to fetch.
-     */
-    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menus.
-     */
-    cursor?: menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menus.
-     */
-    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
-  }
-
-  /**
-   * menu findFirstOrThrow
-   */
-  export type menuFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter, which menu to fetch.
-     */
-    where?: menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menus to fetch.
-     */
-    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menus.
-     */
-    cursor?: menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menus.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menus.
-     */
-    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
-  }
-
-  /**
-   * menu findMany
-   */
-  export type menuFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter, which menus to fetch.
-     */
-    where?: menuWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menus to fetch.
-     */
-    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing menus.
-     */
-    cursor?: menuWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menus from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menus.
-     */
-    skip?: number
-    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
-  }
-
-  /**
-   * menu create
-   */
-  export type menuCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * The data needed to create a menu.
-     */
-    data: XOR<menuCreateInput, menuUncheckedCreateInput>
-  }
-
-  /**
-   * menu createMany
-   */
-  export type menuCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many menus.
-     */
-    data: menuCreateManyInput | menuCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * menu update
-   */
-  export type menuUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * The data needed to update a menu.
-     */
-    data: XOR<menuUpdateInput, menuUncheckedUpdateInput>
-    /**
-     * Choose, which menu to update.
-     */
-    where: menuWhereUniqueInput
-  }
-
-  /**
-   * menu updateMany
-   */
-  export type menuUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update menus.
-     */
-    data: XOR<menuUpdateManyMutationInput, menuUncheckedUpdateManyInput>
-    /**
-     * Filter which menus to update
-     */
-    where?: menuWhereInput
-    /**
-     * Limit how many menus to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu upsert
-   */
-  export type menuUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * The filter to search for the menu to update in case it exists.
-     */
-    where: menuWhereUniqueInput
-    /**
-     * In case the menu found by the `where` argument doesn't exist, create a new menu with this data.
-     */
-    create: XOR<menuCreateInput, menuUncheckedCreateInput>
-    /**
-     * In case the menu was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<menuUpdateInput, menuUncheckedUpdateInput>
-  }
-
-  /**
-   * menu delete
-   */
-  export type menuDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-    /**
-     * Filter which menu to delete.
-     */
-    where: menuWhereUniqueInput
-  }
-
-  /**
-   * menu deleteMany
-   */
-  export type menuDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menus to delete
-     */
-    where?: menuWhereInput
-    /**
-     * Limit how many menus to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu.battle_menus
-   */
-  export type menu$battle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the battle_menus
-     */
-    select?: battle_menusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the battle_menus
-     */
-    omit?: battle_menusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: battle_menusInclude<ExtArgs> | null
-    where?: battle_menusWhereInput
-    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
-    cursor?: battle_menusWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
-  }
-
-  /**
-   * menu.menu_allergy
-   */
-  export type menu$menu_allergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_allergy
-     */
-    select?: menu_allergySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_allergy
-     */
-    omit?: menu_allergyOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_allergyInclude<ExtArgs> | null
-    where?: menu_allergyWhereInput
-    orderBy?: menu_allergyOrderByWithRelationInput | menu_allergyOrderByWithRelationInput[]
-    cursor?: menu_allergyWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_allergyScalarFieldEnum | Menu_allergyScalarFieldEnum[]
-  }
-
-  /**
-   * menu.menu_tag
-   */
-  export type menu$menu_tagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    where?: menu_tagWhereInput
-    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
-    cursor?: menu_tagWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
-  }
-
-  /**
-   * menu.menu_vitamin
-   */
-  export type menu$menu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    where?: menu_vitaminWhereInput
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    cursor?: menu_vitaminWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
-  }
-
-  /**
-   * menu.mukburim
-   */
-  export type menu$mukburimArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    where?: mukburimWhereInput
-    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
-    cursor?: mukburimWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
-  }
-
-  /**
-   * menu.spin_results
-   */
-  export type menu$spin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the spin_results
-     */
-    select?: spin_resultsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the spin_results
-     */
-    omit?: spin_resultsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: spin_resultsInclude<ExtArgs> | null
-    where?: spin_resultsWhereInput
-    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
-    cursor?: spin_resultsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
-  }
-
-  /**
-   * menu without action
-   */
-  export type menuDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu
-     */
-    select?: menuSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu
-     */
-    omit?: menuOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menuInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model mukburim
-   */
-
-  export type AggregateMukburim = {
-    _count: MukburimCountAggregateOutputType | null
-    _avg: MukburimAvgAggregateOutputType | null
-    _sum: MukburimSumAggregateOutputType | null
-    _min: MukburimMinAggregateOutputType | null
-    _max: MukburimMaxAggregateOutputType | null
-  }
-
-  export type MukburimAvgAggregateOutputType = {
-    id: number | null
-    menu_id: number | null
-    user_id: number | null
-  }
-
-  export type MukburimSumAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-    user_id: bigint | null
-  }
-
-  export type MukburimMinAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-    user_id: bigint | null
-    date: Date | null
-  }
-
-  export type MukburimMaxAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-    user_id: bigint | null
-    date: Date | null
-  }
-
-  export type MukburimCountAggregateOutputType = {
-    id: number
-    menu_id: number
-    user_id: number
-    date: number
-    _all: number
-  }
-
-
-  export type MukburimAvgAggregateInputType = {
-    id?: true
-    menu_id?: true
-    user_id?: true
-  }
-
-  export type MukburimSumAggregateInputType = {
-    id?: true
-    menu_id?: true
-    user_id?: true
-  }
-
-  export type MukburimMinAggregateInputType = {
-    id?: true
-    menu_id?: true
-    user_id?: true
-    date?: true
-  }
-
-  export type MukburimMaxAggregateInputType = {
-    id?: true
-    menu_id?: true
-    user_id?: true
-    date?: true
-  }
-
-  export type MukburimCountAggregateInputType = {
-    id?: true
-    menu_id?: true
-    user_id?: true
-    date?: true
-    _all?: true
-  }
-
-  export type MukburimAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which mukburim to aggregate.
-     */
-    where?: mukburimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of mukburims to fetch.
-     */
-    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: mukburimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` mukburims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` mukburims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned mukburims
-    **/
-    _count?: true | MukburimCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: MukburimAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MukburimSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MukburimMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MukburimMaxAggregateInputType
-  }
-
-  export type GetMukburimAggregateType<T extends MukburimAggregateArgs> = {
-        [P in keyof T & keyof AggregateMukburim]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMukburim[P]>
-      : GetScalarType<T[P], AggregateMukburim[P]>
-  }
-
-
-
-
-  export type mukburimGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: mukburimWhereInput
-    orderBy?: mukburimOrderByWithAggregationInput | mukburimOrderByWithAggregationInput[]
-    by: MukburimScalarFieldEnum[] | MukburimScalarFieldEnum
-    having?: mukburimScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MukburimCountAggregateInputType | true
-    _avg?: MukburimAvgAggregateInputType
-    _sum?: MukburimSumAggregateInputType
-    _min?: MukburimMinAggregateInputType
-    _max?: MukburimMaxAggregateInputType
-  }
-
-  export type MukburimGroupByOutputType = {
-    id: bigint
-    menu_id: bigint
-    user_id: bigint
-    date: Date | null
-    _count: MukburimCountAggregateOutputType | null
-    _avg: MukburimAvgAggregateOutputType | null
-    _sum: MukburimSumAggregateOutputType | null
-    _min: MukburimMinAggregateOutputType | null
-    _max: MukburimMaxAggregateOutputType | null
-  }
-
-  type GetMukburimGroupByPayload<T extends mukburimGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MukburimGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MukburimGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MukburimGroupByOutputType[P]>
-            : GetScalarType<T[P], MukburimGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type mukburimSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    menu_id?: boolean
-    user_id?: boolean
-    date?: boolean
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["mukburim"]>
-
-
-
-  export type mukburimSelectScalar = {
-    id?: boolean
-    menu_id?: boolean
-    user_id?: boolean
-    date?: boolean
-  }
-
-  export type mukburimOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_id" | "user_id" | "date", ExtArgs["result"]["mukburim"]>
-  export type mukburimInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }
-
-  export type $mukburimPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "mukburim"
-    objects: {
-      menu: Prisma.$menuPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      menu_id: bigint
-      user_id: bigint
-      date: Date | null
-    }, ExtArgs["result"]["mukburim"]>
-    composites: {}
-  }
-
-  type mukburimGetPayload<S extends boolean | null | undefined | mukburimDefaultArgs> = $Result.GetResult<Prisma.$mukburimPayload, S>
-
-  type mukburimCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<mukburimFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MukburimCountAggregateInputType | true
-    }
-
-  export interface mukburimDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['mukburim'], meta: { name: 'mukburim' } }
-    /**
-     * Find zero or one Mukburim that matches the filter.
-     * @param {mukburimFindUniqueArgs} args - Arguments to find a Mukburim
-     * @example
-     * // Get one Mukburim
-     * const mukburim = await prisma.mukburim.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends mukburimFindUniqueArgs>(args: SelectSubset<T, mukburimFindUniqueArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Mukburim that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {mukburimFindUniqueOrThrowArgs} args - Arguments to find a Mukburim
-     * @example
-     * // Get one Mukburim
-     * const mukburim = await prisma.mukburim.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends mukburimFindUniqueOrThrowArgs>(args: SelectSubset<T, mukburimFindUniqueOrThrowArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Mukburim that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimFindFirstArgs} args - Arguments to find a Mukburim
-     * @example
-     * // Get one Mukburim
-     * const mukburim = await prisma.mukburim.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends mukburimFindFirstArgs>(args?: SelectSubset<T, mukburimFindFirstArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Mukburim that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimFindFirstOrThrowArgs} args - Arguments to find a Mukburim
-     * @example
-     * // Get one Mukburim
-     * const mukburim = await prisma.mukburim.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends mukburimFindFirstOrThrowArgs>(args?: SelectSubset<T, mukburimFindFirstOrThrowArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Mukburims that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Mukburims
-     * const mukburims = await prisma.mukburim.findMany()
-     * 
-     * // Get first 10 Mukburims
-     * const mukburims = await prisma.mukburim.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const mukburimWithIdOnly = await prisma.mukburim.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends mukburimFindManyArgs>(args?: SelectSubset<T, mukburimFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Mukburim.
-     * @param {mukburimCreateArgs} args - Arguments to create a Mukburim.
-     * @example
-     * // Create one Mukburim
-     * const Mukburim = await prisma.mukburim.create({
-     *   data: {
-     *     // ... data to create a Mukburim
-     *   }
-     * })
-     * 
-     */
-    create<T extends mukburimCreateArgs>(args: SelectSubset<T, mukburimCreateArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Mukburims.
-     * @param {mukburimCreateManyArgs} args - Arguments to create many Mukburims.
-     * @example
-     * // Create many Mukburims
-     * const mukburim = await prisma.mukburim.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends mukburimCreateManyArgs>(args?: SelectSubset<T, mukburimCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Mukburim.
-     * @param {mukburimDeleteArgs} args - Arguments to delete one Mukburim.
-     * @example
-     * // Delete one Mukburim
-     * const Mukburim = await prisma.mukburim.delete({
-     *   where: {
-     *     // ... filter to delete one Mukburim
-     *   }
-     * })
-     * 
-     */
-    delete<T extends mukburimDeleteArgs>(args: SelectSubset<T, mukburimDeleteArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Mukburim.
-     * @param {mukburimUpdateArgs} args - Arguments to update one Mukburim.
-     * @example
-     * // Update one Mukburim
-     * const mukburim = await prisma.mukburim.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends mukburimUpdateArgs>(args: SelectSubset<T, mukburimUpdateArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Mukburims.
-     * @param {mukburimDeleteManyArgs} args - Arguments to filter Mukburims to delete.
-     * @example
-     * // Delete a few Mukburims
-     * const { count } = await prisma.mukburim.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends mukburimDeleteManyArgs>(args?: SelectSubset<T, mukburimDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Mukburims.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Mukburims
-     * const mukburim = await prisma.mukburim.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends mukburimUpdateManyArgs>(args: SelectSubset<T, mukburimUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Mukburim.
-     * @param {mukburimUpsertArgs} args - Arguments to update or create a Mukburim.
-     * @example
-     * // Update or create a Mukburim
-     * const mukburim = await prisma.mukburim.upsert({
-     *   create: {
-     *     // ... data to create a Mukburim
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Mukburim we want to update
-     *   }
-     * })
-     */
-    upsert<T extends mukburimUpsertArgs>(args: SelectSubset<T, mukburimUpsertArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Mukburims.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimCountArgs} args - Arguments to filter Mukburims to count.
-     * @example
-     * // Count the number of Mukburims
-     * const count = await prisma.mukburim.count({
-     *   where: {
-     *     // ... the filter for the Mukburims we want to count
-     *   }
-     * })
-    **/
-    count<T extends mukburimCountArgs>(
-      args?: Subset<T, mukburimCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MukburimCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Mukburim.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MukburimAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MukburimAggregateArgs>(args: Subset<T, MukburimAggregateArgs>): Prisma.PrismaPromise<GetMukburimAggregateType<T>>
-
-    /**
-     * Group by Mukburim.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {mukburimGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends mukburimGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: mukburimGroupByArgs['orderBy'] }
-        : { orderBy?: mukburimGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, mukburimGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMukburimGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the mukburim model
-   */
-  readonly fields: mukburimFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for mukburim.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__mukburimClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the mukburim model
-   */
-  interface mukburimFieldRefs {
-    readonly id: FieldRef<"mukburim", 'BigInt'>
-    readonly menu_id: FieldRef<"mukburim", 'BigInt'>
-    readonly user_id: FieldRef<"mukburim", 'BigInt'>
-    readonly date: FieldRef<"mukburim", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * mukburim findUnique
-   */
-  export type mukburimFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter, which mukburim to fetch.
-     */
-    where: mukburimWhereUniqueInput
-  }
-
-  /**
-   * mukburim findUniqueOrThrow
-   */
-  export type mukburimFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter, which mukburim to fetch.
-     */
-    where: mukburimWhereUniqueInput
-  }
-
-  /**
-   * mukburim findFirst
-   */
-  export type mukburimFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter, which mukburim to fetch.
-     */
-    where?: mukburimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of mukburims to fetch.
-     */
-    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for mukburims.
-     */
-    cursor?: mukburimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` mukburims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` mukburims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of mukburims.
-     */
-    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
-  }
-
-  /**
-   * mukburim findFirstOrThrow
-   */
-  export type mukburimFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter, which mukburim to fetch.
-     */
-    where?: mukburimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of mukburims to fetch.
-     */
-    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for mukburims.
-     */
-    cursor?: mukburimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` mukburims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` mukburims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of mukburims.
-     */
-    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
-  }
-
-  /**
-   * mukburim findMany
-   */
-  export type mukburimFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter, which mukburims to fetch.
-     */
-    where?: mukburimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of mukburims to fetch.
-     */
-    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing mukburims.
-     */
-    cursor?: mukburimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` mukburims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` mukburims.
-     */
-    skip?: number
-    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
-  }
-
-  /**
-   * mukburim create
-   */
-  export type mukburimCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * The data needed to create a mukburim.
-     */
-    data: XOR<mukburimCreateInput, mukburimUncheckedCreateInput>
-  }
-
-  /**
-   * mukburim createMany
-   */
-  export type mukburimCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many mukburims.
-     */
-    data: mukburimCreateManyInput | mukburimCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * mukburim update
-   */
-  export type mukburimUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * The data needed to update a mukburim.
-     */
-    data: XOR<mukburimUpdateInput, mukburimUncheckedUpdateInput>
-    /**
-     * Choose, which mukburim to update.
-     */
-    where: mukburimWhereUniqueInput
-  }
-
-  /**
-   * mukburim updateMany
-   */
-  export type mukburimUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update mukburims.
-     */
-    data: XOR<mukburimUpdateManyMutationInput, mukburimUncheckedUpdateManyInput>
-    /**
-     * Filter which mukburims to update
-     */
-    where?: mukburimWhereInput
-    /**
-     * Limit how many mukburims to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * mukburim upsert
-   */
-  export type mukburimUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * The filter to search for the mukburim to update in case it exists.
-     */
-    where: mukburimWhereUniqueInput
-    /**
-     * In case the mukburim found by the `where` argument doesn't exist, create a new mukburim with this data.
-     */
-    create: XOR<mukburimCreateInput, mukburimUncheckedCreateInput>
-    /**
-     * In case the mukburim was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<mukburimUpdateInput, mukburimUncheckedUpdateInput>
-  }
-
-  /**
-   * mukburim delete
-   */
-  export type mukburimDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-    /**
-     * Filter which mukburim to delete.
-     */
-    where: mukburimWhereUniqueInput
-  }
-
-  /**
-   * mukburim deleteMany
-   */
-  export type mukburimDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which mukburims to delete
-     */
-    where?: mukburimWhereInput
-    /**
-     * Limit how many mukburims to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * mukburim without action
-   */
-  export type mukburimDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the mukburim
-     */
-    select?: mukburimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the mukburim
-     */
-    omit?: mukburimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: mukburimInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model menu_tag
-   */
-
-  export type AggregateMenu_tag = {
-    _count: Menu_tagCountAggregateOutputType | null
-    _avg: Menu_tagAvgAggregateOutputType | null
-    _sum: Menu_tagSumAggregateOutputType | null
-    _min: Menu_tagMinAggregateOutputType | null
-    _max: Menu_tagMaxAggregateOutputType | null
-  }
-
-  export type Menu_tagAvgAggregateOutputType = {
-    id: number | null
-    menu_id: number | null
-  }
-
-  export type Menu_tagSumAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-  }
-
-  export type Menu_tagMinAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-    tag: string | null
-  }
-
-  export type Menu_tagMaxAggregateOutputType = {
-    id: bigint | null
-    menu_id: bigint | null
-    tag: string | null
-  }
-
-  export type Menu_tagCountAggregateOutputType = {
-    id: number
-    menu_id: number
-    tag: number
-    _all: number
-  }
-
-
-  export type Menu_tagAvgAggregateInputType = {
-    id?: true
-    menu_id?: true
-  }
-
-  export type Menu_tagSumAggregateInputType = {
-    id?: true
-    menu_id?: true
-  }
-
-  export type Menu_tagMinAggregateInputType = {
-    id?: true
-    menu_id?: true
-    tag?: true
-  }
-
-  export type Menu_tagMaxAggregateInputType = {
-    id?: true
-    menu_id?: true
-    tag?: true
-  }
-
-  export type Menu_tagCountAggregateInputType = {
-    id?: true
-    menu_id?: true
-    tag?: true
-    _all?: true
-  }
-
-  export type Menu_tagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menu_tag to aggregate.
-     */
-    where?: menu_tagWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_tags to fetch.
-     */
-    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: menu_tagWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned menu_tags
-    **/
-    _count?: true | Menu_tagCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Menu_tagAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Menu_tagSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Menu_tagMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Menu_tagMaxAggregateInputType
-  }
-
-  export type GetMenu_tagAggregateType<T extends Menu_tagAggregateArgs> = {
-        [P in keyof T & keyof AggregateMenu_tag]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMenu_tag[P]>
-      : GetScalarType<T[P], AggregateMenu_tag[P]>
-  }
-
-
-
-
-  export type menu_tagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menu_tagWhereInput
-    orderBy?: menu_tagOrderByWithAggregationInput | menu_tagOrderByWithAggregationInput[]
-    by: Menu_tagScalarFieldEnum[] | Menu_tagScalarFieldEnum
-    having?: menu_tagScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Menu_tagCountAggregateInputType | true
-    _avg?: Menu_tagAvgAggregateInputType
-    _sum?: Menu_tagSumAggregateInputType
-    _min?: Menu_tagMinAggregateInputType
-    _max?: Menu_tagMaxAggregateInputType
-  }
-
-  export type Menu_tagGroupByOutputType = {
-    id: bigint
-    menu_id: bigint
-    tag: string | null
-    _count: Menu_tagCountAggregateOutputType | null
-    _avg: Menu_tagAvgAggregateOutputType | null
-    _sum: Menu_tagSumAggregateOutputType | null
-    _min: Menu_tagMinAggregateOutputType | null
-    _max: Menu_tagMaxAggregateOutputType | null
-  }
-
-  type GetMenu_tagGroupByPayload<T extends menu_tagGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Menu_tagGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Menu_tagGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
-            : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type menu_tagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    menu_id?: boolean
-    tag?: boolean
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["menu_tag"]>
-
-
-
-  export type menu_tagSelectScalar = {
-    id?: boolean
-    menu_id?: boolean
-    tag?: boolean
-  }
-
-  export type menu_tagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_id" | "tag", ExtArgs["result"]["menu_tag"]>
-  export type menu_tagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-  }
-
-  export type $menu_tagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "menu_tag"
-    objects: {
-      menu: Prisma.$menuPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      menu_id: bigint
-      tag: string | null
-    }, ExtArgs["result"]["menu_tag"]>
-    composites: {}
-  }
-
-  type menu_tagGetPayload<S extends boolean | null | undefined | menu_tagDefaultArgs> = $Result.GetResult<Prisma.$menu_tagPayload, S>
-
-  type menu_tagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<menu_tagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Menu_tagCountAggregateInputType | true
-    }
-
-  export interface menu_tagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_tag'], meta: { name: 'menu_tag' } }
-    /**
-     * Find zero or one Menu_tag that matches the filter.
-     * @param {menu_tagFindUniqueArgs} args - Arguments to find a Menu_tag
-     * @example
-     * // Get one Menu_tag
-     * const menu_tag = await prisma.menu_tag.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends menu_tagFindUniqueArgs>(args: SelectSubset<T, menu_tagFindUniqueArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Menu_tag that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {menu_tagFindUniqueOrThrowArgs} args - Arguments to find a Menu_tag
-     * @example
-     * // Get one Menu_tag
-     * const menu_tag = await prisma.menu_tag.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends menu_tagFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_tagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu_tag that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagFindFirstArgs} args - Arguments to find a Menu_tag
-     * @example
-     * // Get one Menu_tag
-     * const menu_tag = await prisma.menu_tag.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends menu_tagFindFirstArgs>(args?: SelectSubset<T, menu_tagFindFirstArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu_tag that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagFindFirstOrThrowArgs} args - Arguments to find a Menu_tag
-     * @example
-     * // Get one Menu_tag
-     * const menu_tag = await prisma.menu_tag.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends menu_tagFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_tagFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Menu_tags that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Menu_tags
-     * const menu_tags = await prisma.menu_tag.findMany()
-     * 
-     * // Get first 10 Menu_tags
-     * const menu_tags = await prisma.menu_tag.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const menu_tagWithIdOnly = await prisma.menu_tag.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends menu_tagFindManyArgs>(args?: SelectSubset<T, menu_tagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Menu_tag.
-     * @param {menu_tagCreateArgs} args - Arguments to create a Menu_tag.
-     * @example
-     * // Create one Menu_tag
-     * const Menu_tag = await prisma.menu_tag.create({
-     *   data: {
-     *     // ... data to create a Menu_tag
-     *   }
-     * })
-     * 
-     */
-    create<T extends menu_tagCreateArgs>(args: SelectSubset<T, menu_tagCreateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Menu_tags.
-     * @param {menu_tagCreateManyArgs} args - Arguments to create many Menu_tags.
-     * @example
-     * // Create many Menu_tags
-     * const menu_tag = await prisma.menu_tag.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends menu_tagCreateManyArgs>(args?: SelectSubset<T, menu_tagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Menu_tag.
-     * @param {menu_tagDeleteArgs} args - Arguments to delete one Menu_tag.
-     * @example
-     * // Delete one Menu_tag
-     * const Menu_tag = await prisma.menu_tag.delete({
-     *   where: {
-     *     // ... filter to delete one Menu_tag
-     *   }
-     * })
-     * 
-     */
-    delete<T extends menu_tagDeleteArgs>(args: SelectSubset<T, menu_tagDeleteArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Menu_tag.
-     * @param {menu_tagUpdateArgs} args - Arguments to update one Menu_tag.
-     * @example
-     * // Update one Menu_tag
-     * const menu_tag = await prisma.menu_tag.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends menu_tagUpdateArgs>(args: SelectSubset<T, menu_tagUpdateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Menu_tags.
-     * @param {menu_tagDeleteManyArgs} args - Arguments to filter Menu_tags to delete.
-     * @example
-     * // Delete a few Menu_tags
-     * const { count } = await prisma.menu_tag.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends menu_tagDeleteManyArgs>(args?: SelectSubset<T, menu_tagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Menu_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Menu_tags
-     * const menu_tag = await prisma.menu_tag.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends menu_tagUpdateManyArgs>(args: SelectSubset<T, menu_tagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Menu_tag.
-     * @param {menu_tagUpsertArgs} args - Arguments to update or create a Menu_tag.
-     * @example
-     * // Update or create a Menu_tag
-     * const menu_tag = await prisma.menu_tag.upsert({
-     *   create: {
-     *     // ... data to create a Menu_tag
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Menu_tag we want to update
-     *   }
-     * })
-     */
-    upsert<T extends menu_tagUpsertArgs>(args: SelectSubset<T, menu_tagUpsertArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Menu_tags.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagCountArgs} args - Arguments to filter Menu_tags to count.
-     * @example
-     * // Count the number of Menu_tags
-     * const count = await prisma.menu_tag.count({
-     *   where: {
-     *     // ... the filter for the Menu_tags we want to count
-     *   }
-     * })
-    **/
-    count<T extends menu_tagCountArgs>(
-      args?: Subset<T, menu_tagCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Menu_tagCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Menu_tag.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Menu_tagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Menu_tagAggregateArgs>(args: Subset<T, Menu_tagAggregateArgs>): Prisma.PrismaPromise<GetMenu_tagAggregateType<T>>
-
-    /**
-     * Group by Menu_tag.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_tagGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends menu_tagGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: menu_tagGroupByArgs['orderBy'] }
-        : { orderBy?: menu_tagGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, menu_tagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_tagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the menu_tag model
-   */
-  readonly fields: menu_tagFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for menu_tag.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__menu_tagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the menu_tag model
-   */
-  interface menu_tagFieldRefs {
-    readonly id: FieldRef<"menu_tag", 'BigInt'>
-    readonly menu_id: FieldRef<"menu_tag", 'BigInt'>
-    readonly tag: FieldRef<"menu_tag", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * menu_tag findUnique
-   */
-  export type menu_tagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_tag to fetch.
-     */
-    where: menu_tagWhereUniqueInput
-  }
-
-  /**
-   * menu_tag findUniqueOrThrow
-   */
-  export type menu_tagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_tag to fetch.
-     */
-    where: menu_tagWhereUniqueInput
-  }
-
-  /**
-   * menu_tag findFirst
-   */
-  export type menu_tagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_tag to fetch.
-     */
-    where?: menu_tagWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_tags to fetch.
-     */
-    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menu_tags.
-     */
-    cursor?: menu_tagWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menu_tags.
-     */
-    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
-  }
-
-  /**
-   * menu_tag findFirstOrThrow
-   */
-  export type menu_tagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_tag to fetch.
-     */
-    where?: menu_tagWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_tags to fetch.
-     */
-    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menu_tags.
-     */
-    cursor?: menu_tagWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_tags.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menu_tags.
-     */
-    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
-  }
-
-  /**
-   * menu_tag findMany
-   */
-  export type menu_tagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_tags to fetch.
-     */
-    where?: menu_tagWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_tags to fetch.
-     */
-    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing menu_tags.
-     */
-    cursor?: menu_tagWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_tags from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_tags.
-     */
-    skip?: number
-    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
-  }
-
-  /**
-   * menu_tag create
-   */
-  export type menu_tagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * The data needed to create a menu_tag.
-     */
-    data: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
-  }
-
-  /**
-   * menu_tag createMany
-   */
-  export type menu_tagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many menu_tags.
-     */
-    data: menu_tagCreateManyInput | menu_tagCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * menu_tag update
-   */
-  export type menu_tagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * The data needed to update a menu_tag.
-     */
-    data: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
-    /**
-     * Choose, which menu_tag to update.
-     */
-    where: menu_tagWhereUniqueInput
-  }
-
-  /**
-   * menu_tag updateMany
-   */
-  export type menu_tagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update menu_tags.
-     */
-    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyInput>
-    /**
-     * Filter which menu_tags to update
-     */
-    where?: menu_tagWhereInput
-    /**
-     * Limit how many menu_tags to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu_tag upsert
-   */
-  export type menu_tagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * The filter to search for the menu_tag to update in case it exists.
-     */
-    where: menu_tagWhereUniqueInput
-    /**
-     * In case the menu_tag found by the `where` argument doesn't exist, create a new menu_tag with this data.
-     */
-    create: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
-    /**
-     * In case the menu_tag was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
-  }
-
-  /**
-   * menu_tag delete
-   */
-  export type menu_tagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-    /**
-     * Filter which menu_tag to delete.
-     */
-    where: menu_tagWhereUniqueInput
-  }
-
-  /**
-   * menu_tag deleteMany
-   */
-  export type menu_tagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menu_tags to delete
-     */
-    where?: menu_tagWhereInput
-    /**
-     * Limit how many menu_tags to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu_tag without action
-   */
-  export type menu_tagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_tag
-     */
-    select?: menu_tagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_tag
-     */
-    omit?: menu_tagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_tagInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model menu_vitamin
-   */
-
-  export type AggregateMenu_vitamin = {
-    _count: Menu_vitaminCountAggregateOutputType | null
-    _avg: Menu_vitaminAvgAggregateOutputType | null
-    _sum: Menu_vitaminSumAggregateOutputType | null
-    _min: Menu_vitaminMinAggregateOutputType | null
-    _max: Menu_vitaminMaxAggregateOutputType | null
-  }
-
-  export type Menu_vitaminAvgAggregateOutputType = {
-    menu_id: number | null
-    vitamin_id: number | null
-  }
-
-  export type Menu_vitaminSumAggregateOutputType = {
-    menu_id: bigint | null
-    vitamin_id: bigint | null
-  }
-
-  export type Menu_vitaminMinAggregateOutputType = {
-    menu_id: bigint | null
-    vitamin_id: bigint | null
-  }
-
-  export type Menu_vitaminMaxAggregateOutputType = {
-    menu_id: bigint | null
-    vitamin_id: bigint | null
-  }
-
-  export type Menu_vitaminCountAggregateOutputType = {
-    menu_id: number
-    vitamin_id: number
-    _all: number
-  }
-
-
-  export type Menu_vitaminAvgAggregateInputType = {
-    menu_id?: true
-    vitamin_id?: true
-  }
-
-  export type Menu_vitaminSumAggregateInputType = {
-    menu_id?: true
-    vitamin_id?: true
-  }
-
-  export type Menu_vitaminMinAggregateInputType = {
-    menu_id?: true
-    vitamin_id?: true
-  }
-
-  export type Menu_vitaminMaxAggregateInputType = {
-    menu_id?: true
-    vitamin_id?: true
-  }
-
-  export type Menu_vitaminCountAggregateInputType = {
-    menu_id?: true
-    vitamin_id?: true
-    _all?: true
-  }
-
-  export type Menu_vitaminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menu_vitamin to aggregate.
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_vitamins to fetch.
-     */
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: menu_vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned menu_vitamins
-    **/
-    _count?: true | Menu_vitaminCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Menu_vitaminAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Menu_vitaminSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Menu_vitaminMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Menu_vitaminMaxAggregateInputType
-  }
-
-  export type GetMenu_vitaminAggregateType<T extends Menu_vitaminAggregateArgs> = {
-        [P in keyof T & keyof AggregateMenu_vitamin]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMenu_vitamin[P]>
-      : GetScalarType<T[P], AggregateMenu_vitamin[P]>
-  }
-
-
-
-
-  export type menu_vitaminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: menu_vitaminWhereInput
-    orderBy?: menu_vitaminOrderByWithAggregationInput | menu_vitaminOrderByWithAggregationInput[]
-    by: Menu_vitaminScalarFieldEnum[] | Menu_vitaminScalarFieldEnum
-    having?: menu_vitaminScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Menu_vitaminCountAggregateInputType | true
-    _avg?: Menu_vitaminAvgAggregateInputType
-    _sum?: Menu_vitaminSumAggregateInputType
-    _min?: Menu_vitaminMinAggregateInputType
-    _max?: Menu_vitaminMaxAggregateInputType
-  }
-
-  export type Menu_vitaminGroupByOutputType = {
-    menu_id: bigint
-    vitamin_id: bigint
-    _count: Menu_vitaminCountAggregateOutputType | null
-    _avg: Menu_vitaminAvgAggregateOutputType | null
-    _sum: Menu_vitaminSumAggregateOutputType | null
-    _min: Menu_vitaminMinAggregateOutputType | null
-    _max: Menu_vitaminMaxAggregateOutputType | null
-  }
-
-  type GetMenu_vitaminGroupByPayload<T extends menu_vitaminGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Menu_vitaminGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Menu_vitaminGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Menu_vitaminGroupByOutputType[P]>
-            : GetScalarType<T[P], Menu_vitaminGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type menu_vitaminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    menu_id?: boolean
-    vitamin_id?: boolean
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-    vitamin?: boolean | vitaminDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["menu_vitamin"]>
-
-
-
-  export type menu_vitaminSelectScalar = {
-    menu_id?: boolean
-    vitamin_id?: boolean
-  }
-
-  export type menu_vitaminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"menu_id" | "vitamin_id", ExtArgs["result"]["menu_vitamin"]>
-  export type menu_vitaminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu?: boolean | menuDefaultArgs<ExtArgs>
-    vitamin?: boolean | vitaminDefaultArgs<ExtArgs>
-  }
-
-  export type $menu_vitaminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "menu_vitamin"
-    objects: {
-      menu: Prisma.$menuPayload<ExtArgs>
-      vitamin: Prisma.$vitaminPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      menu_id: bigint
-      vitamin_id: bigint
-    }, ExtArgs["result"]["menu_vitamin"]>
-    composites: {}
-  }
-
-  type menu_vitaminGetPayload<S extends boolean | null | undefined | menu_vitaminDefaultArgs> = $Result.GetResult<Prisma.$menu_vitaminPayload, S>
-
-  type menu_vitaminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<menu_vitaminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Menu_vitaminCountAggregateInputType | true
-    }
-
-  export interface menu_vitaminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_vitamin'], meta: { name: 'menu_vitamin' } }
-    /**
-     * Find zero or one Menu_vitamin that matches the filter.
-     * @param {menu_vitaminFindUniqueArgs} args - Arguments to find a Menu_vitamin
-     * @example
-     * // Get one Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends menu_vitaminFindUniqueArgs>(args: SelectSubset<T, menu_vitaminFindUniqueArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Menu_vitamin that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {menu_vitaminFindUniqueOrThrowArgs} args - Arguments to find a Menu_vitamin
-     * @example
-     * // Get one Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends menu_vitaminFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_vitaminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu_vitamin that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminFindFirstArgs} args - Arguments to find a Menu_vitamin
-     * @example
-     * // Get one Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends menu_vitaminFindFirstArgs>(args?: SelectSubset<T, menu_vitaminFindFirstArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Menu_vitamin that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminFindFirstOrThrowArgs} args - Arguments to find a Menu_vitamin
-     * @example
-     * // Get one Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends menu_vitaminFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_vitaminFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Menu_vitamins that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Menu_vitamins
-     * const menu_vitamins = await prisma.menu_vitamin.findMany()
-     * 
-     * // Get first 10 Menu_vitamins
-     * const menu_vitamins = await prisma.menu_vitamin.findMany({ take: 10 })
-     * 
-     * // Only select the `menu_id`
-     * const menu_vitaminWithMenu_idOnly = await prisma.menu_vitamin.findMany({ select: { menu_id: true } })
-     * 
-     */
-    findMany<T extends menu_vitaminFindManyArgs>(args?: SelectSubset<T, menu_vitaminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Menu_vitamin.
-     * @param {menu_vitaminCreateArgs} args - Arguments to create a Menu_vitamin.
-     * @example
-     * // Create one Menu_vitamin
-     * const Menu_vitamin = await prisma.menu_vitamin.create({
-     *   data: {
-     *     // ... data to create a Menu_vitamin
-     *   }
-     * })
-     * 
-     */
-    create<T extends menu_vitaminCreateArgs>(args: SelectSubset<T, menu_vitaminCreateArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Menu_vitamins.
-     * @param {menu_vitaminCreateManyArgs} args - Arguments to create many Menu_vitamins.
-     * @example
-     * // Create many Menu_vitamins
-     * const menu_vitamin = await prisma.menu_vitamin.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends menu_vitaminCreateManyArgs>(args?: SelectSubset<T, menu_vitaminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Menu_vitamin.
-     * @param {menu_vitaminDeleteArgs} args - Arguments to delete one Menu_vitamin.
-     * @example
-     * // Delete one Menu_vitamin
-     * const Menu_vitamin = await prisma.menu_vitamin.delete({
-     *   where: {
-     *     // ... filter to delete one Menu_vitamin
-     *   }
-     * })
-     * 
-     */
-    delete<T extends menu_vitaminDeleteArgs>(args: SelectSubset<T, menu_vitaminDeleteArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Menu_vitamin.
-     * @param {menu_vitaminUpdateArgs} args - Arguments to update one Menu_vitamin.
-     * @example
-     * // Update one Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends menu_vitaminUpdateArgs>(args: SelectSubset<T, menu_vitaminUpdateArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Menu_vitamins.
-     * @param {menu_vitaminDeleteManyArgs} args - Arguments to filter Menu_vitamins to delete.
-     * @example
-     * // Delete a few Menu_vitamins
-     * const { count } = await prisma.menu_vitamin.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends menu_vitaminDeleteManyArgs>(args?: SelectSubset<T, menu_vitaminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Menu_vitamins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Menu_vitamins
-     * const menu_vitamin = await prisma.menu_vitamin.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends menu_vitaminUpdateManyArgs>(args: SelectSubset<T, menu_vitaminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Menu_vitamin.
-     * @param {menu_vitaminUpsertArgs} args - Arguments to update or create a Menu_vitamin.
-     * @example
-     * // Update or create a Menu_vitamin
-     * const menu_vitamin = await prisma.menu_vitamin.upsert({
-     *   create: {
-     *     // ... data to create a Menu_vitamin
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Menu_vitamin we want to update
-     *   }
-     * })
-     */
-    upsert<T extends menu_vitaminUpsertArgs>(args: SelectSubset<T, menu_vitaminUpsertArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Menu_vitamins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminCountArgs} args - Arguments to filter Menu_vitamins to count.
-     * @example
-     * // Count the number of Menu_vitamins
-     * const count = await prisma.menu_vitamin.count({
-     *   where: {
-     *     // ... the filter for the Menu_vitamins we want to count
-     *   }
-     * })
-    **/
-    count<T extends menu_vitaminCountArgs>(
-      args?: Subset<T, menu_vitaminCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Menu_vitaminCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Menu_vitamin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Menu_vitaminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Menu_vitaminAggregateArgs>(args: Subset<T, Menu_vitaminAggregateArgs>): Prisma.PrismaPromise<GetMenu_vitaminAggregateType<T>>
-
-    /**
-     * Group by Menu_vitamin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {menu_vitaminGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends menu_vitaminGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: menu_vitaminGroupByArgs['orderBy'] }
-        : { orderBy?: menu_vitaminGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, menu_vitaminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_vitaminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the menu_vitamin model
-   */
-  readonly fields: menu_vitaminFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for menu_vitamin.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__menu_vitaminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    vitamin<T extends vitaminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, vitaminDefaultArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the menu_vitamin model
-   */
-  interface menu_vitaminFieldRefs {
-    readonly menu_id: FieldRef<"menu_vitamin", 'BigInt'>
-    readonly vitamin_id: FieldRef<"menu_vitamin", 'BigInt'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * menu_vitamin findUnique
-   */
-  export type menu_vitaminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_vitamin to fetch.
-     */
-    where: menu_vitaminWhereUniqueInput
-  }
-
-  /**
-   * menu_vitamin findUniqueOrThrow
-   */
-  export type menu_vitaminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_vitamin to fetch.
-     */
-    where: menu_vitaminWhereUniqueInput
-  }
-
-  /**
-   * menu_vitamin findFirst
-   */
-  export type menu_vitaminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_vitamin to fetch.
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_vitamins to fetch.
-     */
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menu_vitamins.
-     */
-    cursor?: menu_vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menu_vitamins.
-     */
-    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
-  }
-
-  /**
-   * menu_vitamin findFirstOrThrow
-   */
-  export type menu_vitaminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_vitamin to fetch.
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_vitamins to fetch.
-     */
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for menu_vitamins.
-     */
-    cursor?: menu_vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of menu_vitamins.
-     */
-    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
-  }
-
-  /**
-   * menu_vitamin findMany
-   */
-  export type menu_vitaminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which menu_vitamins to fetch.
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of menu_vitamins to fetch.
-     */
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing menu_vitamins.
-     */
-    cursor?: menu_vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` menu_vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` menu_vitamins.
-     */
-    skip?: number
-    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
-  }
-
-  /**
-   * menu_vitamin create
-   */
-  export type menu_vitaminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * The data needed to create a menu_vitamin.
-     */
-    data: XOR<menu_vitaminCreateInput, menu_vitaminUncheckedCreateInput>
-  }
-
-  /**
-   * menu_vitamin createMany
-   */
-  export type menu_vitaminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many menu_vitamins.
-     */
-    data: menu_vitaminCreateManyInput | menu_vitaminCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * menu_vitamin update
-   */
-  export type menu_vitaminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * The data needed to update a menu_vitamin.
-     */
-    data: XOR<menu_vitaminUpdateInput, menu_vitaminUncheckedUpdateInput>
-    /**
-     * Choose, which menu_vitamin to update.
-     */
-    where: menu_vitaminWhereUniqueInput
-  }
-
-  /**
-   * menu_vitamin updateMany
-   */
-  export type menu_vitaminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update menu_vitamins.
-     */
-    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyInput>
-    /**
-     * Filter which menu_vitamins to update
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * Limit how many menu_vitamins to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu_vitamin upsert
-   */
-  export type menu_vitaminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * The filter to search for the menu_vitamin to update in case it exists.
-     */
-    where: menu_vitaminWhereUniqueInput
-    /**
-     * In case the menu_vitamin found by the `where` argument doesn't exist, create a new menu_vitamin with this data.
-     */
-    create: XOR<menu_vitaminCreateInput, menu_vitaminUncheckedCreateInput>
-    /**
-     * In case the menu_vitamin was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<menu_vitaminUpdateInput, menu_vitaminUncheckedUpdateInput>
-  }
-
-  /**
-   * menu_vitamin delete
-   */
-  export type menu_vitaminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    /**
-     * Filter which menu_vitamin to delete.
-     */
-    where: menu_vitaminWhereUniqueInput
-  }
-
-  /**
-   * menu_vitamin deleteMany
-   */
-  export type menu_vitaminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which menu_vitamins to delete
-     */
-    where?: menu_vitaminWhereInput
-    /**
-     * Limit how many menu_vitamins to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * menu_vitamin without action
-   */
-  export type menu_vitaminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model vitamin
-   */
-
-  export type AggregateVitamin = {
-    _count: VitaminCountAggregateOutputType | null
-    _avg: VitaminAvgAggregateOutputType | null
-    _sum: VitaminSumAggregateOutputType | null
-    _min: VitaminMinAggregateOutputType | null
-    _max: VitaminMaxAggregateOutputType | null
-  }
-
-  export type VitaminAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type VitaminSumAggregateOutputType = {
-    id: bigint | null
-  }
-
-  export type VitaminMinAggregateOutputType = {
-    id: bigint | null
-    vitamin: string | null
-  }
-
-  export type VitaminMaxAggregateOutputType = {
-    id: bigint | null
-    vitamin: string | null
-  }
-
-  export type VitaminCountAggregateOutputType = {
-    id: number
-    vitamin: number
-    _all: number
-  }
-
-
-  export type VitaminAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type VitaminSumAggregateInputType = {
-    id?: true
-  }
-
-  export type VitaminMinAggregateInputType = {
-    id?: true
-    vitamin?: true
-  }
-
-  export type VitaminMaxAggregateInputType = {
-    id?: true
-    vitamin?: true
-  }
-
-  export type VitaminCountAggregateInputType = {
-    id?: true
-    vitamin?: true
-    _all?: true
-  }
-
-  export type VitaminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which vitamin to aggregate.
-     */
-    where?: vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of vitamins to fetch.
-     */
-    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned vitamins
-    **/
-    _count?: true | VitaminCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: VitaminAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: VitaminSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: VitaminMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: VitaminMaxAggregateInputType
-  }
-
-  export type GetVitaminAggregateType<T extends VitaminAggregateArgs> = {
-        [P in keyof T & keyof AggregateVitamin]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateVitamin[P]>
-      : GetScalarType<T[P], AggregateVitamin[P]>
-  }
-
-
-
-
-  export type vitaminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: vitaminWhereInput
-    orderBy?: vitaminOrderByWithAggregationInput | vitaminOrderByWithAggregationInput[]
-    by: VitaminScalarFieldEnum[] | VitaminScalarFieldEnum
-    having?: vitaminScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: VitaminCountAggregateInputType | true
-    _avg?: VitaminAvgAggregateInputType
-    _sum?: VitaminSumAggregateInputType
-    _min?: VitaminMinAggregateInputType
-    _max?: VitaminMaxAggregateInputType
-  }
-
-  export type VitaminGroupByOutputType = {
-    id: bigint
-    vitamin: string | null
-    _count: VitaminCountAggregateOutputType | null
-    _avg: VitaminAvgAggregateOutputType | null
-    _sum: VitaminSumAggregateOutputType | null
-    _min: VitaminMinAggregateOutputType | null
-    _max: VitaminMaxAggregateOutputType | null
-  }
-
-  type GetVitaminGroupByPayload<T extends vitaminGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<VitaminGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof VitaminGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], VitaminGroupByOutputType[P]>
-            : GetScalarType<T[P], VitaminGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type vitaminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    vitamin?: boolean
-    menu_vitamin?: boolean | vitamin$menu_vitaminArgs<ExtArgs>
-    _count?: boolean | VitaminCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["vitamin"]>
-
-
-
-  export type vitaminSelectScalar = {
-    id?: boolean
-    vitamin?: boolean
-  }
-
-  export type vitaminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vitamin", ExtArgs["result"]["vitamin"]>
-  export type vitaminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    menu_vitamin?: boolean | vitamin$menu_vitaminArgs<ExtArgs>
-    _count?: boolean | VitaminCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $vitaminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "vitamin"
-    objects: {
-      menu_vitamin: Prisma.$menu_vitaminPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: bigint
-      vitamin: string | null
-    }, ExtArgs["result"]["vitamin"]>
-    composites: {}
-  }
-
-  type vitaminGetPayload<S extends boolean | null | undefined | vitaminDefaultArgs> = $Result.GetResult<Prisma.$vitaminPayload, S>
-
-  type vitaminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<vitaminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: VitaminCountAggregateInputType | true
-    }
-
-  export interface vitaminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['vitamin'], meta: { name: 'vitamin' } }
-    /**
-     * Find zero or one Vitamin that matches the filter.
-     * @param {vitaminFindUniqueArgs} args - Arguments to find a Vitamin
-     * @example
-     * // Get one Vitamin
-     * const vitamin = await prisma.vitamin.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends vitaminFindUniqueArgs>(args: SelectSubset<T, vitaminFindUniqueArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Vitamin that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {vitaminFindUniqueOrThrowArgs} args - Arguments to find a Vitamin
-     * @example
-     * // Get one Vitamin
-     * const vitamin = await prisma.vitamin.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends vitaminFindUniqueOrThrowArgs>(args: SelectSubset<T, vitaminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Vitamin that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminFindFirstArgs} args - Arguments to find a Vitamin
-     * @example
-     * // Get one Vitamin
-     * const vitamin = await prisma.vitamin.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends vitaminFindFirstArgs>(args?: SelectSubset<T, vitaminFindFirstArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Vitamin that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminFindFirstOrThrowArgs} args - Arguments to find a Vitamin
-     * @example
-     * // Get one Vitamin
-     * const vitamin = await prisma.vitamin.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends vitaminFindFirstOrThrowArgs>(args?: SelectSubset<T, vitaminFindFirstOrThrowArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Vitamins that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Vitamins
-     * const vitamins = await prisma.vitamin.findMany()
-     * 
-     * // Get first 10 Vitamins
-     * const vitamins = await prisma.vitamin.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const vitaminWithIdOnly = await prisma.vitamin.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends vitaminFindManyArgs>(args?: SelectSubset<T, vitaminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Vitamin.
-     * @param {vitaminCreateArgs} args - Arguments to create a Vitamin.
-     * @example
-     * // Create one Vitamin
-     * const Vitamin = await prisma.vitamin.create({
-     *   data: {
-     *     // ... data to create a Vitamin
-     *   }
-     * })
-     * 
-     */
-    create<T extends vitaminCreateArgs>(args: SelectSubset<T, vitaminCreateArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Vitamins.
-     * @param {vitaminCreateManyArgs} args - Arguments to create many Vitamins.
-     * @example
-     * // Create many Vitamins
-     * const vitamin = await prisma.vitamin.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends vitaminCreateManyArgs>(args?: SelectSubset<T, vitaminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Vitamin.
-     * @param {vitaminDeleteArgs} args - Arguments to delete one Vitamin.
-     * @example
-     * // Delete one Vitamin
-     * const Vitamin = await prisma.vitamin.delete({
-     *   where: {
-     *     // ... filter to delete one Vitamin
-     *   }
-     * })
-     * 
-     */
-    delete<T extends vitaminDeleteArgs>(args: SelectSubset<T, vitaminDeleteArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Vitamin.
-     * @param {vitaminUpdateArgs} args - Arguments to update one Vitamin.
-     * @example
-     * // Update one Vitamin
-     * const vitamin = await prisma.vitamin.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends vitaminUpdateArgs>(args: SelectSubset<T, vitaminUpdateArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Vitamins.
-     * @param {vitaminDeleteManyArgs} args - Arguments to filter Vitamins to delete.
-     * @example
-     * // Delete a few Vitamins
-     * const { count } = await prisma.vitamin.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends vitaminDeleteManyArgs>(args?: SelectSubset<T, vitaminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Vitamins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Vitamins
-     * const vitamin = await prisma.vitamin.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends vitaminUpdateManyArgs>(args: SelectSubset<T, vitaminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Vitamin.
-     * @param {vitaminUpsertArgs} args - Arguments to update or create a Vitamin.
-     * @example
-     * // Update or create a Vitamin
-     * const vitamin = await prisma.vitamin.upsert({
-     *   create: {
-     *     // ... data to create a Vitamin
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Vitamin we want to update
-     *   }
-     * })
-     */
-    upsert<T extends vitaminUpsertArgs>(args: SelectSubset<T, vitaminUpsertArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Vitamins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminCountArgs} args - Arguments to filter Vitamins to count.
-     * @example
-     * // Count the number of Vitamins
-     * const count = await prisma.vitamin.count({
-     *   where: {
-     *     // ... the filter for the Vitamins we want to count
-     *   }
-     * })
-    **/
-    count<T extends vitaminCountArgs>(
-      args?: Subset<T, vitaminCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], VitaminCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Vitamin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VitaminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends VitaminAggregateArgs>(args: Subset<T, VitaminAggregateArgs>): Prisma.PrismaPromise<GetVitaminAggregateType<T>>
-
-    /**
-     * Group by Vitamin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {vitaminGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends vitaminGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: vitaminGroupByArgs['orderBy'] }
-        : { orderBy?: vitaminGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, vitaminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVitaminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the vitamin model
-   */
-  readonly fields: vitaminFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for vitamin.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__vitaminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    menu_vitamin<T extends vitamin$menu_vitaminArgs<ExtArgs> = {}>(args?: Subset<T, vitamin$menu_vitaminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the vitamin model
-   */
-  interface vitaminFieldRefs {
-    readonly id: FieldRef<"vitamin", 'BigInt'>
-    readonly vitamin: FieldRef<"vitamin", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * vitamin findUnique
-   */
-  export type vitaminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which vitamin to fetch.
-     */
-    where: vitaminWhereUniqueInput
-  }
-
-  /**
-   * vitamin findUniqueOrThrow
-   */
-  export type vitaminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which vitamin to fetch.
-     */
-    where: vitaminWhereUniqueInput
-  }
-
-  /**
-   * vitamin findFirst
-   */
-  export type vitaminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which vitamin to fetch.
-     */
-    where?: vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of vitamins to fetch.
-     */
-    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for vitamins.
-     */
-    cursor?: vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of vitamins.
-     */
-    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
-  }
-
-  /**
-   * vitamin findFirstOrThrow
-   */
-  export type vitaminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which vitamin to fetch.
-     */
-    where?: vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of vitamins to fetch.
-     */
-    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for vitamins.
-     */
-    cursor?: vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` vitamins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of vitamins.
-     */
-    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
-  }
-
-  /**
-   * vitamin findMany
-   */
-  export type vitaminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter, which vitamins to fetch.
-     */
-    where?: vitaminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of vitamins to fetch.
-     */
-    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing vitamins.
-     */
-    cursor?: vitaminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` vitamins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` vitamins.
-     */
-    skip?: number
-    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
-  }
-
-  /**
-   * vitamin create
-   */
-  export type vitaminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * The data needed to create a vitamin.
-     */
-    data?: XOR<vitaminCreateInput, vitaminUncheckedCreateInput>
-  }
-
-  /**
-   * vitamin createMany
-   */
-  export type vitaminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many vitamins.
-     */
-    data: vitaminCreateManyInput | vitaminCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * vitamin update
-   */
-  export type vitaminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * The data needed to update a vitamin.
-     */
-    data: XOR<vitaminUpdateInput, vitaminUncheckedUpdateInput>
-    /**
-     * Choose, which vitamin to update.
-     */
-    where: vitaminWhereUniqueInput
-  }
-
-  /**
-   * vitamin updateMany
-   */
-  export type vitaminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update vitamins.
-     */
-    data: XOR<vitaminUpdateManyMutationInput, vitaminUncheckedUpdateManyInput>
-    /**
-     * Filter which vitamins to update
-     */
-    where?: vitaminWhereInput
-    /**
-     * Limit how many vitamins to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * vitamin upsert
-   */
-  export type vitaminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * The filter to search for the vitamin to update in case it exists.
-     */
-    where: vitaminWhereUniqueInput
-    /**
-     * In case the vitamin found by the `where` argument doesn't exist, create a new vitamin with this data.
-     */
-    create: XOR<vitaminCreateInput, vitaminUncheckedCreateInput>
-    /**
-     * In case the vitamin was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<vitaminUpdateInput, vitaminUncheckedUpdateInput>
-  }
-
-  /**
-   * vitamin delete
-   */
-  export type vitaminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-    /**
-     * Filter which vitamin to delete.
-     */
-    where: vitaminWhereUniqueInput
-  }
-
-  /**
-   * vitamin deleteMany
-   */
-  export type vitaminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which vitamins to delete
-     */
-    where?: vitaminWhereInput
-    /**
-     * Limit how many vitamins to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * vitamin.menu_vitamin
-   */
-  export type vitamin$menu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the menu_vitamin
-     */
-    select?: menu_vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the menu_vitamin
-     */
-    omit?: menu_vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: menu_vitaminInclude<ExtArgs> | null
-    where?: menu_vitaminWhereInput
-    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
-    cursor?: menu_vitaminWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
-  }
-
-  /**
-   * vitamin without action
-   */
-  export type vitaminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the vitamin
-     */
-    select?: vitaminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the vitamin
-     */
-    omit?: vitaminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: vitaminInclude<ExtArgs> | null
-  }
-
 
   /**
    * Model allergy
@@ -7917,900 +2925,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: allergyInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model sessions
-   */
-
-  export type AggregateSessions = {
-    _count: SessionsCountAggregateOutputType | null
-    _avg: SessionsAvgAggregateOutputType | null
-    _sum: SessionsSumAggregateOutputType | null
-    _min: SessionsMinAggregateOutputType | null
-    _max: SessionsMaxAggregateOutputType | null
-  }
-
-  export type SessionsAvgAggregateOutputType = {
-    expires: number | null
-  }
-
-  export type SessionsSumAggregateOutputType = {
-    expires: number | null
-  }
-
-  export type SessionsMinAggregateOutputType = {
-    session_id: string | null
-    expires: number | null
-    data: string | null
-  }
-
-  export type SessionsMaxAggregateOutputType = {
-    session_id: string | null
-    expires: number | null
-    data: string | null
-  }
-
-  export type SessionsCountAggregateOutputType = {
-    session_id: number
-    expires: number
-    data: number
-    _all: number
-  }
-
-
-  export type SessionsAvgAggregateInputType = {
-    expires?: true
-  }
-
-  export type SessionsSumAggregateInputType = {
-    expires?: true
-  }
-
-  export type SessionsMinAggregateInputType = {
-    session_id?: true
-    expires?: true
-    data?: true
-  }
-
-  export type SessionsMaxAggregateInputType = {
-    session_id?: true
-    expires?: true
-    data?: true
-  }
-
-  export type SessionsCountAggregateInputType = {
-    session_id?: true
-    expires?: true
-    data?: true
-    _all?: true
-  }
-
-  export type SessionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which sessions to aggregate.
-     */
-    where?: sessionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of sessions to fetch.
-     */
-    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: sessionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned sessions
-    **/
-    _count?: true | SessionsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SessionsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SessionsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SessionsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SessionsMaxAggregateInputType
-  }
-
-  export type GetSessionsAggregateType<T extends SessionsAggregateArgs> = {
-        [P in keyof T & keyof AggregateSessions]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSessions[P]>
-      : GetScalarType<T[P], AggregateSessions[P]>
-  }
-
-
-
-
-  export type sessionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: sessionsWhereInput
-    orderBy?: sessionsOrderByWithAggregationInput | sessionsOrderByWithAggregationInput[]
-    by: SessionsScalarFieldEnum[] | SessionsScalarFieldEnum
-    having?: sessionsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SessionsCountAggregateInputType | true
-    _avg?: SessionsAvgAggregateInputType
-    _sum?: SessionsSumAggregateInputType
-    _min?: SessionsMinAggregateInputType
-    _max?: SessionsMaxAggregateInputType
-  }
-
-  export type SessionsGroupByOutputType = {
-    session_id: string
-    expires: number
-    data: string | null
-    _count: SessionsCountAggregateOutputType | null
-    _avg: SessionsAvgAggregateOutputType | null
-    _sum: SessionsSumAggregateOutputType | null
-    _min: SessionsMinAggregateOutputType | null
-    _max: SessionsMaxAggregateOutputType | null
-  }
-
-  type GetSessionsGroupByPayload<T extends sessionsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SessionsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SessionsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SessionsGroupByOutputType[P]>
-            : GetScalarType<T[P], SessionsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type sessionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    session_id?: boolean
-    expires?: boolean
-    data?: boolean
-  }, ExtArgs["result"]["sessions"]>
-
-
-
-  export type sessionsSelectScalar = {
-    session_id?: boolean
-    expires?: boolean
-    data?: boolean
-  }
-
-  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "expires" | "data", ExtArgs["result"]["sessions"]>
-
-  export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "sessions"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      session_id: string
-      expires: number
-      data: string | null
-    }, ExtArgs["result"]["sessions"]>
-    composites: {}
-  }
-
-  type sessionsGetPayload<S extends boolean | null | undefined | sessionsDefaultArgs> = $Result.GetResult<Prisma.$sessionsPayload, S>
-
-  type sessionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<sessionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SessionsCountAggregateInputType | true
-    }
-
-  export interface sessionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sessions'], meta: { name: 'sessions' } }
-    /**
-     * Find zero or one Sessions that matches the filter.
-     * @param {sessionsFindUniqueArgs} args - Arguments to find a Sessions
-     * @example
-     * // Get one Sessions
-     * const sessions = await prisma.sessions.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends sessionsFindUniqueArgs>(args: SelectSubset<T, sessionsFindUniqueArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Sessions that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {sessionsFindUniqueOrThrowArgs} args - Arguments to find a Sessions
-     * @example
-     * // Get one Sessions
-     * const sessions = await prisma.sessions.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends sessionsFindUniqueOrThrowArgs>(args: SelectSubset<T, sessionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Sessions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsFindFirstArgs} args - Arguments to find a Sessions
-     * @example
-     * // Get one Sessions
-     * const sessions = await prisma.sessions.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends sessionsFindFirstArgs>(args?: SelectSubset<T, sessionsFindFirstArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Sessions that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsFindFirstOrThrowArgs} args - Arguments to find a Sessions
-     * @example
-     * // Get one Sessions
-     * const sessions = await prisma.sessions.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends sessionsFindFirstOrThrowArgs>(args?: SelectSubset<T, sessionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Sessions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Sessions
-     * const sessions = await prisma.sessions.findMany()
-     * 
-     * // Get first 10 Sessions
-     * const sessions = await prisma.sessions.findMany({ take: 10 })
-     * 
-     * // Only select the `session_id`
-     * const sessionsWithSession_idOnly = await prisma.sessions.findMany({ select: { session_id: true } })
-     * 
-     */
-    findMany<T extends sessionsFindManyArgs>(args?: SelectSubset<T, sessionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Sessions.
-     * @param {sessionsCreateArgs} args - Arguments to create a Sessions.
-     * @example
-     * // Create one Sessions
-     * const Sessions = await prisma.sessions.create({
-     *   data: {
-     *     // ... data to create a Sessions
-     *   }
-     * })
-     * 
-     */
-    create<T extends sessionsCreateArgs>(args: SelectSubset<T, sessionsCreateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Sessions.
-     * @param {sessionsCreateManyArgs} args - Arguments to create many Sessions.
-     * @example
-     * // Create many Sessions
-     * const sessions = await prisma.sessions.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends sessionsCreateManyArgs>(args?: SelectSubset<T, sessionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Sessions.
-     * @param {sessionsDeleteArgs} args - Arguments to delete one Sessions.
-     * @example
-     * // Delete one Sessions
-     * const Sessions = await prisma.sessions.delete({
-     *   where: {
-     *     // ... filter to delete one Sessions
-     *   }
-     * })
-     * 
-     */
-    delete<T extends sessionsDeleteArgs>(args: SelectSubset<T, sessionsDeleteArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Sessions.
-     * @param {sessionsUpdateArgs} args - Arguments to update one Sessions.
-     * @example
-     * // Update one Sessions
-     * const sessions = await prisma.sessions.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends sessionsUpdateArgs>(args: SelectSubset<T, sessionsUpdateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Sessions.
-     * @param {sessionsDeleteManyArgs} args - Arguments to filter Sessions to delete.
-     * @example
-     * // Delete a few Sessions
-     * const { count } = await prisma.sessions.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends sessionsDeleteManyArgs>(args?: SelectSubset<T, sessionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Sessions
-     * const sessions = await prisma.sessions.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends sessionsUpdateManyArgs>(args: SelectSubset<T, sessionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Sessions.
-     * @param {sessionsUpsertArgs} args - Arguments to update or create a Sessions.
-     * @example
-     * // Update or create a Sessions
-     * const sessions = await prisma.sessions.upsert({
-     *   create: {
-     *     // ... data to create a Sessions
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Sessions we want to update
-     *   }
-     * })
-     */
-    upsert<T extends sessionsUpsertArgs>(args: SelectSubset<T, sessionsUpsertArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsCountArgs} args - Arguments to filter Sessions to count.
-     * @example
-     * // Count the number of Sessions
-     * const count = await prisma.sessions.count({
-     *   where: {
-     *     // ... the filter for the Sessions we want to count
-     *   }
-     * })
-    **/
-    count<T extends sessionsCountArgs>(
-      args?: Subset<T, sessionsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SessionsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SessionsAggregateArgs>(args: Subset<T, SessionsAggregateArgs>): Prisma.PrismaPromise<GetSessionsAggregateType<T>>
-
-    /**
-     * Group by Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {sessionsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends sessionsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: sessionsGroupByArgs['orderBy'] }
-        : { orderBy?: sessionsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, sessionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the sessions model
-   */
-  readonly fields: sessionsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for sessions.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the sessions model
-   */
-  interface sessionsFieldRefs {
-    readonly session_id: FieldRef<"sessions", 'String'>
-    readonly expires: FieldRef<"sessions", 'Int'>
-    readonly data: FieldRef<"sessions", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * sessions findUnique
-   */
-  export type sessionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter, which sessions to fetch.
-     */
-    where: sessionsWhereUniqueInput
-  }
-
-  /**
-   * sessions findUniqueOrThrow
-   */
-  export type sessionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter, which sessions to fetch.
-     */
-    where: sessionsWhereUniqueInput
-  }
-
-  /**
-   * sessions findFirst
-   */
-  export type sessionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter, which sessions to fetch.
-     */
-    where?: sessionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of sessions to fetch.
-     */
-    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for sessions.
-     */
-    cursor?: sessionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of sessions.
-     */
-    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
-  }
-
-  /**
-   * sessions findFirstOrThrow
-   */
-  export type sessionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter, which sessions to fetch.
-     */
-    where?: sessionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of sessions to fetch.
-     */
-    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for sessions.
-     */
-    cursor?: sessionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of sessions.
-     */
-    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
-  }
-
-  /**
-   * sessions findMany
-   */
-  export type sessionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter, which sessions to fetch.
-     */
-    where?: sessionsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of sessions to fetch.
-     */
-    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing sessions.
-     */
-    cursor?: sessionsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` sessions.
-     */
-    skip?: number
-    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
-  }
-
-  /**
-   * sessions create
-   */
-  export type sessionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * The data needed to create a sessions.
-     */
-    data: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
-  }
-
-  /**
-   * sessions createMany
-   */
-  export type sessionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many sessions.
-     */
-    data: sessionsCreateManyInput | sessionsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * sessions update
-   */
-  export type sessionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * The data needed to update a sessions.
-     */
-    data: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
-    /**
-     * Choose, which sessions to update.
-     */
-    where: sessionsWhereUniqueInput
-  }
-
-  /**
-   * sessions updateMany
-   */
-  export type sessionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update sessions.
-     */
-    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyInput>
-    /**
-     * Filter which sessions to update
-     */
-    where?: sessionsWhereInput
-    /**
-     * Limit how many sessions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * sessions upsert
-   */
-  export type sessionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * The filter to search for the sessions to update in case it exists.
-     */
-    where: sessionsWhereUniqueInput
-    /**
-     * In case the sessions found by the `where` argument doesn't exist, create a new sessions with this data.
-     */
-    create: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
-    /**
-     * In case the sessions was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
-  }
-
-  /**
-   * sessions delete
-   */
-  export type sessionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Filter which sessions to delete.
-     */
-    where: sessionsWhereUniqueInput
-  }
-
-  /**
-   * sessions deleteMany
-   */
-  export type sessionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which sessions to delete
-     */
-    where?: sessionsWhereInput
-    /**
-     * Limit how many sessions to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * sessions without action
-   */
-  export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
   }
 
 
@@ -11835,6 +5949,1199 @@ export namespace Prisma {
 
 
   /**
+   * Model menu
+   */
+
+  export type AggregateMenu = {
+    _count: MenuCountAggregateOutputType | null
+    _avg: MenuAvgAggregateOutputType | null
+    _sum: MenuSumAggregateOutputType | null
+    _min: MenuMinAggregateOutputType | null
+    _max: MenuMaxAggregateOutputType | null
+  }
+
+  export type MenuAvgAggregateOutputType = {
+    id: number | null
+    calory: number | null
+    carbo: number | null
+    protein: number | null
+    fat: number | null
+    sodium: number | null
+  }
+
+  export type MenuSumAggregateOutputType = {
+    id: bigint | null
+    calory: bigint | null
+    carbo: bigint | null
+    protein: bigint | null
+    fat: bigint | null
+    sodium: bigint | null
+  }
+
+  export type MenuMinAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    description: string | null
+    calory: bigint | null
+    carbo: bigint | null
+    protein: bigint | null
+    fat: bigint | null
+    sodium: bigint | null
+    image_link: string | null
+  }
+
+  export type MenuMaxAggregateOutputType = {
+    id: bigint | null
+    name: string | null
+    description: string | null
+    calory: bigint | null
+    carbo: bigint | null
+    protein: bigint | null
+    fat: bigint | null
+    sodium: bigint | null
+    image_link: string | null
+  }
+
+  export type MenuCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    calory: number
+    carbo: number
+    protein: number
+    fat: number
+    sodium: number
+    image_link: number
+    _all: number
+  }
+
+
+  export type MenuAvgAggregateInputType = {
+    id?: true
+    calory?: true
+    carbo?: true
+    protein?: true
+    fat?: true
+    sodium?: true
+  }
+
+  export type MenuSumAggregateInputType = {
+    id?: true
+    calory?: true
+    carbo?: true
+    protein?: true
+    fat?: true
+    sodium?: true
+  }
+
+  export type MenuMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    calory?: true
+    carbo?: true
+    protein?: true
+    fat?: true
+    sodium?: true
+    image_link?: true
+  }
+
+  export type MenuMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    calory?: true
+    carbo?: true
+    protein?: true
+    fat?: true
+    sodium?: true
+    image_link?: true
+  }
+
+  export type MenuCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    calory?: true
+    carbo?: true
+    protein?: true
+    fat?: true
+    sodium?: true
+    image_link?: true
+    _all?: true
+  }
+
+  export type MenuAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu to aggregate.
+     */
+    where?: menuWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menus to fetch.
+     */
+    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: menuWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned menus
+    **/
+    _count?: true | MenuCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MenuAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MenuSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MenuMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MenuMaxAggregateInputType
+  }
+
+  export type GetMenuAggregateType<T extends MenuAggregateArgs> = {
+        [P in keyof T & keyof AggregateMenu]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMenu[P]>
+      : GetScalarType<T[P], AggregateMenu[P]>
+  }
+
+
+
+
+  export type menuGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menuWhereInput
+    orderBy?: menuOrderByWithAggregationInput | menuOrderByWithAggregationInput[]
+    by: MenuScalarFieldEnum[] | MenuScalarFieldEnum
+    having?: menuScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MenuCountAggregateInputType | true
+    _avg?: MenuAvgAggregateInputType
+    _sum?: MenuSumAggregateInputType
+    _min?: MenuMinAggregateInputType
+    _max?: MenuMaxAggregateInputType
+  }
+
+  export type MenuGroupByOutputType = {
+    id: bigint
+    name: string
+    description: string | null
+    calory: bigint | null
+    carbo: bigint | null
+    protein: bigint | null
+    fat: bigint | null
+    sodium: bigint | null
+    image_link: string | null
+    _count: MenuCountAggregateOutputType | null
+    _avg: MenuAvgAggregateOutputType | null
+    _sum: MenuSumAggregateOutputType | null
+    _min: MenuMinAggregateOutputType | null
+    _max: MenuMaxAggregateOutputType | null
+  }
+
+  type GetMenuGroupByPayload<T extends menuGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MenuGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MenuGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MenuGroupByOutputType[P]>
+            : GetScalarType<T[P], MenuGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type menuSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    calory?: boolean
+    carbo?: boolean
+    protein?: boolean
+    fat?: boolean
+    sodium?: boolean
+    image_link?: boolean
+    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
+    menu_allergy?: boolean | menu$menu_allergyArgs<ExtArgs>
+    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
+    menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
+    mukburim?: boolean | menu$mukburimArgs<ExtArgs>
+    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
+    _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["menu"]>
+
+
+
+  export type menuSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    calory?: boolean
+    carbo?: boolean
+    protein?: boolean
+    fat?: boolean
+    sodium?: boolean
+    image_link?: boolean
+  }
+
+  export type menuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "calory" | "carbo" | "protein" | "fat" | "sodium" | "image_link", ExtArgs["result"]["menu"]>
+  export type menuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    battle_menus?: boolean | menu$battle_menusArgs<ExtArgs>
+    menu_allergy?: boolean | menu$menu_allergyArgs<ExtArgs>
+    menu_tag?: boolean | menu$menu_tagArgs<ExtArgs>
+    menu_vitamin?: boolean | menu$menu_vitaminArgs<ExtArgs>
+    mukburim?: boolean | menu$mukburimArgs<ExtArgs>
+    spin_results?: boolean | menu$spin_resultsArgs<ExtArgs>
+    _count?: boolean | MenuCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $menuPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "menu"
+    objects: {
+      battle_menus: Prisma.$battle_menusPayload<ExtArgs>[]
+      menu_allergy: Prisma.$menu_allergyPayload<ExtArgs>[]
+      menu_tag: Prisma.$menu_tagPayload<ExtArgs>[]
+      menu_vitamin: Prisma.$menu_vitaminPayload<ExtArgs>[]
+      mukburim: Prisma.$mukburimPayload<ExtArgs>[]
+      spin_results: Prisma.$spin_resultsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      name: string
+      description: string | null
+      calory: bigint | null
+      carbo: bigint | null
+      protein: bigint | null
+      fat: bigint | null
+      sodium: bigint | null
+      image_link: string | null
+    }, ExtArgs["result"]["menu"]>
+    composites: {}
+  }
+
+  type menuGetPayload<S extends boolean | null | undefined | menuDefaultArgs> = $Result.GetResult<Prisma.$menuPayload, S>
+
+  type menuCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<menuFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MenuCountAggregateInputType | true
+    }
+
+  export interface menuDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu'], meta: { name: 'menu' } }
+    /**
+     * Find zero or one Menu that matches the filter.
+     * @param {menuFindUniqueArgs} args - Arguments to find a Menu
+     * @example
+     * // Get one Menu
+     * const menu = await prisma.menu.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends menuFindUniqueArgs>(args: SelectSubset<T, menuFindUniqueArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Menu that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {menuFindUniqueOrThrowArgs} args - Arguments to find a Menu
+     * @example
+     * // Get one Menu
+     * const menu = await prisma.menu.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends menuFindUniqueOrThrowArgs>(args: SelectSubset<T, menuFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuFindFirstArgs} args - Arguments to find a Menu
+     * @example
+     * // Get one Menu
+     * const menu = await prisma.menu.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends menuFindFirstArgs>(args?: SelectSubset<T, menuFindFirstArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuFindFirstOrThrowArgs} args - Arguments to find a Menu
+     * @example
+     * // Get one Menu
+     * const menu = await prisma.menu.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends menuFindFirstOrThrowArgs>(args?: SelectSubset<T, menuFindFirstOrThrowArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Menus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Menus
+     * const menus = await prisma.menu.findMany()
+     * 
+     * // Get first 10 Menus
+     * const menus = await prisma.menu.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const menuWithIdOnly = await prisma.menu.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends menuFindManyArgs>(args?: SelectSubset<T, menuFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Menu.
+     * @param {menuCreateArgs} args - Arguments to create a Menu.
+     * @example
+     * // Create one Menu
+     * const Menu = await prisma.menu.create({
+     *   data: {
+     *     // ... data to create a Menu
+     *   }
+     * })
+     * 
+     */
+    create<T extends menuCreateArgs>(args: SelectSubset<T, menuCreateArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Menus.
+     * @param {menuCreateManyArgs} args - Arguments to create many Menus.
+     * @example
+     * // Create many Menus
+     * const menu = await prisma.menu.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends menuCreateManyArgs>(args?: SelectSubset<T, menuCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Menu.
+     * @param {menuDeleteArgs} args - Arguments to delete one Menu.
+     * @example
+     * // Delete one Menu
+     * const Menu = await prisma.menu.delete({
+     *   where: {
+     *     // ... filter to delete one Menu
+     *   }
+     * })
+     * 
+     */
+    delete<T extends menuDeleteArgs>(args: SelectSubset<T, menuDeleteArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Menu.
+     * @param {menuUpdateArgs} args - Arguments to update one Menu.
+     * @example
+     * // Update one Menu
+     * const menu = await prisma.menu.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends menuUpdateArgs>(args: SelectSubset<T, menuUpdateArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Menus.
+     * @param {menuDeleteManyArgs} args - Arguments to filter Menus to delete.
+     * @example
+     * // Delete a few Menus
+     * const { count } = await prisma.menu.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends menuDeleteManyArgs>(args?: SelectSubset<T, menuDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Menus
+     * const menu = await prisma.menu.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends menuUpdateManyArgs>(args: SelectSubset<T, menuUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Menu.
+     * @param {menuUpsertArgs} args - Arguments to update or create a Menu.
+     * @example
+     * // Update or create a Menu
+     * const menu = await prisma.menu.upsert({
+     *   create: {
+     *     // ... data to create a Menu
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Menu we want to update
+     *   }
+     * })
+     */
+    upsert<T extends menuUpsertArgs>(args: SelectSubset<T, menuUpsertArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Menus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuCountArgs} args - Arguments to filter Menus to count.
+     * @example
+     * // Count the number of Menus
+     * const count = await prisma.menu.count({
+     *   where: {
+     *     // ... the filter for the Menus we want to count
+     *   }
+     * })
+    **/
+    count<T extends menuCountArgs>(
+      args?: Subset<T, menuCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MenuCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Menu.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MenuAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MenuAggregateArgs>(args: Subset<T, MenuAggregateArgs>): Prisma.PrismaPromise<GetMenuAggregateType<T>>
+
+    /**
+     * Group by Menu.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menuGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends menuGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: menuGroupByArgs['orderBy'] }
+        : { orderBy?: menuGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, menuGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenuGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the menu model
+   */
+  readonly fields: menuFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for menu.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__menuClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    battle_menus<T extends menu$battle_menusArgs<ExtArgs> = {}>(args?: Subset<T, menu$battle_menusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$battle_menusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    menu_allergy<T extends menu$menu_allergyArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_allergyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    menu_tag<T extends menu$menu_tagArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_tagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    menu_vitamin<T extends menu$menu_vitaminArgs<ExtArgs> = {}>(args?: Subset<T, menu$menu_vitaminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mukburim<T extends menu$mukburimArgs<ExtArgs> = {}>(args?: Subset<T, menu$mukburimArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    spin_results<T extends menu$spin_resultsArgs<ExtArgs> = {}>(args?: Subset<T, menu$spin_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spin_resultsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the menu model
+   */
+  interface menuFieldRefs {
+    readonly id: FieldRef<"menu", 'BigInt'>
+    readonly name: FieldRef<"menu", 'String'>
+    readonly description: FieldRef<"menu", 'String'>
+    readonly calory: FieldRef<"menu", 'BigInt'>
+    readonly carbo: FieldRef<"menu", 'BigInt'>
+    readonly protein: FieldRef<"menu", 'BigInt'>
+    readonly fat: FieldRef<"menu", 'BigInt'>
+    readonly sodium: FieldRef<"menu", 'BigInt'>
+    readonly image_link: FieldRef<"menu", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * menu findUnique
+   */
+  export type menuFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter, which menu to fetch.
+     */
+    where: menuWhereUniqueInput
+  }
+
+  /**
+   * menu findUniqueOrThrow
+   */
+  export type menuFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter, which menu to fetch.
+     */
+    where: menuWhereUniqueInput
+  }
+
+  /**
+   * menu findFirst
+   */
+  export type menuFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter, which menu to fetch.
+     */
+    where?: menuWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menus to fetch.
+     */
+    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menus.
+     */
+    cursor?: menuWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menus.
+     */
+    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
+  }
+
+  /**
+   * menu findFirstOrThrow
+   */
+  export type menuFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter, which menu to fetch.
+     */
+    where?: menuWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menus to fetch.
+     */
+    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menus.
+     */
+    cursor?: menuWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menus.
+     */
+    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
+  }
+
+  /**
+   * menu findMany
+   */
+  export type menuFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter, which menus to fetch.
+     */
+    where?: menuWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menus to fetch.
+     */
+    orderBy?: menuOrderByWithRelationInput | menuOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing menus.
+     */
+    cursor?: menuWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menus.
+     */
+    skip?: number
+    distinct?: MenuScalarFieldEnum | MenuScalarFieldEnum[]
+  }
+
+  /**
+   * menu create
+   */
+  export type menuCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * The data needed to create a menu.
+     */
+    data: XOR<menuCreateInput, menuUncheckedCreateInput>
+  }
+
+  /**
+   * menu createMany
+   */
+  export type menuCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many menus.
+     */
+    data: menuCreateManyInput | menuCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * menu update
+   */
+  export type menuUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * The data needed to update a menu.
+     */
+    data: XOR<menuUpdateInput, menuUncheckedUpdateInput>
+    /**
+     * Choose, which menu to update.
+     */
+    where: menuWhereUniqueInput
+  }
+
+  /**
+   * menu updateMany
+   */
+  export type menuUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update menus.
+     */
+    data: XOR<menuUpdateManyMutationInput, menuUncheckedUpdateManyInput>
+    /**
+     * Filter which menus to update
+     */
+    where?: menuWhereInput
+    /**
+     * Limit how many menus to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu upsert
+   */
+  export type menuUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * The filter to search for the menu to update in case it exists.
+     */
+    where: menuWhereUniqueInput
+    /**
+     * In case the menu found by the `where` argument doesn't exist, create a new menu with this data.
+     */
+    create: XOR<menuCreateInput, menuUncheckedCreateInput>
+    /**
+     * In case the menu was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<menuUpdateInput, menuUncheckedUpdateInput>
+  }
+
+  /**
+   * menu delete
+   */
+  export type menuDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+    /**
+     * Filter which menu to delete.
+     */
+    where: menuWhereUniqueInput
+  }
+
+  /**
+   * menu deleteMany
+   */
+  export type menuDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menus to delete
+     */
+    where?: menuWhereInput
+    /**
+     * Limit how many menus to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu.battle_menus
+   */
+  export type menu$battle_menusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the battle_menus
+     */
+    select?: battle_menusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the battle_menus
+     */
+    omit?: battle_menusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: battle_menusInclude<ExtArgs> | null
+    where?: battle_menusWhereInput
+    orderBy?: battle_menusOrderByWithRelationInput | battle_menusOrderByWithRelationInput[]
+    cursor?: battle_menusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Battle_menusScalarFieldEnum | Battle_menusScalarFieldEnum[]
+  }
+
+  /**
+   * menu.menu_allergy
+   */
+  export type menu$menu_allergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_allergy
+     */
+    select?: menu_allergySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_allergy
+     */
+    omit?: menu_allergyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_allergyInclude<ExtArgs> | null
+    where?: menu_allergyWhereInput
+    orderBy?: menu_allergyOrderByWithRelationInput | menu_allergyOrderByWithRelationInput[]
+    cursor?: menu_allergyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_allergyScalarFieldEnum | Menu_allergyScalarFieldEnum[]
+  }
+
+  /**
+   * menu.menu_tag
+   */
+  export type menu$menu_tagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    where?: menu_tagWhereInput
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    cursor?: menu_tagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu.menu_vitamin
+   */
+  export type menu$menu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    where?: menu_vitaminWhereInput
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    cursor?: menu_vitaminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
+  }
+
+  /**
+   * menu.mukburim
+   */
+  export type menu$mukburimArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    where?: mukburimWhereInput
+    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
+    cursor?: mukburimWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
+  }
+
+  /**
+   * menu.spin_results
+   */
+  export type menu$spin_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spin_results
+     */
+    select?: spin_resultsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spin_results
+     */
+    omit?: spin_resultsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spin_resultsInclude<ExtArgs> | null
+    where?: spin_resultsWhereInput
+    orderBy?: spin_resultsOrderByWithRelationInput | spin_resultsOrderByWithRelationInput[]
+    cursor?: spin_resultsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Spin_resultsScalarFieldEnum | Spin_resultsScalarFieldEnum[]
+  }
+
+  /**
+   * menu without action
+   */
+  export type menuDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu
+     */
+    select?: menuSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu
+     */
+    omit?: menuOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menuInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model menu_allergy
    */
 
@@ -12769,6 +8076,3743 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: menu_allergyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model menu_tag
+   */
+
+  export type AggregateMenu_tag = {
+    _count: Menu_tagCountAggregateOutputType | null
+    _avg: Menu_tagAvgAggregateOutputType | null
+    _sum: Menu_tagSumAggregateOutputType | null
+    _min: Menu_tagMinAggregateOutputType | null
+    _max: Menu_tagMaxAggregateOutputType | null
+  }
+
+  export type Menu_tagAvgAggregateOutputType = {
+    id: number | null
+    menu_id: number | null
+  }
+
+  export type Menu_tagSumAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+  }
+
+  export type Menu_tagMinAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    tag: string | null
+  }
+
+  export type Menu_tagMaxAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    tag: string | null
+  }
+
+  export type Menu_tagCountAggregateOutputType = {
+    id: number
+    menu_id: number
+    tag: number
+    _all: number
+  }
+
+
+  export type Menu_tagAvgAggregateInputType = {
+    id?: true
+    menu_id?: true
+  }
+
+  export type Menu_tagSumAggregateInputType = {
+    id?: true
+    menu_id?: true
+  }
+
+  export type Menu_tagMinAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+  }
+
+  export type Menu_tagMaxAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+  }
+
+  export type Menu_tagCountAggregateInputType = {
+    id?: true
+    menu_id?: true
+    tag?: true
+    _all?: true
+  }
+
+  export type Menu_tagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_tag to aggregate.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned menu_tags
+    **/
+    _count?: true | Menu_tagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Menu_tagAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Menu_tagSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Menu_tagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Menu_tagMaxAggregateInputType
+  }
+
+  export type GetMenu_tagAggregateType<T extends Menu_tagAggregateArgs> = {
+        [P in keyof T & keyof AggregateMenu_tag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMenu_tag[P]>
+      : GetScalarType<T[P], AggregateMenu_tag[P]>
+  }
+
+
+
+
+  export type menu_tagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_tagWhereInput
+    orderBy?: menu_tagOrderByWithAggregationInput | menu_tagOrderByWithAggregationInput[]
+    by: Menu_tagScalarFieldEnum[] | Menu_tagScalarFieldEnum
+    having?: menu_tagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Menu_tagCountAggregateInputType | true
+    _avg?: Menu_tagAvgAggregateInputType
+    _sum?: Menu_tagSumAggregateInputType
+    _min?: Menu_tagMinAggregateInputType
+    _max?: Menu_tagMaxAggregateInputType
+  }
+
+  export type Menu_tagGroupByOutputType = {
+    id: bigint
+    menu_id: bigint
+    tag: string | null
+    _count: Menu_tagCountAggregateOutputType | null
+    _avg: Menu_tagAvgAggregateOutputType | null
+    _sum: Menu_tagSumAggregateOutputType | null
+    _min: Menu_tagMinAggregateOutputType | null
+    _max: Menu_tagMaxAggregateOutputType | null
+  }
+
+  type GetMenu_tagGroupByPayload<T extends menu_tagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Menu_tagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Menu_tagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
+            : GetScalarType<T[P], Menu_tagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type menu_tagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    menu_id?: boolean
+    tag?: boolean
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["menu_tag"]>
+
+
+
+  export type menu_tagSelectScalar = {
+    id?: boolean
+    menu_id?: boolean
+    tag?: boolean
+  }
+
+  export type menu_tagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_id" | "tag", ExtArgs["result"]["menu_tag"]>
+  export type menu_tagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }
+
+  export type $menu_tagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "menu_tag"
+    objects: {
+      menu: Prisma.$menuPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      menu_id: bigint
+      tag: string | null
+    }, ExtArgs["result"]["menu_tag"]>
+    composites: {}
+  }
+
+  type menu_tagGetPayload<S extends boolean | null | undefined | menu_tagDefaultArgs> = $Result.GetResult<Prisma.$menu_tagPayload, S>
+
+  type menu_tagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<menu_tagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Menu_tagCountAggregateInputType | true
+    }
+
+  export interface menu_tagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_tag'], meta: { name: 'menu_tag' } }
+    /**
+     * Find zero or one Menu_tag that matches the filter.
+     * @param {menu_tagFindUniqueArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends menu_tagFindUniqueArgs>(args: SelectSubset<T, menu_tagFindUniqueArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Menu_tag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {menu_tagFindUniqueOrThrowArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends menu_tagFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_tagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_tag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindFirstArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends menu_tagFindFirstArgs>(args?: SelectSubset<T, menu_tagFindFirstArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_tag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindFirstOrThrowArgs} args - Arguments to find a Menu_tag
+     * @example
+     * // Get one Menu_tag
+     * const menu_tag = await prisma.menu_tag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends menu_tagFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_tagFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Menu_tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Menu_tags
+     * const menu_tags = await prisma.menu_tag.findMany()
+     * 
+     * // Get first 10 Menu_tags
+     * const menu_tags = await prisma.menu_tag.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const menu_tagWithIdOnly = await prisma.menu_tag.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends menu_tagFindManyArgs>(args?: SelectSubset<T, menu_tagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Menu_tag.
+     * @param {menu_tagCreateArgs} args - Arguments to create a Menu_tag.
+     * @example
+     * // Create one Menu_tag
+     * const Menu_tag = await prisma.menu_tag.create({
+     *   data: {
+     *     // ... data to create a Menu_tag
+     *   }
+     * })
+     * 
+     */
+    create<T extends menu_tagCreateArgs>(args: SelectSubset<T, menu_tagCreateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Menu_tags.
+     * @param {menu_tagCreateManyArgs} args - Arguments to create many Menu_tags.
+     * @example
+     * // Create many Menu_tags
+     * const menu_tag = await prisma.menu_tag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends menu_tagCreateManyArgs>(args?: SelectSubset<T, menu_tagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Menu_tag.
+     * @param {menu_tagDeleteArgs} args - Arguments to delete one Menu_tag.
+     * @example
+     * // Delete one Menu_tag
+     * const Menu_tag = await prisma.menu_tag.delete({
+     *   where: {
+     *     // ... filter to delete one Menu_tag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends menu_tagDeleteArgs>(args: SelectSubset<T, menu_tagDeleteArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Menu_tag.
+     * @param {menu_tagUpdateArgs} args - Arguments to update one Menu_tag.
+     * @example
+     * // Update one Menu_tag
+     * const menu_tag = await prisma.menu_tag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends menu_tagUpdateArgs>(args: SelectSubset<T, menu_tagUpdateArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Menu_tags.
+     * @param {menu_tagDeleteManyArgs} args - Arguments to filter Menu_tags to delete.
+     * @example
+     * // Delete a few Menu_tags
+     * const { count } = await prisma.menu_tag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends menu_tagDeleteManyArgs>(args?: SelectSubset<T, menu_tagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Menu_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Menu_tags
+     * const menu_tag = await prisma.menu_tag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends menu_tagUpdateManyArgs>(args: SelectSubset<T, menu_tagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Menu_tag.
+     * @param {menu_tagUpsertArgs} args - Arguments to update or create a Menu_tag.
+     * @example
+     * // Update or create a Menu_tag
+     * const menu_tag = await prisma.menu_tag.upsert({
+     *   create: {
+     *     // ... data to create a Menu_tag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Menu_tag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends menu_tagUpsertArgs>(args: SelectSubset<T, menu_tagUpsertArgs<ExtArgs>>): Prisma__menu_tagClient<$Result.GetResult<Prisma.$menu_tagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Menu_tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagCountArgs} args - Arguments to filter Menu_tags to count.
+     * @example
+     * // Count the number of Menu_tags
+     * const count = await prisma.menu_tag.count({
+     *   where: {
+     *     // ... the filter for the Menu_tags we want to count
+     *   }
+     * })
+    **/
+    count<T extends menu_tagCountArgs>(
+      args?: Subset<T, menu_tagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Menu_tagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Menu_tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Menu_tagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Menu_tagAggregateArgs>(args: Subset<T, Menu_tagAggregateArgs>): Prisma.PrismaPromise<GetMenu_tagAggregateType<T>>
+
+    /**
+     * Group by Menu_tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_tagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends menu_tagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: menu_tagGroupByArgs['orderBy'] }
+        : { orderBy?: menu_tagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, menu_tagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_tagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the menu_tag model
+   */
+  readonly fields: menu_tagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for menu_tag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__menu_tagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the menu_tag model
+   */
+  interface menu_tagFieldRefs {
+    readonly id: FieldRef<"menu_tag", 'BigInt'>
+    readonly menu_id: FieldRef<"menu_tag", 'BigInt'>
+    readonly tag: FieldRef<"menu_tag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * menu_tag findUnique
+   */
+  export type menu_tagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag findUniqueOrThrow
+   */
+  export type menu_tagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag findFirst
+   */
+  export type menu_tagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_tags.
+     */
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag findFirstOrThrow
+   */
+  export type menu_tagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tag to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_tags.
+     */
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag findMany
+   */
+  export type menu_tagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_tags to fetch.
+     */
+    where?: menu_tagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_tags to fetch.
+     */
+    orderBy?: menu_tagOrderByWithRelationInput | menu_tagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing menu_tags.
+     */
+    cursor?: menu_tagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_tags.
+     */
+    skip?: number
+    distinct?: Menu_tagScalarFieldEnum | Menu_tagScalarFieldEnum[]
+  }
+
+  /**
+   * menu_tag create
+   */
+  export type menu_tagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a menu_tag.
+     */
+    data: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
+  }
+
+  /**
+   * menu_tag createMany
+   */
+  export type menu_tagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many menu_tags.
+     */
+    data: menu_tagCreateManyInput | menu_tagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * menu_tag update
+   */
+  export type menu_tagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a menu_tag.
+     */
+    data: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
+    /**
+     * Choose, which menu_tag to update.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag updateMany
+   */
+  export type menu_tagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update menu_tags.
+     */
+    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyInput>
+    /**
+     * Filter which menu_tags to update
+     */
+    where?: menu_tagWhereInput
+    /**
+     * Limit how many menu_tags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_tag upsert
+   */
+  export type menu_tagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the menu_tag to update in case it exists.
+     */
+    where: menu_tagWhereUniqueInput
+    /**
+     * In case the menu_tag found by the `where` argument doesn't exist, create a new menu_tag with this data.
+     */
+    create: XOR<menu_tagCreateInput, menu_tagUncheckedCreateInput>
+    /**
+     * In case the menu_tag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<menu_tagUpdateInput, menu_tagUncheckedUpdateInput>
+  }
+
+  /**
+   * menu_tag delete
+   */
+  export type menu_tagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+    /**
+     * Filter which menu_tag to delete.
+     */
+    where: menu_tagWhereUniqueInput
+  }
+
+  /**
+   * menu_tag deleteMany
+   */
+  export type menu_tagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_tags to delete
+     */
+    where?: menu_tagWhereInput
+    /**
+     * Limit how many menu_tags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_tag without action
+   */
+  export type menu_tagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_tag
+     */
+    select?: menu_tagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_tag
+     */
+    omit?: menu_tagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_tagInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model menu_vitamin
+   */
+
+  export type AggregateMenu_vitamin = {
+    _count: Menu_vitaminCountAggregateOutputType | null
+    _avg: Menu_vitaminAvgAggregateOutputType | null
+    _sum: Menu_vitaminSumAggregateOutputType | null
+    _min: Menu_vitaminMinAggregateOutputType | null
+    _max: Menu_vitaminMaxAggregateOutputType | null
+  }
+
+  export type Menu_vitaminAvgAggregateOutputType = {
+    menu_id: number | null
+    vitamin_id: number | null
+  }
+
+  export type Menu_vitaminSumAggregateOutputType = {
+    menu_id: bigint | null
+    vitamin_id: bigint | null
+  }
+
+  export type Menu_vitaminMinAggregateOutputType = {
+    menu_id: bigint | null
+    vitamin_id: bigint | null
+  }
+
+  export type Menu_vitaminMaxAggregateOutputType = {
+    menu_id: bigint | null
+    vitamin_id: bigint | null
+  }
+
+  export type Menu_vitaminCountAggregateOutputType = {
+    menu_id: number
+    vitamin_id: number
+    _all: number
+  }
+
+
+  export type Menu_vitaminAvgAggregateInputType = {
+    menu_id?: true
+    vitamin_id?: true
+  }
+
+  export type Menu_vitaminSumAggregateInputType = {
+    menu_id?: true
+    vitamin_id?: true
+  }
+
+  export type Menu_vitaminMinAggregateInputType = {
+    menu_id?: true
+    vitamin_id?: true
+  }
+
+  export type Menu_vitaminMaxAggregateInputType = {
+    menu_id?: true
+    vitamin_id?: true
+  }
+
+  export type Menu_vitaminCountAggregateInputType = {
+    menu_id?: true
+    vitamin_id?: true
+    _all?: true
+  }
+
+  export type Menu_vitaminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_vitamin to aggregate.
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_vitamins to fetch.
+     */
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: menu_vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned menu_vitamins
+    **/
+    _count?: true | Menu_vitaminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Menu_vitaminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Menu_vitaminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Menu_vitaminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Menu_vitaminMaxAggregateInputType
+  }
+
+  export type GetMenu_vitaminAggregateType<T extends Menu_vitaminAggregateArgs> = {
+        [P in keyof T & keyof AggregateMenu_vitamin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMenu_vitamin[P]>
+      : GetScalarType<T[P], AggregateMenu_vitamin[P]>
+  }
+
+
+
+
+  export type menu_vitaminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: menu_vitaminWhereInput
+    orderBy?: menu_vitaminOrderByWithAggregationInput | menu_vitaminOrderByWithAggregationInput[]
+    by: Menu_vitaminScalarFieldEnum[] | Menu_vitaminScalarFieldEnum
+    having?: menu_vitaminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Menu_vitaminCountAggregateInputType | true
+    _avg?: Menu_vitaminAvgAggregateInputType
+    _sum?: Menu_vitaminSumAggregateInputType
+    _min?: Menu_vitaminMinAggregateInputType
+    _max?: Menu_vitaminMaxAggregateInputType
+  }
+
+  export type Menu_vitaminGroupByOutputType = {
+    menu_id: bigint
+    vitamin_id: bigint
+    _count: Menu_vitaminCountAggregateOutputType | null
+    _avg: Menu_vitaminAvgAggregateOutputType | null
+    _sum: Menu_vitaminSumAggregateOutputType | null
+    _min: Menu_vitaminMinAggregateOutputType | null
+    _max: Menu_vitaminMaxAggregateOutputType | null
+  }
+
+  type GetMenu_vitaminGroupByPayload<T extends menu_vitaminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Menu_vitaminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Menu_vitaminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Menu_vitaminGroupByOutputType[P]>
+            : GetScalarType<T[P], Menu_vitaminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type menu_vitaminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    menu_id?: boolean
+    vitamin_id?: boolean
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+    vitamin?: boolean | vitaminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["menu_vitamin"]>
+
+
+
+  export type menu_vitaminSelectScalar = {
+    menu_id?: boolean
+    vitamin_id?: boolean
+  }
+
+  export type menu_vitaminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"menu_id" | "vitamin_id", ExtArgs["result"]["menu_vitamin"]>
+  export type menu_vitaminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+    vitamin?: boolean | vitaminDefaultArgs<ExtArgs>
+  }
+
+  export type $menu_vitaminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "menu_vitamin"
+    objects: {
+      menu: Prisma.$menuPayload<ExtArgs>
+      vitamin: Prisma.$vitaminPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      menu_id: bigint
+      vitamin_id: bigint
+    }, ExtArgs["result"]["menu_vitamin"]>
+    composites: {}
+  }
+
+  type menu_vitaminGetPayload<S extends boolean | null | undefined | menu_vitaminDefaultArgs> = $Result.GetResult<Prisma.$menu_vitaminPayload, S>
+
+  type menu_vitaminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<menu_vitaminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Menu_vitaminCountAggregateInputType | true
+    }
+
+  export interface menu_vitaminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['menu_vitamin'], meta: { name: 'menu_vitamin' } }
+    /**
+     * Find zero or one Menu_vitamin that matches the filter.
+     * @param {menu_vitaminFindUniqueArgs} args - Arguments to find a Menu_vitamin
+     * @example
+     * // Get one Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends menu_vitaminFindUniqueArgs>(args: SelectSubset<T, menu_vitaminFindUniqueArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Menu_vitamin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {menu_vitaminFindUniqueOrThrowArgs} args - Arguments to find a Menu_vitamin
+     * @example
+     * // Get one Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends menu_vitaminFindUniqueOrThrowArgs>(args: SelectSubset<T, menu_vitaminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_vitamin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminFindFirstArgs} args - Arguments to find a Menu_vitamin
+     * @example
+     * // Get one Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends menu_vitaminFindFirstArgs>(args?: SelectSubset<T, menu_vitaminFindFirstArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Menu_vitamin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminFindFirstOrThrowArgs} args - Arguments to find a Menu_vitamin
+     * @example
+     * // Get one Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends menu_vitaminFindFirstOrThrowArgs>(args?: SelectSubset<T, menu_vitaminFindFirstOrThrowArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Menu_vitamins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Menu_vitamins
+     * const menu_vitamins = await prisma.menu_vitamin.findMany()
+     * 
+     * // Get first 10 Menu_vitamins
+     * const menu_vitamins = await prisma.menu_vitamin.findMany({ take: 10 })
+     * 
+     * // Only select the `menu_id`
+     * const menu_vitaminWithMenu_idOnly = await prisma.menu_vitamin.findMany({ select: { menu_id: true } })
+     * 
+     */
+    findMany<T extends menu_vitaminFindManyArgs>(args?: SelectSubset<T, menu_vitaminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Menu_vitamin.
+     * @param {menu_vitaminCreateArgs} args - Arguments to create a Menu_vitamin.
+     * @example
+     * // Create one Menu_vitamin
+     * const Menu_vitamin = await prisma.menu_vitamin.create({
+     *   data: {
+     *     // ... data to create a Menu_vitamin
+     *   }
+     * })
+     * 
+     */
+    create<T extends menu_vitaminCreateArgs>(args: SelectSubset<T, menu_vitaminCreateArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Menu_vitamins.
+     * @param {menu_vitaminCreateManyArgs} args - Arguments to create many Menu_vitamins.
+     * @example
+     * // Create many Menu_vitamins
+     * const menu_vitamin = await prisma.menu_vitamin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends menu_vitaminCreateManyArgs>(args?: SelectSubset<T, menu_vitaminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Menu_vitamin.
+     * @param {menu_vitaminDeleteArgs} args - Arguments to delete one Menu_vitamin.
+     * @example
+     * // Delete one Menu_vitamin
+     * const Menu_vitamin = await prisma.menu_vitamin.delete({
+     *   where: {
+     *     // ... filter to delete one Menu_vitamin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends menu_vitaminDeleteArgs>(args: SelectSubset<T, menu_vitaminDeleteArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Menu_vitamin.
+     * @param {menu_vitaminUpdateArgs} args - Arguments to update one Menu_vitamin.
+     * @example
+     * // Update one Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends menu_vitaminUpdateArgs>(args: SelectSubset<T, menu_vitaminUpdateArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Menu_vitamins.
+     * @param {menu_vitaminDeleteManyArgs} args - Arguments to filter Menu_vitamins to delete.
+     * @example
+     * // Delete a few Menu_vitamins
+     * const { count } = await prisma.menu_vitamin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends menu_vitaminDeleteManyArgs>(args?: SelectSubset<T, menu_vitaminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Menu_vitamins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Menu_vitamins
+     * const menu_vitamin = await prisma.menu_vitamin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends menu_vitaminUpdateManyArgs>(args: SelectSubset<T, menu_vitaminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Menu_vitamin.
+     * @param {menu_vitaminUpsertArgs} args - Arguments to update or create a Menu_vitamin.
+     * @example
+     * // Update or create a Menu_vitamin
+     * const menu_vitamin = await prisma.menu_vitamin.upsert({
+     *   create: {
+     *     // ... data to create a Menu_vitamin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Menu_vitamin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends menu_vitaminUpsertArgs>(args: SelectSubset<T, menu_vitaminUpsertArgs<ExtArgs>>): Prisma__menu_vitaminClient<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Menu_vitamins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminCountArgs} args - Arguments to filter Menu_vitamins to count.
+     * @example
+     * // Count the number of Menu_vitamins
+     * const count = await prisma.menu_vitamin.count({
+     *   where: {
+     *     // ... the filter for the Menu_vitamins we want to count
+     *   }
+     * })
+    **/
+    count<T extends menu_vitaminCountArgs>(
+      args?: Subset<T, menu_vitaminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Menu_vitaminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Menu_vitamin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Menu_vitaminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Menu_vitaminAggregateArgs>(args: Subset<T, Menu_vitaminAggregateArgs>): Prisma.PrismaPromise<GetMenu_vitaminAggregateType<T>>
+
+    /**
+     * Group by Menu_vitamin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {menu_vitaminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends menu_vitaminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: menu_vitaminGroupByArgs['orderBy'] }
+        : { orderBy?: menu_vitaminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, menu_vitaminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMenu_vitaminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the menu_vitamin model
+   */
+  readonly fields: menu_vitaminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for menu_vitamin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__menu_vitaminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    vitamin<T extends vitaminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, vitaminDefaultArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the menu_vitamin model
+   */
+  interface menu_vitaminFieldRefs {
+    readonly menu_id: FieldRef<"menu_vitamin", 'BigInt'>
+    readonly vitamin_id: FieldRef<"menu_vitamin", 'BigInt'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * menu_vitamin findUnique
+   */
+  export type menu_vitaminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_vitamin to fetch.
+     */
+    where: menu_vitaminWhereUniqueInput
+  }
+
+  /**
+   * menu_vitamin findUniqueOrThrow
+   */
+  export type menu_vitaminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_vitamin to fetch.
+     */
+    where: menu_vitaminWhereUniqueInput
+  }
+
+  /**
+   * menu_vitamin findFirst
+   */
+  export type menu_vitaminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_vitamin to fetch.
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_vitamins to fetch.
+     */
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_vitamins.
+     */
+    cursor?: menu_vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_vitamins.
+     */
+    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
+  }
+
+  /**
+   * menu_vitamin findFirstOrThrow
+   */
+  export type menu_vitaminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_vitamin to fetch.
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_vitamins to fetch.
+     */
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for menu_vitamins.
+     */
+    cursor?: menu_vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of menu_vitamins.
+     */
+    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
+  }
+
+  /**
+   * menu_vitamin findMany
+   */
+  export type menu_vitaminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which menu_vitamins to fetch.
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of menu_vitamins to fetch.
+     */
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing menu_vitamins.
+     */
+    cursor?: menu_vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` menu_vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` menu_vitamins.
+     */
+    skip?: number
+    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
+  }
+
+  /**
+   * menu_vitamin create
+   */
+  export type menu_vitaminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * The data needed to create a menu_vitamin.
+     */
+    data: XOR<menu_vitaminCreateInput, menu_vitaminUncheckedCreateInput>
+  }
+
+  /**
+   * menu_vitamin createMany
+   */
+  export type menu_vitaminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many menu_vitamins.
+     */
+    data: menu_vitaminCreateManyInput | menu_vitaminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * menu_vitamin update
+   */
+  export type menu_vitaminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * The data needed to update a menu_vitamin.
+     */
+    data: XOR<menu_vitaminUpdateInput, menu_vitaminUncheckedUpdateInput>
+    /**
+     * Choose, which menu_vitamin to update.
+     */
+    where: menu_vitaminWhereUniqueInput
+  }
+
+  /**
+   * menu_vitamin updateMany
+   */
+  export type menu_vitaminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update menu_vitamins.
+     */
+    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyInput>
+    /**
+     * Filter which menu_vitamins to update
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * Limit how many menu_vitamins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_vitamin upsert
+   */
+  export type menu_vitaminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * The filter to search for the menu_vitamin to update in case it exists.
+     */
+    where: menu_vitaminWhereUniqueInput
+    /**
+     * In case the menu_vitamin found by the `where` argument doesn't exist, create a new menu_vitamin with this data.
+     */
+    create: XOR<menu_vitaminCreateInput, menu_vitaminUncheckedCreateInput>
+    /**
+     * In case the menu_vitamin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<menu_vitaminUpdateInput, menu_vitaminUncheckedUpdateInput>
+  }
+
+  /**
+   * menu_vitamin delete
+   */
+  export type menu_vitaminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    /**
+     * Filter which menu_vitamin to delete.
+     */
+    where: menu_vitaminWhereUniqueInput
+  }
+
+  /**
+   * menu_vitamin deleteMany
+   */
+  export type menu_vitaminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which menu_vitamins to delete
+     */
+    where?: menu_vitaminWhereInput
+    /**
+     * Limit how many menu_vitamins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * menu_vitamin without action
+   */
+  export type menu_vitaminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model mukburim
+   */
+
+  export type AggregateMukburim = {
+    _count: MukburimCountAggregateOutputType | null
+    _avg: MukburimAvgAggregateOutputType | null
+    _sum: MukburimSumAggregateOutputType | null
+    _min: MukburimMinAggregateOutputType | null
+    _max: MukburimMaxAggregateOutputType | null
+  }
+
+  export type MukburimAvgAggregateOutputType = {
+    id: number | null
+    menu_id: number | null
+    user_id: number | null
+  }
+
+  export type MukburimSumAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    user_id: bigint | null
+  }
+
+  export type MukburimMinAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    user_id: bigint | null
+    date: Date | null
+  }
+
+  export type MukburimMaxAggregateOutputType = {
+    id: bigint | null
+    menu_id: bigint | null
+    user_id: bigint | null
+    date: Date | null
+  }
+
+  export type MukburimCountAggregateOutputType = {
+    id: number
+    menu_id: number
+    user_id: number
+    date: number
+    _all: number
+  }
+
+
+  export type MukburimAvgAggregateInputType = {
+    id?: true
+    menu_id?: true
+    user_id?: true
+  }
+
+  export type MukburimSumAggregateInputType = {
+    id?: true
+    menu_id?: true
+    user_id?: true
+  }
+
+  export type MukburimMinAggregateInputType = {
+    id?: true
+    menu_id?: true
+    user_id?: true
+    date?: true
+  }
+
+  export type MukburimMaxAggregateInputType = {
+    id?: true
+    menu_id?: true
+    user_id?: true
+    date?: true
+  }
+
+  export type MukburimCountAggregateInputType = {
+    id?: true
+    menu_id?: true
+    user_id?: true
+    date?: true
+    _all?: true
+  }
+
+  export type MukburimAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which mukburim to aggregate.
+     */
+    where?: mukburimWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of mukburims to fetch.
+     */
+    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: mukburimWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` mukburims from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` mukburims.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned mukburims
+    **/
+    _count?: true | MukburimCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MukburimAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MukburimSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MukburimMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MukburimMaxAggregateInputType
+  }
+
+  export type GetMukburimAggregateType<T extends MukburimAggregateArgs> = {
+        [P in keyof T & keyof AggregateMukburim]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMukburim[P]>
+      : GetScalarType<T[P], AggregateMukburim[P]>
+  }
+
+
+
+
+  export type mukburimGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: mukburimWhereInput
+    orderBy?: mukburimOrderByWithAggregationInput | mukburimOrderByWithAggregationInput[]
+    by: MukburimScalarFieldEnum[] | MukburimScalarFieldEnum
+    having?: mukburimScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MukburimCountAggregateInputType | true
+    _avg?: MukburimAvgAggregateInputType
+    _sum?: MukburimSumAggregateInputType
+    _min?: MukburimMinAggregateInputType
+    _max?: MukburimMaxAggregateInputType
+  }
+
+  export type MukburimGroupByOutputType = {
+    id: bigint
+    menu_id: bigint
+    user_id: bigint
+    date: Date | null
+    _count: MukburimCountAggregateOutputType | null
+    _avg: MukburimAvgAggregateOutputType | null
+    _sum: MukburimSumAggregateOutputType | null
+    _min: MukburimMinAggregateOutputType | null
+    _max: MukburimMaxAggregateOutputType | null
+  }
+
+  type GetMukburimGroupByPayload<T extends mukburimGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MukburimGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MukburimGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MukburimGroupByOutputType[P]>
+            : GetScalarType<T[P], MukburimGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type mukburimSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    menu_id?: boolean
+    user_id?: boolean
+    date?: boolean
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mukburim"]>
+
+
+
+  export type mukburimSelectScalar = {
+    id?: boolean
+    menu_id?: boolean
+    user_id?: boolean
+    date?: boolean
+  }
+
+  export type mukburimOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menu_id" | "user_id" | "date", ExtArgs["result"]["mukburim"]>
+  export type mukburimInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu?: boolean | menuDefaultArgs<ExtArgs>
+  }
+
+  export type $mukburimPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "mukburim"
+    objects: {
+      menu: Prisma.$menuPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      menu_id: bigint
+      user_id: bigint
+      date: Date | null
+    }, ExtArgs["result"]["mukburim"]>
+    composites: {}
+  }
+
+  type mukburimGetPayload<S extends boolean | null | undefined | mukburimDefaultArgs> = $Result.GetResult<Prisma.$mukburimPayload, S>
+
+  type mukburimCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<mukburimFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MukburimCountAggregateInputType | true
+    }
+
+  export interface mukburimDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['mukburim'], meta: { name: 'mukburim' } }
+    /**
+     * Find zero or one Mukburim that matches the filter.
+     * @param {mukburimFindUniqueArgs} args - Arguments to find a Mukburim
+     * @example
+     * // Get one Mukburim
+     * const mukburim = await prisma.mukburim.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends mukburimFindUniqueArgs>(args: SelectSubset<T, mukburimFindUniqueArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Mukburim that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {mukburimFindUniqueOrThrowArgs} args - Arguments to find a Mukburim
+     * @example
+     * // Get one Mukburim
+     * const mukburim = await prisma.mukburim.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends mukburimFindUniqueOrThrowArgs>(args: SelectSubset<T, mukburimFindUniqueOrThrowArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Mukburim that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimFindFirstArgs} args - Arguments to find a Mukburim
+     * @example
+     * // Get one Mukburim
+     * const mukburim = await prisma.mukburim.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends mukburimFindFirstArgs>(args?: SelectSubset<T, mukburimFindFirstArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Mukburim that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimFindFirstOrThrowArgs} args - Arguments to find a Mukburim
+     * @example
+     * // Get one Mukburim
+     * const mukburim = await prisma.mukburim.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends mukburimFindFirstOrThrowArgs>(args?: SelectSubset<T, mukburimFindFirstOrThrowArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Mukburims that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Mukburims
+     * const mukburims = await prisma.mukburim.findMany()
+     * 
+     * // Get first 10 Mukburims
+     * const mukburims = await prisma.mukburim.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mukburimWithIdOnly = await prisma.mukburim.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends mukburimFindManyArgs>(args?: SelectSubset<T, mukburimFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Mukburim.
+     * @param {mukburimCreateArgs} args - Arguments to create a Mukburim.
+     * @example
+     * // Create one Mukburim
+     * const Mukburim = await prisma.mukburim.create({
+     *   data: {
+     *     // ... data to create a Mukburim
+     *   }
+     * })
+     * 
+     */
+    create<T extends mukburimCreateArgs>(args: SelectSubset<T, mukburimCreateArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Mukburims.
+     * @param {mukburimCreateManyArgs} args - Arguments to create many Mukburims.
+     * @example
+     * // Create many Mukburims
+     * const mukburim = await prisma.mukburim.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends mukburimCreateManyArgs>(args?: SelectSubset<T, mukburimCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Mukburim.
+     * @param {mukburimDeleteArgs} args - Arguments to delete one Mukburim.
+     * @example
+     * // Delete one Mukburim
+     * const Mukburim = await prisma.mukburim.delete({
+     *   where: {
+     *     // ... filter to delete one Mukburim
+     *   }
+     * })
+     * 
+     */
+    delete<T extends mukburimDeleteArgs>(args: SelectSubset<T, mukburimDeleteArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Mukburim.
+     * @param {mukburimUpdateArgs} args - Arguments to update one Mukburim.
+     * @example
+     * // Update one Mukburim
+     * const mukburim = await prisma.mukburim.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends mukburimUpdateArgs>(args: SelectSubset<T, mukburimUpdateArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Mukburims.
+     * @param {mukburimDeleteManyArgs} args - Arguments to filter Mukburims to delete.
+     * @example
+     * // Delete a few Mukburims
+     * const { count } = await prisma.mukburim.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends mukburimDeleteManyArgs>(args?: SelectSubset<T, mukburimDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Mukburims.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Mukburims
+     * const mukburim = await prisma.mukburim.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends mukburimUpdateManyArgs>(args: SelectSubset<T, mukburimUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Mukburim.
+     * @param {mukburimUpsertArgs} args - Arguments to update or create a Mukburim.
+     * @example
+     * // Update or create a Mukburim
+     * const mukburim = await prisma.mukburim.upsert({
+     *   create: {
+     *     // ... data to create a Mukburim
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Mukburim we want to update
+     *   }
+     * })
+     */
+    upsert<T extends mukburimUpsertArgs>(args: SelectSubset<T, mukburimUpsertArgs<ExtArgs>>): Prisma__mukburimClient<$Result.GetResult<Prisma.$mukburimPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Mukburims.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimCountArgs} args - Arguments to filter Mukburims to count.
+     * @example
+     * // Count the number of Mukburims
+     * const count = await prisma.mukburim.count({
+     *   where: {
+     *     // ... the filter for the Mukburims we want to count
+     *   }
+     * })
+    **/
+    count<T extends mukburimCountArgs>(
+      args?: Subset<T, mukburimCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MukburimCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Mukburim.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MukburimAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MukburimAggregateArgs>(args: Subset<T, MukburimAggregateArgs>): Prisma.PrismaPromise<GetMukburimAggregateType<T>>
+
+    /**
+     * Group by Mukburim.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {mukburimGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends mukburimGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: mukburimGroupByArgs['orderBy'] }
+        : { orderBy?: mukburimGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, mukburimGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMukburimGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the mukburim model
+   */
+  readonly fields: mukburimFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for mukburim.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__mukburimClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu<T extends menuDefaultArgs<ExtArgs> = {}>(args?: Subset<T, menuDefaultArgs<ExtArgs>>): Prisma__menuClient<$Result.GetResult<Prisma.$menuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the mukburim model
+   */
+  interface mukburimFieldRefs {
+    readonly id: FieldRef<"mukburim", 'BigInt'>
+    readonly menu_id: FieldRef<"mukburim", 'BigInt'>
+    readonly user_id: FieldRef<"mukburim", 'BigInt'>
+    readonly date: FieldRef<"mukburim", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * mukburim findUnique
+   */
+  export type mukburimFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter, which mukburim to fetch.
+     */
+    where: mukburimWhereUniqueInput
+  }
+
+  /**
+   * mukburim findUniqueOrThrow
+   */
+  export type mukburimFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter, which mukburim to fetch.
+     */
+    where: mukburimWhereUniqueInput
+  }
+
+  /**
+   * mukburim findFirst
+   */
+  export type mukburimFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter, which mukburim to fetch.
+     */
+    where?: mukburimWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of mukburims to fetch.
+     */
+    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for mukburims.
+     */
+    cursor?: mukburimWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` mukburims from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` mukburims.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of mukburims.
+     */
+    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
+  }
+
+  /**
+   * mukburim findFirstOrThrow
+   */
+  export type mukburimFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter, which mukburim to fetch.
+     */
+    where?: mukburimWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of mukburims to fetch.
+     */
+    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for mukburims.
+     */
+    cursor?: mukburimWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` mukburims from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` mukburims.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of mukburims.
+     */
+    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
+  }
+
+  /**
+   * mukburim findMany
+   */
+  export type mukburimFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter, which mukburims to fetch.
+     */
+    where?: mukburimWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of mukburims to fetch.
+     */
+    orderBy?: mukburimOrderByWithRelationInput | mukburimOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing mukburims.
+     */
+    cursor?: mukburimWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` mukburims from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` mukburims.
+     */
+    skip?: number
+    distinct?: MukburimScalarFieldEnum | MukburimScalarFieldEnum[]
+  }
+
+  /**
+   * mukburim create
+   */
+  export type mukburimCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * The data needed to create a mukburim.
+     */
+    data: XOR<mukburimCreateInput, mukburimUncheckedCreateInput>
+  }
+
+  /**
+   * mukburim createMany
+   */
+  export type mukburimCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many mukburims.
+     */
+    data: mukburimCreateManyInput | mukburimCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * mukburim update
+   */
+  export type mukburimUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * The data needed to update a mukburim.
+     */
+    data: XOR<mukburimUpdateInput, mukburimUncheckedUpdateInput>
+    /**
+     * Choose, which mukburim to update.
+     */
+    where: mukburimWhereUniqueInput
+  }
+
+  /**
+   * mukburim updateMany
+   */
+  export type mukburimUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update mukburims.
+     */
+    data: XOR<mukburimUpdateManyMutationInput, mukburimUncheckedUpdateManyInput>
+    /**
+     * Filter which mukburims to update
+     */
+    where?: mukburimWhereInput
+    /**
+     * Limit how many mukburims to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * mukburim upsert
+   */
+  export type mukburimUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * The filter to search for the mukburim to update in case it exists.
+     */
+    where: mukburimWhereUniqueInput
+    /**
+     * In case the mukburim found by the `where` argument doesn't exist, create a new mukburim with this data.
+     */
+    create: XOR<mukburimCreateInput, mukburimUncheckedCreateInput>
+    /**
+     * In case the mukburim was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<mukburimUpdateInput, mukburimUncheckedUpdateInput>
+  }
+
+  /**
+   * mukburim delete
+   */
+  export type mukburimDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+    /**
+     * Filter which mukburim to delete.
+     */
+    where: mukburimWhereUniqueInput
+  }
+
+  /**
+   * mukburim deleteMany
+   */
+  export type mukburimDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which mukburims to delete
+     */
+    where?: mukburimWhereInput
+    /**
+     * Limit how many mukburims to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * mukburim without action
+   */
+  export type mukburimDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the mukburim
+     */
+    select?: mukburimSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the mukburim
+     */
+    omit?: mukburimOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: mukburimInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model sessions
+   */
+
+  export type AggregateSessions = {
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  export type SessionsAvgAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsSumAggregateOutputType = {
+    expires: number | null
+  }
+
+  export type SessionsMinAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsMaxAggregateOutputType = {
+    session_id: string | null
+    expires: number | null
+    data: string | null
+  }
+
+  export type SessionsCountAggregateOutputType = {
+    session_id: number
+    expires: number
+    data: number
+    _all: number
+  }
+
+
+  export type SessionsAvgAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsSumAggregateInputType = {
+    expires?: true
+  }
+
+  export type SessionsMinAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsMaxAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+  }
+
+  export type SessionsCountAggregateInputType = {
+    session_id?: true
+    expires?: true
+    data?: true
+    _all?: true
+  }
+
+  export type SessionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to aggregate.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sessions
+    **/
+    _count?: true | SessionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type GetSessionsAggregateType<T extends SessionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessions[P]>
+      : GetScalarType<T[P], AggregateSessions[P]>
+  }
+
+
+
+
+  export type sessionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithAggregationInput | sessionsOrderByWithAggregationInput[]
+    by: SessionsScalarFieldEnum[] | SessionsScalarFieldEnum
+    having?: sessionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionsCountAggregateInputType | true
+    _avg?: SessionsAvgAggregateInputType
+    _sum?: SessionsSumAggregateInputType
+    _min?: SessionsMinAggregateInputType
+    _max?: SessionsMaxAggregateInputType
+  }
+
+  export type SessionsGroupByOutputType = {
+    session_id: string
+    expires: number
+    data: string | null
+    _count: SessionsCountAggregateOutputType | null
+    _avg: SessionsAvgAggregateOutputType | null
+    _sum: SessionsSumAggregateOutputType | null
+    _min: SessionsMinAggregateOutputType | null
+    _max: SessionsMaxAggregateOutputType | null
+  }
+
+  type GetSessionsGroupByPayload<T extends sessionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type sessionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }, ExtArgs["result"]["sessions"]>
+
+
+
+  export type sessionsSelectScalar = {
+    session_id?: boolean
+    expires?: boolean
+    data?: boolean
+  }
+
+  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "expires" | "data", ExtArgs["result"]["sessions"]>
+
+  export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "sessions"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      session_id: string
+      expires: number
+      data: string | null
+    }, ExtArgs["result"]["sessions"]>
+    composites: {}
+  }
+
+  type sessionsGetPayload<S extends boolean | null | undefined | sessionsDefaultArgs> = $Result.GetResult<Prisma.$sessionsPayload, S>
+
+  type sessionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<sessionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionsCountAggregateInputType | true
+    }
+
+  export interface sessionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sessions'], meta: { name: 'sessions' } }
+    /**
+     * Find zero or one Sessions that matches the filter.
+     * @param {sessionsFindUniqueArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends sessionsFindUniqueArgs>(args: SelectSubset<T, sessionsFindUniqueArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Sessions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {sessionsFindUniqueOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends sessionsFindUniqueOrThrowArgs>(args: SelectSubset<T, sessionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends sessionsFindFirstArgs>(args?: SelectSubset<T, sessionsFindFirstArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sessions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindFirstOrThrowArgs} args - Arguments to find a Sessions
+     * @example
+     * // Get one Sessions
+     * const sessions = await prisma.sessions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends sessionsFindFirstOrThrowArgs>(args?: SelectSubset<T, sessionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sessions
+     * const sessions = await prisma.sessions.findMany()
+     * 
+     * // Get first 10 Sessions
+     * const sessions = await prisma.sessions.findMany({ take: 10 })
+     * 
+     * // Only select the `session_id`
+     * const sessionsWithSession_idOnly = await prisma.sessions.findMany({ select: { session_id: true } })
+     * 
+     */
+    findMany<T extends sessionsFindManyArgs>(args?: SelectSubset<T, sessionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Sessions.
+     * @param {sessionsCreateArgs} args - Arguments to create a Sessions.
+     * @example
+     * // Create one Sessions
+     * const Sessions = await prisma.sessions.create({
+     *   data: {
+     *     // ... data to create a Sessions
+     *   }
+     * })
+     * 
+     */
+    create<T extends sessionsCreateArgs>(args: SelectSubset<T, sessionsCreateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sessions.
+     * @param {sessionsCreateManyArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const sessions = await prisma.sessions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends sessionsCreateManyArgs>(args?: SelectSubset<T, sessionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Sessions.
+     * @param {sessionsDeleteArgs} args - Arguments to delete one Sessions.
+     * @example
+     * // Delete one Sessions
+     * const Sessions = await prisma.sessions.delete({
+     *   where: {
+     *     // ... filter to delete one Sessions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends sessionsDeleteArgs>(args: SelectSubset<T, sessionsDeleteArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Sessions.
+     * @param {sessionsUpdateArgs} args - Arguments to update one Sessions.
+     * @example
+     * // Update one Sessions
+     * const sessions = await prisma.sessions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends sessionsUpdateArgs>(args: SelectSubset<T, sessionsUpdateArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sessions.
+     * @param {sessionsDeleteManyArgs} args - Arguments to filter Sessions to delete.
+     * @example
+     * // Delete a few Sessions
+     * const { count } = await prisma.sessions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends sessionsDeleteManyArgs>(args?: SelectSubset<T, sessionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sessions
+     * const sessions = await prisma.sessions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends sessionsUpdateManyArgs>(args: SelectSubset<T, sessionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Sessions.
+     * @param {sessionsUpsertArgs} args - Arguments to update or create a Sessions.
+     * @example
+     * // Update or create a Sessions
+     * const sessions = await prisma.sessions.upsert({
+     *   create: {
+     *     // ... data to create a Sessions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sessions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends sessionsUpsertArgs>(args: SelectSubset<T, sessionsUpsertArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsCountArgs} args - Arguments to filter Sessions to count.
+     * @example
+     * // Count the number of Sessions
+     * const count = await prisma.sessions.count({
+     *   where: {
+     *     // ... the filter for the Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends sessionsCountArgs>(
+      args?: Subset<T, sessionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionsAggregateArgs>(args: Subset<T, SessionsAggregateArgs>): Prisma.PrismaPromise<GetSessionsAggregateType<T>>
+
+    /**
+     * Group by Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sessionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends sessionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: sessionsGroupByArgs['orderBy'] }
+        : { orderBy?: sessionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, sessionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the sessions model
+   */
+  readonly fields: sessionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for sessions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the sessions model
+   */
+  interface sessionsFieldRefs {
+    readonly session_id: FieldRef<"sessions", 'String'>
+    readonly expires: FieldRef<"sessions", 'Int'>
+    readonly data: FieldRef<"sessions", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * sessions findUnique
+   */
+  export type sessionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findUniqueOrThrow
+   */
+  export type sessionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions findFirst
+   */
+  export type sessionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findFirstOrThrow
+   */
+  export type sessionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sessions.
+     */
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions findMany
+   */
+  export type sessionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter, which sessions to fetch.
+     */
+    where?: sessionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sessions to fetch.
+     */
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sessions.
+     */
+    cursor?: sessionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sessions.
+     */
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions create
+   */
+  export type sessionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a sessions.
+     */
+    data: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+  }
+
+  /**
+   * sessions createMany
+   */
+  export type sessionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sessions.
+     */
+    data: sessionsCreateManyInput | sessionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * sessions update
+   */
+  export type sessionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a sessions.
+     */
+    data: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+    /**
+     * Choose, which sessions to update.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions updateMany
+   */
+  export type sessionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sessions.
+     */
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyInput>
+    /**
+     * Filter which sessions to update
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions upsert
+   */
+  export type sessionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the sessions to update in case it exists.
+     */
+    where: sessionsWhereUniqueInput
+    /**
+     * In case the sessions found by the `where` argument doesn't exist, create a new sessions with this data.
+     */
+    create: XOR<sessionsCreateInput, sessionsUncheckedCreateInput>
+    /**
+     * In case the sessions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<sessionsUpdateInput, sessionsUncheckedUpdateInput>
+  }
+
+  /**
+   * sessions delete
+   */
+  export type sessionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Filter which sessions to delete.
+     */
+    where: sessionsWhereUniqueInput
+  }
+
+  /**
+   * sessions deleteMany
+   */
+  export type sessionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sessions to delete
+     */
+    where?: sessionsWhereInput
+    /**
+     * Limit how many sessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * sessions without action
+   */
+  export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
   }
 
 
@@ -13800,6 +12844,962 @@ export namespace Prisma {
 
 
   /**
+   * Model vitamin
+   */
+
+  export type AggregateVitamin = {
+    _count: VitaminCountAggregateOutputType | null
+    _avg: VitaminAvgAggregateOutputType | null
+    _sum: VitaminSumAggregateOutputType | null
+    _min: VitaminMinAggregateOutputType | null
+    _max: VitaminMaxAggregateOutputType | null
+  }
+
+  export type VitaminAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type VitaminSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type VitaminMinAggregateOutputType = {
+    id: bigint | null
+    vitamin: string | null
+  }
+
+  export type VitaminMaxAggregateOutputType = {
+    id: bigint | null
+    vitamin: string | null
+  }
+
+  export type VitaminCountAggregateOutputType = {
+    id: number
+    vitamin: number
+    _all: number
+  }
+
+
+  export type VitaminAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type VitaminSumAggregateInputType = {
+    id?: true
+  }
+
+  export type VitaminMinAggregateInputType = {
+    id?: true
+    vitamin?: true
+  }
+
+  export type VitaminMaxAggregateInputType = {
+    id?: true
+    vitamin?: true
+  }
+
+  export type VitaminCountAggregateInputType = {
+    id?: true
+    vitamin?: true
+    _all?: true
+  }
+
+  export type VitaminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vitamin to aggregate.
+     */
+    where?: vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vitamins to fetch.
+     */
+    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned vitamins
+    **/
+    _count?: true | VitaminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VitaminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VitaminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VitaminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VitaminMaxAggregateInputType
+  }
+
+  export type GetVitaminAggregateType<T extends VitaminAggregateArgs> = {
+        [P in keyof T & keyof AggregateVitamin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVitamin[P]>
+      : GetScalarType<T[P], AggregateVitamin[P]>
+  }
+
+
+
+
+  export type vitaminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: vitaminWhereInput
+    orderBy?: vitaminOrderByWithAggregationInput | vitaminOrderByWithAggregationInput[]
+    by: VitaminScalarFieldEnum[] | VitaminScalarFieldEnum
+    having?: vitaminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VitaminCountAggregateInputType | true
+    _avg?: VitaminAvgAggregateInputType
+    _sum?: VitaminSumAggregateInputType
+    _min?: VitaminMinAggregateInputType
+    _max?: VitaminMaxAggregateInputType
+  }
+
+  export type VitaminGroupByOutputType = {
+    id: bigint
+    vitamin: string | null
+    _count: VitaminCountAggregateOutputType | null
+    _avg: VitaminAvgAggregateOutputType | null
+    _sum: VitaminSumAggregateOutputType | null
+    _min: VitaminMinAggregateOutputType | null
+    _max: VitaminMaxAggregateOutputType | null
+  }
+
+  type GetVitaminGroupByPayload<T extends vitaminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VitaminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VitaminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VitaminGroupByOutputType[P]>
+            : GetScalarType<T[P], VitaminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type vitaminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    vitamin?: boolean
+    menu_vitamin?: boolean | vitamin$menu_vitaminArgs<ExtArgs>
+    _count?: boolean | VitaminCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vitamin"]>
+
+
+
+  export type vitaminSelectScalar = {
+    id?: boolean
+    vitamin?: boolean
+  }
+
+  export type vitaminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "vitamin", ExtArgs["result"]["vitamin"]>
+  export type vitaminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    menu_vitamin?: boolean | vitamin$menu_vitaminArgs<ExtArgs>
+    _count?: boolean | VitaminCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $vitaminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "vitamin"
+    objects: {
+      menu_vitamin: Prisma.$menu_vitaminPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      vitamin: string | null
+    }, ExtArgs["result"]["vitamin"]>
+    composites: {}
+  }
+
+  type vitaminGetPayload<S extends boolean | null | undefined | vitaminDefaultArgs> = $Result.GetResult<Prisma.$vitaminPayload, S>
+
+  type vitaminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<vitaminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VitaminCountAggregateInputType | true
+    }
+
+  export interface vitaminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['vitamin'], meta: { name: 'vitamin' } }
+    /**
+     * Find zero or one Vitamin that matches the filter.
+     * @param {vitaminFindUniqueArgs} args - Arguments to find a Vitamin
+     * @example
+     * // Get one Vitamin
+     * const vitamin = await prisma.vitamin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends vitaminFindUniqueArgs>(args: SelectSubset<T, vitaminFindUniqueArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Vitamin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {vitaminFindUniqueOrThrowArgs} args - Arguments to find a Vitamin
+     * @example
+     * // Get one Vitamin
+     * const vitamin = await prisma.vitamin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends vitaminFindUniqueOrThrowArgs>(args: SelectSubset<T, vitaminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vitamin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminFindFirstArgs} args - Arguments to find a Vitamin
+     * @example
+     * // Get one Vitamin
+     * const vitamin = await prisma.vitamin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends vitaminFindFirstArgs>(args?: SelectSubset<T, vitaminFindFirstArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vitamin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminFindFirstOrThrowArgs} args - Arguments to find a Vitamin
+     * @example
+     * // Get one Vitamin
+     * const vitamin = await prisma.vitamin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends vitaminFindFirstOrThrowArgs>(args?: SelectSubset<T, vitaminFindFirstOrThrowArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Vitamins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Vitamins
+     * const vitamins = await prisma.vitamin.findMany()
+     * 
+     * // Get first 10 Vitamins
+     * const vitamins = await prisma.vitamin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vitaminWithIdOnly = await prisma.vitamin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends vitaminFindManyArgs>(args?: SelectSubset<T, vitaminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Vitamin.
+     * @param {vitaminCreateArgs} args - Arguments to create a Vitamin.
+     * @example
+     * // Create one Vitamin
+     * const Vitamin = await prisma.vitamin.create({
+     *   data: {
+     *     // ... data to create a Vitamin
+     *   }
+     * })
+     * 
+     */
+    create<T extends vitaminCreateArgs>(args: SelectSubset<T, vitaminCreateArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Vitamins.
+     * @param {vitaminCreateManyArgs} args - Arguments to create many Vitamins.
+     * @example
+     * // Create many Vitamins
+     * const vitamin = await prisma.vitamin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends vitaminCreateManyArgs>(args?: SelectSubset<T, vitaminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Vitamin.
+     * @param {vitaminDeleteArgs} args - Arguments to delete one Vitamin.
+     * @example
+     * // Delete one Vitamin
+     * const Vitamin = await prisma.vitamin.delete({
+     *   where: {
+     *     // ... filter to delete one Vitamin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends vitaminDeleteArgs>(args: SelectSubset<T, vitaminDeleteArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Vitamin.
+     * @param {vitaminUpdateArgs} args - Arguments to update one Vitamin.
+     * @example
+     * // Update one Vitamin
+     * const vitamin = await prisma.vitamin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends vitaminUpdateArgs>(args: SelectSubset<T, vitaminUpdateArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Vitamins.
+     * @param {vitaminDeleteManyArgs} args - Arguments to filter Vitamins to delete.
+     * @example
+     * // Delete a few Vitamins
+     * const { count } = await prisma.vitamin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends vitaminDeleteManyArgs>(args?: SelectSubset<T, vitaminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Vitamins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Vitamins
+     * const vitamin = await prisma.vitamin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends vitaminUpdateManyArgs>(args: SelectSubset<T, vitaminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Vitamin.
+     * @param {vitaminUpsertArgs} args - Arguments to update or create a Vitamin.
+     * @example
+     * // Update or create a Vitamin
+     * const vitamin = await prisma.vitamin.upsert({
+     *   create: {
+     *     // ... data to create a Vitamin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Vitamin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends vitaminUpsertArgs>(args: SelectSubset<T, vitaminUpsertArgs<ExtArgs>>): Prisma__vitaminClient<$Result.GetResult<Prisma.$vitaminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Vitamins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminCountArgs} args - Arguments to filter Vitamins to count.
+     * @example
+     * // Count the number of Vitamins
+     * const count = await prisma.vitamin.count({
+     *   where: {
+     *     // ... the filter for the Vitamins we want to count
+     *   }
+     * })
+    **/
+    count<T extends vitaminCountArgs>(
+      args?: Subset<T, vitaminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VitaminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Vitamin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VitaminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VitaminAggregateArgs>(args: Subset<T, VitaminAggregateArgs>): Prisma.PrismaPromise<GetVitaminAggregateType<T>>
+
+    /**
+     * Group by Vitamin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vitaminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends vitaminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: vitaminGroupByArgs['orderBy'] }
+        : { orderBy?: vitaminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, vitaminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVitaminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the vitamin model
+   */
+  readonly fields: vitaminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for vitamin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__vitaminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    menu_vitamin<T extends vitamin$menu_vitaminArgs<ExtArgs> = {}>(args?: Subset<T, vitamin$menu_vitaminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$menu_vitaminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the vitamin model
+   */
+  interface vitaminFieldRefs {
+    readonly id: FieldRef<"vitamin", 'BigInt'>
+    readonly vitamin: FieldRef<"vitamin", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * vitamin findUnique
+   */
+  export type vitaminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which vitamin to fetch.
+     */
+    where: vitaminWhereUniqueInput
+  }
+
+  /**
+   * vitamin findUniqueOrThrow
+   */
+  export type vitaminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which vitamin to fetch.
+     */
+    where: vitaminWhereUniqueInput
+  }
+
+  /**
+   * vitamin findFirst
+   */
+  export type vitaminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which vitamin to fetch.
+     */
+    where?: vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vitamins to fetch.
+     */
+    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vitamins.
+     */
+    cursor?: vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vitamins.
+     */
+    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
+  }
+
+  /**
+   * vitamin findFirstOrThrow
+   */
+  export type vitaminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which vitamin to fetch.
+     */
+    where?: vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vitamins to fetch.
+     */
+    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vitamins.
+     */
+    cursor?: vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vitamins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vitamins.
+     */
+    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
+  }
+
+  /**
+   * vitamin findMany
+   */
+  export type vitaminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter, which vitamins to fetch.
+     */
+    where?: vitaminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vitamins to fetch.
+     */
+    orderBy?: vitaminOrderByWithRelationInput | vitaminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing vitamins.
+     */
+    cursor?: vitaminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vitamins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vitamins.
+     */
+    skip?: number
+    distinct?: VitaminScalarFieldEnum | VitaminScalarFieldEnum[]
+  }
+
+  /**
+   * vitamin create
+   */
+  export type vitaminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * The data needed to create a vitamin.
+     */
+    data?: XOR<vitaminCreateInput, vitaminUncheckedCreateInput>
+  }
+
+  /**
+   * vitamin createMany
+   */
+  export type vitaminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many vitamins.
+     */
+    data: vitaminCreateManyInput | vitaminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * vitamin update
+   */
+  export type vitaminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * The data needed to update a vitamin.
+     */
+    data: XOR<vitaminUpdateInput, vitaminUncheckedUpdateInput>
+    /**
+     * Choose, which vitamin to update.
+     */
+    where: vitaminWhereUniqueInput
+  }
+
+  /**
+   * vitamin updateMany
+   */
+  export type vitaminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update vitamins.
+     */
+    data: XOR<vitaminUpdateManyMutationInput, vitaminUncheckedUpdateManyInput>
+    /**
+     * Filter which vitamins to update
+     */
+    where?: vitaminWhereInput
+    /**
+     * Limit how many vitamins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * vitamin upsert
+   */
+  export type vitaminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * The filter to search for the vitamin to update in case it exists.
+     */
+    where: vitaminWhereUniqueInput
+    /**
+     * In case the vitamin found by the `where` argument doesn't exist, create a new vitamin with this data.
+     */
+    create: XOR<vitaminCreateInput, vitaminUncheckedCreateInput>
+    /**
+     * In case the vitamin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<vitaminUpdateInput, vitaminUncheckedUpdateInput>
+  }
+
+  /**
+   * vitamin delete
+   */
+  export type vitaminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+    /**
+     * Filter which vitamin to delete.
+     */
+    where: vitaminWhereUniqueInput
+  }
+
+  /**
+   * vitamin deleteMany
+   */
+  export type vitaminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vitamins to delete
+     */
+    where?: vitaminWhereInput
+    /**
+     * Limit how many vitamins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * vitamin.menu_vitamin
+   */
+  export type vitamin$menu_vitaminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the menu_vitamin
+     */
+    select?: menu_vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the menu_vitamin
+     */
+    omit?: menu_vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: menu_vitaminInclude<ExtArgs> | null
+    where?: menu_vitaminWhereInput
+    orderBy?: menu_vitaminOrderByWithRelationInput | menu_vitaminOrderByWithRelationInput[]
+    cursor?: menu_vitaminWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Menu_vitaminScalarFieldEnum | Menu_vitaminScalarFieldEnum[]
+  }
+
+  /**
+   * vitamin without action
+   */
+  export type vitaminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vitamin
+     */
+    select?: vitaminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vitamin
+     */
+    omit?: vitaminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: vitaminInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13813,71 +13813,12 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const MenuScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    calory: 'calory',
-    carbo: 'carbo',
-    protein: 'protein',
-    fat: 'fat',
-    sodium: 'sodium',
-    image_link: 'image_link'
-  };
-
-  export type MenuScalarFieldEnum = (typeof MenuScalarFieldEnum)[keyof typeof MenuScalarFieldEnum]
-
-
-  export const MukburimScalarFieldEnum: {
-    id: 'id',
-    menu_id: 'menu_id',
-    user_id: 'user_id',
-    date: 'date'
-  };
-
-  export type MukburimScalarFieldEnum = (typeof MukburimScalarFieldEnum)[keyof typeof MukburimScalarFieldEnum]
-
-
-  export const Menu_tagScalarFieldEnum: {
-    id: 'id',
-    menu_id: 'menu_id',
-    tag: 'tag'
-  };
-
-  export type Menu_tagScalarFieldEnum = (typeof Menu_tagScalarFieldEnum)[keyof typeof Menu_tagScalarFieldEnum]
-
-
-  export const Menu_vitaminScalarFieldEnum: {
-    menu_id: 'menu_id',
-    vitamin_id: 'vitamin_id'
-  };
-
-  export type Menu_vitaminScalarFieldEnum = (typeof Menu_vitaminScalarFieldEnum)[keyof typeof Menu_vitaminScalarFieldEnum]
-
-
-  export const VitaminScalarFieldEnum: {
-    id: 'id',
-    vitamin: 'vitamin'
-  };
-
-  export type VitaminScalarFieldEnum = (typeof VitaminScalarFieldEnum)[keyof typeof VitaminScalarFieldEnum]
-
-
   export const AllergyScalarFieldEnum: {
     id: 'id',
     allergy: 'allergy'
   };
 
   export type AllergyScalarFieldEnum = (typeof AllergyScalarFieldEnum)[keyof typeof AllergyScalarFieldEnum]
-
-
-  export const SessionsScalarFieldEnum: {
-    session_id: 'session_id',
-    expires: 'expires',
-    data: 'data'
-  };
-
-  export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
   export const Battle_menusScalarFieldEnum: {
@@ -13916,12 +13857,63 @@ export namespace Prisma {
   export type BattlesScalarFieldEnum = (typeof BattlesScalarFieldEnum)[keyof typeof BattlesScalarFieldEnum]
 
 
+  export const MenuScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    calory: 'calory',
+    carbo: 'carbo',
+    protein: 'protein',
+    fat: 'fat',
+    sodium: 'sodium',
+    image_link: 'image_link'
+  };
+
+  export type MenuScalarFieldEnum = (typeof MenuScalarFieldEnum)[keyof typeof MenuScalarFieldEnum]
+
+
   export const Menu_allergyScalarFieldEnum: {
     menu_id: 'menu_id',
     allergy_id: 'allergy_id'
   };
 
   export type Menu_allergyScalarFieldEnum = (typeof Menu_allergyScalarFieldEnum)[keyof typeof Menu_allergyScalarFieldEnum]
+
+
+  export const Menu_tagScalarFieldEnum: {
+    id: 'id',
+    menu_id: 'menu_id',
+    tag: 'tag'
+  };
+
+  export type Menu_tagScalarFieldEnum = (typeof Menu_tagScalarFieldEnum)[keyof typeof Menu_tagScalarFieldEnum]
+
+
+  export const Menu_vitaminScalarFieldEnum: {
+    menu_id: 'menu_id',
+    vitamin_id: 'vitamin_id'
+  };
+
+  export type Menu_vitaminScalarFieldEnum = (typeof Menu_vitaminScalarFieldEnum)[keyof typeof Menu_vitaminScalarFieldEnum]
+
+
+  export const MukburimScalarFieldEnum: {
+    id: 'id',
+    menu_id: 'menu_id',
+    user_id: 'user_id',
+    date: 'date'
+  };
+
+  export type MukburimScalarFieldEnum = (typeof MukburimScalarFieldEnum)[keyof typeof MukburimScalarFieldEnum]
+
+
+  export const SessionsScalarFieldEnum: {
+    session_id: 'session_id',
+    expires: 'expires',
+    data: 'data'
+  };
+
+  export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
   export const Spin_resultsScalarFieldEnum: {
@@ -13937,6 +13929,14 @@ export namespace Prisma {
   };
 
   export type Spin_resultsScalarFieldEnum = (typeof Spin_resultsScalarFieldEnum)[keyof typeof Spin_resultsScalarFieldEnum]
+
+
+  export const VitaminScalarFieldEnum: {
+    id: 'id',
+    vitamin: 'vitamin'
+  };
+
+  export type VitaminScalarFieldEnum = (typeof VitaminScalarFieldEnum)[keyof typeof VitaminScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13955,42 +13955,11 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-  export const menuOrderByRelevanceFieldEnum: {
-    name: 'name',
-    description: 'description',
-    image_link: 'image_link'
-  };
-
-  export type menuOrderByRelevanceFieldEnum = (typeof menuOrderByRelevanceFieldEnum)[keyof typeof menuOrderByRelevanceFieldEnum]
-
-
-  export const menu_tagOrderByRelevanceFieldEnum: {
-    tag: 'tag'
-  };
-
-  export type menu_tagOrderByRelevanceFieldEnum = (typeof menu_tagOrderByRelevanceFieldEnum)[keyof typeof menu_tagOrderByRelevanceFieldEnum]
-
-
-  export const vitaminOrderByRelevanceFieldEnum: {
-    vitamin: 'vitamin'
-  };
-
-  export type vitaminOrderByRelevanceFieldEnum = (typeof vitaminOrderByRelevanceFieldEnum)[keyof typeof vitaminOrderByRelevanceFieldEnum]
-
-
   export const allergyOrderByRelevanceFieldEnum: {
     allergy: 'allergy'
   };
 
   export type allergyOrderByRelevanceFieldEnum = (typeof allergyOrderByRelevanceFieldEnum)[keyof typeof allergyOrderByRelevanceFieldEnum]
-
-
-  export const sessionsOrderByRelevanceFieldEnum: {
-    session_id: 'session_id',
-    data: 'data'
-  };
-
-  export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
 
 
   export const battle_menusOrderByRelevanceFieldEnum: {
@@ -14017,6 +13986,30 @@ export namespace Prisma {
   export type battlesOrderByRelevanceFieldEnum = (typeof battlesOrderByRelevanceFieldEnum)[keyof typeof battlesOrderByRelevanceFieldEnum]
 
 
+  export const menuOrderByRelevanceFieldEnum: {
+    name: 'name',
+    description: 'description',
+    image_link: 'image_link'
+  };
+
+  export type menuOrderByRelevanceFieldEnum = (typeof menuOrderByRelevanceFieldEnum)[keyof typeof menuOrderByRelevanceFieldEnum]
+
+
+  export const menu_tagOrderByRelevanceFieldEnum: {
+    tag: 'tag'
+  };
+
+  export type menu_tagOrderByRelevanceFieldEnum = (typeof menu_tagOrderByRelevanceFieldEnum)[keyof typeof menu_tagOrderByRelevanceFieldEnum]
+
+
+  export const sessionsOrderByRelevanceFieldEnum: {
+    session_id: 'session_id',
+    data: 'data'
+  };
+
+  export type sessionsOrderByRelevanceFieldEnum = (typeof sessionsOrderByRelevanceFieldEnum)[keyof typeof sessionsOrderByRelevanceFieldEnum]
+
+
   export const spin_resultsOrderByRelevanceFieldEnum: {
     battle_id: 'battle_id',
     nickname: 'nickname',
@@ -14024,6 +14017,13 @@ export namespace Prisma {
   };
 
   export type spin_resultsOrderByRelevanceFieldEnum = (typeof spin_resultsOrderByRelevanceFieldEnum)[keyof typeof spin_resultsOrderByRelevanceFieldEnum]
+
+
+  export const vitaminOrderByRelevanceFieldEnum: {
+    vitamin: 'vitamin'
+  };
+
+  export type vitaminOrderByRelevanceFieldEnum = (typeof vitaminOrderByRelevanceFieldEnum)[keyof typeof vitaminOrderByRelevanceFieldEnum]
 
 
   /**
@@ -14046,9 +14046,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Decimal'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
@@ -14060,16 +14060,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
+   * Reference to a field of type 'Boolean'
    */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'DateTime'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -14089,288 +14089,6 @@ export namespace Prisma {
    * Deep Input Types
    */
 
-
-  export type menuWhereInput = {
-    AND?: menuWhereInput | menuWhereInput[]
-    OR?: menuWhereInput[]
-    NOT?: menuWhereInput | menuWhereInput[]
-    id?: BigIntFilter<"menu"> | bigint | number
-    name?: StringFilter<"menu"> | string
-    description?: StringNullableFilter<"menu"> | string | null
-    calory?: BigIntNullableFilter<"menu"> | bigint | number | null
-    carbo?: BigIntNullableFilter<"menu"> | bigint | number | null
-    protein?: BigIntNullableFilter<"menu"> | bigint | number | null
-    fat?: BigIntNullableFilter<"menu"> | bigint | number | null
-    sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
-    image_link?: StringNullableFilter<"menu"> | string | null
-    battle_menus?: Battle_menusListRelationFilter
-    menu_allergy?: Menu_allergyListRelationFilter
-    menu_tag?: Menu_tagListRelationFilter
-    menu_vitamin?: Menu_vitaminListRelationFilter
-    mukburim?: MukburimListRelationFilter
-    spin_results?: Spin_resultsListRelationFilter
-  }
-
-  export type menuOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    calory?: SortOrderInput | SortOrder
-    carbo?: SortOrderInput | SortOrder
-    protein?: SortOrderInput | SortOrder
-    fat?: SortOrderInput | SortOrder
-    sodium?: SortOrderInput | SortOrder
-    image_link?: SortOrderInput | SortOrder
-    battle_menus?: battle_menusOrderByRelationAggregateInput
-    menu_allergy?: menu_allergyOrderByRelationAggregateInput
-    menu_tag?: menu_tagOrderByRelationAggregateInput
-    menu_vitamin?: menu_vitaminOrderByRelationAggregateInput
-    mukburim?: mukburimOrderByRelationAggregateInput
-    spin_results?: spin_resultsOrderByRelationAggregateInput
-    _relevance?: menuOrderByRelevanceInput
-  }
-
-  export type menuWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: menuWhereInput | menuWhereInput[]
-    OR?: menuWhereInput[]
-    NOT?: menuWhereInput | menuWhereInput[]
-    name?: StringFilter<"menu"> | string
-    description?: StringNullableFilter<"menu"> | string | null
-    calory?: BigIntNullableFilter<"menu"> | bigint | number | null
-    carbo?: BigIntNullableFilter<"menu"> | bigint | number | null
-    protein?: BigIntNullableFilter<"menu"> | bigint | number | null
-    fat?: BigIntNullableFilter<"menu"> | bigint | number | null
-    sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
-    image_link?: StringNullableFilter<"menu"> | string | null
-    battle_menus?: Battle_menusListRelationFilter
-    menu_allergy?: Menu_allergyListRelationFilter
-    menu_tag?: Menu_tagListRelationFilter
-    menu_vitamin?: Menu_vitaminListRelationFilter
-    mukburim?: MukburimListRelationFilter
-    spin_results?: Spin_resultsListRelationFilter
-  }, "id">
-
-  export type menuOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    calory?: SortOrderInput | SortOrder
-    carbo?: SortOrderInput | SortOrder
-    protein?: SortOrderInput | SortOrder
-    fat?: SortOrderInput | SortOrder
-    sodium?: SortOrderInput | SortOrder
-    image_link?: SortOrderInput | SortOrder
-    _count?: menuCountOrderByAggregateInput
-    _avg?: menuAvgOrderByAggregateInput
-    _max?: menuMaxOrderByAggregateInput
-    _min?: menuMinOrderByAggregateInput
-    _sum?: menuSumOrderByAggregateInput
-  }
-
-  export type menuScalarWhereWithAggregatesInput = {
-    AND?: menuScalarWhereWithAggregatesInput | menuScalarWhereWithAggregatesInput[]
-    OR?: menuScalarWhereWithAggregatesInput[]
-    NOT?: menuScalarWhereWithAggregatesInput | menuScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"menu"> | bigint | number
-    name?: StringWithAggregatesFilter<"menu"> | string
-    description?: StringNullableWithAggregatesFilter<"menu"> | string | null
-    calory?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
-    carbo?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
-    protein?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
-    fat?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
-    sodium?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
-    image_link?: StringNullableWithAggregatesFilter<"menu"> | string | null
-  }
-
-  export type mukburimWhereInput = {
-    AND?: mukburimWhereInput | mukburimWhereInput[]
-    OR?: mukburimWhereInput[]
-    NOT?: mukburimWhereInput | mukburimWhereInput[]
-    id?: BigIntFilter<"mukburim"> | bigint | number
-    menu_id?: BigIntFilter<"mukburim"> | bigint | number
-    user_id?: BigIntFilter<"mukburim"> | bigint | number
-    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }
-
-  export type mukburimOrderByWithRelationInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-    date?: SortOrderInput | SortOrder
-    menu?: menuOrderByWithRelationInput
-  }
-
-  export type mukburimWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: mukburimWhereInput | mukburimWhereInput[]
-    OR?: mukburimWhereInput[]
-    NOT?: mukburimWhereInput | mukburimWhereInput[]
-    menu_id?: BigIntFilter<"mukburim"> | bigint | number
-    user_id?: BigIntFilter<"mukburim"> | bigint | number
-    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }, "id">
-
-  export type mukburimOrderByWithAggregationInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-    date?: SortOrderInput | SortOrder
-    _count?: mukburimCountOrderByAggregateInput
-    _avg?: mukburimAvgOrderByAggregateInput
-    _max?: mukburimMaxOrderByAggregateInput
-    _min?: mukburimMinOrderByAggregateInput
-    _sum?: mukburimSumOrderByAggregateInput
-  }
-
-  export type mukburimScalarWhereWithAggregatesInput = {
-    AND?: mukburimScalarWhereWithAggregatesInput | mukburimScalarWhereWithAggregatesInput[]
-    OR?: mukburimScalarWhereWithAggregatesInput[]
-    NOT?: mukburimScalarWhereWithAggregatesInput | mukburimScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
-    menu_id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
-    user_id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
-    date?: DateTimeNullableWithAggregatesFilter<"mukburim"> | Date | string | null
-  }
-
-  export type menu_tagWhereInput = {
-    AND?: menu_tagWhereInput | menu_tagWhereInput[]
-    OR?: menu_tagWhereInput[]
-    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
-    id?: BigIntFilter<"menu_tag"> | bigint | number
-    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
-    tag?: StringNullableFilter<"menu_tag"> | string | null
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }
-
-  export type menu_tagOrderByWithRelationInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    tag?: SortOrderInput | SortOrder
-    menu?: menuOrderByWithRelationInput
-    _relevance?: menu_tagOrderByRelevanceInput
-  }
-
-  export type menu_tagWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: menu_tagWhereInput | menu_tagWhereInput[]
-    OR?: menu_tagWhereInput[]
-    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
-    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
-    tag?: StringNullableFilter<"menu_tag"> | string | null
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-  }, "id">
-
-  export type menu_tagOrderByWithAggregationInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    tag?: SortOrderInput | SortOrder
-    _count?: menu_tagCountOrderByAggregateInput
-    _avg?: menu_tagAvgOrderByAggregateInput
-    _max?: menu_tagMaxOrderByAggregateInput
-    _min?: menu_tagMinOrderByAggregateInput
-    _sum?: menu_tagSumOrderByAggregateInput
-  }
-
-  export type menu_tagScalarWhereWithAggregatesInput = {
-    AND?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
-    OR?: menu_tagScalarWhereWithAggregatesInput[]
-    NOT?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
-    menu_id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
-    tag?: StringNullableWithAggregatesFilter<"menu_tag"> | string | null
-  }
-
-  export type menu_vitaminWhereInput = {
-    AND?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
-    OR?: menu_vitaminWhereInput[]
-    NOT?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
-    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-    vitamin?: XOR<VitaminScalarRelationFilter, vitaminWhereInput>
-  }
-
-  export type menu_vitaminOrderByWithRelationInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-    menu?: menuOrderByWithRelationInput
-    vitamin?: vitaminOrderByWithRelationInput
-  }
-
-  export type menu_vitaminWhereUniqueInput = Prisma.AtLeast<{
-    menu_id_vitamin_id?: menu_vitaminMenu_idVitamin_idCompoundUniqueInput
-    AND?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
-    OR?: menu_vitaminWhereInput[]
-    NOT?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
-    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
-    vitamin?: XOR<VitaminScalarRelationFilter, vitaminWhereInput>
-  }, "menu_id_vitamin_id">
-
-  export type menu_vitaminOrderByWithAggregationInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-    _count?: menu_vitaminCountOrderByAggregateInput
-    _avg?: menu_vitaminAvgOrderByAggregateInput
-    _max?: menu_vitaminMaxOrderByAggregateInput
-    _min?: menu_vitaminMinOrderByAggregateInput
-    _sum?: menu_vitaminSumOrderByAggregateInput
-  }
-
-  export type menu_vitaminScalarWhereWithAggregatesInput = {
-    AND?: menu_vitaminScalarWhereWithAggregatesInput | menu_vitaminScalarWhereWithAggregatesInput[]
-    OR?: menu_vitaminScalarWhereWithAggregatesInput[]
-    NOT?: menu_vitaminScalarWhereWithAggregatesInput | menu_vitaminScalarWhereWithAggregatesInput[]
-    menu_id?: BigIntWithAggregatesFilter<"menu_vitamin"> | bigint | number
-    vitamin_id?: BigIntWithAggregatesFilter<"menu_vitamin"> | bigint | number
-  }
-
-  export type vitaminWhereInput = {
-    AND?: vitaminWhereInput | vitaminWhereInput[]
-    OR?: vitaminWhereInput[]
-    NOT?: vitaminWhereInput | vitaminWhereInput[]
-    id?: BigIntFilter<"vitamin"> | bigint | number
-    vitamin?: StringNullableFilter<"vitamin"> | string | null
-    menu_vitamin?: Menu_vitaminListRelationFilter
-  }
-
-  export type vitaminOrderByWithRelationInput = {
-    id?: SortOrder
-    vitamin?: SortOrderInput | SortOrder
-    menu_vitamin?: menu_vitaminOrderByRelationAggregateInput
-    _relevance?: vitaminOrderByRelevanceInput
-  }
-
-  export type vitaminWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
-    AND?: vitaminWhereInput | vitaminWhereInput[]
-    OR?: vitaminWhereInput[]
-    NOT?: vitaminWhereInput | vitaminWhereInput[]
-    vitamin?: StringNullableFilter<"vitamin"> | string | null
-    menu_vitamin?: Menu_vitaminListRelationFilter
-  }, "id">
-
-  export type vitaminOrderByWithAggregationInput = {
-    id?: SortOrder
-    vitamin?: SortOrderInput | SortOrder
-    _count?: vitaminCountOrderByAggregateInput
-    _avg?: vitaminAvgOrderByAggregateInput
-    _max?: vitaminMaxOrderByAggregateInput
-    _min?: vitaminMinOrderByAggregateInput
-    _sum?: vitaminSumOrderByAggregateInput
-  }
-
-  export type vitaminScalarWhereWithAggregatesInput = {
-    AND?: vitaminScalarWhereWithAggregatesInput | vitaminScalarWhereWithAggregatesInput[]
-    OR?: vitaminScalarWhereWithAggregatesInput[]
-    NOT?: vitaminScalarWhereWithAggregatesInput | vitaminScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"vitamin"> | bigint | number
-    vitamin?: StringNullableWithAggregatesFilter<"vitamin"> | string | null
-  }
 
   export type allergyWhereInput = {
     AND?: allergyWhereInput | allergyWhereInput[]
@@ -14413,51 +14131,6 @@ export namespace Prisma {
     NOT?: allergyScalarWhereWithAggregatesInput | allergyScalarWhereWithAggregatesInput[]
     id?: BigIntWithAggregatesFilter<"allergy"> | bigint | number
     allergy?: StringNullableWithAggregatesFilter<"allergy"> | string | null
-  }
-
-  export type sessionsWhereInput = {
-    AND?: sessionsWhereInput | sessionsWhereInput[]
-    OR?: sessionsWhereInput[]
-    NOT?: sessionsWhereInput | sessionsWhereInput[]
-    session_id?: StringFilter<"sessions"> | string
-    expires?: IntFilter<"sessions"> | number
-    data?: StringNullableFilter<"sessions"> | string | null
-  }
-
-  export type sessionsOrderByWithRelationInput = {
-    session_id?: SortOrder
-    expires?: SortOrder
-    data?: SortOrderInput | SortOrder
-    _relevance?: sessionsOrderByRelevanceInput
-  }
-
-  export type sessionsWhereUniqueInput = Prisma.AtLeast<{
-    session_id?: string
-    AND?: sessionsWhereInput | sessionsWhereInput[]
-    OR?: sessionsWhereInput[]
-    NOT?: sessionsWhereInput | sessionsWhereInput[]
-    expires?: IntFilter<"sessions"> | number
-    data?: StringNullableFilter<"sessions"> | string | null
-  }, "session_id">
-
-  export type sessionsOrderByWithAggregationInput = {
-    session_id?: SortOrder
-    expires?: SortOrder
-    data?: SortOrderInput | SortOrder
-    _count?: sessionsCountOrderByAggregateInput
-    _avg?: sessionsAvgOrderByAggregateInput
-    _max?: sessionsMaxOrderByAggregateInput
-    _min?: sessionsMinOrderByAggregateInput
-    _sum?: sessionsSumOrderByAggregateInput
-  }
-
-  export type sessionsScalarWhereWithAggregatesInput = {
-    AND?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
-    OR?: sessionsScalarWhereWithAggregatesInput[]
-    NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
-    session_id?: StringWithAggregatesFilter<"sessions"> | string
-    expires?: IntWithAggregatesFilter<"sessions"> | number
-    data?: StringNullableWithAggregatesFilter<"sessions"> | string | null
   }
 
   export type battle_menusWhereInput = {
@@ -14660,6 +14333,99 @@ export namespace Prisma {
     expires_at?: DateTimeWithAggregatesFilter<"battles"> | Date | string
   }
 
+  export type menuWhereInput = {
+    AND?: menuWhereInput | menuWhereInput[]
+    OR?: menuWhereInput[]
+    NOT?: menuWhereInput | menuWhereInput[]
+    id?: BigIntFilter<"menu"> | bigint | number
+    name?: StringFilter<"menu"> | string
+    description?: StringNullableFilter<"menu"> | string | null
+    calory?: BigIntNullableFilter<"menu"> | bigint | number | null
+    carbo?: BigIntNullableFilter<"menu"> | bigint | number | null
+    protein?: BigIntNullableFilter<"menu"> | bigint | number | null
+    fat?: BigIntNullableFilter<"menu"> | bigint | number | null
+    sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
+    image_link?: StringNullableFilter<"menu"> | string | null
+    battle_menus?: Battle_menusListRelationFilter
+    menu_allergy?: Menu_allergyListRelationFilter
+    menu_tag?: Menu_tagListRelationFilter
+    menu_vitamin?: Menu_vitaminListRelationFilter
+    mukburim?: MukburimListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
+  }
+
+  export type menuOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    calory?: SortOrderInput | SortOrder
+    carbo?: SortOrderInput | SortOrder
+    protein?: SortOrderInput | SortOrder
+    fat?: SortOrderInput | SortOrder
+    sodium?: SortOrderInput | SortOrder
+    image_link?: SortOrderInput | SortOrder
+    battle_menus?: battle_menusOrderByRelationAggregateInput
+    menu_allergy?: menu_allergyOrderByRelationAggregateInput
+    menu_tag?: menu_tagOrderByRelationAggregateInput
+    menu_vitamin?: menu_vitaminOrderByRelationAggregateInput
+    mukburim?: mukburimOrderByRelationAggregateInput
+    spin_results?: spin_resultsOrderByRelationAggregateInput
+    _relevance?: menuOrderByRelevanceInput
+  }
+
+  export type menuWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: menuWhereInput | menuWhereInput[]
+    OR?: menuWhereInput[]
+    NOT?: menuWhereInput | menuWhereInput[]
+    name?: StringFilter<"menu"> | string
+    description?: StringNullableFilter<"menu"> | string | null
+    calory?: BigIntNullableFilter<"menu"> | bigint | number | null
+    carbo?: BigIntNullableFilter<"menu"> | bigint | number | null
+    protein?: BigIntNullableFilter<"menu"> | bigint | number | null
+    fat?: BigIntNullableFilter<"menu"> | bigint | number | null
+    sodium?: BigIntNullableFilter<"menu"> | bigint | number | null
+    image_link?: StringNullableFilter<"menu"> | string | null
+    battle_menus?: Battle_menusListRelationFilter
+    menu_allergy?: Menu_allergyListRelationFilter
+    menu_tag?: Menu_tagListRelationFilter
+    menu_vitamin?: Menu_vitaminListRelationFilter
+    mukburim?: MukburimListRelationFilter
+    spin_results?: Spin_resultsListRelationFilter
+  }, "id">
+
+  export type menuOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    calory?: SortOrderInput | SortOrder
+    carbo?: SortOrderInput | SortOrder
+    protein?: SortOrderInput | SortOrder
+    fat?: SortOrderInput | SortOrder
+    sodium?: SortOrderInput | SortOrder
+    image_link?: SortOrderInput | SortOrder
+    _count?: menuCountOrderByAggregateInput
+    _avg?: menuAvgOrderByAggregateInput
+    _max?: menuMaxOrderByAggregateInput
+    _min?: menuMinOrderByAggregateInput
+    _sum?: menuSumOrderByAggregateInput
+  }
+
+  export type menuScalarWhereWithAggregatesInput = {
+    AND?: menuScalarWhereWithAggregatesInput | menuScalarWhereWithAggregatesInput[]
+    OR?: menuScalarWhereWithAggregatesInput[]
+    NOT?: menuScalarWhereWithAggregatesInput | menuScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"menu"> | bigint | number
+    name?: StringWithAggregatesFilter<"menu"> | string
+    description?: StringNullableWithAggregatesFilter<"menu"> | string | null
+    calory?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
+    carbo?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
+    protein?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
+    fat?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
+    sodium?: BigIntNullableWithAggregatesFilter<"menu"> | bigint | number | null
+    image_link?: StringNullableWithAggregatesFilter<"menu"> | string | null
+  }
+
   export type menu_allergyWhereInput = {
     AND?: menu_allergyWhereInput | menu_allergyWhereInput[]
     OR?: menu_allergyWhereInput[]
@@ -14704,6 +14470,197 @@ export namespace Prisma {
     NOT?: menu_allergyScalarWhereWithAggregatesInput | menu_allergyScalarWhereWithAggregatesInput[]
     menu_id?: BigIntWithAggregatesFilter<"menu_allergy"> | bigint | number
     allergy_id?: BigIntWithAggregatesFilter<"menu_allergy"> | bigint | number
+  }
+
+  export type menu_tagWhereInput = {
+    AND?: menu_tagWhereInput | menu_tagWhereInput[]
+    OR?: menu_tagWhereInput[]
+    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
+    id?: BigIntFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringNullableFilter<"menu_tag"> | string | null
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }
+
+  export type menu_tagOrderByWithRelationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    menu?: menuOrderByWithRelationInput
+    _relevance?: menu_tagOrderByRelevanceInput
+  }
+
+  export type menu_tagWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: menu_tagWhereInput | menu_tagWhereInput[]
+    OR?: menu_tagWhereInput[]
+    NOT?: menu_tagWhereInput | menu_tagWhereInput[]
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringNullableFilter<"menu_tag"> | string | null
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }, "id">
+
+  export type menu_tagOrderByWithAggregationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    _count?: menu_tagCountOrderByAggregateInput
+    _avg?: menu_tagAvgOrderByAggregateInput
+    _max?: menu_tagMaxOrderByAggregateInput
+    _min?: menu_tagMinOrderByAggregateInput
+    _sum?: menu_tagSumOrderByAggregateInput
+  }
+
+  export type menu_tagScalarWhereWithAggregatesInput = {
+    AND?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
+    OR?: menu_tagScalarWhereWithAggregatesInput[]
+    NOT?: menu_tagScalarWhereWithAggregatesInput | menu_tagScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntWithAggregatesFilter<"menu_tag"> | bigint | number
+    tag?: StringNullableWithAggregatesFilter<"menu_tag"> | string | null
+  }
+
+  export type menu_vitaminWhereInput = {
+    AND?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
+    OR?: menu_vitaminWhereInput[]
+    NOT?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
+    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+    vitamin?: XOR<VitaminScalarRelationFilter, vitaminWhereInput>
+  }
+
+  export type menu_vitaminOrderByWithRelationInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+    menu?: menuOrderByWithRelationInput
+    vitamin?: vitaminOrderByWithRelationInput
+  }
+
+  export type menu_vitaminWhereUniqueInput = Prisma.AtLeast<{
+    menu_id_vitamin_id?: menu_vitaminMenu_idVitamin_idCompoundUniqueInput
+    AND?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
+    OR?: menu_vitaminWhereInput[]
+    NOT?: menu_vitaminWhereInput | menu_vitaminWhereInput[]
+    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+    vitamin?: XOR<VitaminScalarRelationFilter, vitaminWhereInput>
+  }, "menu_id_vitamin_id">
+
+  export type menu_vitaminOrderByWithAggregationInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+    _count?: menu_vitaminCountOrderByAggregateInput
+    _avg?: menu_vitaminAvgOrderByAggregateInput
+    _max?: menu_vitaminMaxOrderByAggregateInput
+    _min?: menu_vitaminMinOrderByAggregateInput
+    _sum?: menu_vitaminSumOrderByAggregateInput
+  }
+
+  export type menu_vitaminScalarWhereWithAggregatesInput = {
+    AND?: menu_vitaminScalarWhereWithAggregatesInput | menu_vitaminScalarWhereWithAggregatesInput[]
+    OR?: menu_vitaminScalarWhereWithAggregatesInput[]
+    NOT?: menu_vitaminScalarWhereWithAggregatesInput | menu_vitaminScalarWhereWithAggregatesInput[]
+    menu_id?: BigIntWithAggregatesFilter<"menu_vitamin"> | bigint | number
+    vitamin_id?: BigIntWithAggregatesFilter<"menu_vitamin"> | bigint | number
+  }
+
+  export type mukburimWhereInput = {
+    AND?: mukburimWhereInput | mukburimWhereInput[]
+    OR?: mukburimWhereInput[]
+    NOT?: mukburimWhereInput | mukburimWhereInput[]
+    id?: BigIntFilter<"mukburim"> | bigint | number
+    menu_id?: BigIntFilter<"mukburim"> | bigint | number
+    user_id?: BigIntFilter<"mukburim"> | bigint | number
+    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }
+
+  export type mukburimOrderByWithRelationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+    date?: SortOrderInput | SortOrder
+    menu?: menuOrderByWithRelationInput
+  }
+
+  export type mukburimWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: mukburimWhereInput | mukburimWhereInput[]
+    OR?: mukburimWhereInput[]
+    NOT?: mukburimWhereInput | mukburimWhereInput[]
+    menu_id?: BigIntFilter<"mukburim"> | bigint | number
+    user_id?: BigIntFilter<"mukburim"> | bigint | number
+    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
+    menu?: XOR<MenuScalarRelationFilter, menuWhereInput>
+  }, "id">
+
+  export type mukburimOrderByWithAggregationInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+    date?: SortOrderInput | SortOrder
+    _count?: mukburimCountOrderByAggregateInput
+    _avg?: mukburimAvgOrderByAggregateInput
+    _max?: mukburimMaxOrderByAggregateInput
+    _min?: mukburimMinOrderByAggregateInput
+    _sum?: mukburimSumOrderByAggregateInput
+  }
+
+  export type mukburimScalarWhereWithAggregatesInput = {
+    AND?: mukburimScalarWhereWithAggregatesInput | mukburimScalarWhereWithAggregatesInput[]
+    OR?: mukburimScalarWhereWithAggregatesInput[]
+    NOT?: mukburimScalarWhereWithAggregatesInput | mukburimScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
+    menu_id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
+    user_id?: BigIntWithAggregatesFilter<"mukburim"> | bigint | number
+    date?: DateTimeNullableWithAggregatesFilter<"mukburim"> | Date | string | null
+  }
+
+  export type sessionsWhereInput = {
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    session_id?: StringFilter<"sessions"> | string
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }
+
+  export type sessionsOrderByWithRelationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _relevance?: sessionsOrderByRelevanceInput
+  }
+
+  export type sessionsWhereUniqueInput = Prisma.AtLeast<{
+    session_id?: string
+    AND?: sessionsWhereInput | sessionsWhereInput[]
+    OR?: sessionsWhereInput[]
+    NOT?: sessionsWhereInput | sessionsWhereInput[]
+    expires?: IntFilter<"sessions"> | number
+    data?: StringNullableFilter<"sessions"> | string | null
+  }, "session_id">
+
+  export type sessionsOrderByWithAggregationInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrderInput | SortOrder
+    _count?: sessionsCountOrderByAggregateInput
+    _avg?: sessionsAvgOrderByAggregateInput
+    _max?: sessionsMaxOrderByAggregateInput
+    _min?: sessionsMinOrderByAggregateInput
+    _sum?: sessionsSumOrderByAggregateInput
+  }
+
+  export type sessionsScalarWhereWithAggregatesInput = {
+    AND?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    OR?: sessionsScalarWhereWithAggregatesInput[]
+    NOT?: sessionsScalarWhereWithAggregatesInput | sessionsScalarWhereWithAggregatesInput[]
+    session_id?: StringWithAggregatesFilter<"sessions"> | string
+    expires?: IntWithAggregatesFilter<"sessions"> | number
+    data?: StringNullableWithAggregatesFilter<"sessions"> | string | null
   }
 
   export type spin_resultsWhereInput = {
@@ -14788,274 +14745,47 @@ export namespace Prisma {
     spun_at?: DateTimeWithAggregatesFilter<"spin_results"> | Date | string
   }
 
-  export type menuCreateInput = {
+  export type vitaminWhereInput = {
+    AND?: vitaminWhereInput | vitaminWhereInput[]
+    OR?: vitaminWhereInput[]
+    NOT?: vitaminWhereInput | vitaminWhereInput[]
+    id?: BigIntFilter<"vitamin"> | bigint | number
+    vitamin?: StringNullableFilter<"vitamin"> | string | null
+    menu_vitamin?: Menu_vitaminListRelationFilter
+  }
+
+  export type vitaminOrderByWithRelationInput = {
+    id?: SortOrder
+    vitamin?: SortOrderInput | SortOrder
+    menu_vitamin?: menu_vitaminOrderByRelationAggregateInput
+    _relevance?: vitaminOrderByRelevanceInput
+  }
+
+  export type vitaminWhereUniqueInput = Prisma.AtLeast<{
     id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+    AND?: vitaminWhereInput | vitaminWhereInput[]
+    OR?: vitaminWhereInput[]
+    NOT?: vitaminWhereInput | vitaminWhereInput[]
+    vitamin?: StringNullableFilter<"vitamin"> | string | null
+    menu_vitamin?: Menu_vitaminListRelationFilter
+  }, "id">
+
+  export type vitaminOrderByWithAggregationInput = {
+    id?: SortOrder
+    vitamin?: SortOrderInput | SortOrder
+    _count?: vitaminCountOrderByAggregateInput
+    _avg?: vitaminAvgOrderByAggregateInput
+    _max?: vitaminMaxOrderByAggregateInput
+    _min?: vitaminMinOrderByAggregateInput
+    _sum?: vitaminSumOrderByAggregateInput
   }
 
-  export type menuUncheckedCreateInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuCreateManyInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-  }
-
-  export type menuUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type menuUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type mukburimCreateInput = {
-    id: bigint | number
-    user_id: bigint | number
-    date?: Date | string | null
-    menu: menuCreateNestedOneWithoutMukburimInput
-  }
-
-  export type mukburimUncheckedCreateInput = {
-    id: bigint | number
-    menu_id: bigint | number
-    user_id: bigint | number
-    date?: Date | string | null
-  }
-
-  export type mukburimUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    menu?: menuUpdateOneRequiredWithoutMukburimNestedInput
-  }
-
-  export type mukburimUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type mukburimCreateManyInput = {
-    id: bigint | number
-    menu_id: bigint | number
-    user_id: bigint | number
-    date?: Date | string | null
-  }
-
-  export type mukburimUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type mukburimUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type menu_tagCreateInput = {
-    id?: bigint | number
-    tag?: string | null
-    menu: menuCreateNestedOneWithoutMenu_tagInput
-  }
-
-  export type menu_tagUncheckedCreateInput = {
-    id?: bigint | number
-    menu_id: bigint | number
-    tag?: string | null
-  }
-
-  export type menu_tagUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    tag?: NullableStringFieldUpdateOperationsInput | string | null
-    menu?: menuUpdateOneRequiredWithoutMenu_tagNestedInput
-  }
-
-  export type menu_tagUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    tag?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type menu_tagCreateManyInput = {
-    id?: bigint | number
-    menu_id: bigint | number
-    tag?: string | null
-  }
-
-  export type menu_tagUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    tag?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type menu_tagUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    tag?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type menu_vitaminCreateInput = {
-    menu: menuCreateNestedOneWithoutMenu_vitaminInput
-    vitamin: vitaminCreateNestedOneWithoutMenu_vitaminInput
-  }
-
-  export type menu_vitaminUncheckedCreateInput = {
-    menu_id: bigint | number
-    vitamin_id: bigint | number
-  }
-
-  export type menu_vitaminUpdateInput = {
-    menu?: menuUpdateOneRequiredWithoutMenu_vitaminNestedInput
-    vitamin?: vitaminUpdateOneRequiredWithoutMenu_vitaminNestedInput
-  }
-
-  export type menu_vitaminUncheckedUpdateInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type menu_vitaminCreateManyInput = {
-    menu_id: bigint | number
-    vitamin_id: bigint | number
-  }
-
-  export type menu_vitaminUpdateManyMutationInput = {
-
-  }
-
-  export type menu_vitaminUncheckedUpdateManyInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type vitaminCreateInput = {
-    id?: bigint | number
-    vitamin?: string | null
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutVitaminInput
-  }
-
-  export type vitaminUncheckedCreateInput = {
-    id?: bigint | number
-    vitamin?: string | null
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutVitaminInput
-  }
-
-  export type vitaminUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_vitamin?: menu_vitaminUpdateManyWithoutVitaminNestedInput
-  }
-
-  export type vitaminUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutVitaminNestedInput
-  }
-
-  export type vitaminCreateManyInput = {
-    id?: bigint | number
-    vitamin?: string | null
-  }
-
-  export type vitaminUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type vitaminUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  export type vitaminScalarWhereWithAggregatesInput = {
+    AND?: vitaminScalarWhereWithAggregatesInput | vitaminScalarWhereWithAggregatesInput[]
+    OR?: vitaminScalarWhereWithAggregatesInput[]
+    NOT?: vitaminScalarWhereWithAggregatesInput | vitaminScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"vitamin"> | bigint | number
+    vitamin?: StringNullableWithAggregatesFilter<"vitamin"> | string | null
   }
 
   export type allergyCreateInput = {
@@ -15095,48 +14825,6 @@ export namespace Prisma {
   export type allergyUncheckedUpdateManyInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type sessionsCreateInput = {
-    session_id: string
-    expires: number
-    data?: string | null
-  }
-
-  export type sessionsUncheckedCreateInput = {
-    session_id: string
-    expires: number
-    data?: string | null
-  }
-
-  export type sessionsUpdateInput = {
-    session_id?: StringFieldUpdateOperationsInput | string
-    expires?: IntFieldUpdateOperationsInput | number
-    data?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type sessionsUncheckedUpdateInput = {
-    session_id?: StringFieldUpdateOperationsInput | string
-    expires?: IntFieldUpdateOperationsInput | number
-    data?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type sessionsCreateManyInput = {
-    session_id: string
-    expires: number
-    data?: string | null
-  }
-
-  export type sessionsUpdateManyMutationInput = {
-    session_id?: StringFieldUpdateOperationsInput | string
-    expires?: IntFieldUpdateOperationsInput | number
-    data?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type sessionsUncheckedUpdateManyInput = {
-    session_id?: StringFieldUpdateOperationsInput | string
-    expires?: IntFieldUpdateOperationsInput | number
-    data?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type battle_menusCreateInput = {
@@ -15337,6 +15025,114 @@ export namespace Prisma {
     expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type menuCreateInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuCreateManyInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+  }
+
+  export type menuUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type menuUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type menu_allergyCreateInput = {
     allergy: allergyCreateNestedOneWithoutMenu_allergyInput
     menu: menuCreateNestedOneWithoutMenu_allergyInput
@@ -15369,6 +15165,171 @@ export namespace Prisma {
   export type menu_allergyUncheckedUpdateManyInput = {
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
     allergy_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_tagCreateInput = {
+    id?: bigint | number
+    tag?: string | null
+    menu: menuCreateNestedOneWithoutMenu_tagInput
+  }
+
+  export type menu_tagUncheckedCreateInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    tag?: string | null
+  }
+
+  export type menu_tagUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    menu?: menuUpdateOneRequiredWithoutMenu_tagNestedInput
+  }
+
+  export type menu_tagUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type menu_tagCreateManyInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    tag?: string | null
+  }
+
+  export type menu_tagUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type menu_tagUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type menu_vitaminCreateInput = {
+    menu: menuCreateNestedOneWithoutMenu_vitaminInput
+    vitamin: vitaminCreateNestedOneWithoutMenu_vitaminInput
+  }
+
+  export type menu_vitaminUncheckedCreateInput = {
+    menu_id: bigint | number
+    vitamin_id: bigint | number
+  }
+
+  export type menu_vitaminUpdateInput = {
+    menu?: menuUpdateOneRequiredWithoutMenu_vitaminNestedInput
+    vitamin?: vitaminUpdateOneRequiredWithoutMenu_vitaminNestedInput
+  }
+
+  export type menu_vitaminUncheckedUpdateInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_vitaminCreateManyInput = {
+    menu_id: bigint | number
+    vitamin_id: bigint | number
+  }
+
+  export type menu_vitaminUpdateManyMutationInput = {
+
+  }
+
+  export type menu_vitaminUncheckedUpdateManyInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type mukburimCreateInput = {
+    id: bigint | number
+    user_id: bigint | number
+    date?: Date | string | null
+    menu: menuCreateNestedOneWithoutMukburimInput
+  }
+
+  export type mukburimUncheckedCreateInput = {
+    id: bigint | number
+    menu_id: bigint | number
+    user_id: bigint | number
+    date?: Date | string | null
+  }
+
+  export type mukburimUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    menu?: menuUpdateOneRequiredWithoutMukburimNestedInput
+  }
+
+  export type mukburimUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type mukburimCreateManyInput = {
+    id: bigint | number
+    menu_id: bigint | number
+    user_id: bigint | number
+    date?: Date | string | null
+  }
+
+  export type mukburimUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type mukburimUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type sessionsCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUncheckedCreateInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsCreateManyInput = {
+    session_id: string
+    expires: number
+    data?: string | null
+  }
+
+  export type sessionsUpdateManyMutationInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type sessionsUncheckedUpdateManyInput = {
+    session_id?: StringFieldUpdateOperationsInput | string
+    expires?: IntFieldUpdateOperationsInput | number
+    data?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type spin_resultsCreateInput = {
@@ -15453,6 +15414,45 @@ export namespace Prisma {
     spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type vitaminCreateInput = {
+    id?: bigint | number
+    vitamin?: string | null
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutVitaminInput
+  }
+
+  export type vitaminUncheckedCreateInput = {
+    id?: bigint | number
+    vitamin?: string | null
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutVitaminInput
+  }
+
+  export type vitaminUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_vitamin?: menu_vitaminUpdateManyWithoutVitaminNestedInput
+  }
+
+  export type vitaminUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutVitaminNestedInput
+  }
+
+  export type vitaminCreateManyInput = {
+    id?: bigint | number
+    vitamin?: string | null
+  }
+
+  export type vitaminUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type vitaminUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type BigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -15462,21 +15462,6 @@ export namespace Prisma {
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -15494,51 +15479,10 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
-  }
-
-  export type Battle_menusListRelationFilter = {
-    every?: battle_menusWhereInput
-    some?: battle_menusWhereInput
-    none?: battle_menusWhereInput
-  }
-
   export type Menu_allergyListRelationFilter = {
     every?: menu_allergyWhereInput
     some?: menu_allergyWhereInput
     none?: menu_allergyWhereInput
-  }
-
-  export type Menu_tagListRelationFilter = {
-    every?: menu_tagWhereInput
-    some?: menu_tagWhereInput
-    none?: menu_tagWhereInput
-  }
-
-  export type Menu_vitaminListRelationFilter = {
-    every?: menu_vitaminWhereInput
-    some?: menu_vitaminWhereInput
-    none?: menu_vitaminWhereInput
-  }
-
-  export type MukburimListRelationFilter = {
-    every?: mukburimWhereInput
-    some?: mukburimWhereInput
-    none?: mukburimWhereInput
-  }
-
-  export type Spin_resultsListRelationFilter = {
-    every?: spin_resultsWhereInput
-    some?: spin_resultsWhereInput
-    none?: spin_resultsWhereInput
   }
 
   export type SortOrderInput = {
@@ -15546,317 +15490,8 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type battle_menusOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type menu_allergyOrderByRelationAggregateInput = {
     _count?: SortOrder
-  }
-
-  export type menu_tagOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type menu_vitaminOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type mukburimOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type spin_resultsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type menuOrderByRelevanceInput = {
-    fields: menuOrderByRelevanceFieldEnum | menuOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type menuCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    calory?: SortOrder
-    carbo?: SortOrder
-    protein?: SortOrder
-    fat?: SortOrder
-    sodium?: SortOrder
-    image_link?: SortOrder
-  }
-
-  export type menuAvgOrderByAggregateInput = {
-    id?: SortOrder
-    calory?: SortOrder
-    carbo?: SortOrder
-    protein?: SortOrder
-    fat?: SortOrder
-    sodium?: SortOrder
-  }
-
-  export type menuMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    calory?: SortOrder
-    carbo?: SortOrder
-    protein?: SortOrder
-    fat?: SortOrder
-    sodium?: SortOrder
-    image_link?: SortOrder
-  }
-
-  export type menuMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    calory?: SortOrder
-    carbo?: SortOrder
-    protein?: SortOrder
-    fat?: SortOrder
-    sodium?: SortOrder
-    image_link?: SortOrder
-  }
-
-  export type menuSumOrderByAggregateInput = {
-    id?: SortOrder
-    calory?: SortOrder
-    carbo?: SortOrder
-    protein?: SortOrder
-    fat?: SortOrder
-    sodium?: SortOrder
-  }
-
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type MenuScalarRelationFilter = {
-    is?: menuWhereInput
-    isNot?: menuWhereInput
-  }
-
-  export type mukburimCountOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-    date?: SortOrder
-  }
-
-  export type mukburimAvgOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type mukburimMaxOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-    date?: SortOrder
-  }
-
-  export type mukburimMinOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-    date?: SortOrder
-  }
-
-  export type mukburimSumOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    user_id?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type menu_tagOrderByRelevanceInput = {
-    fields: menu_tagOrderByRelevanceFieldEnum | menu_tagOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type menu_tagCountOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    tag?: SortOrder
-  }
-
-  export type menu_tagAvgOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type menu_tagMaxOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    tag?: SortOrder
-  }
-
-  export type menu_tagMinOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-    tag?: SortOrder
-  }
-
-  export type menu_tagSumOrderByAggregateInput = {
-    id?: SortOrder
-    menu_id?: SortOrder
-  }
-
-  export type VitaminScalarRelationFilter = {
-    is?: vitaminWhereInput
-    isNot?: vitaminWhereInput
-  }
-
-  export type menu_vitaminMenu_idVitamin_idCompoundUniqueInput = {
-    menu_id: bigint | number
-    vitamin_id: bigint | number
-  }
-
-  export type menu_vitaminCountOrderByAggregateInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-  }
-
-  export type menu_vitaminAvgOrderByAggregateInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-  }
-
-  export type menu_vitaminMaxOrderByAggregateInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-  }
-
-  export type menu_vitaminMinOrderByAggregateInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-  }
-
-  export type menu_vitaminSumOrderByAggregateInput = {
-    menu_id?: SortOrder
-    vitamin_id?: SortOrder
-  }
-
-  export type vitaminOrderByRelevanceInput = {
-    fields: vitaminOrderByRelevanceFieldEnum | vitaminOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type vitaminCountOrderByAggregateInput = {
-    id?: SortOrder
-    vitamin?: SortOrder
-  }
-
-  export type vitaminAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type vitaminMaxOrderByAggregateInput = {
-    id?: SortOrder
-    vitamin?: SortOrder
-  }
-
-  export type vitaminMinOrderByAggregateInput = {
-    id?: SortOrder
-    vitamin?: SortOrder
-  }
-
-  export type vitaminSumOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type allergyOrderByRelevanceInput = {
@@ -15888,63 +15523,53 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type sessionsOrderByRelevanceInput = {
-    fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type sessionsCountOrderByAggregateInput = {
-    session_id?: SortOrder
-    expires?: SortOrder
-    data?: SortOrder
-  }
-
-  export type sessionsAvgOrderByAggregateInput = {
-    expires?: SortOrder
-  }
-
-  export type sessionsMaxOrderByAggregateInput = {
-    session_id?: SortOrder
-    expires?: SortOrder
-    data?: SortOrder
-  }
-
-  export type sessionsMinOrderByAggregateInput = {
-    session_id?: SortOrder
-    expires?: SortOrder
-    data?: SortOrder
-  }
-
-  export type sessionsSumOrderByAggregateInput = {
-    expires?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[]
+    notIn?: bigint[] | number[]
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
     _count?: NestedIntFilter<$PrismaModel>
     _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -15958,9 +15583,25 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type BattlesScalarRelationFilter = {
     is?: battlesWhereInput
     isNot?: battlesWhereInput
+  }
+
+  export type MenuScalarRelationFilter = {
+    is?: menuWhereInput
+    isNot?: menuWhereInput
   }
 
   export type battle_menusOrderByRelevanceInput = {
@@ -16015,6 +15656,24 @@ export namespace Prisma {
     menu_order?: SortOrder
   }
 
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[]
@@ -16029,6 +15688,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -16119,13 +15794,44 @@ export namespace Prisma {
     not?: NestedEnumbattles_statusFilter<$PrismaModel> | $Enums.battles_status
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type Battle_menusListRelationFilter = {
+    every?: battle_menusWhereInput
+    some?: battle_menusWhereInput
+    none?: battle_menusWhereInput
+  }
+
   export type Battle_participantsListRelationFilter = {
     every?: battle_participantsWhereInput
     some?: battle_participantsWhereInput
     none?: battle_participantsWhereInput
   }
 
+  export type Spin_resultsListRelationFilter = {
+    every?: spin_resultsWhereInput
+    some?: spin_resultsWhereInput
+    none?: spin_resultsWhereInput
+  }
+
+  export type battle_menusOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type battle_participantsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type spin_resultsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16183,6 +15889,137 @@ export namespace Prisma {
     _max?: NestedEnumbattles_statusFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | null
+    notIn?: bigint[] | number[] | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type Menu_tagListRelationFilter = {
+    every?: menu_tagWhereInput
+    some?: menu_tagWhereInput
+    none?: menu_tagWhereInput
+  }
+
+  export type Menu_vitaminListRelationFilter = {
+    every?: menu_vitaminWhereInput
+    some?: menu_vitaminWhereInput
+    none?: menu_vitaminWhereInput
+  }
+
+  export type MukburimListRelationFilter = {
+    every?: mukburimWhereInput
+    some?: mukburimWhereInput
+    none?: mukburimWhereInput
+  }
+
+  export type menu_tagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type menu_vitaminOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type mukburimOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type menuOrderByRelevanceInput = {
+    fields: menuOrderByRelevanceFieldEnum | menuOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type menuCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    calory?: SortOrder
+    carbo?: SortOrder
+    protein?: SortOrder
+    fat?: SortOrder
+    sodium?: SortOrder
+    image_link?: SortOrder
+  }
+
+  export type menuAvgOrderByAggregateInput = {
+    id?: SortOrder
+    calory?: SortOrder
+    carbo?: SortOrder
+    protein?: SortOrder
+    fat?: SortOrder
+    sodium?: SortOrder
+  }
+
+  export type menuMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    calory?: SortOrder
+    carbo?: SortOrder
+    protein?: SortOrder
+    fat?: SortOrder
+    sodium?: SortOrder
+    image_link?: SortOrder
+  }
+
+  export type menuMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    calory?: SortOrder
+    carbo?: SortOrder
+    protein?: SortOrder
+    fat?: SortOrder
+    sodium?: SortOrder
+    image_link?: SortOrder
+  }
+
+  export type menuSumOrderByAggregateInput = {
+    id?: SortOrder
+    calory?: SortOrder
+    carbo?: SortOrder
+    protein?: SortOrder
+    fat?: SortOrder
+    sodium?: SortOrder
+  }
+
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | null
+    notIn?: bigint[] | number[] | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
   export type AllergyScalarRelationFilter = {
     is?: allergyWhereInput
     isNot?: allergyWhereInput
@@ -16216,6 +16053,140 @@ export namespace Prisma {
   export type menu_allergySumOrderByAggregateInput = {
     menu_id?: SortOrder
     allergy_id?: SortOrder
+  }
+
+  export type menu_tagOrderByRelevanceInput = {
+    fields: menu_tagOrderByRelevanceFieldEnum | menu_tagOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type menu_tagCountOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagAvgOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+  }
+
+  export type menu_tagMaxOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagMinOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    tag?: SortOrder
+  }
+
+  export type menu_tagSumOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+  }
+
+  export type VitaminScalarRelationFilter = {
+    is?: vitaminWhereInput
+    isNot?: vitaminWhereInput
+  }
+
+  export type menu_vitaminMenu_idVitamin_idCompoundUniqueInput = {
+    menu_id: bigint | number
+    vitamin_id: bigint | number
+  }
+
+  export type menu_vitaminCountOrderByAggregateInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+  }
+
+  export type menu_vitaminAvgOrderByAggregateInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+  }
+
+  export type menu_vitaminMaxOrderByAggregateInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+  }
+
+  export type menu_vitaminMinOrderByAggregateInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+  }
+
+  export type menu_vitaminSumOrderByAggregateInput = {
+    menu_id?: SortOrder
+    vitamin_id?: SortOrder
+  }
+
+  export type mukburimCountOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+    date?: SortOrder
+  }
+
+  export type mukburimAvgOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type mukburimMaxOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+    date?: SortOrder
+  }
+
+  export type mukburimMinOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+    date?: SortOrder
+  }
+
+  export type mukburimSumOrderByAggregateInput = {
+    id?: SortOrder
+    menu_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type sessionsOrderByRelevanceInput = {
+    fields: sessionsOrderByRelevanceFieldEnum | sessionsOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type sessionsCountOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsAvgOrderByAggregateInput = {
+    expires?: SortOrder
+  }
+
+  export type sessionsMaxOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsMinOrderByAggregateInput = {
+    session_id?: SortOrder
+    expires?: SortOrder
+    data?: SortOrder
+  }
+
+  export type sessionsSumOrderByAggregateInput = {
+    expires?: SortOrder
   }
 
   export type spin_resultsOrderByRelevanceInput = {
@@ -16279,6 +16250,293 @@ export namespace Prisma {
     closest_menu_id?: SortOrder
     distance_to_boundary?: SortOrder
     rank?: SortOrder
+  }
+
+  export type vitaminOrderByRelevanceInput = {
+    fields: vitaminOrderByRelevanceFieldEnum | vitaminOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type vitaminCountOrderByAggregateInput = {
+    id?: SortOrder
+    vitamin?: SortOrder
+  }
+
+  export type vitaminAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type vitaminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    vitamin?: SortOrder
+  }
+
+  export type vitaminMinOrderByAggregateInput = {
+    id?: SortOrder
+    vitamin?: SortOrder
+  }
+
+  export type vitaminSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type menu_allergyCreateNestedManyWithoutAllergyInput = {
+    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
+    createMany?: menu_allergyCreateManyAllergyInputEnvelope
+    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+  }
+
+  export type menu_allergyUncheckedCreateNestedManyWithoutAllergyInput = {
+    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
+    createMany?: menu_allergyCreateManyAllergyInputEnvelope
+    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type menu_allergyUpdateManyWithoutAllergyNestedInput = {
+    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
+    upsert?: menu_allergyUpsertWithWhereUniqueWithoutAllergyInput | menu_allergyUpsertWithWhereUniqueWithoutAllergyInput[]
+    createMany?: menu_allergyCreateManyAllergyInputEnvelope
+    set?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    disconnect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    delete?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    update?: menu_allergyUpdateWithWhereUniqueWithoutAllergyInput | menu_allergyUpdateWithWhereUniqueWithoutAllergyInput[]
+    updateMany?: menu_allergyUpdateManyWithWhereWithoutAllergyInput | menu_allergyUpdateManyWithWhereWithoutAllergyInput[]
+    deleteMany?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
+  }
+
+  export type menu_allergyUncheckedUpdateManyWithoutAllergyNestedInput = {
+    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
+    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
+    upsert?: menu_allergyUpsertWithWhereUniqueWithoutAllergyInput | menu_allergyUpsertWithWhereUniqueWithoutAllergyInput[]
+    createMany?: menu_allergyCreateManyAllergyInputEnvelope
+    set?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    disconnect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    delete?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
+    update?: menu_allergyUpdateWithWhereUniqueWithoutAllergyInput | menu_allergyUpdateWithWhereUniqueWithoutAllergyInput[]
+    updateMany?: menu_allergyUpdateManyWithWhereWithoutAllergyInput | menu_allergyUpdateManyWithWhereWithoutAllergyInput[]
+    deleteMany?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
+  }
+
+  export type battlesCreateNestedOneWithoutBattle_menusInput = {
+    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type menuCreateNestedOneWithoutBattle_menusInput = {
+    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type battlesUpdateOneRequiredWithoutBattle_menusNestedInput = {
+    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
+    upsert?: battlesUpsertWithoutBattle_menusInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_menusInput, battlesUpdateWithoutBattle_menusInput>, battlesUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type menuUpdateOneRequiredWithoutBattle_menusNestedInput = {
+    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
+    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
+    upsert?: menuUpsertWithoutBattle_menusInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutBattle_menusInput, menuUpdateWithoutBattle_menusInput>, menuUncheckedUpdateWithoutBattle_menusInput>
+  }
+
+  export type battlesCreateNestedOneWithoutBattle_participantsInput = {
+    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type battlesUpdateOneRequiredWithoutBattle_participantsNestedInput = {
+    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
+    upsert?: battlesUpsertWithoutBattle_participantsInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_participantsInput, battlesUpdateWithoutBattle_participantsInput>, battlesUncheckedUpdateWithoutBattle_participantsInput>
+  }
+
+  export type battle_menusCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+  }
+
+  export type battle_participantsCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+  }
+
+  export type spin_resultsCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+  }
+
+  export type battle_menusUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+  }
+
+  export type battle_participantsUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+  }
+
+  export type spin_resultsUncheckedCreateNestedManyWithoutBattlesInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+  }
+
+  export type Enumbattles_statusFieldUpdateOperationsInput = {
+    set?: $Enums.battles_status
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type battle_menusUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+  }
+
+  export type battle_participantsUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+  }
+
+  export type spin_resultsUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+  }
+
+  export type battle_menusUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_menusCreateManyBattlesInputEnvelope
+    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
+    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+  }
+
+  export type battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
+    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: battle_participantsCreateManyBattlesInputEnvelope
+    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
+    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
+  }
+
+  export type spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput = {
+    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
+    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
+    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
+    createMany?: spin_resultsCreateManyBattlesInputEnvelope
+    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
+    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
+    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
+    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
   }
 
   export type battle_menusCreateNestedManyWithoutMenuInput = {
@@ -16363,22 +16621,6 @@ export namespace Prisma {
     connectOrCreate?: spin_resultsCreateOrConnectWithoutMenuInput | spin_resultsCreateOrConnectWithoutMenuInput[]
     createMany?: spin_resultsCreateManyMenuInputEnvelope
     connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-  }
-
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type NullableBigIntFieldUpdateOperationsInput = {
@@ -16557,22 +16799,32 @@ export namespace Prisma {
     deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
   }
 
-  export type menuCreateNestedOneWithoutMukburimInput = {
-    create?: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
-    connectOrCreate?: menuCreateOrConnectWithoutMukburimInput
+  export type allergyCreateNestedOneWithoutMenu_allergyInput = {
+    create?: XOR<allergyCreateWithoutMenu_allergyInput, allergyUncheckedCreateWithoutMenu_allergyInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_allergyInput
+    connect?: allergyWhereUniqueInput
+  }
+
+  export type menuCreateNestedOneWithoutMenu_allergyInput = {
+    create?: XOR<menuCreateWithoutMenu_allergyInput, menuUncheckedCreateWithoutMenu_allergyInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMenu_allergyInput
     connect?: menuWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type allergyUpdateOneRequiredWithoutMenu_allergyNestedInput = {
+    create?: XOR<allergyCreateWithoutMenu_allergyInput, allergyUncheckedCreateWithoutMenu_allergyInput>
+    connectOrCreate?: allergyCreateOrConnectWithoutMenu_allergyInput
+    upsert?: allergyUpsertWithoutMenu_allergyInput
+    connect?: allergyWhereUniqueInput
+    update?: XOR<XOR<allergyUpdateToOneWithWhereWithoutMenu_allergyInput, allergyUpdateWithoutMenu_allergyInput>, allergyUncheckedUpdateWithoutMenu_allergyInput>
   }
 
-  export type menuUpdateOneRequiredWithoutMukburimNestedInput = {
-    create?: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
-    connectOrCreate?: menuCreateOrConnectWithoutMukburimInput
-    upsert?: menuUpsertWithoutMukburimInput
+  export type menuUpdateOneRequiredWithoutMenu_allergyNestedInput = {
+    create?: XOR<menuCreateWithoutMenu_allergyInput, menuUncheckedCreateWithoutMenu_allergyInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMenu_allergyInput
+    upsert?: menuUpsertWithoutMenu_allergyInput
     connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMukburimInput, menuUpdateWithoutMukburimInput>, menuUncheckedUpdateWithoutMukburimInput>
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMenu_allergyInput, menuUpdateWithoutMenu_allergyInput>, menuUncheckedUpdateWithoutMenu_allergyInput>
   }
 
   export type menuCreateNestedOneWithoutMenu_tagInput = {
@@ -16617,6 +16869,48 @@ export namespace Prisma {
     update?: XOR<XOR<vitaminUpdateToOneWithWhereWithoutMenu_vitaminInput, vitaminUpdateWithoutMenu_vitaminInput>, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
   }
 
+  export type menuCreateNestedOneWithoutMukburimInput = {
+    create?: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMukburimInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type menuUpdateOneRequiredWithoutMukburimNestedInput = {
+    create?: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
+    connectOrCreate?: menuCreateOrConnectWithoutMukburimInput
+    upsert?: menuUpsertWithoutMukburimInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMukburimInput, menuUpdateWithoutMukburimInput>, menuUncheckedUpdateWithoutMukburimInput>
+  }
+
+  export type battlesCreateNestedOneWithoutSpin_resultsInput = {
+    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
+    connect?: battlesWhereUniqueInput
+  }
+
+  export type menuCreateNestedOneWithoutSpin_resultsInput = {
+    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
+    connect?: menuWhereUniqueInput
+  }
+
+  export type battlesUpdateOneRequiredWithoutSpin_resultsNestedInput = {
+    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
+    upsert?: battlesUpsertWithoutSpin_resultsInput
+    connect?: battlesWhereUniqueInput
+    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutSpin_resultsInput, battlesUpdateWithoutSpin_resultsInput>, battlesUncheckedUpdateWithoutSpin_resultsInput>
+  }
+
+  export type menuUpdateOneRequiredWithoutSpin_resultsNestedInput = {
+    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
+    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
+    upsert?: menuUpsertWithoutSpin_resultsInput
+    connect?: menuWhereUniqueInput
+    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutSpin_resultsInput, menuUpdateWithoutSpin_resultsInput>, menuUncheckedUpdateWithoutSpin_resultsInput>
+  }
+
   export type menu_vitaminCreateNestedManyWithoutVitaminInput = {
     create?: XOR<menu_vitaminCreateWithoutVitaminInput, menu_vitaminUncheckedCreateWithoutVitaminInput> | menu_vitaminCreateWithoutVitaminInput[] | menu_vitaminUncheckedCreateWithoutVitaminInput[]
     connectOrCreate?: menu_vitaminCreateOrConnectWithoutVitaminInput | menu_vitaminCreateOrConnectWithoutVitaminInput[]
@@ -16659,300 +16953,6 @@ export namespace Prisma {
     deleteMany?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
   }
 
-  export type menu_allergyCreateNestedManyWithoutAllergyInput = {
-    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
-    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
-    createMany?: menu_allergyCreateManyAllergyInputEnvelope
-    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-  }
-
-  export type menu_allergyUncheckedCreateNestedManyWithoutAllergyInput = {
-    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
-    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
-    createMany?: menu_allergyCreateManyAllergyInputEnvelope
-    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-  }
-
-  export type menu_allergyUpdateManyWithoutAllergyNestedInput = {
-    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
-    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
-    upsert?: menu_allergyUpsertWithWhereUniqueWithoutAllergyInput | menu_allergyUpsertWithWhereUniqueWithoutAllergyInput[]
-    createMany?: menu_allergyCreateManyAllergyInputEnvelope
-    set?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    disconnect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    delete?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    update?: menu_allergyUpdateWithWhereUniqueWithoutAllergyInput | menu_allergyUpdateWithWhereUniqueWithoutAllergyInput[]
-    updateMany?: menu_allergyUpdateManyWithWhereWithoutAllergyInput | menu_allergyUpdateManyWithWhereWithoutAllergyInput[]
-    deleteMany?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
-  }
-
-  export type menu_allergyUncheckedUpdateManyWithoutAllergyNestedInput = {
-    create?: XOR<menu_allergyCreateWithoutAllergyInput, menu_allergyUncheckedCreateWithoutAllergyInput> | menu_allergyCreateWithoutAllergyInput[] | menu_allergyUncheckedCreateWithoutAllergyInput[]
-    connectOrCreate?: menu_allergyCreateOrConnectWithoutAllergyInput | menu_allergyCreateOrConnectWithoutAllergyInput[]
-    upsert?: menu_allergyUpsertWithWhereUniqueWithoutAllergyInput | menu_allergyUpsertWithWhereUniqueWithoutAllergyInput[]
-    createMany?: menu_allergyCreateManyAllergyInputEnvelope
-    set?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    disconnect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    delete?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    connect?: menu_allergyWhereUniqueInput | menu_allergyWhereUniqueInput[]
-    update?: menu_allergyUpdateWithWhereUniqueWithoutAllergyInput | menu_allergyUpdateWithWhereUniqueWithoutAllergyInput[]
-    updateMany?: menu_allergyUpdateManyWithWhereWithoutAllergyInput | menu_allergyUpdateManyWithWhereWithoutAllergyInput[]
-    deleteMany?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type battlesCreateNestedOneWithoutBattle_menusInput = {
-    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
-    connect?: battlesWhereUniqueInput
-  }
-
-  export type menuCreateNestedOneWithoutBattle_menusInput = {
-    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
-    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
-    connect?: menuWhereUniqueInput
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type battlesUpdateOneRequiredWithoutBattle_menusNestedInput = {
-    create?: XOR<battlesCreateWithoutBattle_menusInput, battlesUncheckedCreateWithoutBattle_menusInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutBattle_menusInput
-    upsert?: battlesUpsertWithoutBattle_menusInput
-    connect?: battlesWhereUniqueInput
-    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_menusInput, battlesUpdateWithoutBattle_menusInput>, battlesUncheckedUpdateWithoutBattle_menusInput>
-  }
-
-  export type menuUpdateOneRequiredWithoutBattle_menusNestedInput = {
-    create?: XOR<menuCreateWithoutBattle_menusInput, menuUncheckedCreateWithoutBattle_menusInput>
-    connectOrCreate?: menuCreateOrConnectWithoutBattle_menusInput
-    upsert?: menuUpsertWithoutBattle_menusInput
-    connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutBattle_menusInput, menuUpdateWithoutBattle_menusInput>, menuUncheckedUpdateWithoutBattle_menusInput>
-  }
-
-  export type battlesCreateNestedOneWithoutBattle_participantsInput = {
-    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
-    connect?: battlesWhereUniqueInput
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type battlesUpdateOneRequiredWithoutBattle_participantsNestedInput = {
-    create?: XOR<battlesCreateWithoutBattle_participantsInput, battlesUncheckedCreateWithoutBattle_participantsInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutBattle_participantsInput
-    upsert?: battlesUpsertWithoutBattle_participantsInput
-    connect?: battlesWhereUniqueInput
-    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutBattle_participantsInput, battlesUpdateWithoutBattle_participantsInput>, battlesUncheckedUpdateWithoutBattle_participantsInput>
-  }
-
-  export type battle_menusCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
-    createMany?: battle_menusCreateManyBattlesInputEnvelope
-    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-  }
-
-  export type battle_participantsCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
-    createMany?: battle_participantsCreateManyBattlesInputEnvelope
-    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-  }
-
-  export type spin_resultsCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
-    createMany?: spin_resultsCreateManyBattlesInputEnvelope
-    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-  }
-
-  export type battle_menusUncheckedCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
-    createMany?: battle_menusCreateManyBattlesInputEnvelope
-    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-  }
-
-  export type battle_participantsUncheckedCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
-    createMany?: battle_participantsCreateManyBattlesInputEnvelope
-    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-  }
-
-  export type spin_resultsUncheckedCreateNestedManyWithoutBattlesInput = {
-    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
-    createMany?: spin_resultsCreateManyBattlesInputEnvelope
-    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-  }
-
-  export type Enumbattles_statusFieldUpdateOperationsInput = {
-    set?: $Enums.battles_status
-  }
-
-  export type battle_menusUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
-    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: battle_menusCreateManyBattlesInputEnvelope
-    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
-  }
-
-  export type battle_participantsUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
-    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: battle_participantsCreateManyBattlesInputEnvelope
-    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
-  }
-
-  export type spin_resultsUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
-    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: spin_resultsCreateManyBattlesInputEnvelope
-    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
-  }
-
-  export type battle_menusUncheckedUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<battle_menusCreateWithoutBattlesInput, battle_menusUncheckedCreateWithoutBattlesInput> | battle_menusCreateWithoutBattlesInput[] | battle_menusUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_menusCreateOrConnectWithoutBattlesInput | battle_menusCreateOrConnectWithoutBattlesInput[]
-    upsert?: battle_menusUpsertWithWhereUniqueWithoutBattlesInput | battle_menusUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: battle_menusCreateManyBattlesInputEnvelope
-    set?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    disconnect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    delete?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    connect?: battle_menusWhereUniqueInput | battle_menusWhereUniqueInput[]
-    update?: battle_menusUpdateWithWhereUniqueWithoutBattlesInput | battle_menusUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: battle_menusUpdateManyWithWhereWithoutBattlesInput | battle_menusUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
-  }
-
-  export type battle_participantsUncheckedUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<battle_participantsCreateWithoutBattlesInput, battle_participantsUncheckedCreateWithoutBattlesInput> | battle_participantsCreateWithoutBattlesInput[] | battle_participantsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: battle_participantsCreateOrConnectWithoutBattlesInput | battle_participantsCreateOrConnectWithoutBattlesInput[]
-    upsert?: battle_participantsUpsertWithWhereUniqueWithoutBattlesInput | battle_participantsUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: battle_participantsCreateManyBattlesInputEnvelope
-    set?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    disconnect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    delete?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    connect?: battle_participantsWhereUniqueInput | battle_participantsWhereUniqueInput[]
-    update?: battle_participantsUpdateWithWhereUniqueWithoutBattlesInput | battle_participantsUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: battle_participantsUpdateManyWithWhereWithoutBattlesInput | battle_participantsUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: battle_participantsScalarWhereInput | battle_participantsScalarWhereInput[]
-  }
-
-  export type spin_resultsUncheckedUpdateManyWithoutBattlesNestedInput = {
-    create?: XOR<spin_resultsCreateWithoutBattlesInput, spin_resultsUncheckedCreateWithoutBattlesInput> | spin_resultsCreateWithoutBattlesInput[] | spin_resultsUncheckedCreateWithoutBattlesInput[]
-    connectOrCreate?: spin_resultsCreateOrConnectWithoutBattlesInput | spin_resultsCreateOrConnectWithoutBattlesInput[]
-    upsert?: spin_resultsUpsertWithWhereUniqueWithoutBattlesInput | spin_resultsUpsertWithWhereUniqueWithoutBattlesInput[]
-    createMany?: spin_resultsCreateManyBattlesInputEnvelope
-    set?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    disconnect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    delete?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    connect?: spin_resultsWhereUniqueInput | spin_resultsWhereUniqueInput[]
-    update?: spin_resultsUpdateWithWhereUniqueWithoutBattlesInput | spin_resultsUpdateWithWhereUniqueWithoutBattlesInput[]
-    updateMany?: spin_resultsUpdateManyWithWhereWithoutBattlesInput | spin_resultsUpdateManyWithWhereWithoutBattlesInput[]
-    deleteMany?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
-  }
-
-  export type allergyCreateNestedOneWithoutMenu_allergyInput = {
-    create?: XOR<allergyCreateWithoutMenu_allergyInput, allergyUncheckedCreateWithoutMenu_allergyInput>
-    connectOrCreate?: allergyCreateOrConnectWithoutMenu_allergyInput
-    connect?: allergyWhereUniqueInput
-  }
-
-  export type menuCreateNestedOneWithoutMenu_allergyInput = {
-    create?: XOR<menuCreateWithoutMenu_allergyInput, menuUncheckedCreateWithoutMenu_allergyInput>
-    connectOrCreate?: menuCreateOrConnectWithoutMenu_allergyInput
-    connect?: menuWhereUniqueInput
-  }
-
-  export type allergyUpdateOneRequiredWithoutMenu_allergyNestedInput = {
-    create?: XOR<allergyCreateWithoutMenu_allergyInput, allergyUncheckedCreateWithoutMenu_allergyInput>
-    connectOrCreate?: allergyCreateOrConnectWithoutMenu_allergyInput
-    upsert?: allergyUpsertWithoutMenu_allergyInput
-    connect?: allergyWhereUniqueInput
-    update?: XOR<XOR<allergyUpdateToOneWithWhereWithoutMenu_allergyInput, allergyUpdateWithoutMenu_allergyInput>, allergyUncheckedUpdateWithoutMenu_allergyInput>
-  }
-
-  export type menuUpdateOneRequiredWithoutMenu_allergyNestedInput = {
-    create?: XOR<menuCreateWithoutMenu_allergyInput, menuUncheckedCreateWithoutMenu_allergyInput>
-    connectOrCreate?: menuCreateOrConnectWithoutMenu_allergyInput
-    upsert?: menuUpsertWithoutMenu_allergyInput
-    connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutMenu_allergyInput, menuUpdateWithoutMenu_allergyInput>, menuUncheckedUpdateWithoutMenu_allergyInput>
-  }
-
-  export type battlesCreateNestedOneWithoutSpin_resultsInput = {
-    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
-    connect?: battlesWhereUniqueInput
-  }
-
-  export type menuCreateNestedOneWithoutSpin_resultsInput = {
-    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
-    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
-    connect?: menuWhereUniqueInput
-  }
-
-  export type battlesUpdateOneRequiredWithoutSpin_resultsNestedInput = {
-    create?: XOR<battlesCreateWithoutSpin_resultsInput, battlesUncheckedCreateWithoutSpin_resultsInput>
-    connectOrCreate?: battlesCreateOrConnectWithoutSpin_resultsInput
-    upsert?: battlesUpsertWithoutSpin_resultsInput
-    connect?: battlesWhereUniqueInput
-    update?: XOR<XOR<battlesUpdateToOneWithWhereWithoutSpin_resultsInput, battlesUpdateWithoutSpin_resultsInput>, battlesUncheckedUpdateWithoutSpin_resultsInput>
-  }
-
-  export type menuUpdateOneRequiredWithoutSpin_resultsNestedInput = {
-    create?: XOR<menuCreateWithoutSpin_resultsInput, menuUncheckedCreateWithoutSpin_resultsInput>
-    connectOrCreate?: menuCreateOrConnectWithoutSpin_resultsInput
-    upsert?: menuUpsertWithoutSpin_resultsInput
-    connect?: menuWhereUniqueInput
-    update?: XOR<XOR<menuUpdateToOneWithWhereWithoutSpin_resultsInput, menuUpdateWithoutSpin_resultsInput>, menuUncheckedUpdateWithoutSpin_resultsInput>
-  }
-
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[]
@@ -16962,21 +16962,6 @@ export namespace Prisma {
     gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -16992,17 +16977,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
   export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -17043,24 +17017,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -17090,72 +17046,19 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -17167,6 +17070,24 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -17183,6 +17104,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -17230,6 +17167,17 @@ export namespace Prisma {
     not?: NestedEnumbattles_statusFilter<$PrismaModel> | $Enums.battles_status
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumbattles_statusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.battles_status | Enumbattles_statusFieldRefInput<$PrismaModel>
     in?: $Enums.battles_status[]
@@ -17240,620 +17188,56 @@ export namespace Prisma {
     _max?: NestedEnumbattles_statusFilter<$PrismaModel>
   }
 
-  export type battle_menusCreateWithoutMenuInput = {
-    id?: bigint | number
-    menu_name: string
-    boundary_angle: Decimal | DecimalJsLike | number | string
-    menu_order: number
-    battles: battlesCreateNestedOneWithoutBattle_menusInput
-  }
-
-  export type battle_menusUncheckedCreateWithoutMenuInput = {
-    id?: bigint | number
-    battle_id: string
-    menu_name: string
-    boundary_angle: Decimal | DecimalJsLike | number | string
-    menu_order: number
-  }
-
-  export type battle_menusCreateOrConnectWithoutMenuInput = {
-    where: battle_menusWhereUniqueInput
-    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
-  }
-
-  export type battle_menusCreateManyMenuInputEnvelope = {
-    data: battle_menusCreateManyMenuInput | battle_menusCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_allergyCreateWithoutMenuInput = {
-    allergy: allergyCreateNestedOneWithoutMenu_allergyInput
-  }
-
-  export type menu_allergyUncheckedCreateWithoutMenuInput = {
-    allergy_id: bigint | number
-  }
-
-  export type menu_allergyCreateOrConnectWithoutMenuInput = {
-    where: menu_allergyWhereUniqueInput
-    create: XOR<menu_allergyCreateWithoutMenuInput, menu_allergyUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_allergyCreateManyMenuInputEnvelope = {
-    data: menu_allergyCreateManyMenuInput | menu_allergyCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_tagCreateWithoutMenuInput = {
-    id?: bigint | number
-    tag?: string | null
-  }
-
-  export type menu_tagUncheckedCreateWithoutMenuInput = {
-    id?: bigint | number
-    tag?: string | null
-  }
-
-  export type menu_tagCreateOrConnectWithoutMenuInput = {
-    where: menu_tagWhereUniqueInput
-    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_tagCreateManyMenuInputEnvelope = {
-    data: menu_tagCreateManyMenuInput | menu_tagCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_vitaminCreateWithoutMenuInput = {
-    vitamin: vitaminCreateNestedOneWithoutMenu_vitaminInput
-  }
-
-  export type menu_vitaminUncheckedCreateWithoutMenuInput = {
-    vitamin_id: bigint | number
-  }
-
-  export type menu_vitaminCreateOrConnectWithoutMenuInput = {
-    where: menu_vitaminWhereUniqueInput
-    create: XOR<menu_vitaminCreateWithoutMenuInput, menu_vitaminUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_vitaminCreateManyMenuInputEnvelope = {
-    data: menu_vitaminCreateManyMenuInput | menu_vitaminCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type mukburimCreateWithoutMenuInput = {
-    id: bigint | number
-    user_id: bigint | number
-    date?: Date | string | null
-  }
-
-  export type mukburimUncheckedCreateWithoutMenuInput = {
-    id: bigint | number
-    user_id: bigint | number
-    date?: Date | string | null
-  }
-
-  export type mukburimCreateOrConnectWithoutMenuInput = {
-    where: mukburimWhereUniqueInput
-    create: XOR<mukburimCreateWithoutMenuInput, mukburimUncheckedCreateWithoutMenuInput>
-  }
-
-  export type mukburimCreateManyMenuInputEnvelope = {
-    data: mukburimCreateManyMenuInput | mukburimCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type spin_resultsCreateWithoutMenuInput = {
-    id?: bigint | number
-    nickname: string
-    stopped_angle: Decimal | DecimalJsLike | number | string
-    closest_menu_name: string
-    distance_to_boundary: Decimal | DecimalJsLike | number | string
-    rank: number
-    spun_at?: Date | string
-    battles: battlesCreateNestedOneWithoutSpin_resultsInput
-  }
-
-  export type spin_resultsUncheckedCreateWithoutMenuInput = {
-    id?: bigint | number
-    battle_id: string
-    nickname: string
-    stopped_angle: Decimal | DecimalJsLike | number | string
-    closest_menu_name: string
-    distance_to_boundary: Decimal | DecimalJsLike | number | string
-    rank: number
-    spun_at?: Date | string
-  }
-
-  export type spin_resultsCreateOrConnectWithoutMenuInput = {
-    where: spin_resultsWhereUniqueInput
-    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
-  }
-
-  export type spin_resultsCreateManyMenuInputEnvelope = {
-    data: spin_resultsCreateManyMenuInput | spin_resultsCreateManyMenuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type battle_menusUpsertWithWhereUniqueWithoutMenuInput = {
-    where: battle_menusWhereUniqueInput
-    update: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
-    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
-  }
-
-  export type battle_menusUpdateWithWhereUniqueWithoutMenuInput = {
-    where: battle_menusWhereUniqueInput
-    data: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type battle_menusUpdateManyWithWhereWithoutMenuInput = {
-    where: battle_menusScalarWhereInput
-    data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type battle_menusScalarWhereInput = {
-    AND?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
-    OR?: battle_menusScalarWhereInput[]
-    NOT?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
-    id?: BigIntFilter<"battle_menus"> | bigint | number
-    battle_id?: StringFilter<"battle_menus"> | string
-    menu_id?: BigIntFilter<"battle_menus"> | bigint | number
-    menu_name?: StringFilter<"battle_menus"> | string
-    boundary_angle?: DecimalFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
-    menu_order?: IntFilter<"battle_menus"> | number
-  }
-
-  export type menu_allergyUpsertWithWhereUniqueWithoutMenuInput = {
-    where: menu_allergyWhereUniqueInput
-    update: XOR<menu_allergyUpdateWithoutMenuInput, menu_allergyUncheckedUpdateWithoutMenuInput>
-    create: XOR<menu_allergyCreateWithoutMenuInput, menu_allergyUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_allergyUpdateWithWhereUniqueWithoutMenuInput = {
-    where: menu_allergyWhereUniqueInput
-    data: XOR<menu_allergyUpdateWithoutMenuInput, menu_allergyUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type menu_allergyUpdateManyWithWhereWithoutMenuInput = {
-    where: menu_allergyScalarWhereInput
-    data: XOR<menu_allergyUpdateManyMutationInput, menu_allergyUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type menu_allergyScalarWhereInput = {
-    AND?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
-    OR?: menu_allergyScalarWhereInput[]
-    NOT?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
-    menu_id?: BigIntFilter<"menu_allergy"> | bigint | number
-    allergy_id?: BigIntFilter<"menu_allergy"> | bigint | number
-  }
-
-  export type menu_tagUpsertWithWhereUniqueWithoutMenuInput = {
-    where: menu_tagWhereUniqueInput
-    update: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
-    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_tagUpdateWithWhereUniqueWithoutMenuInput = {
-    where: menu_tagWhereUniqueInput
-    data: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type menu_tagUpdateManyWithWhereWithoutMenuInput = {
-    where: menu_tagScalarWhereInput
-    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type menu_tagScalarWhereInput = {
-    AND?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
-    OR?: menu_tagScalarWhereInput[]
-    NOT?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
-    id?: BigIntFilter<"menu_tag"> | bigint | number
-    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
-    tag?: StringNullableFilter<"menu_tag"> | string | null
-  }
-
-  export type menu_vitaminUpsertWithWhereUniqueWithoutMenuInput = {
-    where: menu_vitaminWhereUniqueInput
-    update: XOR<menu_vitaminUpdateWithoutMenuInput, menu_vitaminUncheckedUpdateWithoutMenuInput>
-    create: XOR<menu_vitaminCreateWithoutMenuInput, menu_vitaminUncheckedCreateWithoutMenuInput>
-  }
-
-  export type menu_vitaminUpdateWithWhereUniqueWithoutMenuInput = {
-    where: menu_vitaminWhereUniqueInput
-    data: XOR<menu_vitaminUpdateWithoutMenuInput, menu_vitaminUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type menu_vitaminUpdateManyWithWhereWithoutMenuInput = {
-    where: menu_vitaminScalarWhereInput
-    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type menu_vitaminScalarWhereInput = {
-    AND?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
-    OR?: menu_vitaminScalarWhereInput[]
-    NOT?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
-    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
-  }
-
-  export type mukburimUpsertWithWhereUniqueWithoutMenuInput = {
-    where: mukburimWhereUniqueInput
-    update: XOR<mukburimUpdateWithoutMenuInput, mukburimUncheckedUpdateWithoutMenuInput>
-    create: XOR<mukburimCreateWithoutMenuInput, mukburimUncheckedCreateWithoutMenuInput>
-  }
-
-  export type mukburimUpdateWithWhereUniqueWithoutMenuInput = {
-    where: mukburimWhereUniqueInput
-    data: XOR<mukburimUpdateWithoutMenuInput, mukburimUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type mukburimUpdateManyWithWhereWithoutMenuInput = {
-    where: mukburimScalarWhereInput
-    data: XOR<mukburimUpdateManyMutationInput, mukburimUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type mukburimScalarWhereInput = {
-    AND?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
-    OR?: mukburimScalarWhereInput[]
-    NOT?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
-    id?: BigIntFilter<"mukburim"> | bigint | number
-    menu_id?: BigIntFilter<"mukburim"> | bigint | number
-    user_id?: BigIntFilter<"mukburim"> | bigint | number
-    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
-  }
-
-  export type spin_resultsUpsertWithWhereUniqueWithoutMenuInput = {
-    where: spin_resultsWhereUniqueInput
-    update: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
-    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
-  }
-
-  export type spin_resultsUpdateWithWhereUniqueWithoutMenuInput = {
-    where: spin_resultsWhereUniqueInput
-    data: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
-  }
-
-  export type spin_resultsUpdateManyWithWhereWithoutMenuInput = {
-    where: spin_resultsScalarWhereInput
-    data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyWithoutMenuInput>
-  }
-
-  export type spin_resultsScalarWhereInput = {
-    AND?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
-    OR?: spin_resultsScalarWhereInput[]
-    NOT?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
-    id?: BigIntFilter<"spin_results"> | bigint | number
-    battle_id?: StringFilter<"spin_results"> | string
-    nickname?: StringFilter<"spin_results"> | string
-    stopped_angle?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
-    closest_menu_id?: BigIntFilter<"spin_results"> | bigint | number
-    closest_menu_name?: StringFilter<"spin_results"> | string
-    distance_to_boundary?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
-    rank?: IntFilter<"spin_results"> | number
-    spun_at?: DateTimeFilter<"spin_results"> | Date | string
-  }
-
-  export type menuCreateWithoutMukburimInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUncheckedCreateWithoutMukburimInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuCreateOrConnectWithoutMukburimInput = {
-    where: menuWhereUniqueInput
-    create: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
-  }
-
-  export type menuUpsertWithoutMukburimInput = {
-    update: XOR<menuUpdateWithoutMukburimInput, menuUncheckedUpdateWithoutMukburimInput>
-    create: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
-    where?: menuWhereInput
-  }
-
-  export type menuUpdateToOneWithWhereWithoutMukburimInput = {
-    where?: menuWhereInput
-    data: XOR<menuUpdateWithoutMukburimInput, menuUncheckedUpdateWithoutMukburimInput>
-  }
-
-  export type menuUpdateWithoutMukburimInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateWithoutMukburimInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuCreateWithoutMenu_tagInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUncheckedCreateWithoutMenu_tagInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
-    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuCreateOrConnectWithoutMenu_tagInput = {
-    where: menuWhereUniqueInput
-    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
-  }
-
-  export type menuUpsertWithoutMenu_tagInput = {
-    update: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
-    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
-    where?: menuWhereInput
-  }
-
-  export type menuUpdateToOneWithWhereWithoutMenu_tagInput = {
-    where?: menuWhereInput
-    data: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
-  }
-
-  export type menuUpdateWithoutMenu_tagInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateWithoutMenu_tagInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
-    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuCreateWithoutMenu_vitaminInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuUncheckedCreateWithoutMenu_vitaminInput = {
-    id?: bigint | number
-    name: string
-    description?: string | null
-    calory?: bigint | number | null
-    carbo?: bigint | number | null
-    protein?: bigint | number | null
-    fat?: bigint | number | null
-    sodium?: bigint | number | null
-    image_link?: string | null
-    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
-    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
-    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
-    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
-    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
-  }
-
-  export type menuCreateOrConnectWithoutMenu_vitaminInput = {
-    where: menuWhereUniqueInput
-    create: XOR<menuCreateWithoutMenu_vitaminInput, menuUncheckedCreateWithoutMenu_vitaminInput>
-  }
-
-  export type vitaminCreateWithoutMenu_vitaminInput = {
-    id?: bigint | number
-    vitamin?: string | null
-  }
-
-  export type vitaminUncheckedCreateWithoutMenu_vitaminInput = {
-    id?: bigint | number
-    vitamin?: string | null
-  }
-
-  export type vitaminCreateOrConnectWithoutMenu_vitaminInput = {
-    where: vitaminWhereUniqueInput
-    create: XOR<vitaminCreateWithoutMenu_vitaminInput, vitaminUncheckedCreateWithoutMenu_vitaminInput>
-  }
-
-  export type menuUpsertWithoutMenu_vitaminInput = {
-    update: XOR<menuUpdateWithoutMenu_vitaminInput, menuUncheckedUpdateWithoutMenu_vitaminInput>
-    create: XOR<menuCreateWithoutMenu_vitaminInput, menuUncheckedCreateWithoutMenu_vitaminInput>
-    where?: menuWhereInput
-  }
-
-  export type menuUpdateToOneWithWhereWithoutMenu_vitaminInput = {
-    where?: menuWhereInput
-    data: XOR<menuUpdateWithoutMenu_vitaminInput, menuUncheckedUpdateWithoutMenu_vitaminInput>
-  }
-
-  export type menuUpdateWithoutMenu_vitaminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
-  }
-
-  export type menuUncheckedUpdateWithoutMenu_vitaminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    image_link?: NullableStringFieldUpdateOperationsInput | string | null
-    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
-    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
-    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
-    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
-    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
-  }
-
-  export type vitaminUpsertWithoutMenu_vitaminInput = {
-    update: XOR<vitaminUpdateWithoutMenu_vitaminInput, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
-    create: XOR<vitaminCreateWithoutMenu_vitaminInput, vitaminUncheckedCreateWithoutMenu_vitaminInput>
-    where?: vitaminWhereInput
-  }
-
-  export type vitaminUpdateToOneWithWhereWithoutMenu_vitaminInput = {
-    where?: vitaminWhereInput
-    data: XOR<vitaminUpdateWithoutMenu_vitaminInput, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
-  }
-
-  export type vitaminUpdateWithoutMenu_vitaminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type vitaminUncheckedUpdateWithoutMenu_vitaminInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type menu_vitaminCreateWithoutVitaminInput = {
-    menu: menuCreateNestedOneWithoutMenu_vitaminInput
-  }
-
-  export type menu_vitaminUncheckedCreateWithoutVitaminInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_vitaminCreateOrConnectWithoutVitaminInput = {
-    where: menu_vitaminWhereUniqueInput
-    create: XOR<menu_vitaminCreateWithoutVitaminInput, menu_vitaminUncheckedCreateWithoutVitaminInput>
-  }
-
-  export type menu_vitaminCreateManyVitaminInputEnvelope = {
-    data: menu_vitaminCreateManyVitaminInput | menu_vitaminCreateManyVitaminInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type menu_vitaminUpsertWithWhereUniqueWithoutVitaminInput = {
-    where: menu_vitaminWhereUniqueInput
-    update: XOR<menu_vitaminUpdateWithoutVitaminInput, menu_vitaminUncheckedUpdateWithoutVitaminInput>
-    create: XOR<menu_vitaminCreateWithoutVitaminInput, menu_vitaminUncheckedCreateWithoutVitaminInput>
-  }
-
-  export type menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput = {
-    where: menu_vitaminWhereUniqueInput
-    data: XOR<menu_vitaminUpdateWithoutVitaminInput, menu_vitaminUncheckedUpdateWithoutVitaminInput>
-  }
-
-  export type menu_vitaminUpdateManyWithWhereWithoutVitaminInput = {
-    where: menu_vitaminScalarWhereInput
-    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutVitaminInput>
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | null
+    notIn?: bigint[] | number[] | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | null
+    notIn?: bigint[] | number[] | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type menu_allergyCreateWithoutAllergyInput = {
@@ -17888,6 +17272,14 @@ export namespace Prisma {
   export type menu_allergyUpdateManyWithWhereWithoutAllergyInput = {
     where: menu_allergyScalarWhereInput
     data: XOR<menu_allergyUpdateManyMutationInput, menu_allergyUncheckedUpdateManyWithoutAllergyInput>
+  }
+
+  export type menu_allergyScalarWhereInput = {
+    AND?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
+    OR?: menu_allergyScalarWhereInput[]
+    NOT?: menu_allergyScalarWhereInput | menu_allergyScalarWhereInput[]
+    menu_id?: BigIntFilter<"menu_allergy"> | bigint | number
+    allergy_id?: BigIntFilter<"menu_allergy"> | bigint | number
   }
 
   export type battlesCreateWithoutBattle_menusInput = {
@@ -18200,6 +17592,18 @@ export namespace Prisma {
     data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyWithoutBattlesInput>
   }
 
+  export type battle_menusScalarWhereInput = {
+    AND?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+    OR?: battle_menusScalarWhereInput[]
+    NOT?: battle_menusScalarWhereInput | battle_menusScalarWhereInput[]
+    id?: BigIntFilter<"battle_menus"> | bigint | number
+    battle_id?: StringFilter<"battle_menus"> | string
+    menu_id?: BigIntFilter<"battle_menus"> | bigint | number
+    menu_name?: StringFilter<"battle_menus"> | string
+    boundary_angle?: DecimalFilter<"battle_menus"> | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFilter<"battle_menus"> | number
+  }
+
   export type battle_participantsUpsertWithWhereUniqueWithoutBattlesInput = {
     where: battle_participantsWhereUniqueInput
     update: XOR<battle_participantsUpdateWithoutBattlesInput, battle_participantsUncheckedUpdateWithoutBattlesInput>
@@ -18241,6 +17645,280 @@ export namespace Prisma {
   export type spin_resultsUpdateManyWithWhereWithoutBattlesInput = {
     where: spin_resultsScalarWhereInput
     data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyWithoutBattlesInput>
+  }
+
+  export type spin_resultsScalarWhereInput = {
+    AND?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+    OR?: spin_resultsScalarWhereInput[]
+    NOT?: spin_resultsScalarWhereInput | spin_resultsScalarWhereInput[]
+    id?: BigIntFilter<"spin_results"> | bigint | number
+    battle_id?: StringFilter<"spin_results"> | string
+    nickname?: StringFilter<"spin_results"> | string
+    stopped_angle?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFilter<"spin_results"> | bigint | number
+    closest_menu_name?: StringFilter<"spin_results"> | string
+    distance_to_boundary?: DecimalFilter<"spin_results"> | Decimal | DecimalJsLike | number | string
+    rank?: IntFilter<"spin_results"> | number
+    spun_at?: DateTimeFilter<"spin_results"> | Date | string
+  }
+
+  export type battle_menusCreateWithoutMenuInput = {
+    id?: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+    battles: battlesCreateNestedOneWithoutBattle_menusInput
+  }
+
+  export type battle_menusUncheckedCreateWithoutMenuInput = {
+    id?: bigint | number
+    battle_id: string
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type battle_menusCreateOrConnectWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
+  }
+
+  export type battle_menusCreateManyMenuInputEnvelope = {
+    data: battle_menusCreateManyMenuInput | battle_menusCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_allergyCreateWithoutMenuInput = {
+    allergy: allergyCreateNestedOneWithoutMenu_allergyInput
+  }
+
+  export type menu_allergyUncheckedCreateWithoutMenuInput = {
+    allergy_id: bigint | number
+  }
+
+  export type menu_allergyCreateOrConnectWithoutMenuInput = {
+    where: menu_allergyWhereUniqueInput
+    create: XOR<menu_allergyCreateWithoutMenuInput, menu_allergyUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_allergyCreateManyMenuInputEnvelope = {
+    data: menu_allergyCreateManyMenuInput | menu_allergyCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_tagCreateWithoutMenuInput = {
+    id?: bigint | number
+    tag?: string | null
+  }
+
+  export type menu_tagUncheckedCreateWithoutMenuInput = {
+    id?: bigint | number
+    tag?: string | null
+  }
+
+  export type menu_tagCreateOrConnectWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_tagCreateManyMenuInputEnvelope = {
+    data: menu_tagCreateManyMenuInput | menu_tagCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_vitaminCreateWithoutMenuInput = {
+    vitamin: vitaminCreateNestedOneWithoutMenu_vitaminInput
+  }
+
+  export type menu_vitaminUncheckedCreateWithoutMenuInput = {
+    vitamin_id: bigint | number
+  }
+
+  export type menu_vitaminCreateOrConnectWithoutMenuInput = {
+    where: menu_vitaminWhereUniqueInput
+    create: XOR<menu_vitaminCreateWithoutMenuInput, menu_vitaminUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_vitaminCreateManyMenuInputEnvelope = {
+    data: menu_vitaminCreateManyMenuInput | menu_vitaminCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type mukburimCreateWithoutMenuInput = {
+    id: bigint | number
+    user_id: bigint | number
+    date?: Date | string | null
+  }
+
+  export type mukburimUncheckedCreateWithoutMenuInput = {
+    id: bigint | number
+    user_id: bigint | number
+    date?: Date | string | null
+  }
+
+  export type mukburimCreateOrConnectWithoutMenuInput = {
+    where: mukburimWhereUniqueInput
+    create: XOR<mukburimCreateWithoutMenuInput, mukburimUncheckedCreateWithoutMenuInput>
+  }
+
+  export type mukburimCreateManyMenuInputEnvelope = {
+    data: mukburimCreateManyMenuInput | mukburimCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type spin_resultsCreateWithoutMenuInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+    battles: battlesCreateNestedOneWithoutSpin_resultsInput
+  }
+
+  export type spin_resultsUncheckedCreateWithoutMenuInput = {
+    id?: bigint | number
+    battle_id: string
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type spin_resultsCreateOrConnectWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
+  }
+
+  export type spin_resultsCreateManyMenuInputEnvelope = {
+    data: spin_resultsCreateManyMenuInput | spin_resultsCreateManyMenuInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type battle_menusUpsertWithWhereUniqueWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    update: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
+    create: XOR<battle_menusCreateWithoutMenuInput, battle_menusUncheckedCreateWithoutMenuInput>
+  }
+
+  export type battle_menusUpdateWithWhereUniqueWithoutMenuInput = {
+    where: battle_menusWhereUniqueInput
+    data: XOR<battle_menusUpdateWithoutMenuInput, battle_menusUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type battle_menusUpdateManyWithWhereWithoutMenuInput = {
+    where: battle_menusScalarWhereInput
+    data: XOR<battle_menusUpdateManyMutationInput, battle_menusUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type menu_allergyUpsertWithWhereUniqueWithoutMenuInput = {
+    where: menu_allergyWhereUniqueInput
+    update: XOR<menu_allergyUpdateWithoutMenuInput, menu_allergyUncheckedUpdateWithoutMenuInput>
+    create: XOR<menu_allergyCreateWithoutMenuInput, menu_allergyUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_allergyUpdateWithWhereUniqueWithoutMenuInput = {
+    where: menu_allergyWhereUniqueInput
+    data: XOR<menu_allergyUpdateWithoutMenuInput, menu_allergyUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type menu_allergyUpdateManyWithWhereWithoutMenuInput = {
+    where: menu_allergyScalarWhereInput
+    data: XOR<menu_allergyUpdateManyMutationInput, menu_allergyUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type menu_tagUpsertWithWhereUniqueWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    update: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
+    create: XOR<menu_tagCreateWithoutMenuInput, menu_tagUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_tagUpdateWithWhereUniqueWithoutMenuInput = {
+    where: menu_tagWhereUniqueInput
+    data: XOR<menu_tagUpdateWithoutMenuInput, menu_tagUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type menu_tagUpdateManyWithWhereWithoutMenuInput = {
+    where: menu_tagScalarWhereInput
+    data: XOR<menu_tagUpdateManyMutationInput, menu_tagUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type menu_tagScalarWhereInput = {
+    AND?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
+    OR?: menu_tagScalarWhereInput[]
+    NOT?: menu_tagScalarWhereInput | menu_tagScalarWhereInput[]
+    id?: BigIntFilter<"menu_tag"> | bigint | number
+    menu_id?: BigIntFilter<"menu_tag"> | bigint | number
+    tag?: StringNullableFilter<"menu_tag"> | string | null
+  }
+
+  export type menu_vitaminUpsertWithWhereUniqueWithoutMenuInput = {
+    where: menu_vitaminWhereUniqueInput
+    update: XOR<menu_vitaminUpdateWithoutMenuInput, menu_vitaminUncheckedUpdateWithoutMenuInput>
+    create: XOR<menu_vitaminCreateWithoutMenuInput, menu_vitaminUncheckedCreateWithoutMenuInput>
+  }
+
+  export type menu_vitaminUpdateWithWhereUniqueWithoutMenuInput = {
+    where: menu_vitaminWhereUniqueInput
+    data: XOR<menu_vitaminUpdateWithoutMenuInput, menu_vitaminUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type menu_vitaminUpdateManyWithWhereWithoutMenuInput = {
+    where: menu_vitaminScalarWhereInput
+    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type menu_vitaminScalarWhereInput = {
+    AND?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
+    OR?: menu_vitaminScalarWhereInput[]
+    NOT?: menu_vitaminScalarWhereInput | menu_vitaminScalarWhereInput[]
+    menu_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+    vitamin_id?: BigIntFilter<"menu_vitamin"> | bigint | number
+  }
+
+  export type mukburimUpsertWithWhereUniqueWithoutMenuInput = {
+    where: mukburimWhereUniqueInput
+    update: XOR<mukburimUpdateWithoutMenuInput, mukburimUncheckedUpdateWithoutMenuInput>
+    create: XOR<mukburimCreateWithoutMenuInput, mukburimUncheckedCreateWithoutMenuInput>
+  }
+
+  export type mukburimUpdateWithWhereUniqueWithoutMenuInput = {
+    where: mukburimWhereUniqueInput
+    data: XOR<mukburimUpdateWithoutMenuInput, mukburimUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type mukburimUpdateManyWithWhereWithoutMenuInput = {
+    where: mukburimScalarWhereInput
+    data: XOR<mukburimUpdateManyMutationInput, mukburimUncheckedUpdateManyWithoutMenuInput>
+  }
+
+  export type mukburimScalarWhereInput = {
+    AND?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
+    OR?: mukburimScalarWhereInput[]
+    NOT?: mukburimScalarWhereInput | mukburimScalarWhereInput[]
+    id?: BigIntFilter<"mukburim"> | bigint | number
+    menu_id?: BigIntFilter<"mukburim"> | bigint | number
+    user_id?: BigIntFilter<"mukburim"> | bigint | number
+    date?: DateTimeNullableFilter<"mukburim"> | Date | string | null
+  }
+
+  export type spin_resultsUpsertWithWhereUniqueWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    update: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
+    create: XOR<spin_resultsCreateWithoutMenuInput, spin_resultsUncheckedCreateWithoutMenuInput>
+  }
+
+  export type spin_resultsUpdateWithWhereUniqueWithoutMenuInput = {
+    where: spin_resultsWhereUniqueInput
+    data: XOR<spin_resultsUpdateWithoutMenuInput, spin_resultsUncheckedUpdateWithoutMenuInput>
+  }
+
+  export type spin_resultsUpdateManyWithWhereWithoutMenuInput = {
+    where: spin_resultsScalarWhereInput
+    data: XOR<spin_resultsUpdateManyMutationInput, spin_resultsUncheckedUpdateManyWithoutMenuInput>
   }
 
   export type allergyCreateWithoutMenu_allergyInput = {
@@ -18360,6 +18038,294 @@ export namespace Prisma {
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuCreateWithoutMenu_tagInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutMenu_tagInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutMenu_tagInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+  }
+
+  export type menuUpsertWithoutMenu_tagInput = {
+    update: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
+    create: XOR<menuCreateWithoutMenu_tagInput, menuUncheckedCreateWithoutMenu_tagInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutMenu_tagInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutMenu_tagInput, menuUncheckedUpdateWithoutMenu_tagInput>
+  }
+
+  export type menuUpdateWithoutMenu_tagInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutMenu_tagInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuCreateWithoutMenu_vitaminInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutMenu_vitaminInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
+    mukburim?: mukburimUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutMenu_vitaminInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutMenu_vitaminInput, menuUncheckedCreateWithoutMenu_vitaminInput>
+  }
+
+  export type vitaminCreateWithoutMenu_vitaminInput = {
+    id?: bigint | number
+    vitamin?: string | null
+  }
+
+  export type vitaminUncheckedCreateWithoutMenu_vitaminInput = {
+    id?: bigint | number
+    vitamin?: string | null
+  }
+
+  export type vitaminCreateOrConnectWithoutMenu_vitaminInput = {
+    where: vitaminWhereUniqueInput
+    create: XOR<vitaminCreateWithoutMenu_vitaminInput, vitaminUncheckedCreateWithoutMenu_vitaminInput>
+  }
+
+  export type menuUpsertWithoutMenu_vitaminInput = {
+    update: XOR<menuUpdateWithoutMenu_vitaminInput, menuUncheckedUpdateWithoutMenu_vitaminInput>
+    create: XOR<menuCreateWithoutMenu_vitaminInput, menuUncheckedCreateWithoutMenu_vitaminInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutMenu_vitaminInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutMenu_vitaminInput, menuUncheckedUpdateWithoutMenu_vitaminInput>
+  }
+
+  export type menuUpdateWithoutMenu_vitaminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutMenu_vitaminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
+    mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type vitaminUpsertWithoutMenu_vitaminInput = {
+    update: XOR<vitaminUpdateWithoutMenu_vitaminInput, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
+    create: XOR<vitaminCreateWithoutMenu_vitaminInput, vitaminUncheckedCreateWithoutMenu_vitaminInput>
+    where?: vitaminWhereInput
+  }
+
+  export type vitaminUpdateToOneWithWhereWithoutMenu_vitaminInput = {
+    where?: vitaminWhereInput
+    data: XOR<vitaminUpdateWithoutMenu_vitaminInput, vitaminUncheckedUpdateWithoutMenu_vitaminInput>
+  }
+
+  export type vitaminUpdateWithoutMenu_vitaminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type vitaminUncheckedUpdateWithoutMenu_vitaminInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    vitamin?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type menuCreateWithoutMukburimInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuUncheckedCreateWithoutMukburimInput = {
+    id?: bigint | number
+    name: string
+    description?: string | null
+    calory?: bigint | number | null
+    carbo?: bigint | number | null
+    protein?: bigint | number | null
+    fat?: bigint | number | null
+    sodium?: bigint | number | null
+    image_link?: string | null
+    battle_menus?: battle_menusUncheckedCreateNestedManyWithoutMenuInput
+    menu_allergy?: menu_allergyUncheckedCreateNestedManyWithoutMenuInput
+    menu_tag?: menu_tagUncheckedCreateNestedManyWithoutMenuInput
+    menu_vitamin?: menu_vitaminUncheckedCreateNestedManyWithoutMenuInput
+    spin_results?: spin_resultsUncheckedCreateNestedManyWithoutMenuInput
+  }
+
+  export type menuCreateOrConnectWithoutMukburimInput = {
+    where: menuWhereUniqueInput
+    create: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
+  }
+
+  export type menuUpsertWithoutMukburimInput = {
+    update: XOR<menuUpdateWithoutMukburimInput, menuUncheckedUpdateWithoutMukburimInput>
+    create: XOR<menuCreateWithoutMukburimInput, menuUncheckedCreateWithoutMukburimInput>
+    where?: menuWhereInput
+  }
+
+  export type menuUpdateToOneWithWhereWithoutMukburimInput = {
+    where?: menuWhereInput
+    data: XOR<menuUpdateWithoutMukburimInput, menuUncheckedUpdateWithoutMukburimInput>
+  }
+
+  export type menuUpdateWithoutMukburimInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUpdateManyWithoutMenuNestedInput
+    spin_results?: spin_resultsUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menuUncheckedUpdateWithoutMukburimInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    calory?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    carbo?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    protein?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    fat?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    sodium?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    image_link?: NullableStringFieldUpdateOperationsInput | string | null
+    battle_menus?: battle_menusUncheckedUpdateManyWithoutMenuNestedInput
+    menu_allergy?: menu_allergyUncheckedUpdateManyWithoutMenuNestedInput
+    menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
+    menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     spin_results?: spin_resultsUncheckedUpdateManyWithoutMenuNestedInput
   }
 
@@ -18509,6 +18475,160 @@ export namespace Prisma {
     menu_tag?: menu_tagUncheckedUpdateManyWithoutMenuNestedInput
     menu_vitamin?: menu_vitaminUncheckedUpdateManyWithoutMenuNestedInput
     mukburim?: mukburimUncheckedUpdateManyWithoutMenuNestedInput
+  }
+
+  export type menu_vitaminCreateWithoutVitaminInput = {
+    menu: menuCreateNestedOneWithoutMenu_vitaminInput
+  }
+
+  export type menu_vitaminUncheckedCreateWithoutVitaminInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_vitaminCreateOrConnectWithoutVitaminInput = {
+    where: menu_vitaminWhereUniqueInput
+    create: XOR<menu_vitaminCreateWithoutVitaminInput, menu_vitaminUncheckedCreateWithoutVitaminInput>
+  }
+
+  export type menu_vitaminCreateManyVitaminInputEnvelope = {
+    data: menu_vitaminCreateManyVitaminInput | menu_vitaminCreateManyVitaminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type menu_vitaminUpsertWithWhereUniqueWithoutVitaminInput = {
+    where: menu_vitaminWhereUniqueInput
+    update: XOR<menu_vitaminUpdateWithoutVitaminInput, menu_vitaminUncheckedUpdateWithoutVitaminInput>
+    create: XOR<menu_vitaminCreateWithoutVitaminInput, menu_vitaminUncheckedCreateWithoutVitaminInput>
+  }
+
+  export type menu_vitaminUpdateWithWhereUniqueWithoutVitaminInput = {
+    where: menu_vitaminWhereUniqueInput
+    data: XOR<menu_vitaminUpdateWithoutVitaminInput, menu_vitaminUncheckedUpdateWithoutVitaminInput>
+  }
+
+  export type menu_vitaminUpdateManyWithWhereWithoutVitaminInput = {
+    where: menu_vitaminScalarWhereInput
+    data: XOR<menu_vitaminUpdateManyMutationInput, menu_vitaminUncheckedUpdateManyWithoutVitaminInput>
+  }
+
+  export type menu_allergyCreateManyAllergyInput = {
+    menu_id: bigint | number
+  }
+
+  export type menu_allergyUpdateWithoutAllergyInput = {
+    menu?: menuUpdateOneRequiredWithoutMenu_allergyNestedInput
+  }
+
+  export type menu_allergyUncheckedUpdateWithoutAllergyInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type menu_allergyUncheckedUpdateManyWithoutAllergyInput = {
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type battle_menusCreateManyBattlesInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    menu_name: string
+    boundary_angle: Decimal | DecimalJsLike | number | string
+    menu_order: number
+  }
+
+  export type battle_participantsCreateManyBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    is_creator?: boolean
+    joined_at?: Date | string
+  }
+
+  export type spin_resultsCreateManyBattlesInput = {
+    id?: bigint | number
+    nickname: string
+    stopped_angle: Decimal | DecimalJsLike | number | string
+    closest_menu_id: bigint | number
+    closest_menu_name: string
+    distance_to_boundary: Decimal | DecimalJsLike | number | string
+    rank: number
+    spun_at?: Date | string
+  }
+
+  export type battle_menusUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+    menu?: menuUpdateOneRequiredWithoutBattle_menusNestedInput
+  }
+
+  export type battle_menusUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type battle_menusUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_name?: StringFieldUpdateOperationsInput | string
+    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    menu_order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type battle_participantsUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type battle_participantsUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    is_creator?: BoolFieldUpdateOperationsInput | boolean
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spin_resultsUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    menu?: menuUpdateOneRequiredWithoutSpin_resultsNestedInput
+  }
+
+  export type spin_resultsUncheckedUpdateWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spin_resultsUncheckedUpdateManyWithoutBattlesInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    nickname?: StringFieldUpdateOperationsInput | string
+    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    closest_menu_name?: StringFieldUpdateOperationsInput | string
+    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    rank?: IntFieldUpdateOperationsInput | number
+    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type battle_menusCreateManyMenuInput = {
@@ -18677,126 +18797,6 @@ export namespace Prisma {
 
   export type menu_vitaminUncheckedUpdateManyWithoutVitaminInput = {
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type menu_allergyCreateManyAllergyInput = {
-    menu_id: bigint | number
-  }
-
-  export type menu_allergyUpdateWithoutAllergyInput = {
-    menu?: menuUpdateOneRequiredWithoutMenu_allergyNestedInput
-  }
-
-  export type menu_allergyUncheckedUpdateWithoutAllergyInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type menu_allergyUncheckedUpdateManyWithoutAllergyInput = {
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-  }
-
-  export type battle_menusCreateManyBattlesInput = {
-    id?: bigint | number
-    menu_id: bigint | number
-    menu_name: string
-    boundary_angle: Decimal | DecimalJsLike | number | string
-    menu_order: number
-  }
-
-  export type battle_participantsCreateManyBattlesInput = {
-    id?: bigint | number
-    nickname: string
-    is_creator?: boolean
-    joined_at?: Date | string
-  }
-
-  export type spin_resultsCreateManyBattlesInput = {
-    id?: bigint | number
-    nickname: string
-    stopped_angle: Decimal | DecimalJsLike | number | string
-    closest_menu_id: bigint | number
-    closest_menu_name: string
-    distance_to_boundary: Decimal | DecimalJsLike | number | string
-    rank: number
-    spun_at?: Date | string
-  }
-
-  export type battle_menusUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: StringFieldUpdateOperationsInput | string
-    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    menu_order?: IntFieldUpdateOperationsInput | number
-    menu?: menuUpdateOneRequiredWithoutBattle_menusNestedInput
-  }
-
-  export type battle_menusUncheckedUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: StringFieldUpdateOperationsInput | string
-    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    menu_order?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type battle_menusUncheckedUpdateManyWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    menu_name?: StringFieldUpdateOperationsInput | string
-    boundary_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    menu_order?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type battle_participantsUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    is_creator?: BoolFieldUpdateOperationsInput | boolean
-    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type battle_participantsUncheckedUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    is_creator?: BoolFieldUpdateOperationsInput | boolean
-    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type battle_participantsUncheckedUpdateManyWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    is_creator?: BoolFieldUpdateOperationsInput | boolean
-    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type spin_resultsUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    closest_menu_name?: StringFieldUpdateOperationsInput | string
-    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    rank?: IntFieldUpdateOperationsInput | number
-    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    menu?: menuUpdateOneRequiredWithoutSpin_resultsNestedInput
-  }
-
-  export type spin_resultsUncheckedUpdateWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    closest_menu_name?: StringFieldUpdateOperationsInput | string
-    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    rank?: IntFieldUpdateOperationsInput | number
-    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type spin_resultsUncheckedUpdateManyWithoutBattlesInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
-    nickname?: StringFieldUpdateOperationsInput | string
-    stopped_angle?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    closest_menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
-    closest_menu_name?: StringFieldUpdateOperationsInput | string
-    distance_to_boundary?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    rank?: IntFieldUpdateOperationsInput | number
-    spun_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
