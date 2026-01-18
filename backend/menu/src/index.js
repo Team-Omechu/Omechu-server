@@ -9,7 +9,6 @@ import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
 
 import {
-  handleRecommendMenu,
   handleRecommendRandom,
   handleGetMenuInfo,
   handleGetMenu,
@@ -224,7 +223,6 @@ app.get("/", (req, res) => {
 });
 
 // --- menu routes만 남김 ---
-app.post("/menu/recommend", isLoggedInforRecommend, handleRecommendMenu);
 app.post("/menu/recommend/random", handleRecommendRandom);
 app.get("/menu", handleGetMenu);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
