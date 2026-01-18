@@ -24,13 +24,12 @@ import {
 import { handleChangePassword } from "./controllers/passwordChange.controller.js";
 
 import {
-  handleKakaoRedirect,
-  handleKakaoCallback,
+  handleKakaoLogin,
 } from "./controllers/kakao.controller.js";
 
+
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleKakaoLogin } from "./controllers/kakao.controller.js";
-import { handleGoogleLogin } from "./controllers/google.controller.js";
+import { handleGoogleLogin, handleGoogleRedirect } from "./controllers/google.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -218,8 +217,8 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp); // o
 app.post("/auth/internal/withdraw", handleInternalWithdraw);
 app.post("/auth/internal/hard-delete", handleInternalHardDelete);
-app.post("/api/v1/auth/login/google", handleGoogleLogin);
-app.post("/api/v1/auth/login/kakao", handleKakaoLogin);
+app.post("/auth/login/google", handleGoogleLogin);
+app.post("/auth/login/kakao", handleKakaoLogin);
 
 
 app.post("/auth/login", handleUserLoginJWT);
@@ -234,9 +233,8 @@ app.patch("/auth/reset-passwd", handleResetPassword);
 
 app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
 
-// 카카오 로그인
-app.get("/auth/kakao", handleKakaoRedirect);
-app.get("/auth/kakao/callback", handleKakaoCallback);
+
+app.get("/auth/google", handleGoogleRedirect);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {

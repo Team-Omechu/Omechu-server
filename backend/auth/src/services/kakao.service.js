@@ -57,3 +57,9 @@ export const findOrCreateKakaoUserService = async ({ email, id }) => {
     throw err;
   }
 };
+
+export const loginWithKakaoService = async (code) => {
+  const kakaoUser = await exchangeCodeForTokenService(code);
+  const user = await findOrCreateKakaoUserService(kakaoUser);
+  return user;
+};

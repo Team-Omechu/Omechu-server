@@ -1,51 +1,29 @@
 import { StatusCodes } from "http-status-codes";
-import {
-  loginWithKakaoService,
-} from "../services/oauth.service.js";
+import { loginWithKakaoService } from "../services/kakao.service.js";
 import { generateAccessToken, generateRefreshToken } from "../utils/token.js";
 import { createClient } from "redis";
-import axios from "axios";
 
 const redisClient = createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
 });
 
-export const handleKakaoRedirect = (req, res) => {
-  const redirectUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_LOGIN_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}`;
-  console.log("최종 Redirect URL:", redirectUrl);
-  res.redirect(redirectUrl);
-};
-
 export const handleKakaoLogin = async (req, res, next) => {
   try {
-    const { provider } = req.params;
     const { code } = req.body;
 
     if (!code) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        resultType: "FAIL",
-        error: { reason: "code is required" },
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "P001",
+        reason: "code is required",
       });
     }
 
-    let user;
-
-    if (provider === "kakao") {
-      user = await loginWithKakaoService(code);
-    } else {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        resultType: "FAIL",
-        error: { reason: "Unsupported provider" },
-      });
-    }
-
+    const user = await loginWithKakaoService(code);
     const uid = Number(user.id);
 
-    // JWT
     const accessToken = generateAccessToken({ id: uid });
     const refreshToken = generateRefreshToken({ id: uid });
 
-    // Redis
     if (!redisClient.isOpen) {
       await redisClient.connect();
     }
@@ -54,12 +32,12 @@ export const handleKakaoLogin = async (req, res, next) => {
       EX: 60 * 60 * 24 * 7,
     });
 
-    return res.status(StatusCodes.OK).json({
-      resultType: "SUCCESS",
-      success: { accessToken, refreshToken },
+    return res.status(StatusCodes.OK).success({
+      accessToken,
+      refreshToken,
     });
   } catch (err) {
-    console.error("[OAuth Login Error]", err);
+    console.error("[Kakao OAuth Login Error]", err);
     next(err);
   }
 };
