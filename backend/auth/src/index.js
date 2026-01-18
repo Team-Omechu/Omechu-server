@@ -132,7 +132,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 인증/인가 서비스 API",
     },
-    servers: [{ url: "http://localhost:3000" }],
+    servers: [{ url: "https://omechu-api.log8.kr" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
