@@ -121,15 +121,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  phone_num: 'phone_num',
-  nickname: 'nickname',
-  exercise: 'exercise',
-  is_deleted: 'is_deleted',
-  deleted_at: 'deleted_at'
-};
-
 exports.Prisma.Agreement_consentScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -167,17 +158,6 @@ exports.Prisma.Meal_timeScalarFieldEnum = {
   comment: 'comment'
 };
 
-exports.Prisma.User_allergyScalarFieldEnum = {
-  user_id: 'user_id',
-  allergy_id: 'allergy_id'
-};
-
-exports.Prisma.SessionsScalarFieldEnum = {
-  session_id: 'session_id',
-  expires: 'expires',
-  data: 'data'
-};
-
 exports.Prisma.PreferScalarFieldEnum = {
   id: 'id',
   prefer: 'prefer',
@@ -190,6 +170,26 @@ exports.Prisma.Recommend_exceptScalarFieldEnum = {
   menu_id: 'menu_id',
   bit: 'bit',
   created_at: 'created_at'
+};
+
+exports.Prisma.SessionsScalarFieldEnum = {
+  session_id: 'session_id',
+  expires: 'expires',
+  data: 'data'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  phone_num: 'phone_num',
+  nickname: 'nickname',
+  exercise: 'exercise',
+  is_deleted: 'is_deleted',
+  deleted_at: 'deleted_at'
+};
+
+exports.Prisma.User_allergyScalarFieldEnum = {
+  user_id: 'user_id',
+  allergy_id: 'allergy_id'
 };
 
 exports.Prisma.User_withdrawalScalarFieldEnum = {
@@ -207,11 +207,6 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.userOrderByRelevanceFieldEnum = {
-  phone_num: 'phone_num',
-  nickname: 'nickname'
 };
 
 exports.Prisma.allergy_minOrderByRelevanceFieldEnum = {
@@ -232,15 +227,14 @@ exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
   data: 'data'
 };
 
+exports.Prisma.userOrderByRelevanceFieldEnum = {
+  phone_num: 'phone_num',
+  nickname: 'nickname'
+};
+
 exports.Prisma.user_withdrawalOrderByRelevanceFieldEnum = {
   reason: 'reason'
 };
-exports.user_exercise = exports.$Enums.user_exercise = {
-  dieting: 'dieting',
-  bulking: 'bulking',
-  maintaining: 'maintaining'
-};
-
 exports.prefer_prefer = exports.$Enums.prefer_prefer = {
   korean: 'korean',
   western: 'western',
@@ -249,17 +243,23 @@ exports.prefer_prefer = exports.$Enums.prefer_prefer = {
   other: 'other'
 };
 
+exports.user_exercise = exports.$Enums.user_exercise = {
+  cutting: 'cutting',
+  bulking: 'bulking',
+  maintenance: 'maintenance'
+};
+
 exports.Prisma.ModelName = {
-  user: 'user',
   agreement_consent: 'agreement_consent',
   allergy_min: 'allergy_min',
   inquiry: 'inquiry',
   meal_alert: 'meal_alert',
   meal_time: 'meal_time',
-  user_allergy: 'user_allergy',
-  sessions: 'sessions',
   prefer: 'prefer',
   recommend_except: 'recommend_except',
+  sessions: 'sessions',
+  user: 'user',
+  user_allergy: 'user_allergy',
   user_withdrawal: 'user_withdrawal'
 };
 

@@ -1,168 +1,9 @@
 import { StatusCodes } from "http-status-codes";
-import { bodyToChoice } from "../dtos/choice.dto.js";
-import {
-  recommendMenuService,
-  recommendRandomService,
-} from "../services/menu.service.js";
+import { recommendRandomService } from "../services/menu.service.js";
 import {
   getMenuService,
   getMenuInfoService,
 } from "../services/menu.service.js";
-export const handleRecommendMenu = async (req, res) => {
-  const choice = bodyToChoice(req.body);
-  const userId = req.user?.id;
-  console.log("User ID:", userId);
-  const newRecommendation = await recommendMenuService(choice, userId);
-  if (newRecommendation) {
-    res.status(StatusCodes.OK).json(newRecommendation);
-  } else {
-    res
-      .status(StatusCodes.NOT_FOUND)
-      .json({ message: "No recommendation found" });
-  }
-  /*
-    #swagger.tags = ["Menu"]
-    #swagger.summary = "메뉴 추천 API"
-    #swagger.description = "사용자의 선택 조건에 따라 메뉴를 추천하는 API입니다."
-
-    #swagger.requestBody = {
-      required: true,
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            required: ['meal_time', 'purpose', 'mood', 'with', 'budget', 'exceptions', 'weather'],
-            properties: {
-              meal_time: { 
-                type: 'integer', 
-                example: 1,
-                description: "식사 시간 (1: 아침, 2: 점심, 3: 저녁, 4: 야식)"
-              },
-              purpose: { 
-                type: 'integer', 
-                example: 1,
-                description: "목적 (1: 든든한 한끼, 2: 술 안주, 3: 간식, 4: 기념일)"
-              },
-              mood: { 
-                type: 'integer', 
-                example: 1,
-                description: "기분"
-              },
-              with: { 
-                type: 'integer', 
-                example: 1,
-                description: "동행자 (1: 혼자, 2: 친구, 3: 연인, 4: 가족)"
-              },
-              budget: { 
-                type: 'integer', 
-                example: 1,
-                description: "예산 범위"
-              },
-              exceptions: {
-                type: 'array',
-                items: { type: 'string' },
-                example: ["면", "중식"],
-                description: "제외할 음식 종류"
-              },
-              weather: { 
-                type: 'string', 
-                example: "더움",
-                description: "현재 날씨"
-              }
-              
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[200] = {
-      description: "메뉴 추천 성공",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              menus: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    menu: { type: 'string', example: '짜장면' },
-                    description: { type: 'string', example: '간장 소스로 볶은 중화풍 면 요리' },
-                    calories: { type: 'number', example: 800 },
-                    carbohydrates: { type: 'number', example: 90 },
-                    protein: { type: 'number', example: 20 },
-                    fat: { type: 'number', example: 30 },
-                    sodium: { type: 'number', example: 1200 },
-                    vitamins: {
-                      type: 'array',
-                      items: { type: 'string' },
-                      example: ['A', 'B1', 'B2', 'C']
-                    },
-                    allergies: {
-                      type: 'array',
-                      items: { type: 'string' },
-                      example: ['밀', '대두']
-                    },
-                    image_link: { 
-                      type: 'string', 
-                      example: 'https://example.com/image.jpg' 
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[404] = {
-      description: "추천 메뉴를 찾을 수 없음",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              message: { type: 'string', example: 'No recommendation found' }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[401] = {
-      description: "인증 실패 - 유효하지 않은 세션",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              message: { type: 'string', example: 'Invalid session' }
-            }
-          }
-        }
-      }
-    }
-
-    #swagger.responses[500] = {
-      description: "서버 내부 오류",
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              message: { type: 'string', example: 'Internal server error' }
-            }
-          }
-        }
-      }
-    }
-    */
-};
-
-
 
 export const handleGetMenuInfo = async (req, res) => {
   const { name } = req.body;
@@ -376,8 +217,8 @@ export const handleGetMenu = async (req, res) => {
 
   /*
     #swagger.tags = ["Menu"]
-    #swagger.summary = "전체 메뉴 조회 API"
-    #swagger.description = "데이터베이스에 저장된 모든 메뉴 목록을 조회하는 API입니다."
+    #swagger.summary = "전체 메뉴 목록 조회 API (GET /menu)"
+    #swagger.description = "특정 메뉴 한 개가 아니라, 데이터베이스에 저장된 모든 메뉴 목록을 한 번에 조회하는 API입니다. 요청 바디나 쿼리 파라미터 없이 GET /menu 로 호출합니다."
 
     #swagger.responses[200] = {
       description: "메뉴 목록 조회 성공",

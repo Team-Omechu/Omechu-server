@@ -45,7 +45,7 @@ export const handleKakaoLogin = async (req, res, next) => {
       {
         headers: { "x-internal-key": process.env.INTERNAL_API_KEY },
         timeout: 3000,
-      }
+      },
     );
 
     const accessToken = generateAccessToken({ id: uid });
