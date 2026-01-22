@@ -12,15 +12,30 @@ const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
 
 export const handleKakaoLogin = async (req, res, next) => {
   try {
-    const { code } = req.body;
+    const { code, state } = req.query;
 
-    if (!code) {
-      return res.status(StatusCodes.BAD_REQUEST).error({
+    if (!code || !state) {
+      return res.status(400).json({
         errorCode: "P001",
-        reason: "code is required",
+        reason: "code and state are required",
       });
     }
-    
+
+    if (!redisClient.isOpen) {
+      await redisClient.connect();
+    }
+
+    const redirectUri = await redisClient.get(`oauth:kakao:${state}`);
+
+    if (!redirectUri) {
+      return res.status(400).json({
+        errorCode: "P003",
+        reason: "Invalid or expired state",
+      });
+    }
+
+    await redisClient.del(`oauth:kakao:${state}`);
+
     const user = await loginWithKakaoService(code);
     const uid = Number(user.id);
 
@@ -28,9 +43,7 @@ export const handleKakaoLogin = async (req, res, next) => {
       `${USER_SERVICE_URL}/user/internal`,
       { userId: uid },
       {
-        headers: {
-          "x-internal-key": process.env.INTERNAL_API_KEY,
-        },
+        headers: { "x-internal-key": process.env.INTERNAL_API_KEY },
         timeout: 3000,
       }
     );
@@ -38,20 +51,14 @@ export const handleKakaoLogin = async (req, res, next) => {
     const accessToken = generateAccessToken({ id: uid });
     const refreshToken = generateRefreshToken({ id: uid });
 
-    if (!redisClient.isOpen) {
-      await redisClient.connect();
-    }
-
     await redisClient.set(`refresh:${uid}`, refreshToken, {
       EX: 60 * 60 * 24 * 7,
     });
 
-    return res.status(StatusCodes.OK).success({
-      accessToken,
-      refreshToken,
-    });
+    return res.redirect(
+      `${redirectUri}?accessToken=${accessToken}`
+    );
   } catch (err) {
-    console.error("[Kakao OAuth Login Error]", err);
     next(err);
   }
 };

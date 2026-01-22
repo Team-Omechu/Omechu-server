@@ -12,6 +12,7 @@ import { handleUserSignUp } from "./controllers/auth.controller.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
 import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
+import { startKakaoLogin } from "./controllers/startKakaoLogin.controller.js";
 
 import {
   handleSendEmailCode,
@@ -29,7 +30,8 @@ import {
 
 
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleGoogleLogin } from "./controllers/google.controller.js";
+import { handleGoogleCallback } from "./controllers/google.controller.js";
+import { startGoogleLogin } from "./controllers/startGoogleLogin.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -217,8 +219,10 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp); // o
 app.post("/auth/internal/withdraw", handleInternalWithdraw);
 app.post("/auth/internal/hard-delete", handleInternalHardDelete);
-app.post("/auth/login/google", handleGoogleLogin);
-app.post("/auth/login/kakao", handleKakaoLogin);
+app.post("/auth/login/google", startGoogleLogin);
+app.post("/auth/login/kakao", startKakaoLogin);
+app.get("/auth/kakao/callback", handleKakaoLogin);
+app.get("/auth/google/callback", handleGoogleCallback);
 
 
 app.post("/auth/login", handleUserLoginJWT);
