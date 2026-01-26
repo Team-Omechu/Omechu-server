@@ -70,9 +70,9 @@ export function convertAllergyToEnum(allergyKo) {
 
 function convertExerciseToEnum(exercise) {
   const map = {
-    "다이어트 중": "dieting",
+    "다이어트 중": "cutting",
     "증량 중": "bulking",
-    "유지 중": "maintaining",
+    "유지 중": "maintenance",
   };
   return map[exercise] ?? null;
 }
@@ -80,12 +80,13 @@ function convertExerciseToEnum(exercise) {
 
 function convertExercise(ex) {
   const map = {
-    dieting: "다이어트 중",
+    cutting: "다이어트 중",
     bulking: "증량 중",
-    maintaining: "유지 중",
+    maintenance: "유지 중",
   };
   return map[ex] ?? ex;
 }
+
 
 function convertPrefer(prefer) {
   const map = {
