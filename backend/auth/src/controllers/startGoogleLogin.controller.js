@@ -7,8 +7,8 @@ const redisClient = createClient({
 });
 
 const ALLOWED_REDIRECT_URIS = [
-  "http://localhost:3000/login/callback",
-  "https://omechu.log8.kr/login/callback",
+  "http://localhost:3000/auth/callback/google",
+  "https://omechu.log8.kr/auth/callback/google",
 ];
 
 export const startGoogleLogin = async (req, res, next) => {
