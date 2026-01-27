@@ -192,7 +192,7 @@ export const handleGetMukburimStatistics = async (req, res, next) => {
       cleanPeriod,
       cleanStartDate,
       cleanEndDate,
-      cleanSortBy
+      cleanSortBy,
     );
 
     res.status(StatusCodes.OK).success(result);

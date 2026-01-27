@@ -19,7 +19,7 @@ export const exchangeCodeForTokenService = async (code) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-    }
+    },
   );
 
   const accessToken = tokenRes.data.access_token;

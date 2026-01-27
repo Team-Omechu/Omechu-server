@@ -36,11 +36,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.19.1
+ * Prisma Client JS version: 6.19.2
  * Query Engine version: c2990dca591cba766e3b7ef5d9e8a84796e47ab7
  */
 Prisma.prismaVersion = {
-  client: "6.19.1",
+  client: "6.19.2",
   engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
 }
 
@@ -93,50 +93,9 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.MenuScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  calory: 'calory',
-  carbo: 'carbo',
-  protein: 'protein',
-  fat: 'fat',
-  sodium: 'sodium',
-  image_link: 'image_link'
-};
-
-exports.Prisma.MukburimScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  user_id: 'user_id',
-  date: 'date'
-};
-
-exports.Prisma.Menu_tagScalarFieldEnum = {
-  id: 'id',
-  menu_id: 'menu_id',
-  tag: 'tag'
-};
-
-exports.Prisma.Menu_vitaminScalarFieldEnum = {
-  menu_id: 'menu_id',
-  vitamin_id: 'vitamin_id'
-};
-
-exports.Prisma.VitaminScalarFieldEnum = {
-  id: 'id',
-  vitamin: 'vitamin'
-};
-
 exports.Prisma.AllergyScalarFieldEnum = {
   id: 'id',
   allergy: 'allergy'
-};
-
-exports.Prisma.SessionsScalarFieldEnum = {
-  session_id: 'session_id',
-  expires: 'expires',
-  data: 'data'
 };
 
 exports.Prisma.Battle_menusScalarFieldEnum = {
@@ -166,9 +125,45 @@ exports.Prisma.BattlesScalarFieldEnum = {
   expires_at: 'expires_at'
 };
 
+exports.Prisma.MenuScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  calory: 'calory',
+  carbo: 'carbo',
+  protein: 'protein',
+  fat: 'fat',
+  sodium: 'sodium',
+  image_link: 'image_link'
+};
+
 exports.Prisma.Menu_allergyScalarFieldEnum = {
   menu_id: 'menu_id',
   allergy_id: 'allergy_id'
+};
+
+exports.Prisma.Menu_tagScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  tag: 'tag'
+};
+
+exports.Prisma.Menu_vitaminScalarFieldEnum = {
+  menu_id: 'menu_id',
+  vitamin_id: 'vitamin_id'
+};
+
+exports.Prisma.MukburimScalarFieldEnum = {
+  id: 'id',
+  menu_id: 'menu_id',
+  user_id: 'user_id',
+  date: 'date'
+};
+
+exports.Prisma.SessionsScalarFieldEnum = {
+  session_id: 'session_id',
+  expires: 'expires',
+  data: 'data'
 };
 
 exports.Prisma.Spin_resultsScalarFieldEnum = {
@@ -183,6 +178,11 @@ exports.Prisma.Spin_resultsScalarFieldEnum = {
   spun_at: 'spun_at'
 };
 
+exports.Prisma.VitaminScalarFieldEnum = {
+  id: 'id',
+  vitamin: 'vitamin'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -193,27 +193,8 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.menuOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description',
-  image_link: 'image_link'
-};
-
-exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
-  tag: 'tag'
-};
-
-exports.Prisma.vitaminOrderByRelevanceFieldEnum = {
-  vitamin: 'vitamin'
-};
-
 exports.Prisma.allergyOrderByRelevanceFieldEnum = {
   allergy: 'allergy'
-};
-
-exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
-  session_id: 'session_id',
-  data: 'data'
 };
 
 exports.Prisma.battle_menusOrderByRelevanceFieldEnum = {
@@ -231,10 +212,29 @@ exports.Prisma.battlesOrderByRelevanceFieldEnum = {
   creator_nickname: 'creator_nickname'
 };
 
+exports.Prisma.menuOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description',
+  image_link: 'image_link'
+};
+
+exports.Prisma.menu_tagOrderByRelevanceFieldEnum = {
+  tag: 'tag'
+};
+
+exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
+  session_id: 'session_id',
+  data: 'data'
+};
+
 exports.Prisma.spin_resultsOrderByRelevanceFieldEnum = {
   battle_id: 'battle_id',
   nickname: 'nickname',
   closest_menu_name: 'closest_menu_name'
+};
+
+exports.Prisma.vitaminOrderByRelevanceFieldEnum = {
+  vitamin: 'vitamin'
 };
 exports.battles_status = exports.$Enums.battles_status = {
   waiting: 'waiting',
@@ -243,18 +243,18 @@ exports.battles_status = exports.$Enums.battles_status = {
 };
 
 exports.Prisma.ModelName = {
-  menu: 'menu',
-  mukburim: 'mukburim',
-  menu_tag: 'menu_tag',
-  menu_vitamin: 'menu_vitamin',
-  vitamin: 'vitamin',
   allergy: 'allergy',
-  sessions: 'sessions',
   battle_menus: 'battle_menus',
   battle_participants: 'battle_participants',
   battles: 'battles',
+  menu: 'menu',
   menu_allergy: 'menu_allergy',
-  spin_results: 'spin_results'
+  menu_tag: 'menu_tag',
+  menu_vitamin: 'menu_vitamin',
+  mukburim: 'mukburim',
+  sessions: 'sessions',
+  spin_results: 'spin_results',
+  vitamin: 'vitamin'
 };
 /**
  * Create the Client
@@ -267,7 +267,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\mhdmj\\OneDrive\\바탕 화면\\Omechu_final\\Omechu-develop\\Omechu-server\\backend\\menu\\src\\generated\\prisma",
+      "value": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/menu/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -276,20 +276,20 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\mhdmj\\OneDrive\\바탕 화면\\Omechu_final\\Omechu-develop\\Omechu-server\\backend\\menu\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/hwijune/Desktop/Omechu/Omechu-server/backend/menu/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.19.1",
+  "clientVersion": "6.19.2",
   "engineVersion": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
   "datasourceNames": [
     "db"
@@ -304,13 +304,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel menu {\n  id           BigInt         @id @default(autoincrement())\n  name         String         @db.VarChar(30)\n  description  String?        @db.VarChar(150)\n  calory       BigInt?\n  carbo        BigInt?\n  protein      BigInt?\n  fat          BigInt?\n  sodium       BigInt?\n  image_link   String?\n  battle_menus battle_menus[]\n  menu_allergy menu_allergy[]\n  menu_tag     menu_tag[]\n  menu_vitamin menu_vitamin[]\n  mukburim     mukburim[]\n  spin_results spin_results[]\n}\n\nmodel mukburim {\n  id      BigInt    @id\n  menu_id BigInt\n  user_id BigInt\n  date    DateTime? @db.DateTime(0)\n  menu    menu      @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"mukburim_menu_id_fk\")\n\n  @@index([menu_id], map: \"mukburim_menu_id_fk\")\n}\n\nmodel menu_tag {\n  id      BigInt  @id @default(autoincrement())\n  menu_id BigInt\n  tag     String? @db.VarChar(40)\n  menu    menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_tag_ibfk_1\")\n\n  @@index([menu_id], map: \"menu_tag_menu_id_fk\")\n}\n\nmodel menu_vitamin {\n  menu_id    BigInt\n  vitamin_id BigInt\n  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_vitamin_menu_id_fk\")\n  vitamin    vitamin @relation(fields: [vitamin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_vitamin_vitamin_id_fk\")\n\n  @@id([menu_id, vitamin_id])\n  @@index([vitamin_id], map: \"menu_vitamin_vitamin_id_fk\")\n}\n\nmodel vitamin {\n  id           BigInt         @id @default(autoincrement())\n  vitamin      String?        @db.VarChar(50)\n  menu_vitamin menu_vitamin[]\n}\n\nmodel allergy {\n  id           BigInt         @id @default(autoincrement())\n  allergy      String?        @db.VarChar(50)\n  menu_allergy menu_allergy[]\n}\n\nmodel sessions {\n  session_id String  @id @db.VarChar(128)\n  expires    Int     @db.UnsignedInt\n  data       String? @db.MediumText\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battle_menus {\n  id             BigInt  @id @default(autoincrement())\n  battle_id      String  @db.VarChar(36)\n  menu_id        BigInt\n  menu_name      String  @db.VarChar(50)\n  boundary_angle Decimal @db.Decimal(5, 2)\n  menu_order     Int\n  battles        battles @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_bm_battle\")\n  menu           menu    @relation(fields: [menu_id], references: [id], onDelete: Cascade, map: \"fk_bm_menu\")\n\n  @@unique([battle_id, menu_id], map: \"uk_battle_menu\")\n  @@index([battle_id], map: \"idx_battle_id\")\n  @@index([menu_id], map: \"idx_menu_id\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battle_participants {\n  id         BigInt   @id @default(autoincrement())\n  battle_id  String   @db.VarChar(36)\n  nickname   String   @db.VarChar(50)\n  is_creator Boolean  @default(false)\n  joined_at  DateTime @default(now()) @db.DateTime(0)\n  battles    battles  @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_bp_battle\")\n\n  @@unique([battle_id, nickname], map: \"uk_battle_nickname\")\n  @@index([battle_id], map: \"idx_battle_id\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battles {\n  battle_id           String                @id @db.VarChar(36)\n  creator_nickname    String                @db.VarChar(50)\n  status              battles_status        @default(active)\n  participant_count   Int                   @default(0)\n  created_at          DateTime              @default(now()) @db.DateTime(0)\n  finished_at         DateTime?             @db.DateTime(0)\n  expires_at          DateTime              @db.DateTime(0)\n  battle_menus        battle_menus[]\n  battle_participants battle_participants[]\n  spin_results        spin_results[]\n\n  @@index([created_at], map: \"idx_created_at\")\n  @@index([expires_at], map: \"idx_expires_at\")\n  @@index([status], map: \"idx_status\")\n}\n\nmodel menu_allergy {\n  menu_id    BigInt\n  allergy_id BigInt\n  allergy    allergy @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_allergy_allergy_id_fk\")\n  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_allergy_menu_id_fk\")\n\n  @@id([menu_id, allergy_id])\n  @@index([allergy_id], map: \"menu_allergy_allergy_id_fk\")\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel spin_results {\n  id                   BigInt   @id @default(autoincrement())\n  battle_id            String   @db.VarChar(36)\n  nickname             String   @db.VarChar(50)\n  stopped_angle        Decimal  @db.Decimal(5, 2)\n  closest_menu_id      BigInt\n  closest_menu_name    String   @db.VarChar(50)\n  distance_to_boundary Decimal  @db.Decimal(5, 2)\n  rank                 Int\n  spun_at              DateTime @default(now()) @db.DateTime(0)\n  battles              battles  @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_sr_battle\")\n  menu                 menu     @relation(fields: [closest_menu_id], references: [id], onDelete: Cascade, map: \"fk_sr_menu\")\n\n  @@unique([battle_id, nickname], map: \"uk_battle_nickname\")\n  @@index([closest_menu_id], map: \"fk_sr_menu\")\n  @@index([battle_id], map: \"idx_battle_id\")\n  @@index([distance_to_boundary], map: \"idx_distance\")\n  @@index([rank], map: \"idx_rank\")\n  @@index([spun_at], map: \"idx_spun_at\")\n}\n\nenum battles_status {\n  waiting\n  active\n  finished\n}\n",
-  "inlineSchemaHash": "5cfdefb85546e7eb4db0eed8b7ec9f27a7e9cb0765dd1e0837a51884a4e966ec",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel allergy {\n  id           BigInt         @id @default(autoincrement())\n  allergy      String?        @db.VarChar(50)\n  menu_allergy menu_allergy[]\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battle_menus {\n  id             BigInt  @id @default(autoincrement())\n  battle_id      String  @db.VarChar(36)\n  menu_id        BigInt\n  menu_name      String  @db.VarChar(50)\n  boundary_angle Decimal @db.Decimal(5, 2)\n  menu_order     Int\n  battles        battles @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_bm_battle\")\n  menu           menu    @relation(fields: [menu_id], references: [id], onDelete: Cascade, map: \"fk_bm_menu\")\n\n  @@unique([battle_id, menu_id], map: \"uk_battle_menu\")\n  @@index([battle_id], map: \"idx_battle_id\")\n  @@index([menu_id], map: \"idx_menu_id\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battle_participants {\n  id         BigInt   @id @default(autoincrement())\n  battle_id  String   @db.VarChar(36)\n  nickname   String   @db.VarChar(50)\n  is_creator Boolean  @default(false)\n  joined_at  DateTime @default(now()) @db.DateTime(0)\n  battles    battles  @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_bp_battle\")\n\n  @@unique([battle_id, nickname], map: \"uk_battle_nickname\")\n  @@index([battle_id], map: \"idx_battle_id\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel battles {\n  battle_id           String                @id @db.VarChar(36)\n  creator_nickname    String                @db.VarChar(50)\n  status              battles_status        @default(active)\n  participant_count   Int                   @default(0)\n  created_at          DateTime              @default(now()) @db.DateTime(0)\n  finished_at         DateTime?             @db.DateTime(0)\n  expires_at          DateTime              @db.DateTime(0)\n  battle_menus        battle_menus[]\n  battle_participants battle_participants[]\n  spin_results        spin_results[]\n\n  @@index([created_at], map: \"idx_created_at\")\n  @@index([expires_at], map: \"idx_expires_at\")\n  @@index([status], map: \"idx_status\")\n}\n\nmodel menu {\n  id           BigInt         @id @default(autoincrement())\n  name         String         @db.VarChar(30)\n  description  String?        @db.VarChar(150)\n  calory       BigInt?\n  carbo        BigInt?\n  protein      BigInt?\n  fat          BigInt?\n  sodium       BigInt?\n  image_link   String?\n  battle_menus battle_menus[]\n  menu_allergy menu_allergy[]\n  menu_tag     menu_tag[]\n  menu_vitamin menu_vitamin[]\n  mukburim     mukburim[]\n  spin_results spin_results[]\n}\n\nmodel menu_allergy {\n  menu_id    BigInt\n  allergy_id BigInt\n  allergy    allergy @relation(fields: [allergy_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_allergy_allergy_id_fk\")\n  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_allergy_menu_id_fk\")\n\n  @@id([menu_id, allergy_id])\n  @@index([allergy_id], map: \"menu_allergy_allergy_id_fk\")\n}\n\nmodel menu_tag {\n  id      BigInt  @id @default(autoincrement())\n  menu_id BigInt\n  tag     String? @db.VarChar(40)\n  menu    menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_tag_menu_id_fk\")\n\n  @@index([menu_id], map: \"menu_tag_menu_id_fk\")\n}\n\nmodel menu_vitamin {\n  menu_id    BigInt\n  vitamin_id BigInt\n  menu       menu    @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_vitamin_menu_id_fk\")\n  vitamin    vitamin @relation(fields: [vitamin_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"menu_vitamin_vitamin_id_fk\")\n\n  @@id([menu_id, vitamin_id])\n  @@index([vitamin_id], map: \"menu_vitamin_vitamin_id_fk\")\n}\n\nmodel mukburim {\n  id      BigInt    @id\n  menu_id BigInt\n  user_id BigInt\n  date    DateTime? @db.DateTime(0)\n  menu    menu      @relation(fields: [menu_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: \"mukburim_menu_id_fk\")\n\n  @@index([menu_id], map: \"mukburim_menu_id_fk\")\n}\n\nmodel sessions {\n  session_id String  @id @db.VarChar(128)\n  expires    Int     @db.UnsignedInt\n  data       String? @db.MediumText\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\nmodel spin_results {\n  id                   BigInt   @id @default(autoincrement())\n  battle_id            String   @db.VarChar(36)\n  nickname             String   @db.VarChar(50)\n  stopped_angle        Decimal  @db.Decimal(5, 2)\n  closest_menu_id      BigInt\n  closest_menu_name    String   @db.VarChar(50)\n  distance_to_boundary Decimal  @db.Decimal(5, 2)\n  rank                 Int\n  spun_at              DateTime @default(now()) @db.DateTime(0)\n  battles              battles  @relation(fields: [battle_id], references: [battle_id], onDelete: Cascade, map: \"fk_sr_battle\")\n  menu                 menu     @relation(fields: [closest_menu_id], references: [id], onDelete: Cascade, map: \"fk_sr_menu\")\n\n  @@unique([battle_id, nickname], map: \"uk_battle_nickname\")\n  @@index([closest_menu_id], map: \"fk_sr_menu\")\n  @@index([battle_id], map: \"idx_battle_id\")\n  @@index([distance_to_boundary], map: \"idx_distance\")\n  @@index([rank], map: \"idx_rank\")\n  @@index([spun_at], map: \"idx_spun_at\")\n}\n\nmodel vitamin {\n  id           BigInt         @id @default(autoincrement())\n  vitamin      String?        @db.VarChar(50)\n  menu_vitamin menu_vitamin[]\n}\n\nenum battles_status {\n  waiting\n  active\n  finished\n}\n",
+  "inlineSchemaHash": "8de31f2856bcff81d5986e92274cfa7b8fc31104613ff24f31b7f7868bdac0bb",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"menu\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"calory\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"carbo\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"protein\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"fat\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"sodium\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"image_link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"battle_menus\",\"kind\":\"object\",\"type\":\"battle_menus\",\"relationName\":\"battle_menusTomenu\"},{\"name\":\"menu_allergy\",\"kind\":\"object\",\"type\":\"menu_allergy\",\"relationName\":\"menuTomenu_allergy\"},{\"name\":\"menu_tag\",\"kind\":\"object\",\"type\":\"menu_tag\",\"relationName\":\"menuTomenu_tag\"},{\"name\":\"menu_vitamin\",\"kind\":\"object\",\"type\":\"menu_vitamin\",\"relationName\":\"menuTomenu_vitamin\"},{\"name\":\"mukburim\",\"kind\":\"object\",\"type\":\"mukburim\",\"relationName\":\"menuTomukburim\"},{\"name\":\"spin_results\",\"kind\":\"object\",\"type\":\"spin_results\",\"relationName\":\"menuTospin_results\"}],\"dbName\":null},\"mukburim\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomukburim\"}],\"dbName\":null},\"menu_tag\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"tag\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_tag\"}],\"dbName\":null},\"menu_vitamin\":{\"fields\":[{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"vitamin_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_vitamin\"},{\"name\":\"vitamin\",\"kind\":\"object\",\"type\":\"vitamin\",\"relationName\":\"menu_vitaminTovitamin\"}],\"dbName\":null},\"vitamin\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"vitamin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_vitamin\",\"kind\":\"object\",\"type\":\"menu_vitamin\",\"relationName\":\"menu_vitaminTovitamin\"}],\"dbName\":null},\"allergy\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_allergy\",\"kind\":\"object\",\"type\":\"menu_allergy\",\"relationName\":\"allergyTomenu_allergy\"}],\"dbName\":null},\"sessions\":{\"fields\":[{\"name\":\"session_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"data\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"battle_menus\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"boundary_angle\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"menu_order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battle_menusTobattles\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"battle_menusTomenu\"}],\"dbName\":null},\"battle_participants\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_creator\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"joined_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battle_participantsTobattles\"}],\"dbName\":null},\"battles\":{\"fields\":[{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"creator_nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"battles_status\"},{\"name\":\"participant_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"finished_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battle_menus\",\"kind\":\"object\",\"type\":\"battle_menus\",\"relationName\":\"battle_menusTobattles\"},{\"name\":\"battle_participants\",\"kind\":\"object\",\"type\":\"battle_participants\",\"relationName\":\"battle_participantsTobattles\"},{\"name\":\"spin_results\",\"kind\":\"object\",\"type\":\"spin_results\",\"relationName\":\"battlesTospin_results\"}],\"dbName\":null},\"menu_allergy\":{\"fields\":[{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy\",\"kind\":\"object\",\"type\":\"allergy\",\"relationName\":\"allergyTomenu_allergy\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_allergy\"}],\"dbName\":null},\"spin_results\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"stopped_angle\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"closest_menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"closest_menu_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"distance_to_boundary\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"rank\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spun_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battlesTospin_results\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTospin_results\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"allergy\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_allergy\",\"kind\":\"object\",\"type\":\"menu_allergy\",\"relationName\":\"allergyTomenu_allergy\"}],\"dbName\":null},\"battle_menus\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"boundary_angle\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"menu_order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battle_menusTobattles\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"battle_menusTomenu\"}],\"dbName\":null},\"battle_participants\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_creator\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"joined_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battle_participantsTobattles\"}],\"dbName\":null},\"battles\":{\"fields\":[{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"creator_nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"battles_status\"},{\"name\":\"participant_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"finished_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battle_menus\",\"kind\":\"object\",\"type\":\"battle_menus\",\"relationName\":\"battle_menusTobattles\"},{\"name\":\"battle_participants\",\"kind\":\"object\",\"type\":\"battle_participants\",\"relationName\":\"battle_participantsTobattles\"},{\"name\":\"spin_results\",\"kind\":\"object\",\"type\":\"spin_results\",\"relationName\":\"battlesTospin_results\"}],\"dbName\":null},\"menu\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"calory\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"carbo\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"protein\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"fat\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"sodium\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"image_link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"battle_menus\",\"kind\":\"object\",\"type\":\"battle_menus\",\"relationName\":\"battle_menusTomenu\"},{\"name\":\"menu_allergy\",\"kind\":\"object\",\"type\":\"menu_allergy\",\"relationName\":\"menuTomenu_allergy\"},{\"name\":\"menu_tag\",\"kind\":\"object\",\"type\":\"menu_tag\",\"relationName\":\"menuTomenu_tag\"},{\"name\":\"menu_vitamin\",\"kind\":\"object\",\"type\":\"menu_vitamin\",\"relationName\":\"menuTomenu_vitamin\"},{\"name\":\"mukburim\",\"kind\":\"object\",\"type\":\"mukburim\",\"relationName\":\"menuTomukburim\"},{\"name\":\"spin_results\",\"kind\":\"object\",\"type\":\"spin_results\",\"relationName\":\"menuTospin_results\"}],\"dbName\":null},\"menu_allergy\":{\"fields\":[{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"allergy\",\"kind\":\"object\",\"type\":\"allergy\",\"relationName\":\"allergyTomenu_allergy\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_allergy\"}],\"dbName\":null},\"menu_tag\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"tag\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_tag\"}],\"dbName\":null},\"menu_vitamin\":{\"fields\":[{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"vitamin_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomenu_vitamin\"},{\"name\":\"vitamin\",\"kind\":\"object\",\"type\":\"vitamin\",\"relationName\":\"menu_vitaminTovitamin\"}],\"dbName\":null},\"mukburim\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTomukburim\"}],\"dbName\":null},\"sessions\":{\"fields\":[{\"name\":\"session_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"data\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"spin_results\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"battle_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nickname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"stopped_angle\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"closest_menu_id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"closest_menu_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"distance_to_boundary\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"rank\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"spun_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"battles\",\"kind\":\"object\",\"type\":\"battles\",\"relationName\":\"battlesTospin_results\"},{\"name\":\"menu\",\"kind\":\"object\",\"type\":\"menu\",\"relationName\":\"menuTospin_results\"}],\"dbName\":null},\"vitamin\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"BigInt\"},{\"name\":\"vitamin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"menu_vitamin\",\"kind\":\"object\",\"type\":\"menu_vitamin\",\"relationName\":\"menu_vitaminTovitamin\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

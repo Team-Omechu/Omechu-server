@@ -12,6 +12,7 @@ import { handleUserSignUp } from "./controllers/auth.controller.js";
 import { handleUserLoginJWT } from "./controllers/login.controller.js";
 import { handleRenewToken } from "./controllers/renewToken.controller.js";
 import { handleUserLogoutJWT } from "./controllers/logout.controller.js";
+import { startKakaoLogin } from "./controllers/startKakaoLogin.controller.js";
 
 import {
   handleSendEmailCode,
@@ -23,13 +24,11 @@ import {
 } from "./controllers/passwordReset.controller.js";
 import { handleChangePassword } from "./controllers/passwordChange.controller.js";
 
-import {
-  handleKakaoLogin,
-} from "./controllers/kakao.controller.js";
-
+import { handleKakaoLogin } from "./controllers/kakao.controller.js";
 
 import { handleInternalHardDelete } from "./controllers/internalWithdraw.controller.js";
-import { handleGoogleLogin } from "./controllers/google.controller.js";
+import { handleGoogleCallback } from "./controllers/google.controller.js";
+import { startGoogleLogin } from "./controllers/startGoogleLogin.controller.js";
 import { handleInternalWithdraw } from "./controllers/internalWithdraw.controller.js";
 import {
   NoBearerToken,
@@ -82,7 +81,7 @@ app.use(
       "X-Requested-With",
       "Origin",
     ],
-  })
+  }),
 );
 
 // body parser
@@ -111,7 +110,7 @@ app.use(
       secure: false, // HTTPS면 true로
       sameSite: "lax",
     },
-  })
+  }),
 );
 
 // Swagger (auth 서비스 전용)
@@ -135,7 +134,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 인증/인가 서비스 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr/auth" }],
+    servers: [{ url: "http://localhost:3000" }],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -161,15 +160,12 @@ const startSwagger = async () => {
           configUrl: null,
           withCredentials: true,
         },
-      })
+      }),
     );
 
     // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
     const forceJsonResponse = (req, res) => res.json(swaggerSpec);
-    app.get("/openapi.json", forceJsonResponse);
-    app.get("/docs/openapi.json", forceJsonResponse);
     app.get("/auth/openapi.json", forceJsonResponse);
-    app.get("/auth/docs/openapi.json", forceJsonResponse);
 
     console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
@@ -217,9 +213,10 @@ app.get("/", (req, res) => {
 app.post("/auth/signup", handleUserSignUp); // o
 app.post("/auth/internal/withdraw", handleInternalWithdraw);
 app.post("/auth/internal/hard-delete", handleInternalHardDelete);
-app.post("/auth/login/google", handleGoogleLogin);
-app.post("/auth/login/kakao", handleKakaoLogin);
-
+app.post("/auth/login/google", startGoogleLogin);
+app.post("/auth/login/kakao", startKakaoLogin);
+app.get("/auth/kakao/callback", handleKakaoLogin);
+app.get("/auth/google/callback", handleGoogleCallback);
 
 app.post("/auth/login", handleUserLoginJWT);
 app.post("/auth/reissue", handleRenewToken);
@@ -232,7 +229,6 @@ app.post("/auth/reset-request", handleResetRequest);
 app.patch("/auth/reset-passwd", handleResetPassword);
 
 app.patch("/auth/change-passwd", isLoggedIn, handleChangePassword);
-
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
