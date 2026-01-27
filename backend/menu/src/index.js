@@ -124,7 +124,10 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 메뉴 관련 API",
     },
-    servers: [{ url: "https://omechu-api.log8.kr" }],
+    servers: [
+  { url: "http://localhost:3000", description: "Local Development" },
+  { url: "https://omechu-api.log8.kr", description: "Production" }
+    ],
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
@@ -220,7 +223,7 @@ export const optionalAuth = (req, res, next) => {
 app.get("/", (req, res) => {
   res.send("Menu API is running");
 });
-
+app.use("/api/battles", battleRoutes);
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
 app.get("/menu", handleGetMenu);
