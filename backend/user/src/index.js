@@ -274,5 +274,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Auth API listening on port ${port}`);
+  console.log(`User API listening on port ${port}`);
 });
