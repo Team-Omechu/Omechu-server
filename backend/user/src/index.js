@@ -5,7 +5,8 @@ import session from "express-session";
 import MySQLStore from "express-mysql-session";
 import jwt from "jsonwebtoken";
 import cron from "node-cron";
-import { handleGetMealAlerts,
+import {
+  handleGetMealAlerts,
   handleUpdateMealAlerts,
   handleToggleMealAlerts,
 } from "./controllers/mealAlert.controller.js";
