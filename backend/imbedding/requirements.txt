@@ -5,3 +5,4 @@ torch
 uvicorn[standard]
 redis
 python-dotenv
+huggingface-hub
