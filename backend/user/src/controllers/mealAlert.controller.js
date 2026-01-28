@@ -7,15 +7,15 @@ import {
 
 export const handleGetMealAlerts = async (req, res, next) => {
   /*
-    #swagger.summary = '½Ä»ç ¾Ë¸² ¼³Á¤ Á¶È¸ API'
-    #swagger.description = '»ç¿ëÀÚ°¡ ¼³Á¤ÇÑ ¾ÆÄ§/Á¡½É/Àú³á/¾ß½Ä ¾Ë¸² ¿©ºÎ ¹× ½Ã°£À» Á¶È¸ÇÕ´Ï´Ù.'
+    #swagger.summary = 'ì‹ì‚¬ ì•Œë¦¼ ì„¤ì • ì¡°íšŒ API'
+    #swagger.description = 'ì‚¬ìš©ìê°€ ì„¤ì •í•œ ì•„ì¹¨/ì ì‹¬/ì €ë…/ì•¼ì‹ ì•Œë¦¼ ì—¬ë¶€ ë° ì‹œê°„ì„ ì¡°íšŒí•©ë‹ˆë‹¤.'
     #swagger.security = [{
       "bearerAuth": []
     }]
     #swagger.tags = ['MealAlert']
 
     #swagger.responses[200] = {
-      description: "½Ä»ç ¾Ë¸² ¼³Á¤ Á¶È¸ ¼º°ø",
+      description: "ì‹ì‚¬ ì•Œë¦¼ ì„¤ì • ì¡°íšŒ ì„±ê³µ",
       content: {
         "application/json": {
           schema: {
@@ -71,7 +71,7 @@ export const handleGetMealAlerts = async (req, res, next) => {
     };
 
     #swagger.responses[401] = {
-      description: "ÀÎÁõ ½ÇÆĞ",
+      description: "ì¸ì¦ ì‹¤íŒ¨",
     };
   */
   try {
@@ -85,8 +85,8 @@ export const handleGetMealAlerts = async (req, res, next) => {
 
 export const handleUpdateMealAlerts = async (req, res, next) => {
   /*
-    #swagger.summary = '½Ä»ç ¾Ë¸² ¼³Á¤ ¼öÁ¤ API'
-    #swagger.description = '½Ä»çº° ¾Ë¸² ON/OFF ¹× ¾Ë¸² ½Ã°£À» ¼³Á¤ÇÕ´Ï´Ù.'
+    #swagger.summary = 'ì‹ì‚¬ ì•Œë¦¼ ì„¤ì • ìˆ˜ì • API'
+    #swagger.description = 'ì‹ì‚¬ë³„ ì•Œë¦¼ ON/OFF ë° ì•Œë¦¼ ì‹œê°„ì„ ì„¤ì •í•©ë‹ˆë‹¤.'
     #swagger.security = [{
       "bearerAuth": []
     }]
@@ -133,7 +133,7 @@ export const handleUpdateMealAlerts = async (req, res, next) => {
     };
 
     #swagger.responses[200] = {
-      description: "½Ä»ç ¾Ë¸² ¼³Á¤ ¼öÁ¤ ¼º°ø",
+      description: "ì‹ì‚¬ ì•Œë¦¼ ì„¤ì • ìˆ˜ì • ì„±ê³µ",
       content: {
         "application/json": {
           schema: {
@@ -157,11 +157,11 @@ export const handleUpdateMealAlerts = async (req, res, next) => {
     };
 
     #swagger.responses[400] = {
-      description: "Àß¸øµÈ ¿äÃ»",
+      description: "ì˜ëª»ëœ ìš”ì²­",
     };
 
     #swagger.responses[401] = {
-      description: "ÀÎÁõ ½ÇÆĞ",
+      description: "ì¸ì¦ ì‹¤íŒ¨",
     };
   */
   try {
@@ -175,8 +175,8 @@ export const handleUpdateMealAlerts = async (req, res, next) => {
 
 export const handleToggleMealAlerts = async (req, res, next) => {
   /*
-    #swagger.summary = '½Ä»ç ¾Ë¸² ÀüÃ¼ ON/OFF API'
-    #swagger.description = '¸ğµç ½Ä»ç ¾Ë¸²À» ÇÑ ¹ø¿¡ È°¼ºÈ­ ¶Ç´Â ºñÈ°¼ºÈ­ÇÕ´Ï´Ù.'
+    #swagger.summary = 'ì‹ì‚¬ ì•Œë¦¼ ì „ì²´ ON/OFF API'
+    #swagger.description = 'ëª¨ë“  ì‹ì‚¬ ì•Œë¦¼ì„ í•œ ë²ˆì— í™œì„±í™” ë˜ëŠ” ë¹„í™œì„±í™”í•©ë‹ˆë‹¤.'
     #swagger.security = [{
       "bearerAuth": []
     }]
@@ -198,7 +198,7 @@ export const handleToggleMealAlerts = async (req, res, next) => {
     };
 
     #swagger.responses[200] = {
-      description: "½Ä»ç ¾Ë¸² ÀüÃ¼ ON/OFF ¼º°ø",
+      description: "ì‹ì‚¬ ì•Œë¦¼ ì „ì²´ ON/OFF ì„±ê³µ",
       content: {
         "application/json": {
           schema: {
