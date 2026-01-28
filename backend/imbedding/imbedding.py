@@ -10,6 +10,8 @@ import os
 import hashlib
 from typing import Any, Dict
 import redis
+from dotenv import load_dotenv
+load_dotenv()   
 
 with open('menu_data.json','r',encoding='utf-8') as f:
     menu_data=json.load(f)
