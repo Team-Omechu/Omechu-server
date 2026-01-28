@@ -70,6 +70,8 @@ services:
       - omechu-net
     ports:
       - "5001:5001"
+    env_file:
+      - ./imbedding/.env
 
 networks:
   omechu-net:
