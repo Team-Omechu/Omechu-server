@@ -44,7 +44,7 @@ else:
     menu_embeddings = torch.tensor(menu_embeddings)
     torch.save(menu_embeddings, EMB_PATH)
 
-REDIS_HOST = os.getenv("REDIS_HOST", "127.0.0.1")  # 도커 네트워크면 서비스명
+REDIS_HOST = os.getenv("REDIS_HOST", "my_redis")  # 도커 네트워크면 서비스명
 REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
 
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
