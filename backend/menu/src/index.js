@@ -136,7 +136,7 @@ const startSwagger = async () => {
     security: [{ bearerAuth: [] }],
   };
 
-  const routes = ["./index.js", "./controllers/*.js"];
+  const routes = ["./index.js", "./controllers/*.js", "./routes/*.js"];
 
   try {
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
