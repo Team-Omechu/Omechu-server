@@ -24,7 +24,6 @@ import {
 import { handleSearchRestaurant } from "./controllers/getSearchRestaurant.controller.js";
 import { handleSuggestion } from "./controllers/suggestions.controller.js";
 
-
 import { createServer } from "http";
 import { Server } from "socket.io";
 import battleRoutes from "./routes/battle.routes.js";
@@ -127,10 +126,7 @@ const startSwagger = async () => {
     // ========================================
     // ✅ 수정 1: 로컬 서버 URL 추가
     // ========================================
-    servers: [
-      { url: "http://localhost:3000", description: "Local Development" },
-      { url: "https://omechu-api.log8.kr", description: "Production" }
-    ],
+    servers: [{ url: "https://omechu-api.log8.kr" }],
     // ========================================
     components: {
       securitySchemes: {
@@ -281,7 +277,6 @@ app.use((err, req, res, next) => {
     data: err.data || null,
   });
 });
-
 
 const httpServer = createServer(app);
 
