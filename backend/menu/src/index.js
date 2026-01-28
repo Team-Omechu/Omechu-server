@@ -26,12 +26,10 @@ import { handleSuggestion } from "./controllers/suggestions.controller.js";
 
 import { createServer } from "http";
 import { Server } from "socket.io";
-import battleRoutes from "./routes/battle.routes.js";
 import { setupBattleSocket } from "./websocket/battle.socket.js";
 import { startBattleCleanupCron } from "./utils/battle.cron.js";
 import * as battleController from "./controllers/battle.controller.js";
 // ========================================
-import * as battleController from "./controllers/battle.controller.js";
 dotenv.config();
 
 const app = express();
