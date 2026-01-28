@@ -5,6 +5,11 @@ import session from "express-session";
 import MySQLStore from "express-mysql-session";
 import jwt from "jsonwebtoken";
 import cron from "node-cron";
+import {
+  handleGetMealAlerts,
+  handleUpdateMealAlerts,
+  handleToggleMealAlerts,
+} from "./controllers/mealAlert.controller.js";
 
 import { cleanupDeletedUsers } from "./utils/cleanupDeletedUsers.js";
 
@@ -237,6 +242,10 @@ app.get("/user/agreements/consent", isLoggedIn, getAgreementConsent);
 
 app.get("/user/profile", isLoggedIn, handleGetUserProfile);
 app.patch("/user/profile", isLoggedIn, handleUpdateUserProfile);
+
+app.get("/user/meal-alerts", isLoggedIn, handleGetMealAlerts);
+app.patch("/user/meal-alerts", isLoggedIn, handleUpdateMealAlerts);
+app.post("/user/meal-alerts/toggle", isLoggedIn, handleToggleMealAlerts);
 
 app.get("/user/recommend/management", isLoggedIn, handleGetRecommendManagement);
 app.post("/user/recommend/except", isLoggedIn, handleAddMenuToExcept);
