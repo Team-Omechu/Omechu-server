@@ -123,11 +123,7 @@ const startSwagger = async () => {
       version: "1.0.0",
       description: "Omechu 메뉴 관련 API",
     },
-    // ========================================
-    // ✅ 수정 1: 로컬 서버 URL 추가
-    // ========================================
     servers: [{ url: "https://omechu-api.log8.kr" }],
-    // ========================================
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
