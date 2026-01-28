@@ -145,15 +145,32 @@ const startSwagger = async () => {
   if (!app.locals.swaggerRoutesRegistered) {
     app.locals.swaggerRoutesRegistered = true;
 
-    app.get("/menu/openapi.json", (req, res) => res.json(swaggerSpec || doc));
+    // 1. JSON 확인용 라우트
+    app.get("/menu/openapi.json", (req, res) => {
+      res.json(swaggerSpec);
+    });
 
+    // 2. Docs 라우트 수정 (가장 중요!)
     app.use(["/docs", "/menu/docs"], swaggerUiExpress.serve);
+
     app.get(["/docs", "/menu/docs"], (req, res) => {
-      // url 방식이 아니라 swaggerSpec 객체를 직접 넘김
-      res.send(swaggerUiExpress.generateHTML(swaggerSpec));
+      if (!swaggerSpec) {
+        return res
+          .status(503)
+          .send("Swagger Spec 생성 중입니다. 잠시 후 새로고침하세요.");
+      }
+
+      // HTML을 서버에서 직접 생성해서 보냅니다.
+      // 이렇게 하면 브라우저가 별도로 openapi.json을 호출하지 않아 에러가 안 납니다.
+      const html = swaggerUiExpress.generateHTML(swaggerSpec, {
+        swaggerOptions: {
+          persistAuthorization: true,
+          displayRequestDuration: true,
+        },
+      });
+      res.send(html);
     });
   }
-
   console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
 };
 
