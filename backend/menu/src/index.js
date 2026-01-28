@@ -24,7 +24,6 @@ import {
 import { handleSearchRestaurant } from "./controllers/getSearchRestaurant.controller.js";
 import { handleSuggestion } from "./controllers/suggestions.controller.js";
 
-
 import { createServer } from "http";
 import { Server } from "socket.io";
 import battleRoutes from "./routes/battle.routes.js";
@@ -129,7 +128,7 @@ const startSwagger = async () => {
     // ========================================
     servers: [
       { url: "http://localhost:3000", description: "Local Development" },
-      { url: "https://omechu-api.log8.kr", description: "Production" }
+      { url: "https://omechu-api.log8.kr", description: "Production" },
     ],
     // ========================================
     components: {
@@ -140,7 +139,7 @@ const startSwagger = async () => {
     security: [{ bearerAuth: [] }],
   };
 
-  const routes = ["./index.js", "./controllers/*.js"];
+  const routes = ["./index.js", "./controllers/*.js", "./routes/*.js"];
 
   try {
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
@@ -281,7 +280,6 @@ app.use((err, req, res, next) => {
     data: err.data || null,
   });
 });
-
 
 const httpServer = createServer(app);
 
