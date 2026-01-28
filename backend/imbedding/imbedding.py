@@ -7,6 +7,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
+import hashlib
+from typing import Any, Dict
+import redis
 
 with open('menu_data.json','r',encoding='utf-8') as f:
     menu_data=json.load(f)
@@ -41,6 +44,10 @@ else:
     menu_embeddings = torch.tensor(menu_embeddings)
     torch.save(menu_embeddings, EMB_PATH)
 
+REDIS_HOST = os.getenv("REDIS_HOST", "127.0.0.1")  # 도커 네트워크면 서비스명
+REDIS_PORT = int(os.getenv("REDIS_PORT", "6379"))
+
+r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
 def obj_to_natural_setence(q,menu="메뉴"):
     who=q.get('동반자')
@@ -173,6 +180,38 @@ def deduplicate(results):
             unique.append((score, text))
     return unique
 
+ORDER_INSENSITIVE_LIST_FIELDS = {"제외음식", "알레르기"}
+
+def normalize_for_cache(obj: Any) -> Any:
+    if isinstance(obj, dict):
+        return {k: normalize_for_cache(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [normalize_for_cache(x) for x in obj]
+    return obj
+
+def make_recommend_cache_key(q_obj: Dict[str, Any], body) -> str:
+    payload = dict(q_obj)
+
+    payload["알레르기"] = body.알레르기 or []
+
+    for field in ORDER_INSENSITIVE_LIST_FIELDS:
+        if field in payload and isinstance(payload[field], list):
+            payload[field] = sorted(payload[field])
+
+    payload = {k: v for k, v in payload.items() if v is not None}
+
+    payload = normalize_for_cache(payload)
+
+    canonical = json.dumps(
+        payload,
+        sort_keys=True,
+        ensure_ascii=False,
+        separators=(",", ":")
+    )
+
+    digest = hashlib.sha1(canonical.encode("utf-8")).hexdigest()
+
+    return f"cache:recommend:{digest}"
 
 
 @app.get("/recommend")
@@ -182,10 +221,25 @@ def root():
 @app.post("/recommend/menu", response_model=RecommendResponse)
 def recommend_api(body: QueryBody):
     q_obj = {"언제": body.언제, "식사목적": body.식사목적, "날씨": body.날씨, "동반자": body.동반자, "예산": body.예산,"운동상태":body.운동상태,"선호음식":body.선호음식,"제외음식":body.제외음식}
-    print("q_obj",q_obj)
-    q_text, results = recommend_core(q_obj, 20, exclude_allergens=body.알레르기, exclude_foods=body.제외음식,seen_menus=body.이전추천메뉴)
-    results = deduplicate(results)  
+    cache_key = make_recommend_cache_key(q_obj, body)
+
+    # 1) 캐시 조회
+    cached = r.get(cache_key)
+    if cached:
+        data = json.loads(cached)
+        return RecommendResponse(**data)
+
+    # 2) 캐시 미스면 기존 로직 수행
+    q_text, results = recommend_core(
+        q_obj,
+        20,
+        exclude_allergens=body.알레르기,
+        exclude_foods=body.제외음식,
+        seen_menus=body.이전추천메뉴
+    )
+    results = deduplicate(results)
     results = results[:3]
+
     items = []
     for score, t in results:
         sentence = t.get("text", "")
@@ -199,53 +253,10 @@ def recommend_api(body: QueryBody):
         )
     )
 
-    return RecommendResponse(
-        query_text=q_text,
-        results=items
-    )
+    response = RecommendResponse(query_text=q_text, results=items)
 
-# font_path = '/System/Library/Fonts/AppleSDGothicNeo.ttc'
-# font_name = fm.FontProperties(fname=font_path).get_name()
-# plt.rc('font', family=font_name)
-# # 2. t-SNE를 사용한 3차원 차원 축소
-# tsne = TSNE(n_components=3, random_state=42, perplexity=5) # perplexity는 데이터셋 크기에 따라 조절 필요
-# tsne_embeddings = tsne.fit_transform(menu_embeddings)
+    # 캐시에 저장
+    ttl_seconds = 120
+    r.setex(cache_key, ttl_seconds, response.model_dump_json())
 
-# # 3. PCA를 사용한 3차원 차원 축소 (비교용)
-# pca = PCA(n_components=3)
-# pca_embeddings = pca.fit_transform(menu_embeddings)
-
-
-# # 4. 시각화 함수 정의
-# def visualize_embeddings(embeddings, title):
-#     fig = plt.figure(figsize=(10, 8))
-#     ax = fig.add_subplot(111, projection='3d')
-    
-#     # 3D 산점도 그리기
-#     x = embeddings[:, 0]
-#     y = embeddings[:, 1]
-#     z = embeddings[:, 2]
-    
-#     # 메뉴명으로 색상 구분
-#     # 같은 메뉴는 같은 색상으로 표시
-#     menu_names = [s.split('메뉴')[0].strip() for s in menu_data]
-#     unique_menus = sorted(list(set(menu_names)))
-#     colors = plt.cm.get_cmap('tab20', len(unique_menus))
-    
-#     for i, menu_name in enumerate(unique_menus):
-#         indices = [j for j, name in enumerate(menu_names) if name == menu_name]
-#         ax.scatter(x[indices], y[indices], z[indices], color=colors(i), label=menu_name)
-        
-#     ax.set_title(title)
-#     ax.set_xlabel('Component 1')
-#     ax.set_ylabel('Component 2')
-#     ax.set_zlabel('Component 3')
-#     ax.legend(loc='best', bbox_to_anchor=(1.1, 1))
-#     plt.tight_layout()
-#     plt.show()
-
-# # 5. t-SNE 결과 시각화
-# visualize_embeddings(tsne_embeddings, 't-SNE 3D Visualization of Menu Embeddings')
-
-# # 6. PCA 결과 시각화
-# visualize_embeddings(pca_embeddings, 'PCA 3D Visualization of Menu Embeddings')
+    return response
