@@ -132,7 +132,7 @@ const startSwagger = async () => {
     security: [{ bearerAuth: [] }],
   };
 
-  const routes = ["./index.js", "./controllers/*.js", "./routes/*.js"];
+  const routes = ["./index.js", "./controllers/*.js"];
 
   try {
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
@@ -147,16 +147,11 @@ const startSwagger = async () => {
 
     app.get("/menu/openapi.json", (req, res) => res.json(swaggerSpec || doc));
 
-    app.use(
-      ["/docs", "/menu/docs"],
-      swaggerUiExpress.serve,
-      swaggerUiExpress.setup(null, {
-        swaggerOptions: {
-          url: "/menu/openapi.json",
-          withCredentials: true,
-        },
-      }),
-    );
+    app.use(["/docs", "/menu/docs"], swaggerUiExpress.serve);
+    app.get(["/docs", "/menu/docs"], (req, res) => {
+      // url 방식이 아니라 swaggerSpec 객체를 직접 넘김
+      res.send(swaggerUiExpress.generateHTML(swaggerSpec));
+    });
   }
 
   console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
