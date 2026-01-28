@@ -55,9 +55,8 @@ export const handleKakaoLogin = async (req, res, next) => {
       EX: 60 * 60 * 24 * 7,
     });
 
-    return res.redirect(
-      `${redirectUri}?accessToken=${accessToken}`
-    );
+    return res.redirect(`${redirectUri}?accessToken=${accessToken}&refreshToken=${refreshToken}`);
+
   } catch (err) {
     next(err);
   }
