@@ -5,6 +5,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+ENV HF_HOME=/app/hf_cache
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')"
+
 COPY imbedding.py .
 COPY menu_data.json .
 
