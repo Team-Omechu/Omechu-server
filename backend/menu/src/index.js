@@ -141,26 +141,29 @@ const startSwagger = async () => {
   try {
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
     swaggerSpec = result.data || doc;
+  } catch (err) {
+    console.error("❌ Swagger 생성 실패:", err);
+    swaggerSpec = doc;
+  }
+
+  if (!app.locals.swaggerRoutesRegistered) {
+    app.locals.swaggerRoutesRegistered = true;
+
+    app.get("/menu/openapi.json", (req, res) => res.json(swaggerSpec || doc));
 
     app.use(
       ["/docs", "/menu/docs"],
       swaggerUiExpress.serve,
-      swaggerUiExpress.setup(swaggerSpec, {
+      swaggerUiExpress.setup(null, {
         swaggerOptions: {
-          url: null,
-          configUrl: null,
+          url: "/menu/openapi.json",
           withCredentials: true,
         },
       }),
     );
-
-    const forceJsonResponse = (req, res) => res.json(swaggerSpec);
-    app.get("/menu/openapi.json", forceJsonResponse);
-
-    console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
-  } catch (err) {
-    console.error("❌ Swagger 생성 실패:", err);
   }
+
+  console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
 };
 
 startSwagger();
