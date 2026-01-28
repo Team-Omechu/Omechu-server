@@ -29,6 +29,7 @@ import { Server } from "socket.io";
 import battleRoutes from "./routes/battle.routes.js";
 import { setupBattleSocket } from "./websocket/battle.socket.js";
 import { startBattleCleanupCron } from "./utils/battle.cron.js";
+import * as battleController from "./controllers/battle.controller.js";
 // ========================================
 
 dotenv.config();
@@ -127,7 +128,7 @@ const startSwagger = async () => {
     // ✅ 수정 1: 로컬 서버 URL 추가
     // ========================================
     servers: [
-      { url: "http://localhost:3000", description: "Local Development" },
+      { url: "http://localhost:3002", description: "Local Development" },
       { url: "https://omechu-api.log8.kr", description: "Production" },
     ],
     // ========================================
@@ -142,26 +143,31 @@ const startSwagger = async () => {
   const routes = ["./index.js", "./controllers/*.js"];
 
   try {
+    // [A] 데이터를 생성할 때까지 기다림
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
     swaggerSpec = result.data || doc;
+
+    // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
+    app.use(
+      ["/docs", "/menu/docs"],
+      swaggerUiExpress.serve,
+      swaggerUiExpress.setup(swaggerSpec, {
+        swaggerOptions: {
+          url: null,
+          configUrl: null,
+          withCredentials: true,
+        },
+      }),
+    );
+
+    // [C] 어떤 경로로 찔러도 준비된 JSON을 뱉도록 라우터 등록
+    const forceJsonResponse = (req, res) => res.json(swaggerSpec);
+    app.get("/menu/openapi.json", forceJsonResponse);
+
+    console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
   } catch (err) {
     console.error("❌ Swagger 생성 실패:", err);
-    swaggerSpec = doc;
   }
-
-  if (!app.locals.swaggerRoutesRegistered) {
-    app.locals.swaggerRoutesRegistered = true;
-
-    app.get("/menu/openapi.json", (req, res) => res.json(swaggerSpec || doc));
-
-    app.use(["/docs", "/menu/docs"], swaggerUiExpress.serve);
-    app.get(["/docs", "/menu/docs"], (req, res) => {
-      // url 방식이 아니라 swaggerSpec 객체를 직접 넘김
-      res.send(swaggerUiExpress.generateHTML(swaggerSpec));
-    });
-  }
-
-  console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
 };
 
 startSwagger();
@@ -230,6 +236,32 @@ app.get("/", (req, res) => {
 // ========================================
 app.use("/menu/battles", battleRoutes);
 // ========================================
+
+app.post("/menu/battles", battleController.handleCreateBattle);
+
+// Get battle details
+app.get("/menu/battles/:battleId", battleController.handleGetBattle);
+
+// Join battle
+app.post("/menu/battles/:battleId/join", battleController.handleJoinBattle);
+
+// Execute spin
+app.post("/menu/battles/:battleId/spin", battleController.handleSpin);
+
+// Finish battle (방장만 가능)
+app.patch(
+  "/menu/battles/:battleId/finish",
+  battleController.handleFinishBattle,
+);
+
+// Get rankings
+app.get("/menu/battles/:battleId/rankings", battleController.handleGetRankings);
+
+// Leave battle
+app.delete(
+  "/menu/battles/:battleId/participants/:nickname",
+  battleController.handleLeaveBattle,
+);
 
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
