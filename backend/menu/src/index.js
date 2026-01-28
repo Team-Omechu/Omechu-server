@@ -132,7 +132,7 @@ const startSwagger = async () => {
     security: [{ bearerAuth: [] }],
   };
 
-  const routes = ["./index.js", "./controllers/*.js"];
+  const routes = ["./index.js", "./controllers/*.js", "./routes/*.js"];
 
   try {
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
@@ -150,26 +150,19 @@ const startSwagger = async () => {
       res.json(swaggerSpec);
     });
 
-    // 2. Docs 라우트 수정 (가장 중요!)
-    app.use(["/docs", "/menu/docs"], swaggerUiExpress.serve);
+    // 2. Swagger UI 설정
+    const swaggerUiOptions = {
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    };
 
-    app.get(["/docs", "/menu/docs"], (req, res) => {
-      if (!swaggerSpec) {
-        return res
-          .status(503)
-          .send("Swagger Spec 생성 중입니다. 잠시 후 새로고침하세요.");
-      }
+    // 정석적인 setup 방식 사용 (generateHTML 대신)
+    // /docs와 /menu/docs 두 경로 모두 지원
+    const swaggerSetup = swaggerUiExpress.setup(swaggerSpec, swaggerUiOptions);
 
-      // HTML을 서버에서 직접 생성해서 보냅니다.
-      // 이렇게 하면 브라우저가 별도로 openapi.json을 호출하지 않아 에러가 안 납니다.
-      const html = swaggerUiExpress.generateHTML(swaggerSpec, {
-        swaggerOptions: {
-          persistAuthorization: true,
-          displayRequestDuration: true,
-        },
-      });
-      res.send(html);
-    });
+    app.use("/docs", swaggerUiExpress.serve, swaggerSetup);
+    app.use("/menu/docs", swaggerUiExpress.serve, swaggerSetup);
   }
   console.log("✅ Swagger UI 및 JSON 라우터가 완벽하게 준비되었습니다.");
 };
