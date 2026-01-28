@@ -227,7 +227,7 @@ app.get("/", (req, res) => {
 // ========================================
 // ✅ Battle Routes 등록 (가장 중요!)
 // ========================================
-// app.use("/menu/battles", battleRoutes);
+app.use("/menu/battles", battleRoutes);
 // ========================================
 
 // --- menu routes만 남김 ---
