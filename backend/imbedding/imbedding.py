@@ -27,6 +27,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 os.makedirs("/app/data", exist_ok=True)
 EMB_PATH = "/app/data/menu_embeddings.pt"
 

@@ -1,12 +1,11 @@
-FROM python:3.11-slim
+FROM jungralph/omechu-embed-base:xlmr-100langs-v1
 
 WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV HF_HOME=/app/hf_cache
-RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens', cache_dir='/app/hf_cache')"
+ENV HF_HOME=/opt/hf_cache
 
 COPY imbedding.py .
 COPY menu_data.json .

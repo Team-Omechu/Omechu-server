@@ -72,6 +72,8 @@ services:
       - "5001:5001"
     env_file:
       - ./imbedding/.env
+    volumes:
+      - omechu_embed_data:/app/data
 
 networks:
   omechu-net:
@@ -79,3 +81,4 @@ networks:
 
 volumes:
   omechu_db_data:
+  omechu_embed_data:
