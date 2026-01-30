@@ -10,9 +10,9 @@ import swaggerUiExpress from "swagger-ui-express";
 
 import {
   handleRecommendRandom,
-  handleGetMenuInfo,
   handleGetMenu,
 } from "./controllers/menu.controller.js";
+import { handleGetMenuInfo } from "./controllers/menuInfo.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/fetchGooglePlaces.controller.js";
 import { handleGetMenuSearch } from "./controllers/menuSearch.controller.js";
 import {
