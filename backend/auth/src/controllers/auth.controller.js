@@ -118,54 +118,36 @@ export const handleUserSignUp = async (req, res, next) => {
 */
 
    try {
-    console.log("회원가입 요청:", req.body);
-
-    // 1) 유저 생성
     const user = await userSignUp(bodyToUser(req.body));
-    const uid = Number(user.id); 
-
-    const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
+    const uid = Number(user.id);
 
     await axios.post(
-      `${USER_SERVICE_URL}/user/internal`,
-      { userId: uid },
-      {
-        headers: {
-          "x-internal-key": process.env.INTERNAL_API_KEY,
-        },
-        timeout: 3000,
-      }
+      `${process.env.USER_SERVICE_URL}/user/internal`,
+      { userId: uid, email: user.email },
+      { headers: { "x-internal-key": process.env.INTERNAL_API_KEY } },
     );
 
-    // 2) 토큰 발급 (id 키로 표준화)
-    const accessToken = generateAccessToken({ id: uid });
-    const refreshToken = generateRefreshToken({ id: uid });
+    const accessToken = generateAccessToken({
+      payload: uid.toString(),
+      type: "access",
+    });
 
-    // 3) Refresh Token 저장 (payload → uid 로 수정)
-    try {
-      if (!redisClient.isOpen) {
-        await redisClient.connect();
-      }
-      await redisClient.set(`refresh:${uid}`, refreshToken, {
-        EX: 60 * 60 * 24 * 7, // 7일
-      });
-    } catch (redisErr) {
-      console.error("[Redis] set 실패:", redisErr?.message || redisErr);
-      // Redis 실패해도 회원가입은 계속 진행
-    }
+    const refreshToken = generateRefreshToken({
+      payload: uid.toString(),
+      type: "refresh",
+    });
 
-    // 4) 응답
-    res.status(StatusCodes.OK).success({
+    await redisClient.set(`refresh:${uid}`, refreshToken, {
+      EX: 60 * 60 * 24 * 7,
+    });
+
+    return res.status(StatusCodes.OK).success({
       id: uid.toString(),
       email: user.email,
       accessToken,
       refreshToken,
     });
   } catch (err) {
-    console.error("회원가입 에러:", err);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).error({
-      errorCode: "SERVER_ERROR",
-      reason: err.message,
-    });
+    next(err); 
   }
 };
