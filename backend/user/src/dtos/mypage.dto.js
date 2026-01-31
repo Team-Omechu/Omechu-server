@@ -29,6 +29,7 @@ export const bodyToProfileUpdate = (body, userId) => {
 export const responseFromProfile = (user) => {
   return {
     id: user.id.toString(),
+    email: user.email,             
     nickname: user.nickname,
     exercise: convertExercise(user.exercise),
     prefer: user.prefer.map(p => convertPrefer(p.prefer)),
@@ -41,21 +42,22 @@ export const responseFromProfile = (user) => {
 // ===== Enum 변환 =====
 function convertExerciseToEnum(exercise) {
   const map = {
-    "다이어트 중": "dieting",
+    "다이어트 중": "cutting",
     "증량 중": "bulking",
-    "유지 중": "maintaining",
+    "유지 중": "maintenance",
   };
   return map[exercise] ?? null;
 }
 
 function convertExercise(exercise) {
   const map = {
-    dieting: "다이어트 중",
+    cutting: "다이어트 중",
     bulking: "증량 중",
-    maintaining: "유지 중",
+    maintenance: "유지 중",
   };
   return map[exercise] ?? exercise;
 }
+
 
 function convertPreferToEnum(prefer) {
   const map = {

@@ -41,15 +41,26 @@ export const handleKakaoLogin = async (req, res, next) => {
 
     await axios.post(
       `${USER_SERVICE_URL}/user/internal`,
-      { userId: uid },
       {
-        headers: { "x-internal-key": process.env.INTERNAL_API_KEY },
-        timeout: 3000,
+        userId: uid,
+        email: user.email,  
       },
+      {
+        headers: {
+          "x-internal-key": process.env.INTERNAL_API_KEY,
+        },
+        timeout: 3000,
+      }
     );
 
-    const accessToken = generateAccessToken({ id: uid });
-    const refreshToken = generateRefreshToken({ id: uid });
+    const accessToken = generateAccessToken({
+                          payload: uid.toString(),
+                          type: "access",
+                        });
+    const refreshToken = generateRefreshToken({
+                          payload: uid.toString(),
+                          type: "refresh",
+                        });
 
     await redisClient.set(`refresh:${uid}`, refreshToken, {
       EX: 60 * 60 * 24 * 7,
