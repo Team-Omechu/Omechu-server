@@ -89,6 +89,7 @@ model user {
   exercise          user_exercise?
   is_deleted        Boolean?           @default(false)
   deleted_at        DateTime?          @db.DateTime(0)
+  email             String?            @db.VarChar(200)
   agreement_consent agreement_consent?
   prefer            prefer[]
   user_allergy      user_allergy[]

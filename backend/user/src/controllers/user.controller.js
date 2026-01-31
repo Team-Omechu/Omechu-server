@@ -115,15 +115,23 @@ export const handleCreateUserInternal = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ message: "userId is required" });
+    const { userId, email } = req.body;
+    if (!userId || !email) {
+      return res.status(400).json({
+        resultType: "FAIL",
+        error: { reason: "userId and email are required" },
+      });
     }
 
     await prisma.user.upsert({
       where: { id: BigInt(userId) },
-      update: {},
-      create: { id: BigInt(userId) },
+      update: {
+        email,            
+      },
+      create: {
+        id: BigInt(userId),
+        email,              
+      },
     });
 
     return res.status(201).json({ resultType: "SUCCESS" });

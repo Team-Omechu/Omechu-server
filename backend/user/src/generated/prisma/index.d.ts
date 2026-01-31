@@ -9406,6 +9406,7 @@ export namespace Prisma {
     exercise: $Enums.user_exercise | null
     is_deleted: boolean | null
     deleted_at: Date | null
+    email: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -9415,6 +9416,7 @@ export namespace Prisma {
     exercise: $Enums.user_exercise | null
     is_deleted: boolean | null
     deleted_at: Date | null
+    email: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -9424,6 +9426,7 @@ export namespace Prisma {
     exercise: number
     is_deleted: number
     deleted_at: number
+    email: number
     _all: number
   }
 
@@ -9443,6 +9446,7 @@ export namespace Prisma {
     exercise?: true
     is_deleted?: true
     deleted_at?: true
+    email?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -9452,6 +9456,7 @@ export namespace Prisma {
     exercise?: true
     is_deleted?: true
     deleted_at?: true
+    email?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -9461,6 +9466,7 @@ export namespace Prisma {
     exercise?: true
     is_deleted?: true
     deleted_at?: true
+    email?: true
     _all?: true
   }
 
@@ -9557,6 +9563,7 @@ export namespace Prisma {
     exercise: $Enums.user_exercise | null
     is_deleted: boolean | null
     deleted_at: Date | null
+    email: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -9585,6 +9592,7 @@ export namespace Prisma {
     exercise?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    email?: boolean
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
     user_allergy?: boolean | user$user_allergyArgs<ExtArgs>
@@ -9600,9 +9608,10 @@ export namespace Prisma {
     exercise?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    email?: boolean
   }
 
-  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_num" | "nickname" | "exercise" | "is_deleted" | "deleted_at", ExtArgs["result"]["user"]>
+  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone_num" | "nickname" | "exercise" | "is_deleted" | "deleted_at" | "email", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
@@ -9624,6 +9633,7 @@ export namespace Prisma {
       exercise: $Enums.user_exercise | null
       is_deleted: boolean | null
       deleted_at: Date | null
+      email: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -10002,6 +10012,7 @@ export namespace Prisma {
     readonly exercise: FieldRef<"user", 'user_exercise'>
     readonly is_deleted: FieldRef<"user", 'Boolean'>
     readonly deleted_at: FieldRef<"user", 'DateTime'>
+    readonly email: FieldRef<"user", 'String'>
   }
     
 
@@ -12378,7 +12389,8 @@ export namespace Prisma {
     nickname: 'nickname',
     exercise: 'exercise',
     is_deleted: 'is_deleted',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    email: 'email'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12450,7 +12462,8 @@ export namespace Prisma {
 
   export const userOrderByRelevanceFieldEnum: {
     phone_num: 'phone_num',
-    nickname: 'nickname'
+    nickname: 'nickname',
+    email: 'email'
   };
 
   export type userOrderByRelevanceFieldEnum = (typeof userOrderByRelevanceFieldEnum)[keyof typeof userOrderByRelevanceFieldEnum]
@@ -12955,6 +12968,7 @@ export namespace Prisma {
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
     is_deleted?: BoolNullableFilter<"user"> | boolean | null
     deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    email?: StringNullableFilter<"user"> | string | null
     agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
     prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
@@ -12967,6 +12981,7 @@ export namespace Prisma {
     exercise?: SortOrderInput | SortOrder
     is_deleted?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
     agreement_consent?: agreement_consentOrderByWithRelationInput
     prefer?: preferOrderByRelationAggregateInput
     user_allergy?: user_allergyOrderByRelationAggregateInput
@@ -12983,6 +12998,7 @@ export namespace Prisma {
     exercise?: Enumuser_exerciseNullableFilter<"user"> | $Enums.user_exercise | null
     is_deleted?: BoolNullableFilter<"user"> | boolean | null
     deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    email?: StringNullableFilter<"user"> | string | null
     agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
     prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
@@ -12995,6 +13011,7 @@ export namespace Prisma {
     exercise?: SortOrderInput | SortOrder
     is_deleted?: SortOrderInput | SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
     _count?: userCountOrderByAggregateInput
     _avg?: userAvgOrderByAggregateInput
     _max?: userMaxOrderByAggregateInput
@@ -13012,6 +13029,7 @@ export namespace Prisma {
     exercise?: Enumuser_exerciseNullableWithAggregatesFilter<"user"> | $Enums.user_exercise | null
     is_deleted?: BoolNullableWithAggregatesFilter<"user"> | boolean | null
     deleted_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
+    email?: StringNullableWithAggregatesFilter<"user"> | string | null
   }
 
   export type user_allergyWhereInput = {
@@ -13521,6 +13539,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
@@ -13533,6 +13552,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
@@ -13545,6 +13565,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
@@ -13557,6 +13578,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
@@ -13569,6 +13591,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
   }
 
   export type userUpdateManyMutationInput = {
@@ -13578,6 +13601,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type userUncheckedUpdateManyInput = {
@@ -13587,6 +13611,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_allergyCreateInput = {
@@ -14198,6 +14223,7 @@ export namespace Prisma {
     exercise?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    email?: SortOrder
   }
 
   export type userAvgOrderByAggregateInput = {
@@ -14211,6 +14237,7 @@ export namespace Prisma {
     exercise?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    email?: SortOrder
   }
 
   export type userMinOrderByAggregateInput = {
@@ -14220,6 +14247,7 @@ export namespace Prisma {
     exercise?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    email?: SortOrder
   }
 
   export type userSumOrderByAggregateInput = {
@@ -14893,6 +14921,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
   }
@@ -14904,6 +14933,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
   }
@@ -14931,6 +14961,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
   }
@@ -14942,6 +14973,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15083,6 +15115,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
   }
@@ -15094,6 +15127,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15121,6 +15155,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
   }
@@ -15132,6 +15167,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15293,6 +15329,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
   }
@@ -15304,6 +15341,7 @@ export namespace Prisma {
     exercise?: $Enums.user_exercise | null
     is_deleted?: boolean | null
     deleted_at?: Date | string | null
+    email?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15352,6 +15390,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
   }
@@ -15363,6 +15402,7 @@ export namespace Prisma {
     exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
     is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
   }

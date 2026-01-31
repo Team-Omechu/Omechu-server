@@ -7,7 +7,7 @@ const redisClient = createClient({
 });
 
 const ALLOWED_REDIRECT_URIS = [
-  "http://localhost:3000/auth/callback/kakao",
+  "http://localhost:3001/auth/callback/kakao",
   "https://omechu.log8.kr/auth/callback/kakao",
 ];
 
