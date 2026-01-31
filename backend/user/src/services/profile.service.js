@@ -17,7 +17,7 @@ export const getUserProfile = async (userId) => {
   return user;
 };
 
-// 수정 (DTO만 받음)
+// 수정
 export const updateUserProfileService = async (profileUpdateDto) => {
   const { userId, nickname, exercise, prefer, allergy } = profileUpdateDto;
 

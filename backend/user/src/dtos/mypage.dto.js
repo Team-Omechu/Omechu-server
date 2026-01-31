@@ -1,6 +1,6 @@
 import { InvalidProfileData } from "../errors.js";
 
-// ===== 요청 DTO =====
+// 요청 DTO 
 export const bodyToProfileUpdate = (body, userId) => {
   const dto = { userId };
 

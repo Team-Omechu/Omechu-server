@@ -110,8 +110,7 @@ export const handleGetUserProfile = async (req, res, next) => {
   }
 };
 
-/**
- * 사용자 프로필 수정
+/**사용자 프로필 수정
  * PATCH /profile
  */
 export const handleUpdateUserProfile = async (req, res, next) => {
