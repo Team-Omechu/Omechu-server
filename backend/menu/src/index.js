@@ -236,61 +236,61 @@ app.get("/", (req, res) => {
 
 // ========================================
 // ✅ Battle 라우터 등록 (가장 중요!)
-// app.post("/menu/battles", battleController.handleCreateBattle);
+app.post("/menu/battles", battleController.handleCreateBattle);
 
-// // Get battle details
-// app.get("/menu/battles/:battleId", battleController.handleGetBattle);
+// Get battle details
+app.get("/menu/battles/:battleId", battleController.handleGetBattle);
 
-// // Join battle
-// app.post("/menu/battles/:battleId/join", battleController.handleJoinBattle);
+// Join battle
+app.post("/menu/battles/:battleId/join", battleController.handleJoinBattle);
 
-// // Execute spin
-// app.post("/menu/battles/:battleId/spin", battleController.handleSpin);
+// Execute spin
+app.post("/menu/battles/:battleId/spin", battleController.handleSpin);
 
-// // Finish battle (방장만 가능)
-// app.patch(
-//   "/menu/battles/:battleId/finish",
-//   battleController.handleFinishBattle,
-// );
-// // Get rankings
-// app.get("/menu/battles/:battleId/rankings", battleController.handleGetRankings);
+// Finish battle (방장만 가능)
+app.patch(
+  "/menu/battles/:battleId/finish",
+  battleController.handleFinishBattle,
+);
+// Get rankings
+app.get("/menu/battles/:battleId/rankings", battleController.handleGetRankings);
 
-// // Leave battle
-// app.delete(
-//   "/menu/battles/:battleId/participants/:nickname",
-//   battleController.handleLeaveBattle,
-// );
+// Leave battle
+app.delete(
+  "/menu/battles/:battleId/participants/:nickname",
+  battleController.handleLeaveBattle,
+);
 
-// app.post("/menu/battles", battleController.handleCreateBattle);
+app.post("/menu/battles", battleController.handleCreateBattle);
 
-// // Get battle details
-// app.get("/menu/battles/:battleId", battleController.handleGetBattle);
+// Get battle details
+app.get("/menu/battles/:battleId", battleController.handleGetBattle);
 
-// // Join battle
-// app.post("/menu/battles/:battleId/join", battleController.handleJoinBattle);
+// Join battle
+app.post("/menu/battles/:battleId/join", battleController.handleJoinBattle);
 
-// // Execute spin
-// app.post("/menu/battles/:battleId/spin", battleController.handleSpin);
+// Execute spin
+app.post("/menu/battles/:battleId/spin", battleController.handleSpin);
 
-// // Finish battle (방장만 가능)
-// app.patch(
-//   "/menu/battles/:battleId/finish",
-//   battleController.handleFinishBattle,
-// );
+// Finish battle (방장만 가능)
+app.patch(
+  "/menu/battles/:battleId/finish",
+  battleController.handleFinishBattle,
+);
 
-// // Get rankings
-// app.get("/menu/battles/:battleId/rankings", battleController.handleGetRankings);
+// Get rankings
+app.get("/menu/battles/:battleId/rankings", battleController.handleGetRankings);
 
-// // Leave battle
-// app.delete(
-//   "/menu/battles/:battleId/participants/:nickname",
-//   battleController.handleLeaveBattle,
-// );
+// Leave battle
+app.delete(
+  "/menu/battles/:battleId/participants/:nickname",
+  battleController.handleLeaveBattle,
+);
 
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
 
-app.get("/menu", handleGetMenu);
+app.get("/menu/:menuId", handleGetMenu);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu/menu-info", handleGetMenuInfo);

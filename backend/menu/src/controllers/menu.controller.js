@@ -96,7 +96,10 @@ export const handleRecommendRandom = async (req, res) => {
 
 export const handleGetMenu = async (req, res) => {
   try {
-    const menus = await getMenuService();
+    const menus = await getMenuService({
+      menuId: req.params.menuId,
+      limit: 15,
+    });
     console.log("Fetched menus:", menus);
     if (menus && menus.length > 0) {
       res.status(StatusCodes.OK).json(menus);

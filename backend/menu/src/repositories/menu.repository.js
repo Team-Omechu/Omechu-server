@@ -273,14 +273,27 @@ export const recommendRandom = async (addition) => {
   }
 };
 
-export const getMenu = async () => {
-  const menus = await prisma.menu.findMany({
-    select: {
-      id: true,
-      name: true,
-      image_link: true,
-    },
-  });
+export const getMenu = async ({ menuId, limit }) => {
+  const pageSize = Number.parseInt(limit, 10);
+  const take = Number.isFinite(pageSize) ? pageSize + 1 : 16;
+
+  const cursorId = Number.parseInt(menuId, 10);
+
+  const isFirstPage =
+    !menuId || menuId === "0" || !Number.isFinite(cursorId) || cursorId === 0;
+
+  const query = {
+    select: { id: true, name: true, image_link: true },
+    take,
+    ...(isFirstPage
+      ? {}
+      : {
+          cursor: { id: cursorId },
+          skip: 1,
+        }),
+  };
+
+  const menus = await prisma.menu.findMany(query);
 
   return menus.map((menu) => ({
     id: menu.id.toString(),
