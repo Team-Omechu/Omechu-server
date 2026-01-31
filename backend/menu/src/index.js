@@ -10,9 +10,9 @@ import swaggerUiExpress from "swagger-ui-express";
 
 import {
   handleRecommendRandom,
-  handleGetMenuInfo,
   handleGetMenu,
 } from "./controllers/menu.controller.js";
+import { handleGetMenuInfo } from "./controllers/menuInfo.controller.js";
 import { handleFetchGooglePlaces } from "./controllers/fetchGooglePlaces.controller.js";
 import { handleGetMenuSearch } from "./controllers/menuSearch.controller.js";
 import {
@@ -136,7 +136,12 @@ const startSwagger = async () => {
   try {
     // [A] 데이터를 생성할 때까지 기다림
     const result = await swaggerAutogen(options)("/dev/null", routes, doc);
-    swaggerSpec = result.data || doc;
+
+    console.log("swaggerAutogen success?", result?.success);
+    console.log("swaggerAutogen has data?", !!result?.data);
+    console.log("paths count:", Object.keys(result?.data?.paths || {}).length);
+
+    swaggerSpec = result?.data ?? doc;
 
     // [B] 데이터가 준비된 후 Swagger UI를 앱에 등록
     app.use(
@@ -277,7 +282,8 @@ app.delete(
 
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
-app.get("/menu", handleGetMenu);
+
+app.get("/menu/:menuId", handleGetMenu);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu/menu-info", handleGetMenuInfo);
