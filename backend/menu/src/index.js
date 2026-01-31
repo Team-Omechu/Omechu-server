@@ -283,7 +283,7 @@ app.delete(
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
 
-app.get("/menu/:menuId", handleGetMenu);
+app.get("/menu/allMenu/:menuId", handleGetMenu);
 app.post("/menu/fetch-google-places", handleFetchGooglePlaces);
 app.get("/menu/search", handleGetMenuSearch);
 app.post("/menu/menu-info", handleGetMenuInfo);

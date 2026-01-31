@@ -33,6 +33,7 @@ export const handleGetUserProfile = async (req, res, next) => {
               properties: {
                 id: { type: "string", example: "1" },
                 nickname: { type: "string", example: "오메추유저" },
+                email: { type: "string", example: "user@example.com" },
                 exercise: { type: "string", example: "다이어트 중" },
                 prefer: { 
                   type: "array", 
