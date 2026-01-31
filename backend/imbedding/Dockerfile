@@ -1,4 +1,4 @@
-FROM jungralph/omechu-embed-base:xlmr-100langs-v1
+FROM jungralph/embedding-api:latest
 
 WORKDIR /app
 
