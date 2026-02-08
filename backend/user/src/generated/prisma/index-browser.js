@@ -184,7 +184,8 @@ exports.Prisma.UserScalarFieldEnum = {
   nickname: 'nickname',
   exercise: 'exercise',
   is_deleted: 'is_deleted',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  email: 'email'
 };
 
 exports.Prisma.User_allergyScalarFieldEnum = {
@@ -229,7 +230,8 @@ exports.Prisma.sessionsOrderByRelevanceFieldEnum = {
 
 exports.Prisma.userOrderByRelevanceFieldEnum = {
   phone_num: 'phone_num',
-  nickname: 'nickname'
+  nickname: 'nickname',
+  email: 'email'
 };
 
 exports.Prisma.user_withdrawalOrderByRelevanceFieldEnum = {

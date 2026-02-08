@@ -1,5 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { recommendRandomService, getMenuService } from "../services/menu.service.js";
+import {
+  recommendRandomService,
+  getMenuService,
+} from "../services/menu.service.js";
 
 export const handleRecommendRandom = async (req, res) => {
   try {
@@ -93,7 +96,11 @@ export const handleRecommendRandom = async (req, res) => {
 
 export const handleGetMenu = async (req, res) => {
   try {
-    const menus = await getMenuService();
+    const menus = await getMenuService({
+      menuId: req.params.menuId,
+      limit: 15,
+    });
+    console.log("Fetched menus:", menus);
     if (menus && menus.length > 0) {
       res.status(StatusCodes.OK).json(menus);
     } else {
@@ -108,7 +115,7 @@ export const handleGetMenu = async (req, res) => {
 
   /*
     #swagger.tags = ["Menu"]
-    #swagger.summary = "전체 메뉴 목록 조회 API2"
+    #swagger.summary = "전체 메뉴 목록 조회 API"
     #swagger.description = "특정 메뉴 한 개가 아니라, 데이터베이스에 저장된 모든 메뉴 목록을 한 번에 조회하는 API입니다. 요청 바디나 쿼리 파라미터 없이 GET /menu 로 호출합니다."
 
     #swagger.responses[200] = {

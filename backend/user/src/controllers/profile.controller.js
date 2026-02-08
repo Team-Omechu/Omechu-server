@@ -1,5 +1,3 @@
-// profile/profile.controller.js
-
 import { StatusCodes } from "http-status-codes";
 import {
   getUserProfile,
@@ -33,6 +31,7 @@ export const handleGetUserProfile = async (req, res, next) => {
               properties: {
                 id: { type: "string", example: "1" },
                 nickname: { type: "string", example: "오메추유저" },
+                email: { type: "string", example: "user@example.com" },
                 exercise: { type: "string", example: "다이어트 중" },
                 prefer: { 
                   type: "array", 
@@ -96,8 +95,6 @@ export const handleGetUserProfile = async (req, res, next) => {
   */
   try {
     const userId = req.user?.id;
-    console.log("JWT 토큰에서 추출된 userId:", userId);
-
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
@@ -106,17 +103,14 @@ export const handleGetUserProfile = async (req, res, next) => {
       });
     }
 
-    const userProfile = await getUserProfile(parseInt(userId));
-    const responseData = responseFromProfile(userProfile);
-    res.status(StatusCodes.OK).success(responseData);
-  } catch (error) {
-    console.error("프로필 조회 에러:", error);
-    next(error);
+    const user = await getUserProfile(Number(userId));
+    res.status(StatusCodes.OK).success(responseFromProfile(user));
+  } catch (err) {
+    next(err);
   }
 };
 
-/**
- * 사용자 프로필 수정
+/**사용자 프로필 수정
  * PATCH /profile
  */
 export const handleUpdateUserProfile = async (req, res, next) => {
@@ -225,8 +219,6 @@ export const handleUpdateUserProfile = async (req, res, next) => {
   */
   try {
     const userId = req.user?.id;
-    console.log("JWT 토큰에서 추출된 userId:", userId);
-
     if (!userId) {
       return res.status(StatusCodes.BAD_REQUEST).error({
         errorCode: "C006",
@@ -235,16 +227,11 @@ export const handleUpdateUserProfile = async (req, res, next) => {
       });
     }
 
-    const profileData = bodyToProfileUpdate(req.body, parseInt(userId));
-    const updatedProfile = await updateUserProfileService(
-      parseInt(userId),
-      profileData
-    );
-    const responseData = responseFromProfile(updatedProfile);
+    const dto = bodyToProfileUpdate(req.body, Number(userId));
+    const updated = await updateUserProfileService(dto);
 
-    res.status(StatusCodes.OK).success(responseData);
-  } catch (error) {
-    console.error("프로필 업데이트 에러:", error);
-    next(error);
+    res.status(StatusCodes.OK).success(responseFromProfile(updated));
+  } catch (err) {
+    next(err);
   }
 };

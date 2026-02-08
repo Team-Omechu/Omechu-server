@@ -12,6 +12,7 @@ import {
 } from "./controllers/mealAlert.controller.js";
 
 import { cleanupDeletedUsers } from "./utils/cleanupDeletedUsers.js";
+import { handleSubmitInquiry } from "./controllers/inquiry.controller.js";
 
 import swaggerAutogen from "swagger-autogen";
 import swaggerUiExpress from "swagger-ui-express";
@@ -250,6 +251,8 @@ app.post("/user/meal-alerts/toggle", isLoggedIn, handleToggleMealAlerts);
 app.get("/user/recommend/management", isLoggedIn, handleGetRecommendManagement);
 app.post("/user/recommend/except", isLoggedIn, handleAddMenuToExcept);
 app.post("/user/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
+
+app.post("/user/inquiry", isLoggedIn, handleSubmitInquiry);
 
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {

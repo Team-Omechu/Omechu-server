@@ -14,9 +14,9 @@ export const recommendRandomService = async (addition) => {
   }
 };
 
-export const getMenuService = async () => {
+export const getMenuService = async ({ menuId, limit = 15 }) => {
   try {
-    const menus = await getMenu();
+    const menus = await getMenu({ menuId, limit });
     if (!menus || menus.length === 0) {
       console.error("No menus found in service");
       return [];
