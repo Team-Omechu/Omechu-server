@@ -393,29 +393,40 @@ export const handleGetMukburimByDate = async (req, res, next) => {
   }
 };
 
-export const handleInsertMukburim = async (req, res) => {
+export const handleInsertMukburim = async (req, res, next) => {
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(StatusCodes.UNAUTHORIZED).error({
+        errorCode: "T002",
+        reason: "인증이 필요합니다.",
+        data: null,
+      });
+    }
+
     const { menu_name } = req.body;
 
-    const mukburimData = {
-      menu_name,
-    };
-    console.log("user:", req.user);
-    mukburimData.user_id = req.user.id;
-    console.log("User ID from session:", mukburimData.user_id);
+    if (!menu_name || !menu_name.trim()) {
+      return res.status(StatusCodes.BAD_REQUEST).error({
+        errorCode: "MK007",
+        reason: "menu_name이 필요합니다.",
+        data: null,
+      });
+    }
+
     const now = new Date();
-    const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000); // UTC 기준 +9시간
-    mukburimData.date = koreaTime;
-    const result = await insertMukburimService(mukburimData);
+    const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+
+    const result = await insertMukburimService({
+      user_id: req.user.id,
+      menu_name: menu_name.trim(),
+      date: koreaTime,
+    });
 
     res.status(StatusCodes.CREATED).success(result);
   } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json({
-      success: false,
-      message: error.message,
-    });
+    console.error("먹부림 등록 오류:", error);
+    next(error);
   }
-
   /*
   #swagger.tags = ["Mukburim"]
   #swagger.summary = "먹부림 기록 등록 API"

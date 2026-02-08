@@ -2,8 +2,6 @@
 
 import {
   findUserMukburimStatistics,
-  findUserMukburimByMonth,
-  findUserMukburimByDate,
   insertMukburim,
 } from "../repositories/mukburim.repository.js";
 import {
@@ -13,6 +11,8 @@ import {
   NoParams,
   MukburimStatisticsError,
 } from "../errors.js";
+
+import { prisma } from "../db.config.js";
 
 /**
  * 기간별 날짜 계산
@@ -174,24 +174,44 @@ export const getMukburimStatisticsService = async (
       menuStatistics: sorted,
     };
   } catch (error) {
+    //  의도된 비즈니스 에러는 그대로 전달
+    if (
+      error instanceof NoMukburimData ||
+      error instanceof InvalidMukburimPeriod ||
+      error instanceof InvalidDateRange ||
+      error instanceof NoParams
+    ) {
+      throw error;
+    }
+
     throw new MukburimStatisticsError(
       "먹부림 통계 조회 중 오류가 발생했습니다.",
       { userId, error: error.message }
     );
   }
+
 };
 
-/**
- * 먹부림 등록
- */
 export const insertMukburimService = async (mukburimData) => {
-  if (!mukburimData.user_id || !mukburimData.menu_id) {
-    throw new NoParams("user_id와 menu_id가 필요합니다.");
+  const { user_id, menu_name, date } = mukburimData;
+
+  if (!user_id || !menu_name) {
+    throw new NoParams("user_id와 menu_name이 필요합니다.");
+  }
+  const menu = await prisma.menu.findFirst({
+    where: { name: menu_name },
+    select: { id: true },
+  });
+
+  if (!menu) {
+    throw new MukburimStatisticsError("존재하지 않는 메뉴입니다.", {
+      menu_name,
+    });
   }
 
-  if (!mukburimData.date) {
-    mukburimData.date = new Date();
-  }
-
-  return insertMukburim(mukburimData);
+  return insertMukburim({
+    user_id,
+    menu_id: menu.id,
+    date: date || new Date(),
+  });
 };
