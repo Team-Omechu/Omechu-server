@@ -1,12 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+
 export const fetchGooglePlaces = async ({ info }) => {
   const url = "https://places.googleapis.com/v1/places:searchText";
 
   const body = {
     textQuery: info.keyword,
-    pageSize: info.pageSize,
+    // pageSize는 고정값(3)으로 서비스에서 처리, Google API에는 최대값(20)으로 요청
+    pageSize: 20,
     languageCode: "ko",
     locationBias: {
       circle: {

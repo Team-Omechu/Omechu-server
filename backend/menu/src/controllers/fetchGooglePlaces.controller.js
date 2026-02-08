@@ -6,7 +6,6 @@ export const handleFetchGooglePlaces = async (req, res) => {
     latitude: req.body.latitude,
     longitude: req.body.longitude,
     radius: req.body.radius,
-    pageSize: req.body.pageSize,
     page: req.body.page, // 페이지 번호 (1부터 시작)
   };
 
@@ -33,7 +32,7 @@ export const handleFetchGooglePlaces = async (req, res) => {
       'application/json': {
         schema: {
           type: 'object',
-          required: ['latitude', 'longitude', 'radius', 'keyword', 'pageSize'],
+          required: ['latitude', 'longitude', 'radius', 'keyword'],
           properties: {
             latitude: { 
               type: 'number', 
@@ -54,11 +53,6 @@ export const handleFetchGooglePlaces = async (req, res) => {
               type: 'string', 
               example: "젤라또",
               description: "검색할 키워드"
-            },
-            pageSize: { 
-              type: 'integer', 
-              example: 5,
-              description: "반환할 결과 개수"
             },
             page: {
               type: 'integer',
