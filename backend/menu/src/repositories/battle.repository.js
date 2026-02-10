@@ -15,7 +15,7 @@ export const createBattle = async (battleData) => {
       battle_id: battleData.battleId,
       creator_nickname: battleData.creatorNickname,
       status: "active",
-      participant_count: 1,
+      participant_count: battleData.creatorNickname ? 1 : 0, // 0 if no creator yet
       expires_at: battleData.expiresAt,
     },
   });
@@ -44,6 +44,15 @@ export const updateBattleStatus = async (battleId, status, finishedAt = null) =>
     data: {
       status,
       ...(finishedAt && { finished_at: finishedAt }),
+    },
+  });
+};
+
+export const updateBattleCreator = async (battleId, creatorNickname) => {
+  return await prisma.battles.update({
+    where: { battle_id: battleId },
+    data: {
+      creator_nickname: creatorNickname,
     },
   });
 };
