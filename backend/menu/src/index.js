@@ -235,8 +235,13 @@ app.get("/", (req, res) => {
 });
 
 // ========================================
-// ✅ Battle 라우터 등록 (가장 중요!)
+// 
 app.post("/menu/battles", battleController.handleCreateBattle);
+
+// 방장 확인
+app.get(
+  "/menu/battles/:battleId/is-creator/:nickname",battleController.handleIsCreator);
+
 
 // Get battle details
 app.get("/menu/battles/:battleId", battleController.handleGetBattle);

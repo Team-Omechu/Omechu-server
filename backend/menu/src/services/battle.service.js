@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import crypto from "crypto";
 import * as battleRepository from "../repositories/battle.repository.js";
 
 /**
@@ -9,6 +9,14 @@ import * as battleRepository from "../repositories/battle.repository.js";
 // ============================================
 // Utility Functions (Business Logic)
 // ============================================
+
+/**
+ * Generate 4-digit battle code
+ * @returns {string} 4-digit numeric code (1000-9999)
+ */
+const generateBattleCode = () => {
+  return crypto.randomInt(1000, 9999).toString();
+};
 
 /**
  * Calculate boundary angles for menus
@@ -84,16 +92,12 @@ const generateRandomAngle = () => {
 
 /**
  * Create new battle
- * @param {string} creatorNickname - Battle creator's nickname
  * @param {Array<BigInt>} menuIds - Array of menu IDs
+ * @param {string} [creatorNickname] - Optional battle creator's nickname
  * @returns {Object} Created battle info
  */
-export const createBattleService = async (creatorNickname, menuIds) => {
+export const createBattleService = async (menuIds, creatorNickname = null) => {
   // Validation
-  if (!creatorNickname || creatorNickname.trim().length < 2) {
-    throw new Error("닉네임은 최소 2자 이상이어야 합니다");
-  }
-
   validateMenuCount(menuIds.length);
 
   // Check for duplicate menu IDs
@@ -102,8 +106,37 @@ export const createBattleService = async (creatorNickname, menuIds) => {
     throw new Error("중복된 메뉴를 선택할 수 없습니다");
   }
 
-  // Generate battle ID and expiration time
-  const battleId = uuidv4();
+  // Generate unique 4-digit battle code (retry up to 10 times if duplicate)
+  let battleId;
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  while (attempts < maxAttempts) {
+    battleId = generateBattleCode(); // Generate 4-digit code
+
+    // Check if code already exists
+    try {
+      const existingBattle = await battleRepository.findBattleById(battleId);
+      if (!existingBattle) {
+        // Code doesn't exist, we can use it
+        break;
+      }
+      // Code exists, try again
+      attempts++;
+    } catch (error) {
+      // If error is "battle not found", we can use this code
+      if (error.message.includes("존재하지 않는 배틀")) {
+        break;
+      }
+      // Other errors should be thrown
+      throw error;
+    }
+  }
+
+  if (attempts >= maxAttempts) {
+    throw new Error("배틀 코드 생성 실패 (재시도 횟수 초과)");
+  }
+
   const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
 
   try {
@@ -117,10 +150,10 @@ export const createBattleService = async (creatorNickname, menuIds) => {
     // Calculate boundary angles
     const boundaryAngles = calculateBoundaryAngles(menuIds.length);
 
-    // Create battle
+    // Create battle (creatorNickname is optional, will be set when first participant joins)
     const battle = await battleRepository.createBattle({
       battleId,
-      creatorNickname,
+      creatorNickname: creatorNickname || null,
       expiresAt,
     });
 
@@ -135,12 +168,15 @@ export const createBattleService = async (creatorNickname, menuIds) => {
 
     await battleRepository.createBattleMenus(battleMenusData);
 
-    // Add creator as participant
-    await battleRepository.createParticipant({
-      battleId,
-      nickname: creatorNickname,
-      isCreator: true,
-    });
+    // If creatorNickname is provided, add creator as participant
+    // Otherwise, first participant who joins will become the creator
+    if (creatorNickname) {
+      await battleRepository.createParticipant({
+        battleId,
+        nickname: creatorNickname,
+        isCreator: true,
+      });
+    }
 
     return {
       battleId: battle.battle_id,
@@ -256,12 +292,21 @@ export const joinBattleService = async (battleId, nickname) => {
       throw new Error("이미 사용 중인 닉네임입니다");
     }
 
+    // Check if this is the first participant
+    const participantCount = battle.participant_count || 0;
+    const isFirstParticipant = participantCount === 0;
+
     // Add participant
     const participant = await battleRepository.createParticipant({
       battleId,
       nickname,
-      isCreator: false,
+      isCreator: isFirstParticipant, // First participant becomes creator
     });
+
+    // If first participant, update battle's creator_nickname
+    if (isFirstParticipant) {
+      await battleRepository.updateBattleCreator(battleId, nickname);
+    }
 
     // Increment participant count
     await battleRepository.incrementParticipantCount(battleId);
@@ -269,6 +314,7 @@ export const joinBattleService = async (battleId, nickname) => {
     return {
       participantId: participant.id.toString(),
       nickname: participant.nickname,
+      isCreator: isFirstParticipant,
       joinedAt: participant.joined_at,
     };
   } catch (error) {
