@@ -159,23 +159,15 @@ export const fetchGooglePlacesService = async (info) => {
   const requestedPage = parseInt(info.page, 10) || 1;
 
   const totalCount = placesWithFirstPhoto.length;
-  const totalPages =
-    totalCount === 0 ? 0 : Math.ceil(totalCount / FIXED_PAGE_SIZE);
+  const totalPages = totalCount === 0 ? 0 : Math.ceil(totalCount / FIXED_PAGE_SIZE);
 
-  // 범위를 벗어난 페이지는 빈 배열을 반환하되 메타 정보는 유지
-  if (requestedPage < 1 || requestedPage > totalPages) {
-    return {
-      page: requestedPage,
-      pageSize: FIXED_PAGE_SIZE,
-      totalCount,
-      totalPages,
-      items: [],
-    };
-  }
-
+  // page가 1이면 0~2, page가 2면 3~5 ...
   const startIndex = (requestedPage - 1) * FIXED_PAGE_SIZE;
   const endIndex = startIndex + FIXED_PAGE_SIZE;
-  const paginatedItems = placesWithFirstPhoto.slice(startIndex, endIndex);
+  let paginatedItems = [];
+  if (requestedPage >= 1 && requestedPage <= totalPages) {
+    paginatedItems = placesWithFirstPhoto.slice(startIndex, endIndex);
+  }
 
   return {
     page: requestedPage,

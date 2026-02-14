@@ -110,7 +110,7 @@ model menu_vitamin {
 }
 
 model mukburim {
-  id      BigInt    @id
+  id      BigInt    @id @default(autoincrement())
   menu_id BigInt
   user_id BigInt
   date    DateTime? @db.DateTime(0)

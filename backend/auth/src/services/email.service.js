@@ -24,7 +24,7 @@ export const sendVerificationCodeService = async (email) => {
   await createEmailVerification(email, code);
 
   const imageUrl =
-    "https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/email/a4e1f2ed-62bb-491d-93a0-3b88de6a64b3.jpg";
+    "https://omechu-service-s3-bucket.s3.ap-northeast-2.amazonaws.com/email/%EC%98%A4%EB%A9%94%EC%B6%94+%EB%A9%94%EC%9D%BC+%EC%9D%B4%EB%AF%B8%EC%A7%80.png";
 
   await transporter.sendMail({
     from: `"Omechu" <${process.env.MAIL_USER}>`,

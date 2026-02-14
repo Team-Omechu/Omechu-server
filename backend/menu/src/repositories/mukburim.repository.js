@@ -158,12 +158,24 @@ export const insertMukburim = async (mukburimData) => {
         menu_id: BigInt(mukburimData.menu_id),
         date: mukburimData.date,
       },
+      select: {
+        id: true,
+        user_id: true,
+        menu_id: true,
+        date: true,
+        menu: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     return {
       id: result.id.toString(),
       user_id: result.user_id.toString(),
       menu_id: result.menu_id.toString(),
+      menu_name: result.menu.name,
       date: result.date,
     };
   } catch (error) {

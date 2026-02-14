@@ -14,25 +14,25 @@ export const handleCreateBattle = async (req, res) => {
   /*
     #swagger.tags = ["Battle"]
     #swagger.summary = "배틀방 생성"
-    #swagger.description = "메뉴 배틀방을 생성하고 방장이 자동 입장합니다"
+    #swagger.description = "메뉴 배틀방을 생성합니다. 방장은 이후 참가 시 자동 설정됩니다."
     #swagger.requestBody = {
       required: true,
       content: {
         "application/json": {
           schema: {
             type: "object",
-            required: ["creatorNickname", "menuIds"],
+            required: ["menuIds"],
             properties: {
-              creatorNickname: {
-                type: "string",
-                description: "방장 닉네임 (2-50자)",
-                example: "홍길동"
-              },
               menuIds: {
                 type: "array",
                 description: "메뉴 ID 배열 (2-8개)",
                 items: { type: "integer" },
                 example: [1, 2, 3, 4]
+              },
+              creatorNickname: {
+                type: "string",
+                description: "방장 닉네임 (선택사항, 제공하지 않으면 첫 참가자가 방장)",
+                example: "홍길동"
               }
             }
           }
@@ -44,14 +44,14 @@ export const handleCreateBattle = async (req, res) => {
     }
   */
   try {
-    const { creatorNickname, menuIds } = req.body;
+    const { menuIds, creatorNickname } = req.body;
 
-    if (!creatorNickname || !menuIds || !Array.isArray(menuIds)) {
+    if (!menuIds || !Array.isArray(menuIds)) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         resultType: "FAIL",
         error: {
           errorCode: "BATTLE_001",
-          reason: "creatorNickname과 menuIds는 필수입니다",
+          reason: "menuIds는 필수입니다",
           data: null,
         },
         success: null,
@@ -59,8 +59,8 @@ export const handleCreateBattle = async (req, res) => {
     }
 
     const result = await battleService.createBattleService(
-      creatorNickname,
-      menuIds.map((id) => BigInt(id))
+      menuIds.map((id) => BigInt(id)),
+      creatorNickname // optional
     );
 
     return res.status(StatusCodes.CREATED).json({
@@ -533,6 +533,99 @@ export const handleLeaveBattle = async (req, res) => {
       resultType: "FAIL",
       error: {
         errorCode: "BATTLE_006",
+        reason: error.message,
+        data: null,
+      },
+      success: null,
+    });
+  }
+};
+
+/**
+ * Check if nickname is the creator
+ * GET /api/battles/:battleId/is-creator/:nickname
+ */
+export const handleIsCreator = async (req, res) => {
+  /*
+    #swagger.tags = ["Battle"]
+    #swagger.summary = "방장 확인"
+    #swagger.description = "해당 닉네임이 배틀의 방장인지 확인합니다"
+    #swagger.parameters['battleId'] = {
+      in: 'path',
+      description: '배틀방 ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['nickname'] = {
+      in: 'path',
+      description: '확인할 닉네임',
+      required: true,
+      type: 'string'
+    }
+    #swagger.responses[200] = {
+      description: "확인 성공",
+      schema: {
+        resultType: "SUCCESS",
+        error: null,
+        success: {
+          battleId: "1234",
+          nickname: "홍길동",
+          isCreator: true,
+          creatorNickname: "홍길동"
+        }
+      }
+    }
+  */
+  try {
+    const { battleId, nickname } = req.params;
+
+    if (!battleId || !nickname) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        resultType: "FAIL",
+        error: {
+          errorCode: "BATTLE_001",
+          reason: "battleId와 nickname은 필수입니다",
+          data: null,
+        },
+        success: null,
+      });
+    }
+
+    // Get battle details
+    const battle = await battleService.getBattleDetailsService(battleId);
+
+    // Check if nickname matches creator
+    const isCreator = battle.creatorNickname === nickname;
+
+    return res.status(StatusCodes.OK).json({
+      resultType: "SUCCESS",
+      error: null,
+      success: {
+        battleId,
+        nickname,
+        isCreator,
+        creatorNickname: battle.creatorNickname,
+      },
+    });
+  } catch (error) {
+    console.error("방장 확인 에러:", error);
+
+    if (error.message.includes("존재하지 않는")) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        resultType: "FAIL",
+        error: {
+          errorCode: "BATTLE_002",
+          reason: error.message,
+          data: null,
+        },
+        success: null,
+      });
+    }
+
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      resultType: "FAIL",
+      error: {
+        errorCode: "BATTLE_001",
         reason: error.message,
         data: null,
       },

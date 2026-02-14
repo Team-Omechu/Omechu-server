@@ -1,61 +1,66 @@
-/**
- * 마이페이지 DTO
- */
+import { InvalidProfileData } from "../errors.js";
 
-// ===== 요청 DTO =====
+// 요청 DTO 
 export const bodyToProfileUpdate = (body, userId) => {
-  const result = { userId };
+  const dto = { userId };
 
   if (body.nickname !== undefined) {
-    result.nickname = body.nickname;
+    dto.nickname = body.nickname;
   }
 
   if (body.exercise !== undefined) {
-    result.exercise = convertExerciseToEnum(body.exercise);
+    const exerciseEnum = convertExerciseToEnum(body.exercise);
+    if (!exerciseEnum) {
+      throw new InvalidProfileData(
+        "잘못된 운동 상태 값입니다.",
+        body.exercise
+      );
+    }
+    dto.exercise = exerciseEnum;
   }
 
   if (Array.isArray(body.prefer)) {
-    result.prefer = body.prefer.map(convertPreferToEnum).filter(Boolean);
+    dto.prefer = body.prefer
+      .map(convertPreferToEnum)
+      .filter(Boolean);
   }
 
   if (Array.isArray(body.allergy)) {
-    result.allergy = body.allergy.map(convertAllergyToEnum).filter(Boolean);
+    dto.allergy = body.allergy
+      .map(convertAllergyToEnum)
+      .filter(Boolean);
   }
 
-  return result;
+  return dto;
 };
 
 // ===== 응답 DTO =====
-export const responseFromProfile = (user) => {
-  return {
-    id: user.id.toString(),
-    email: user.email,             
-    nickname: user.nickname,
-    exercise: convertExercise(user.exercise),
-    prefer: user.prefer.map(p => convertPrefer(p.prefer)),
-    allergy: user.user_allergy.map(
-      ua => convertAllergy(ua.allergy_min.allergy)
-    ),
-  };
-};
+export const responseFromProfile = (user) => ({
+  id: user.id.toString(),
+  email: user.email,
+  nickname: user.nickname,
+  exercise: convertExercise(user.exercise),
+  prefer: user.prefer?.map(p => convertPrefer(p.prefer)) ?? [],
+  allergy: user.user_allergy
+    ?.filter(ua => ua.allergy_min)
+    .map(ua => convertAllergy(ua.allergy_min.allergy)) ?? [],
+});
 
 // ===== Enum 변환 =====
-function convertExerciseToEnum(exercise) {
-  const map = {
+function convertExerciseToEnum(v) {
+  return {
     "다이어트 중": "cutting",
     "증량 중": "bulking",
     "유지 중": "maintenance",
-  };
-  return map[exercise] ?? null;
+  }[v] ?? null;
 }
 
-function convertExercise(exercise) {
-  const map = {
+function convertExercise(v) {
+  return {
     cutting: "다이어트 중",
     bulking: "증량 중",
     maintenance: "유지 중",
-  };
-  return map[exercise] ?? exercise;
+  }[v] ?? v;
 }
 
 
