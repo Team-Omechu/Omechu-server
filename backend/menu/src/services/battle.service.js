@@ -260,11 +260,11 @@ export const getBattleDetailsService = async (battleId) => {
  */
 export const joinBattleService = async (battleId, nickname) => {
   // Validation
-  if (!nickname || nickname.trim().length < 2) {
-    throw new Error("닉네임은 최소 2자 이상이어야 합니다");
+  if (!nickname || nickname.trim().length < 1) {
+    throw new Error("닉네임을 입력해주세요");
   }
 
-  if (nickname.length > 50) {
+  if (nickname.length > 20) {
     throw new Error("닉네임은 최대 50자까지 입력 가능합니다");
   }
 
