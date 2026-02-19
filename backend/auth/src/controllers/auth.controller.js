@@ -118,6 +118,11 @@ export const handleUserSignUp = async (req, res, next) => {
 */
 
    try {
+
+    if (!redisClient.isOpen) {
+      await redisClient.connect();
+    }
+    
     const user = await userSignUp(bodyToUser(req.body));
     const uid = Number(user.id);
 
