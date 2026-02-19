@@ -21,18 +21,24 @@ export const deletePasswordResetToken = async (token) => {
 };
 
 export const updateUserPasswordByEmail = async (email, newPassword) => {
-  try {
-    return await prisma.auth_user.update({
-      where: { email },
-      data: { password: newPassword },
-    });
-  } catch (err) {
-    if (err instanceof PrismaClientKnownRequestError && err.code === "P2025") {
-      throw new UserNotFoundError("해당 사용자를 찾을 수 없습니다.");
-    }
-    throw err;
+  const user = await prisma.auth_user.findFirst({
+    where: {
+      email,
+      provider: "local",   
+      is_deleted: false
+    },
+  });
+
+  if (!user) {
+    throw new UserNotFoundError("해당 사용자를 찾을 수 없습니다.");
   }
+
+  return prisma.auth_user.update({
+    where: { id: user.id },
+    data: { password: newPassword },
+  });
 };
+
 
 export const findUserByEmail = async (email) => {
   return prisma.auth_user.findFirst({
@@ -44,5 +50,15 @@ export const updateUserPasswordById = async (id, newPassword) => {
   return prisma.auth_user.update({
     where: { id: Number(id) },
     data: { password: newPassword },
+  });
+};
+
+export const findLocalUserByEmail = async (email) => {
+  return prisma.auth_user.findFirst({
+    where: {
+      email,
+      provider: "local",
+      is_deleted: false
+    }
   });
 };
