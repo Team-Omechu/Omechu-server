@@ -492,10 +492,10 @@ export const handleLeaveBattle = async (req, res) => {
   /*
     #swagger.tags = ["Battle"]
     #swagger.summary = "배틀 퇴장"
-    #swagger.description = "배틀방에서 퇴장합니다"
+    #swagger.description = "배틀방에서 퇴장합니다. 방장이 퇴장하면 자동으로 다음 참가자에게 방장이 위임됩니다."
     #swagger.parameters['battleId'] = {
       in: 'path',
-      description: '배틀 ID (UUID)',
+      description: '배틀 ID',
       required: true,
       type: 'string'
     }
@@ -505,8 +505,8 @@ export const handleLeaveBattle = async (req, res) => {
       required: true,
       type: 'string'
     }
-    #swagger.responses[204] = {
-      description: "퇴장 성공"
+    #swagger.responses[200] = {
+      description: "퇴장 성공 (방장 위임 정보 포함)"
     }
   */
   try {
@@ -524,9 +524,18 @@ export const handleLeaveBattle = async (req, res) => {
       });
     }
 
-    await battleService.leaveBattleService(battleId, nickname);
+    const result = await battleService.leaveBattleService(battleId, nickname);
 
-    return res.status(StatusCodes.NO_CONTENT).send();
+    return res.status(StatusCodes.OK).json({
+      resultType: "SUCCESS",
+      error: null,
+      success: {
+        message: "퇴장 성공",
+        creatorTransferred: result.creatorTransferred,
+        autoFinished: result.autoFinished,
+        newCreator: result.newCreator,     // 위임된 경우 새 방장 닉네임, 아니면 null
+      },
+    });
   } catch (error) {
     console.error("퇴장 에러:", error);
     return res.status(StatusCodes.BAD_REQUEST).json({
