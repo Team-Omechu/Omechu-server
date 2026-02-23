@@ -5,7 +5,7 @@ import {
   findPasswordResetToken,
   deletePasswordResetToken,
   updateUserPasswordByEmail,
-  findUserByEmail,
+  findLocalUserByEmail,
 } from "../repositories/passwordReset.repository.js";
 import { InvalidOrExpiredTokenError, UserNotFoundError } from "../errors.js";
 import bcrypt from "bcrypt";
@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 const sendResetEmail = async (email, token) => {
   const resetLink = `https://omechu.log8.kr/auth/reset-password?token=${token}`;
   const imageUrl =
-    "https://omechu-s3-bucket.s3.ap-northeast-2.amazonaws.com/email/a4e1f2ed-62bb-491d-93a0-3b88de6a64b3.jpg";
+    "https://omechu-service-s3-bucket.s3.ap-northeast-2.amazonaws.com/email/%EC%98%A4%EB%A9%94%EC%B6%94+%EB%A9%94%EC%9D%BC+%EC%9D%B4%EB%AF%B8%EC%A7%80.png";
   await transporter.sendMail({
     from: process.env.MAIL_USER,
     to: email,
@@ -43,7 +43,8 @@ const sendResetEmail = async (email, token) => {
 };
 
 export const createPasswordResetTokenService = async (email) => {
-  const user = await findUserByEmail(email);
+  const user = await findLocalUserByEmail(email);
+
   if (!user) {
     throw new UserNotFoundError("해당 이메일의 사용자가 존재하지 않습니다.");
   }

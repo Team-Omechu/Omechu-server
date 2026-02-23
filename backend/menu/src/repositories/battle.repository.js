@@ -57,6 +57,29 @@ export const updateBattleCreator = async (battleId, creatorNickname) => {
   });
 };
 
+/**
+ * 방장 위임: 기존 방장 is_creator 해제 + 새 방장 is_creator 설정 + battles 테이블 업데이트
+ */
+export const transferCreator = async (battleId, newCreatorNickname) => {
+  return await prisma.$transaction([
+    // 기존 방장 해제
+    prisma.battle_participants.updateMany({
+      where: { battle_id: battleId, is_creator: true },
+      data: { is_creator: false },
+    }),
+    // 새 방장 설정
+    prisma.battle_participants.updateMany({
+      where: { battle_id: battleId, nickname: newCreatorNickname },
+      data: { is_creator: true },
+    }),
+    // battles 테이블 creator_nickname 업데이트
+    prisma.battles.update({
+      where: { battle_id: battleId },
+      data: { creator_nickname: newCreatorNickname },
+    }),
+  ]);
+};
+
 export const incrementParticipantCount = async (battleId) => {
   return await prisma.battles.update({
     where: { battle_id: battleId },

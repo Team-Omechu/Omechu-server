@@ -265,7 +265,7 @@ export const joinBattleService = async (battleId, nickname) => {
   }
 
   if (nickname.length > 20) {
-    throw new Error("닉네임은 최대 50자까지 입력 가능합니다");
+    throw new Error("닉네임은 최대 20자까지 입력 가능합니다");
   }
 
   try {
@@ -518,6 +518,7 @@ export const finishBattleService = async (battleId, nickname) => {
  * Leave battle
  * @param {string} battleId - Battle ID
  * @param {string} nickname - Participant's nickname
+ * @returns {Object} Leave result with new creator info if transferred
  */
 export const leaveBattleService = async (battleId, nickname) => {
   try {
@@ -531,11 +532,33 @@ export const leaveBattleService = async (battleId, nickname) => {
       throw new Error("배틀에 참가하지 않은 사용자입니다");
     }
 
+    const isCreator = participant.is_creator;
+
     // Delete participant
     await battleRepository.deleteParticipant(battleId, nickname);
 
     // Decrement participant count
     await battleRepository.decrementParticipantCount(battleId);
+
+    // ✅ 방장이 나가는 경우 → 위임 처리
+    if (isCreator) {
+      // 남아있는 참가자 조회 (가장 먼저 입장한 순서)
+      const remaining = await battleRepository.findAllParticipants(battleId);
+
+      if (remaining.length === 0) {
+        // 마지막 참가자가 나간 경우 → 배틀 자동 마감
+        await battleRepository.updateBattleStatus(battleId, "finished", new Date());
+        return { creatorTransferred: false, autoFinished: true, newCreator: null };
+      }
+
+      // 다음 참가자에게 방장 위임 (가장 먼저 입장한 사람)
+      const newCreator = remaining[0];
+      await battleRepository.transferCreator(battleId, newCreator.nickname);
+
+      return { creatorTransferred: true, autoFinished: false, newCreator: newCreator.nickname };
+    }
+
+    return { creatorTransferred: false, autoFinished: false, newCreator: null };
   } catch (error) {
     console.error("배틀 퇴장 오류:", error);
     throw new Error(`배틀 퇴장 실패: ${error.message}`);

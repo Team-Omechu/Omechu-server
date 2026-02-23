@@ -42,7 +42,6 @@ export const handleResetRequest = async (req, res, next) => {
             type: "object",
             properties: {
               message: { type: "string", example: "비밀번호 재설정 링크를 이메일로 보냈습니다" },
-              token: { type: "string", example: "예시용 테스트 토큰" }
             }
           }
         }
@@ -124,8 +123,7 @@ export const handleResetRequest = async (req, res, next) => {
     const { email } = bodyToResetRequestDto(req.body);
     const token = await createPasswordResetTokenService(email);
     res.success({
-      message: "비밀번호 재설정 링크를 이메일로 보냈습니다",
-      token,
+      message: "비밀번호 재설정 링크를 이메일로 보냈습니다"
     });
   } catch (err) {
     next(err);
