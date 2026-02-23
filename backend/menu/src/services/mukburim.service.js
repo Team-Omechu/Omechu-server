@@ -249,6 +249,7 @@ export const getMukburimCalendarService = async (userId, year, month) => {
     calendar,
   };
 };
+
 // 특정 날짜 조회 서비스
 export const getMukburimByDateService = async (userId, date) => {
   if (!userId) throw new NoParams("사용자 ID가 필요합니다.");
