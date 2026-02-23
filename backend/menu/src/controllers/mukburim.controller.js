@@ -3,8 +3,8 @@
 import { StatusCodes } from "http-status-codes";
 import {
   getMukburimStatisticsService,
-  //getMukburimCalendarService,
-  //getMukburimByDateService,
+  getMukburimCalendarService,
+  getMukburimByDateService,
   insertMukburimService,
 } from "../services/mukburim.service.js";
 /**
