@@ -1,285 +1,316 @@
-# omechu-server
+<!-- ============================================================
+     Omechu Server - Backend API
+     Brand Color: #ff7676 (primary) | #f9e4ff (background)
+     ============================================================ -->
 
-## 🧁 오메추 프로젝트
-**오늘의 메뉴를 색다르게! 사용자 응답 기반 메뉴 추천을 중심으로 먹을 거리 고민을 줄여주는 서비스, 오메추입니다!**
+<div align="center">
 
-## 👯 팀원 정보
-- umc node.js 8th **위니 김서진**
-- umc node.js 8th **솔솔 노찬솔**
-- umc node.js 8th **코크 문조원**
-- umc node.js 8th **랄프 정휘준**
+# 🍽️ 오메추 Server
 
-## 🛠 기술 스택
-### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Language**: JavaScript (ES6+)
-- **HTTP Status**: http-status-codes
-- **API Documentation**: Swagger
+<img src="https://img.shields.io/badge/Node.js-ff7676?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Express.js_5-ff7676?style=for-the-badge&logo=express&logoColor=white" />
+<img src="https://img.shields.io/badge/Prisma_6-ff7676?style=for-the-badge&logo=prisma&logoColor=white" />
+<img src="https://img.shields.io/badge/MySQL_8-ff7676?style=for-the-badge&logo=mysql&logoColor=white" />
+<img src="https://img.shields.io/badge/Docker-ff7676?style=for-the-badge&logo=docker&logoColor=white" />
+<img src="https://img.shields.io/badge/Redis-ff7676?style=for-the-badge&logo=redis&logoColor=white" />
 
-### Database & Storage
-- **Database**: MySQL
-- **Cloud Storage**: AWS S3
+<br/>
 
-### Development & Deployment
-- **Version Control**: Git & GitHub
-- **Cloud Platform**: AWS
-- **Package Manager**: npm
+**사용자 맥락 기반 맞춤 메뉴/맛집 추천 서비스 — 백엔드 API**
 
-### Architecture Pattern
-- **Design Pattern**: MVC (Model-View-Controller)
-- **API Design**: RESTful API
-- **Code Organization**: Service-Oriented Architecture
+*Context-aware menu & restaurant recommendation — Backend API*
 
-## 브랜치 전략  : git flow 전략
-```
-main         ← 🔵 배포용 (실서비스 운영)
-│
-└── develop   ← 🟢 개발 통합 브랜치
-    ├── feature/login-ui
-    ├── feature/api-endpoint
-    └── ...
-```
-## 📌 ERD 구조
-![ERD](erd.png)
+<br/>
 
-## 🏗️ 서버 아키텍처
+<a href="https://omechu.log8.kr/">🐥 서비스 바로가기</a> ·
+<a href="https://github.com/Team-Omechu/Omechu-web">Frontend Repo</a> ·
+<a href="https://github.com/Team-Omechu/Omechu-AI">AI Repo</a>
 
-### 전체 시스템 구조
-오메추 서버는 **3-Layer Architecture**를 기반으로 설계되어 있으며, AWS 클라우드 환경에서 운영됩니다.
+</div>
+
+---
+
+## 📌 개요
+
+**오메추 서버**는 마이크로서비스 아키텍처 기반의 REST API 서버입니다.
+Docker Compose로 서비스를 오케스트레이션하며, API Gateway 패턴을 통해 클라이언트 요청을 각 서비스로 라우팅합니다.
+
+---
+
+## 🏗️ 시스템 아키텍처
 
 ```
 Client (Frontend)
        ↓
-[ Load Balancer ]
+[ API Gateway ] ← default_container (port 3000)
        ↓
-[ Express.js Server ]
+┌──────────────────────────────────────────────────┐
+│  auth_api    │  menu_api     │  user_api         │
+│  (인증/인가) │  (메뉴/맛집)  │  (사용자/프로필)  │
+│  Express.js  │  Express.js   │  Express.js       │
+│  + Prisma    │  + Prisma     │  + Prisma         │
+│              │  + Socket.IO  │  + node-cron      │
+└──────────────────────────────────────────────────┘
+       ↓                ↓               ↓
+  [ MySQL 8.0 ]    [ Redis ]    [ AWS S3 ]
        ↓
-┌─────────────────────────┐
-│     Controller Layer    │ ← API 요청/응답 처리
-├─────────────────────────┤
-│      Service Layer      │ ← 비즈니스 로직 처리
-├─────────────────────────┤
-│       Data Layer        │ ← 데이터베이스 연동
-└─────────────────────────┘
-       ↓
-[ MySQL Database ]
-       ↓
-[ AWS S3 Storage ]
+[ imbedding_api ] ← FastAPI (Python, port 5001)
+  OpenAI 임베딩 기반 메뉴 추천
 ```
 
-### 계층별 역할
+### 서비스별 역할
 
-#### 1. **Controller Layer** (`controllers/`)
-- **역할**: HTTP 요청/응답 처리, 라우팅
-- **책임**: 
-  - 클라이언트 요청 파라미터 검증
-  - Service Layer 호출
-  - HTTP 상태 코드 및 응답 형식 관리
-  - 에러 핸들링
-- **예시**: `sortMenu.controller.js`에서 메뉴 랜덤 추천, 검색, 필터링 API 처리
+| Service | Port | Description |
+| :--- | :--- | :--- |
+| **default_container** | 3000 | API Gateway — 클라이언트 요청 라우팅 |
+| **auth_api** | — | 인증/인가 (JWT, 카카오/구글 OAuth, 이메일 인증, 비밀번호 재설정) |
+| **menu_api** | — | 메뉴 추천/검색/필터, 맛집 CRUD, 리뷰, 찜, 메뉴배틀 (WebSocket) |
+| **user_api** | — | 프로필 관리, 온보딩, 먹부림 기록, 식사 알림, 문의 |
+| **imbedding_api** | 5001 | OpenAI 임베딩 기반 메뉴 유사도 추천 (FastAPI + Redis 캐싱) |
+| **omechu_db** | 3306 | MySQL 8.0 (utf8mb4) |
 
-#### 2. **Service Layer** (`services/`)
-- **역할**: 핵심 비즈니스 로직 구현
-- **책임**:
-  - 복잡한 데이터 처리 로직
-  - 외부 API 호출
-  - 데이터 변환 및 가공
-  - 트랜잭션 관리
-- **예시**: 메뉴 추천 알고리즘, 사용자 선호도 분석
+---
 
-#### 3. **Data Layer** (`models/` 또는 `repositories/`)
-- **역할**: 데이터베이스 연동 및 데이터 액세스
-- **책임**:
-  - SQL 쿼리 실행
-  - 데이터베이스 연결 관리
-  - ORM/Query Builder 활용
-  - 데이터 모델 정의
+## ⚒️ 기술 스택
 
-### 주요 기능별 아키텍처
+<table>
+  <tr>
+    <th align="center" width="18%">
+      <img src="https://img.shields.io/badge/Runtime-000000?style=for-the-badge" alt="Runtime"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/Node.js-ff7676?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
+      <img src="https://img.shields.io/badge/Python-ff7676?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/Framework-000000?style=for-the-badge" alt="Framework"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/Express.js_5-ff7676?style=for-the-badge&logo=express&logoColor=white" alt="Express.js 5"/>
+      <img src="https://img.shields.io/badge/FastAPI-ff7676?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/Database-000000?style=for-the-badge" alt="Database"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/MySQL_8-ff7676?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL 8"/>
+      <img src="https://img.shields.io/badge/Prisma_6-ff7676?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma 6"/>
+      <img src="https://img.shields.io/badge/Redis-ff7676?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/AI-000000?style=for-the-badge" alt="AI"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/OpenAI-ff7676?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/Auth-000000?style=for-the-badge" alt="Auth"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/JWT-ff7676?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT"/>
+      <img src="https://img.shields.io/badge/Kakao_OAuth-ff7676?style=for-the-badge&logo=kakao&logoColor=white" alt="Kakao"/>
+      <img src="https://img.shields.io/badge/Google_OAuth-ff7676?style=for-the-badge&logo=google&logoColor=white" alt="Google"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/Infra-000000?style=for-the-badge" alt="Infra"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/Docker-ff7676?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+      <img src="https://img.shields.io/badge/Docker_Compose-ff7676?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Compose"/>
+      <img src="https://img.shields.io/badge/AWS_EC2-ff7676?style=for-the-badge&logo=amazonec2&logoColor=white" alt="AWS EC2"/>
+      <img src="https://img.shields.io/badge/AWS_S3-ff7676?style=for-the-badge&logo=amazons3&logoColor=white" alt="AWS S3"/>
+      <img src="https://img.shields.io/badge/GitHub_Actions-ff7676?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions"/>
+    </td>
+  </tr>
+  <tr>
+    <th align="center">
+      <img src="https://img.shields.io/badge/Others-000000?style=for-the-badge" alt="Others"/>
+    </th>
+    <td align="left">
+      <img src="https://img.shields.io/badge/Socket.IO-ff7676?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.IO"/>
+      <img src="https://img.shields.io/badge/Swagger-ff7676?style=for-the-badge&logo=swagger&logoColor=white" alt="Swagger"/>
+      <img src="https://img.shields.io/badge/Nodemailer-ff7676?style=for-the-badge&logoColor=white" alt="Nodemailer"/>
+    </td>
+  </tr>
+</table>
 
-#### 메뉴 추천 시스템
+---
+
+## 📁 프로젝트 구조
+
+```text
+backend/
+├── default_container/     # API Gateway (Express.js)
+│   └── index.js
+├── auth/                  # 인증 마이크로서비스
+│   ├── src/
+│   │   ├── controllers/   # 요청/응답 처리
+│   │   ├── services/      # 비즈니스 로직
+│   │   ├── repositories/  # 데이터 액세스 (Prisma)
+│   │   ├── dtos/          # 데이터 전송 객체
+│   │   ├── utils/         # 유틸리티
+│   │   └── generated/     # Prisma Client (auto-generated)
+│   └── prisma/
+│       └── schema.prisma  # 스키마 정의
+├── menu/                  # 메뉴/맛집 마이크로서비스
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── repositories/
+│   │   ├── websocket/     # 메뉴배틀 WebSocket (Socket.IO)
+│   │   └── utils/         # 배틀 크론잡 등
+│   └── prisma/
+├── user/                  # 사용자 마이크로서비스
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── services/
+│   │   ├── repositories/
+│   │   └── dtos/
+│   └── prisma/
+├── imbedding/             # AI 임베딩 서비스 (Python)
+│   ├── imbedding.py       # FastAPI 엔드포인트
+│   ├── menu_data.json     # 메뉴 데이터
+│   └── requirements.txt
+└── docker-compose.yaml    # 전체 서비스 오케스트레이션
 ```
-사용자 요청 → Controller → Service → 추천 알고리즘 → Database 조회 → 결과 반환
+
+> 각 마이크로서비스는 **3-Layer Architecture** (Controller → Service → Repository)를 따릅니다.
+
+---
+
+## 🛠 설치 및 실행
+
+### Prerequisites
+
+| Requirement | Version |
+|---|---|
+| Docker & Docker Compose | Latest |
+| Node.js | 18+ |
+| npm | 9+ |
+
+### Docker 실행 (권장)
+
+```bash
+# 1) 클론
+git clone https://github.com/Team-Omechu/Omechu-server.git
+cd Omechu-server/backend
+
+# 2) 환경 변수 설정
+cp auth/.env.example auth/.env.production
+cp menu/.env.example menu/.env.production
+cp user/.env.example user/.env.production
+cp imbedding/.env.example imbedding/.env
+
+# 3) Docker 네트워크 생성 (최초 1회)
+docker network create omechu-net
+
+# 4) 전체 서비스 실행
+docker compose up -d
+
+# 5) 확인
+docker compose ps
 ```
 
-#### 이미지 관리 시스템
-```
-이미지 업로드 요청 → Controller → Service → AWS S3 업로드 → URL 반환 → Database 저장
+### 개별 서비스 로컬 실행
+
+```bash
+cd backend/auth    # or menu, user
+npm install
+npx prisma generate
+npm run dev
 ```
 
-#### 사용자 인증 시스템
-```
-로그인 요청 → Controller → Service → JWT 토큰 생성 → 미들웨어 검증
-```
+### API 문서 (Swagger)
 
-### 데이터베이스 설계
-- **메뉴 테이블**: 메뉴 정보 및 이미지 링크 저장
-- **사용자 테이블**: 사용자 정보 및 선호도 저장
-- **조회 기록 테이블**: 사용자의 메뉴 조회 이력 추적
-- **태그 테이블**: 메뉴 분류 및 필터링을 위한 태그 시스템
+각 서비스 실행 후 Swagger UI에서 API 명세를 확인할 수 있습니다.
 
-### API 설계 원칙
+---
+
+## 🔗 API 설계 원칙
+
 - **RESTful API**: 표준 HTTP 메서드 사용
-- **일관된 응답 형식**: `resultType`, `error`, `success` 구조
-- **에러 코드 체계**: 기능별 고유 에러 코드 (M001, M002, ...)
-- **Swagger 문서화**: 모든 API 엔드포인트 문서화
-
-### 보안 및 인증
-- **JWT 토큰**: 사용자 인증 및 권한 관리
-- **미들웨어**: 요청 검증 및 인증 처리
-- **CORS**: 크로스 오리진 요청 관리
-- **Input Validation**: 입력 데이터 검증 및 SQL Injection 방지
-
-### 확장성 고려사항
-- **마이크로서비스 지향**: 기능별 서비스 분리 가능한 구조
-- **캐싱 전략**: Redis 도입 가능
-- **로드 밸런싱**: AWS ELB를 통한 트래픽 분산
-- **모니터링**: 로그 관리 및 성능 모니터링
-
-## ⭐️ 브랜치(Branch) 컨벤션
-
-1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
-2. **develop** : 배포하기 전 개발 중일 때 각자의 브랜치에서 merge하는 브랜치 ( feature 브랜치나 refactor 브랜치 생성 후 PR 한 뒤 merge 는 무조건 **develop** 에 하기 )
-3. **feat / #이슈 번호 / 기능명** : feature 브랜치. 새로운 기능 개발. 개발이 완료되면 develop 브랜치로 병합    ex)feat/#12/로그인 API 구현
-4. **fix / #이슈 번호 / 기능명** : fix 브랜치. 생성 후 버그가 생겼을 때 수정하는 브랜치    ex)fix/#12/로그인 API 토큰 재발급
-5. **refactor/#이슈 번호/기능명** : refactor 브랜치. 생성 후 버그가 생겼을 때 수정하는 브랜치  ex)refactor/#12/로그인 API 수정
-6. **init/#이슈번호/기능명** : init 브랜치
+- **일관된 응답 형식**: `{ resultType, error, success }` 구조
+- **에러 코드 체계**: 도메인별 고유 에러 코드
+- **인증**: JWT Bearer 토큰 + Refresh 토큰
+- **Swagger 문서화**: 모든 API 엔드포인트 자동 문서화
 
 ---
 
-## ⭐️ 코딩(Coding) 컨벤션
+## 🤝 협업 규칙
 
-### 네이밍 컨벤션
+### 브랜치 전략 (Git Flow)
 
--   **변수 / 함수 / 메서드** : Camel Case(카멜 케이스)
--   **컴포넌트** : Pascal Case(파스칼 케이스)
+```
+main         ← 배포용 (실서비스 운영)
+│
+└── develop  ← 개발 통합 브랜치
+    ├── feat/<설명>-#<issue>
+    ├── fix/<설명>-#<issue>
+    └── refactor/<설명>-#<issue>
+```
 
-### 들여쓰기 컨벤션
+### 커밋 컨벤션
 
--   **들여쓰기** : Tab
+```bash
+<type>: <subject> (#<issue_number>)
+```
 
-### 주석 컨벤션
-
--   **한 줄 주석** : //
--   **여러 줄 주석** : /\*\*/
-
----
-
-## ⭐️ 이슈(Issue) 컨벤션
-
-### 제목 :
-
-**[Feat] 이슈 제목**
-
--   **기능 추가 시** : **[feat]** 로그인 기능 추가
--   **오류/ 버그 발생 시** : **[fix]** 로그인 오류 수정
--   **리팩토링 시** : **[refactor]** 로그인 페이지 리팩토링
-
-### 내용
-
--   **feat** 일때:
-    -   **작업한 내용** : 작업한 기능 작성 ( 예시 : 로그인 )
--   **fix** 일때:
-    -   **발생한 오류** :
-    -   **작업할 방향** :
--   **refactor** 일때:    ( **refactor 한 부분은 review 잘 달아주기** )
-    -   **내용** : 리팩토링이 필요한 부분 입력
-    -   **리팩토링 이유** : 과거 와 현재를 비교해서 작성해주기
-    -   **리팩토링 결과** : 변경한 내용 입력
--   **init** 일때 :
-    -   **내용** : 초기설정 한 내용
-      
-## ⭐️ PR(Pull Request) 컨벤션
-
-### PR 제목
-
-[Feat/#이슈 번호] " pr message "
-(예시 : [Feat/#1] "로그인 기능 추가")
-
-### 📌 관련 이슈번호
-
-(Closes 키워드가 있어야 PR이 머지되었을 때 이슈가 자동으로 닫힌다)
-
--   Closes #이슈 번호
-
-### 📌 PR 유형
-
-어떤 변경 사항이 있나요?
-
--   [ ] 새 기능 추가
--   [ ] 버그 수정
--   [ ] CSS 등 사용자 UI 디자인 변경
--   [ ] 리팩토링
-
-### 📌 PR 요약
-
-해당 PR을 간단하게 요약해 주세요
-
-### 📌 작업 세부 내용
-
-1.
-2.
-3.
-
-### 📸 스크린샷 (선택)
-
-### 🔗 참고 자료
-
-​
+| Type | Description |
+| :--- | :--- |
+| `feat` | 새로운 기능 추가 |
+| `fix` | 버그 수정 |
+| `refactor` | 코드 리팩토링 |
+| `docs` | 문서 수정 |
+| `chore` | 빌드/설정 등 기타 |
+| `init` | 프로젝트 초기 설정 |
 
 ---
 
-## ⭐️ 커밋(Commit) 컨벤션
+## 👥 팀원
 
-      [Feat]: 커밋 메시지 타입
-      (git commit -m “[Feat/#이슈 번호]: "commit messages”")
+> **UMC 8기** 대학교 연합 IT 동아리 장기 프로젝트
 
+<table>
+  <tr>
+    <td align="center" width="150">
+      <a href="https://github.com/3tjwls7"><img src="https://github.com/3tjwls7.png" width="100" alt="김서진"/></a><br/>
+      <b>위니</b><br/>
+      <sub>김서진</sub><br/>
+      <a href="https://github.com/3tjwls7"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>
+    </td>
+    <td align="center" width="150">
+      <a href="https://github.com/Ncs89"><img src="https://github.com/Ncs89.png" width="100" alt="노찬솔"/></a><br/>
+      <b>솔솔</b><br/>
+      <sub>노찬솔</sub><br/>
+      <a href="https://github.com/Ncs89"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>
+    </td>
+    <td align="center" width="150">
+      <a href="https://github.com/CokeTown"><img src="https://github.com/CokeTown.png" width="100" alt="문조원"/></a><br/>
+      <b>코크</b><br/>
+      <sub>문조원</sub><br/>
+      <a href="https://github.com/CokeTown"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>
+    </td>
+    <td align="center" width="150">
+      <a href="https://github.com/ralph-Jung"><img src="https://github.com/ralph-Jung.png" width="100" alt="정휘준"/></a><br/>
+      <b>랄프</b><br/>
+      <sub>정휘준</sub><br/>
+      <a href="https://github.com/ralph-Jung"><img src="https://img.shields.io/badge/-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/></a>
+    </td>
+  </tr>
+</table>
 
-      (예시: git commit -m "feat:"회원 가입 기능 구현"" )
+---
 
--   **커밋 메시지 타입 종류**
-
-1. **init** : 프로젝트 초기 생성 및 설정
-2. **feat** : 새로운 기능 추가, 기존의 기능을 요구 사항에 맞추어 수정
-3. **fix** : 기능에 대한 버그 수정
-4. **build** : 빌드 관련 수정
-8. **refactor** : 기능의 변화가 아닌 코드 리팩터링 ex) 변수 이름 변경
-   
-## 협업 규칙
-
-### Github 협업 규칙
-
-Github 협업 규칙은 아래와 같습니다.
-
-1. 전체적인 협업 flow는 Github flow를 따름.
-2. Fork한 저장소를 각자 local로 가져와 수정.
-3. 수정한 코드는 add -> commit -> push 후, upstream에 Pull Request를 수행.
-4. main branch로부터 dev branch, prod branch를 구성.
-5. 추가되는 기능에 대해서는 feature branch를 생성하여 각 기능별 branch를 구성.
-6. Pull Request 시 Code Review 이후 Merge 진행.( **2명**의 review 를 받은 후에 review 에 맞게 수정한 후에 각자 자신의 PR 을 develop 에 merge 시키기 )
-7. Commit 규칙은 아래와 같이 진행했습니다.
-
-   | 커밋 타입 | 설명                                                           |
-      | --------- | -------------------------------------------------------------- |
-   | feature   | 새로운 기능 구현                                               |
-   | fix       | 수정                                                          |
-   | refactor  | 리팩토링                                                       |
-   | init  | 프로젝트 초기 설정                                                       |
-   
-### Issue 활용
-#### 이슈 작성 예시
-#### ex) 제목 : [Feature] 로그인 API 개발
-#### ex) 제목 : [Refactor] 로그인 API 수정
-#### ex) 제목 : [Fix] 로그인 API 토큰 재발급 
-
-- Github 레포지토리의 Issue탭에 Todo인 상황 혹은 In progress에 대한 상황을 작성하고 공유했습니다. 해당 Issue 번호로 각자의 로컬 레포지토리에 브랜치를 생성하여 Pull Request 시에 해당 Issue를 언급하여 공유했습니다. 해당 전략을 사용하여 Merge Conflict의 발생 가능성을 줄였습니다.
-
-### PR 활용
-
-- 다음과 같이 개발 이후 특정 프로젝트에 대한 변경사항을 제안하고, 팀원과 이를 검토 및 논의한 후, 최종적으로 해당 변경사항을 반영할 수 있도록 했습니다.
-- 다른 개발자들은 해당 Pull Request를 검토하고, 필요한 경우 피드백을 제공할 수 있었습니다.
-- 검토 후, Pull Request가 승인되면 변경 사항이 메인 프로젝트로 병합되도록 했습니다. 반면, 추가적인 수정이 필요한 경우 개발자는 피드백을 반영하여 수정하고, 수정된 변경사항을 다시 push 했습니다.
-
-### 아키텍쳐 사진
-<img width="831" height="1026" alt="Image" src="https://github.com/user-attachments/assets/38e59dca-f337-4beb-bfe8-4965f56036bb" />
+<p align="center">
+  <sub>UMC 8th · Omechu · 2025</sub>
+</p>
