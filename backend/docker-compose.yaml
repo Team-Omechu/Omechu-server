@@ -60,6 +60,8 @@ services:
       - omechu-net
     volumes:
       - omechu_db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
 
   imbedding_api:
     build:

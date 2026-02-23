@@ -178,28 +178,44 @@ export const setupBattleSocket = (io) => {
           return;
         }
 
-        // Leave battle via service
-        await battleService.leaveBattleService(battleId, nickname);
+        // Leave battle via service (방장 위임 로직 포함)
+        const result = await battleService.leaveBattleService(battleId, nickname);
 
         // Leave Socket.io room
         socket.leave(battleId);
 
-        // Broadcast to remaining participants
-        io.to(battleId).emit("participant:left", {
-          nickname,
-        });
+        // Broadcast 퇴장 이벤트
+        io.to(battleId).emit("participant:left", { nickname });
 
-        // Get updated battle details
-        const battleDetails = await battleService.getBattleDetailsService(
-          battleId
-        );
+        // ✅ 방장 위임 발생 시 브로드캐스트
+        if (result.creatorTransferred) {
+          io.to(battleId).emit("creator:transferred", {
+            previousCreator: nickname,
+            newCreator: result.newCreator,
+          });
+          console.log(`[Battle ${battleId}] Creator transferred: ${nickname} → ${result.newCreator}`);
+        }
+
+        // ✅ 마지막 참가자 퇴장으로 자동 마감 시 브로드캐스트
+        if (result.autoFinished) {
+          io.to(battleId).emit("battle:finished", {
+            battleId,
+            status: "finished",
+            finishedAt: new Date(),
+            winner: null,
+            reason: "모든 참가자가 퇴장하여 자동 마감되었습니다",
+          });
+          console.log(`[Battle ${battleId}] Auto-finished: all participants left`);
+          return;
+        }
+
+        // 남아있는 참가자 수 브로드캐스트
+        const battleDetails = await battleService.getBattleDetailsService(battleId);
         io.to(battleId).emit("participant:count:updated", {
           participantCount: battleDetails.participantCount,
         });
 
-        console.log(
-          `[Battle ${battleId}] ${nickname} left (Socket: ${socket.id})`
-        );
+        console.log(`[Battle ${battleId}] ${nickname} left (Socket: ${socket.id})`);
       } catch (error) {
         console.error("Socket battle:leave error:", error);
         socket.emit("error", {
