@@ -29,7 +29,6 @@ import { Server } from "socket.io";
 import { setupBattleSocket } from "./websocket/battle.socket.js";
 import { startBattleCleanupCron } from "./utils/battle.cron.js";
 import * as battleController from "./controllers/battle.controller.js";
-import { handleGetMenu } from "./controllers/menu.controller.js";
 // ========================================
 dotenv.config();
 
