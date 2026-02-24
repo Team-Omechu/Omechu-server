@@ -46,6 +46,9 @@ import {
 import { handleWithdraw } from "./controllers/withdraw.controller.js";
 dotenv.config();
 
+import "./instrument.js";
+import * as Sentry from "@sentry/node";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -254,17 +257,11 @@ app.post("/user/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
 
 app.post("/user/inquiry", isLoggedIn, handleSubmitInquiry);
 
+Sentry.setupExpressErrorHandler(app);
+
 // 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
-
-  console.error("에러 발생:", {
-    error: err.message,
-    url: req.url,
-    method: req.method,
-    userId: req.user?.id,
-    errorCode: err.errorCode,
-  });
 
   const getStatusCode = (errorCode) => {
     const statusMap = {
@@ -277,6 +274,13 @@ app.use((err, req, res, next) => {
   };
 
   const statusCode = err.statusCode || getStatusCode(err.errorCode) || 500;
+
+  if (statusCode >= 500) {
+    Sentry.captureException(err, {
+      tags: { service: "auth_api", errorCode: err.errorCode ?? "unknown" },
+      extra: { url: req.url, method: req.method, userId: req.user?.id },
+    });
+  }
 
   res.status(statusCode).error({
     errorCode: err.errorCode || "C001",

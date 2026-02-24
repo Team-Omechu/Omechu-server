@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Team-Omechu/Omechu-server#readme",
   "dependencies": {
     "@prisma/client": "^6.19.2",
+    "@sentry/node": "^10.39.0",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",

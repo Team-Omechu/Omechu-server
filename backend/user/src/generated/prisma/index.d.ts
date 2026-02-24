@@ -30,7 +30,7 @@ export type allergy_min = $Result.DefaultSelection<Prisma.$allergy_minPayload>
 export type inquiry = $Result.DefaultSelection<Prisma.$inquiryPayload>
 /**
  * Model meal_alert
- * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * 
  */
 export type meal_alert = $Result.DefaultSelection<Prisma.$meal_alertPayload>
 /**
@@ -1780,11 +1780,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     prefer: number
     user_allergy: number
+    recommend_except: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prefer?: boolean | UserCountOutputTypeCountPreferArgs
     user_allergy?: boolean | UserCountOutputTypeCountUser_allergyArgs
+    recommend_except?: boolean | UserCountOutputTypeCountRecommend_exceptArgs
   }
 
   // Custom InputTypes
@@ -1810,6 +1812,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountUser_allergyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: user_allergyWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRecommend_exceptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: recommend_exceptWhereInput
   }
 
 
@@ -7767,6 +7776,7 @@ export namespace Prisma {
     menu_id?: boolean
     bit?: boolean
     created_at?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recommend_except"]>
 
 
@@ -7780,10 +7790,15 @@ export namespace Prisma {
   }
 
   export type recommend_exceptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "menu_id" | "bit" | "created_at", ExtArgs["result"]["recommend_except"]>
+  export type recommend_exceptInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
 
   export type $recommend_exceptPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "recommend_except"
-    objects: {}
+    objects: {
+      user: Prisma.$userPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
       user_id: bigint
@@ -8130,6 +8145,7 @@ export namespace Prisma {
    */
   export interface Prisma__recommend_exceptClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8181,6 +8197,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * Filter, which recommend_except to fetch.
      */
     where: recommend_exceptWhereUniqueInput
@@ -8199,6 +8219,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * Filter, which recommend_except to fetch.
      */
     where: recommend_exceptWhereUniqueInput
@@ -8216,6 +8240,10 @@ export namespace Prisma {
      * Omit specific fields from the recommend_except
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
     /**
      * Filter, which recommend_except to fetch.
      */
@@ -8265,6 +8293,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * Filter, which recommend_except to fetch.
      */
     where?: recommend_exceptWhereInput
@@ -8313,6 +8345,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * Filter, which recommend_excepts to fetch.
      */
     where?: recommend_exceptWhereInput
@@ -8356,6 +8392,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * The data needed to create a recommend_except.
      */
     data: XOR<recommend_exceptCreateInput, recommend_exceptUncheckedCreateInput>
@@ -8384,6 +8424,10 @@ export namespace Prisma {
      * Omit specific fields from the recommend_except
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
     /**
      * The data needed to update a recommend_except.
      */
@@ -8425,6 +8469,10 @@ export namespace Prisma {
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    /**
      * The filter to search for the recommend_except to update in case it exists.
      */
     where: recommend_exceptWhereUniqueInput
@@ -8450,6 +8498,10 @@ export namespace Prisma {
      * Omit specific fields from the recommend_except
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
     /**
      * Filter which recommend_except to delete.
      */
@@ -8482,6 +8534,10 @@ export namespace Prisma {
      * Omit specific fields from the recommend_except
      */
     omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
   }
 
 
@@ -9596,6 +9652,7 @@ export namespace Prisma {
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
     user_allergy?: boolean | user$user_allergyArgs<ExtArgs>
+    recommend_except?: boolean | user$recommend_exceptArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -9616,6 +9673,7 @@ export namespace Prisma {
     agreement_consent?: boolean | user$agreement_consentArgs<ExtArgs>
     prefer?: boolean | user$preferArgs<ExtArgs>
     user_allergy?: boolean | user$user_allergyArgs<ExtArgs>
+    recommend_except?: boolean | user$recommend_exceptArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -9625,6 +9683,7 @@ export namespace Prisma {
       agreement_consent: Prisma.$agreement_consentPayload<ExtArgs> | null
       prefer: Prisma.$preferPayload<ExtArgs>[]
       user_allergy: Prisma.$user_allergyPayload<ExtArgs>[]
+      recommend_except: Prisma.$recommend_exceptPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: bigint
@@ -9977,6 +10036,7 @@ export namespace Prisma {
     agreement_consent<T extends user$agreement_consentArgs<ExtArgs> = {}>(args?: Subset<T, user$agreement_consentArgs<ExtArgs>>): Prisma__agreement_consentClient<$Result.GetResult<Prisma.$agreement_consentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     prefer<T extends user$preferArgs<ExtArgs> = {}>(args?: Subset<T, user$preferArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$preferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_allergy<T extends user$user_allergyArgs<ExtArgs> = {}>(args?: Subset<T, user$user_allergyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_allergyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    recommend_except<T extends user$recommend_exceptArgs<ExtArgs> = {}>(args?: Subset<T, user$recommend_exceptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$recommend_exceptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10420,6 +10480,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: User_allergyScalarFieldEnum | User_allergyScalarFieldEnum[]
+  }
+
+  /**
+   * user.recommend_except
+   */
+  export type user$recommend_exceptArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the recommend_except
+     */
+    select?: recommend_exceptSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the recommend_except
+     */
+    omit?: recommend_exceptOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: recommend_exceptInclude<ExtArgs> | null
+    where?: recommend_exceptWhereInput
+    orderBy?: recommend_exceptOrderByWithRelationInput | recommend_exceptOrderByWithRelationInput[]
+    cursor?: recommend_exceptWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Recommend_exceptScalarFieldEnum | Recommend_exceptScalarFieldEnum[]
   }
 
   /**
@@ -12867,6 +12951,7 @@ export namespace Prisma {
     menu_id?: BigIntFilter<"recommend_except"> | bigint | number
     bit?: BoolNullableFilter<"recommend_except"> | boolean | null
     created_at?: DateTimeNullableFilter<"recommend_except"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
 
   export type recommend_exceptOrderByWithRelationInput = {
@@ -12875,6 +12960,7 @@ export namespace Prisma {
     menu_id?: SortOrder
     bit?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    user?: userOrderByWithRelationInput
   }
 
   export type recommend_exceptWhereUniqueInput = Prisma.AtLeast<{
@@ -12887,6 +12973,7 @@ export namespace Prisma {
     menu_id?: BigIntFilter<"recommend_except"> | bigint | number
     bit?: BoolNullableFilter<"recommend_except"> | boolean | null
     created_at?: DateTimeNullableFilter<"recommend_except"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "id" | "user_id_menu_id">
 
   export type recommend_exceptOrderByWithAggregationInput = {
@@ -12972,6 +13059,7 @@ export namespace Prisma {
     agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
     prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
+    recommend_except?: Recommend_exceptListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -12985,6 +13073,7 @@ export namespace Prisma {
     agreement_consent?: agreement_consentOrderByWithRelationInput
     prefer?: preferOrderByRelationAggregateInput
     user_allergy?: user_allergyOrderByRelationAggregateInput
+    recommend_except?: recommend_exceptOrderByRelationAggregateInput
     _relevance?: userOrderByRelevanceInput
   }
 
@@ -13002,6 +13091,7 @@ export namespace Prisma {
     agreement_consent?: XOR<Agreement_consentNullableScalarRelationFilter, agreement_consentWhereInput> | null
     prefer?: PreferListRelationFilter
     user_allergy?: User_allergyListRelationFilter
+    recommend_except?: Recommend_exceptListRelationFilter
   }, "id">
 
   export type userOrderByWithAggregationInput = {
@@ -13436,10 +13526,10 @@ export namespace Prisma {
 
   export type recommend_exceptCreateInput = {
     id?: bigint | number
-    user_id: bigint | number
     menu_id: bigint | number
     bit?: boolean | null
     created_at?: Date | string | null
+    user: userCreateNestedOneWithoutRecommend_exceptInput
   }
 
   export type recommend_exceptUncheckedCreateInput = {
@@ -13452,10 +13542,10 @@ export namespace Prisma {
 
   export type recommend_exceptUpdateInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
     bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: userUpdateOneRequiredWithoutRecommend_exceptNestedInput
   }
 
   export type recommend_exceptUncheckedUpdateInput = {
@@ -13476,7 +13566,6 @@ export namespace Prisma {
 
   export type recommend_exceptUpdateManyMutationInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
-    user_id?: BigIntFieldUpdateOperationsInput | bigint | number
     menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
     bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13543,6 +13632,7 @@ export namespace Prisma {
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -13556,6 +13646,7 @@ export namespace Prisma {
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -13569,6 +13660,7 @@ export namespace Prisma {
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -13582,6 +13674,7 @@ export namespace Prisma {
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -14206,7 +14299,17 @@ export namespace Prisma {
     none?: preferWhereInput
   }
 
+  export type Recommend_exceptListRelationFilter = {
+    every?: recommend_exceptWhereInput
+    some?: recommend_exceptWhereInput
+    none?: recommend_exceptWhereInput
+  }
+
   export type preferOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type recommend_exceptOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14511,6 +14614,20 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutPreferInput, userUpdateWithoutPreferInput>, userUncheckedUpdateWithoutPreferInput>
   }
 
+  export type userCreateNestedOneWithoutRecommend_exceptInput = {
+    create?: XOR<userCreateWithoutRecommend_exceptInput, userUncheckedCreateWithoutRecommend_exceptInput>
+    connectOrCreate?: userCreateOrConnectWithoutRecommend_exceptInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type userUpdateOneRequiredWithoutRecommend_exceptNestedInput = {
+    create?: XOR<userCreateWithoutRecommend_exceptInput, userUncheckedCreateWithoutRecommend_exceptInput>
+    connectOrCreate?: userCreateOrConnectWithoutRecommend_exceptInput
+    upsert?: userUpsertWithoutRecommend_exceptInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutRecommend_exceptInput, userUpdateWithoutRecommend_exceptInput>, userUncheckedUpdateWithoutRecommend_exceptInput>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -14543,6 +14660,13 @@ export namespace Prisma {
     connect?: user_allergyWhereUniqueInput | user_allergyWhereUniqueInput[]
   }
 
+  export type recommend_exceptCreateNestedManyWithoutUserInput = {
+    create?: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput> | recommend_exceptCreateWithoutUserInput[] | recommend_exceptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: recommend_exceptCreateOrConnectWithoutUserInput | recommend_exceptCreateOrConnectWithoutUserInput[]
+    createMany?: recommend_exceptCreateManyUserInputEnvelope
+    connect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+  }
+
   export type agreement_consentUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
     connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
@@ -14561,6 +14685,13 @@ export namespace Prisma {
     connectOrCreate?: user_allergyCreateOrConnectWithoutUserInput | user_allergyCreateOrConnectWithoutUserInput[]
     createMany?: user_allergyCreateManyUserInputEnvelope
     connect?: user_allergyWhereUniqueInput | user_allergyWhereUniqueInput[]
+  }
+
+  export type recommend_exceptUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput> | recommend_exceptCreateWithoutUserInput[] | recommend_exceptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: recommend_exceptCreateOrConnectWithoutUserInput | recommend_exceptCreateOrConnectWithoutUserInput[]
+    createMany?: recommend_exceptCreateManyUserInputEnvelope
+    connect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
   }
 
   export type NullableEnumuser_exerciseFieldUpdateOperationsInput = {
@@ -14605,6 +14736,20 @@ export namespace Prisma {
     deleteMany?: user_allergyScalarWhereInput | user_allergyScalarWhereInput[]
   }
 
+  export type recommend_exceptUpdateManyWithoutUserNestedInput = {
+    create?: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput> | recommend_exceptCreateWithoutUserInput[] | recommend_exceptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: recommend_exceptCreateOrConnectWithoutUserInput | recommend_exceptCreateOrConnectWithoutUserInput[]
+    upsert?: recommend_exceptUpsertWithWhereUniqueWithoutUserInput | recommend_exceptUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: recommend_exceptCreateManyUserInputEnvelope
+    set?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    disconnect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    delete?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    connect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    update?: recommend_exceptUpdateWithWhereUniqueWithoutUserInput | recommend_exceptUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: recommend_exceptUpdateManyWithWhereWithoutUserInput | recommend_exceptUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: recommend_exceptScalarWhereInput | recommend_exceptScalarWhereInput[]
+  }
+
   export type agreement_consentUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<agreement_consentCreateWithoutUserInput, agreement_consentUncheckedCreateWithoutUserInput>
     connectOrCreate?: agreement_consentCreateOrConnectWithoutUserInput
@@ -14641,6 +14786,20 @@ export namespace Prisma {
     update?: user_allergyUpdateWithWhereUniqueWithoutUserInput | user_allergyUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: user_allergyUpdateManyWithWhereWithoutUserInput | user_allergyUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: user_allergyScalarWhereInput | user_allergyScalarWhereInput[]
+  }
+
+  export type recommend_exceptUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput> | recommend_exceptCreateWithoutUserInput[] | recommend_exceptUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: recommend_exceptCreateOrConnectWithoutUserInput | recommend_exceptCreateOrConnectWithoutUserInput[]
+    upsert?: recommend_exceptUpsertWithWhereUniqueWithoutUserInput | recommend_exceptUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: recommend_exceptCreateManyUserInputEnvelope
+    set?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    disconnect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    delete?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    connect?: recommend_exceptWhereUniqueInput | recommend_exceptWhereUniqueInput[]
+    update?: recommend_exceptUpdateWithWhereUniqueWithoutUserInput | recommend_exceptUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: recommend_exceptUpdateManyWithWhereWithoutUserInput | recommend_exceptUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: recommend_exceptScalarWhereInput | recommend_exceptScalarWhereInput[]
   }
 
   export type allergy_minCreateNestedOneWithoutUser_allergyInput = {
@@ -14924,6 +15083,7 @@ export namespace Prisma {
     email?: string | null
     prefer?: preferCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutAgreement_consentInput = {
@@ -14936,6 +15096,7 @@ export namespace Prisma {
     email?: string | null
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutAgreement_consentInput = {
@@ -14964,6 +15125,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     prefer?: preferUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutAgreement_consentInput = {
@@ -14976,6 +15138,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type user_allergyCreateWithoutAllergy_minInput = {
@@ -15118,6 +15281,7 @@ export namespace Prisma {
     email?: string | null
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     user_allergy?: user_allergyCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutPreferInput = {
@@ -15130,6 +15294,7 @@ export namespace Prisma {
     email?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutPreferInput = {
@@ -15158,6 +15323,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutPreferInput = {
@@ -15169,6 +15335,75 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
+    user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type userCreateWithoutRecommend_exceptInput = {
+    id: bigint | number
+    phone_num?: string | null
+    nickname?: string | null
+    exercise?: $Enums.user_exercise | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    email?: string | null
+    agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
+    prefer?: preferCreateNestedManyWithoutUserInput
+    user_allergy?: user_allergyCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutRecommend_exceptInput = {
+    id: bigint | number
+    phone_num?: string | null
+    nickname?: string | null
+    exercise?: $Enums.user_exercise | null
+    is_deleted?: boolean | null
+    deleted_at?: Date | string | null
+    email?: string | null
+    agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
+    prefer?: preferUncheckedCreateNestedManyWithoutUserInput
+    user_allergy?: user_allergyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutRecommend_exceptInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutRecommend_exceptInput, userUncheckedCreateWithoutRecommend_exceptInput>
+  }
+
+  export type userUpsertWithoutRecommend_exceptInput = {
+    update: XOR<userUpdateWithoutRecommend_exceptInput, userUncheckedUpdateWithoutRecommend_exceptInput>
+    create: XOR<userCreateWithoutRecommend_exceptInput, userUncheckedCreateWithoutRecommend_exceptInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutRecommend_exceptInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutRecommend_exceptInput, userUncheckedUpdateWithoutRecommend_exceptInput>
+  }
+
+  export type userUpdateWithoutRecommend_exceptInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
+    prefer?: preferUpdateManyWithoutUserNestedInput
+    user_allergy?: user_allergyUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutRecommend_exceptInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    phone_num?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    exercise?: NullableEnumuser_exerciseFieldUpdateOperationsInput | $Enums.user_exercise | null
+    is_deleted?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
+    prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
     user_allergy?: user_allergyUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -15232,6 +15467,30 @@ export namespace Prisma {
 
   export type user_allergyCreateManyUserInputEnvelope = {
     data: user_allergyCreateManyUserInput | user_allergyCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type recommend_exceptCreateWithoutUserInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type recommend_exceptUncheckedCreateWithoutUserInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
+  export type recommend_exceptCreateOrConnectWithoutUserInput = {
+    where: recommend_exceptWhereUniqueInput
+    create: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput>
+  }
+
+  export type recommend_exceptCreateManyUserInputEnvelope = {
+    data: recommend_exceptCreateManyUserInput | recommend_exceptCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -15307,6 +15566,33 @@ export namespace Prisma {
     data: XOR<user_allergyUpdateManyMutationInput, user_allergyUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type recommend_exceptUpsertWithWhereUniqueWithoutUserInput = {
+    where: recommend_exceptWhereUniqueInput
+    update: XOR<recommend_exceptUpdateWithoutUserInput, recommend_exceptUncheckedUpdateWithoutUserInput>
+    create: XOR<recommend_exceptCreateWithoutUserInput, recommend_exceptUncheckedCreateWithoutUserInput>
+  }
+
+  export type recommend_exceptUpdateWithWhereUniqueWithoutUserInput = {
+    where: recommend_exceptWhereUniqueInput
+    data: XOR<recommend_exceptUpdateWithoutUserInput, recommend_exceptUncheckedUpdateWithoutUserInput>
+  }
+
+  export type recommend_exceptUpdateManyWithWhereWithoutUserInput = {
+    where: recommend_exceptScalarWhereInput
+    data: XOR<recommend_exceptUpdateManyMutationInput, recommend_exceptUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type recommend_exceptScalarWhereInput = {
+    AND?: recommend_exceptScalarWhereInput | recommend_exceptScalarWhereInput[]
+    OR?: recommend_exceptScalarWhereInput[]
+    NOT?: recommend_exceptScalarWhereInput | recommend_exceptScalarWhereInput[]
+    id?: BigIntFilter<"recommend_except"> | bigint | number
+    user_id?: BigIntFilter<"recommend_except"> | bigint | number
+    menu_id?: BigIntFilter<"recommend_except"> | bigint | number
+    bit?: BoolNullableFilter<"recommend_except"> | boolean | null
+    created_at?: DateTimeNullableFilter<"recommend_except"> | Date | string | null
+  }
+
   export type allergy_minCreateWithoutUser_allergyInput = {
     id?: bigint | number
     allergy?: string | null
@@ -15332,6 +15618,7 @@ export namespace Prisma {
     email?: string | null
     agreement_consent?: agreement_consentCreateNestedOneWithoutUserInput
     prefer?: preferCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutUser_allergyInput = {
@@ -15344,6 +15631,7 @@ export namespace Prisma {
     email?: string | null
     agreement_consent?: agreement_consentUncheckedCreateNestedOneWithoutUserInput
     prefer?: preferUncheckedCreateNestedManyWithoutUserInput
+    recommend_except?: recommend_exceptUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutUser_allergyInput = {
@@ -15393,6 +15681,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUpdateOneWithoutUserNestedInput
     prefer?: preferUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutUser_allergyInput = {
@@ -15405,6 +15694,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     agreement_consent?: agreement_consentUncheckedUpdateOneWithoutUserNestedInput
     prefer?: preferUncheckedUpdateManyWithoutUserNestedInput
+    recommend_except?: recommend_exceptUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type user_allergyCreateManyAllergy_minInput = {
@@ -15456,6 +15746,13 @@ export namespace Prisma {
     allergy_id: bigint | number
   }
 
+  export type recommend_exceptCreateManyUserInput = {
+    id?: bigint | number
+    menu_id: bigint | number
+    bit?: boolean | null
+    created_at?: Date | string | null
+  }
+
   export type preferUpdateWithoutUserInput = {
     id?: BigIntFieldUpdateOperationsInput | bigint | number
     prefer?: Enumprefer_preferFieldUpdateOperationsInput | $Enums.prefer_prefer
@@ -15481,6 +15778,27 @@ export namespace Prisma {
 
   export type user_allergyUncheckedUpdateManyWithoutUserInput = {
     allergy_id?: BigIntFieldUpdateOperationsInput | bigint | number
+  }
+
+  export type recommend_exceptUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type recommend_exceptUncheckedUpdateWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type recommend_exceptUncheckedUpdateManyWithoutUserInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    menu_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    bit?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 
