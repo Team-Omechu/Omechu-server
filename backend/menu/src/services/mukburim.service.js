@@ -4,6 +4,12 @@ import {
   findUserMukburimStatistics,
   insertMukburim,
 } from "../repositories/mukburim.repository.js";
+
+import {
+  findUserMukburimByMonth,
+  findUserMukburimByDate,
+} from "../repositories/mukburim.repository.js";
+
 import {
   NoMukburimData,
   InvalidMukburimPeriod,
@@ -190,6 +196,79 @@ export const getMukburimStatisticsService = async (
     );
   }
 
+};
+
+// 캘린더 조회 서비스
+export const getMukburimCalendarService = async (userId, year, month) => {
+  if (!userId) throw new NoParams("사용자 ID가 필요합니다.");
+
+  const parsedYear = parseInt(year);
+  const parsedMonth = parseInt(month);
+
+  if (isNaN(parsedYear) || isNaN(parsedMonth)) {
+    throw new InvalidDateRange("년도 또는 월 형식이 올바르지 않습니다.");
+  }
+
+  const records = await findUserMukburimByMonth(
+    userId,
+    parsedYear,
+    parsedMonth
+  );
+
+  if (records.length === 0) {
+    throw new NoMukburimData("해당 월에 먹부림 기록이 없습니다.", {
+      year: parsedYear,
+      month: parsedMonth,
+    });
+  }
+
+  const calendar = {};
+
+  records.forEach((item) => {
+    const dateKey = item.date.toISOString().split("T")[0];
+
+    if (!calendar[dateKey]) {
+      calendar[dateKey] = [];
+    }
+
+    calendar[dateKey].push({
+      id: item.id,
+      menu_name: item.menu_name,
+      time: item.date.toLocaleTimeString("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
+    });
+  });
+
+  return {
+    year: parsedYear,
+    month: parsedMonth,
+    totalRecords: records.length,
+    calendar,
+  };
+};
+
+// 특정 날짜 조회 서비스
+export const getMukburimByDateService = async (userId, date) => {
+  if (!userId) throw new NoParams("사용자 ID가 필요합니다.");
+  if (!date) throw new NoParams("날짜가 필요합니다.");
+
+  const records = await findUserMukburimByDate(userId, date);
+
+  if (records.length === 0) {
+    throw new NoMukburimData("해당 날짜에 먹부림 기록이 없습니다.");
+  }
+
+  const displayDate = new Date(date).toLocaleDateString("ko-KR");
+
+  return {
+    date,
+    displayDate,
+    totalRecords: records.length,
+    records,
+  };
 };
 
 export const insertMukburimService = async (mukburimData) => {
