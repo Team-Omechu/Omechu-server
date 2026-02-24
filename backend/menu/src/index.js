@@ -29,6 +29,7 @@ import { Server } from "socket.io";
 import { setupBattleSocket } from "./websocket/battle.socket.js";
 import { startBattleCleanupCron } from "./utils/battle.cron.js";
 import * as battleController from "./controllers/battle.controller.js";
+import { handleGetMenu } from "./controllers/menu.controller.js";
 // ========================================
 dotenv.config();
 
@@ -288,7 +289,7 @@ app.delete(
   "/menu/battles/:battleId/participants/:nickname",
   battleController.handleLeaveBattle,
 );
-
+app.get("/menu/menu-list", handleGetMenu);
 // --- menu routes만 남김 ---
 app.post("/menu/recommend/random", handleRecommendRandom);
 
