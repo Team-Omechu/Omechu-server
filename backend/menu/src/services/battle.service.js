@@ -91,7 +91,7 @@ const generateRandomAngle = () => {
 // ============================================
 
 /**
- * Create new battle
+ * Create new battle (최적화: 트랜잭션 + 가벼운 중복 체크)
  * @param {Array<BigInt>} menuIds - Array of menu IDs
  * @param {string} [creatorNickname] - Optional battle creator's nickname
  * @returns {Object} Created battle info
@@ -106,94 +106,70 @@ export const createBattleService = async (menuIds, creatorNickname = null) => {
     throw new Error("중복된 메뉴를 선택할 수 없습니다");
   }
 
-  // Generate unique 4-digit battle code (retry up to 10 times if duplicate)
+  // ✅ 개선 1: 가벼운 중복 체크 (COUNT 사용)
   let battleId;
   let attempts = 0;
   const maxAttempts = 10;
 
   while (attempts < maxAttempts) {
-    battleId = generateBattleCode(); // Generate 4-digit code
-
-    // Check if code already exists
-    try {
-      const existingBattle = await battleRepository.findBattleById(battleId);
-      if (!existingBattle) {
-        // Code doesn't exist, we can use it
-        break;
-      }
-      // Code exists, try again
-      attempts++;
-    } catch (error) {
-      // If error is "battle not found", we can use this code
-      if (error.message.includes("존재하지 않는 배틀")) {
-        break;
-      }
-      // Other errors should be thrown
-      throw error;
-    }
+    battleId = generateBattleCode();
+    
+    // battleExists()로 빠른 체크 (JOIN 없음)
+    const exists = await battleRepository.battleExists(battleId);
+    if (!exists) break;
+    
+    attempts++;
   }
 
   if (attempts >= maxAttempts) {
     throw new Error("배틀 코드 생성 실패 (재시도 횟수 초과)");
   }
 
-  const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
+  const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
 
-  try {
-    // Fetch menu details
-    const menus = await battleRepository.findMenusByIds(menuIds);
-
-    if (menus.length !== menuIds.length) {
-      throw new Error("일부 메뉴를 찾을 수 없습니다");
-    }
-
-    // Calculate boundary angles
-    const boundaryAngles = calculateBoundaryAngles(menuIds.length);
-
-    // Create battle (creatorNickname is optional, will be set when first participant joins)
-    const battle = await battleRepository.createBattle({
-      battleId,
-      creatorNickname: creatorNickname || null,
-      expiresAt,
-    });
-
-    // Create battle menus
-    const battleMenusData = menus.map((menu, index) => ({
-      battle_id: battleId,
-      menu_id: menu.id,
-      menu_name: menu.name,
-      boundary_angle: boundaryAngles[index],
-      menu_order: index + 1,
-    }));
-
-    await battleRepository.createBattleMenus(battleMenusData);
-
-    // If creatorNickname is provided, add creator as participant
-    // Otherwise, first participant who joins will become the creator
-    if (creatorNickname) {
-      await battleRepository.createParticipant({
-        battleId,
-        nickname: creatorNickname,
-        isCreator: true,
-      });
-    }
-
-    return {
-      battleId: battle.battle_id,
-      creatorNickname: battle.creator_nickname,
-      status: battle.status,
-      expiresAt: battle.expires_at,
-      menus: battleMenusData.map((m) => ({
-        menuId: m.menu_id.toString(),
-        menuName: m.menu_name,
-        boundaryAngle: parseFloat(m.boundary_angle),
-        menuOrder: m.menu_order,
-      })),
-    };
-  } catch (error) {
-    console.error("배틀 생성 오류:", error);
-    throw new Error(`배틀 생성 실패: ${error.message}`);
+  // ✅ 개선 2: 메뉴 조회를 먼저 (검증 목적)
+  const menus = await battleRepository.findMenusByIds(menuIds);
+  if (menus.length !== menuIds.length) {
+    throw new Error("일부 메뉴를 찾을 수 없습니다");
   }
+
+  // Calculate boundary angles
+  const boundaryAngles = calculateBoundaryAngles(menuIds.length);
+
+  // Prepare battle menus data
+  const battleMenusData = menus.map((menu, index) => ({
+    battle_id: battleId,
+    menu_id: menu.id,
+    menu_name: menu.name,
+    boundary_angle: boundaryAngles[index],
+    menu_order: index + 1,
+  }));
+
+  // ✅ 개선 3: 트랜잭션으로 한 번에 처리 (DB 왕복 1회)
+  const battle = await battleRepository.createBattleWithMenus({
+    battleId,
+    creatorNickname: creatorNickname || null,
+    expiresAt,
+    battleMenusData,
+    participantData: creatorNickname ? {
+      battleId,
+      nickname: creatorNickname,
+      isCreator: true,
+    } : null,
+  });
+
+  return {
+    battleId: battle.battle_id,
+    creatorNickname: battle.creator_nickname,
+    status: battle.status,
+    expiresAt: battle.expires_at,
+    menus: battleMenusData.map((m) => ({
+      menuId: m.menu_id.toString(),
+      menuName: m.menu_name,
+      boundaryAngle: parseFloat(m.boundary_angle),
+      menuOrder: m.menu_order,
+    })),
+  };
 };
 
 /**

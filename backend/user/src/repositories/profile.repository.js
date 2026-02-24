@@ -14,6 +14,7 @@ export const findUserProfile = async (userId) => {
 
 // 프로필 수정
 export const updateUserProfile = async (userId, data) => {
+  console.log(data);
   const { prefer, allergy, ...userData } = data;
   return prisma.$transaction(async (tx) => {
     await tx.user.update({

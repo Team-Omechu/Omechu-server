@@ -21,6 +21,49 @@ export const createBattle = async (battleData) => {
   });
 };
 
+/**
+ * Create battle with menus and optional participant in a single transaction
+ * ✅ 성능 최적화: 3~4개 쿼리를 1번의 트랜잭션으로 처리
+ */
+export const createBattleWithMenus = async ({
+  battleId,
+  creatorNickname,
+  expiresAt,
+  battleMenusData,
+  participantData,
+}) => {
+  return await prisma.$transaction(async (tx) => {
+    // 1. Create battle
+    const battle = await tx.battles.create({
+      data: {
+        battle_id: battleId,
+        creator_nickname: creatorNickname,
+        status: "active",
+        participant_count: creatorNickname ? 1 : 0,
+        expires_at: expiresAt,
+      },
+    });
+
+    // 2. Create battle menus (bulk insert)
+    await tx.battle_menus.createMany({
+      data: battleMenusData,
+    });
+
+    // 3. Create participant (if provided)
+    if (participantData) {
+      await tx.battle_participants.create({
+        data: {
+          battle_id: participantData.battleId,
+          nickname: participantData.nickname,
+          is_creator: participantData.isCreator,
+        },
+      });
+    }
+
+    return battle;
+  });
+};
+
 export const findBattleById = async (battleId) => {
   return await prisma.battles.findUnique({
     where: { battle_id: battleId },
@@ -36,6 +79,16 @@ export const findBattleById = async (battleId) => {
       },
     },
   });
+};
+
+/**
+ * Check if battle exists (lightweight, no joins)
+ */
+export const battleExists = async (battleId) => {
+  const count = await prisma.battles.count({
+    where: { battle_id: battleId },
+  });
+  return count > 0;
 };
 
 export const updateBattleStatus = async (battleId, status, finishedAt = null) => {

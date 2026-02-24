@@ -228,6 +228,7 @@ export const handleUpdateUserProfile = async (req, res, next) => {
     }
 
     const dto = bodyToProfileUpdate(req.body, Number(userId));
+
     const updated = await updateUserProfileService(dto);
 
     res.status(StatusCodes.OK).success(responseFromProfile(updated));
