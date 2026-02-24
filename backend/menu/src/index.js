@@ -32,6 +32,9 @@ import * as battleController from "./controllers/battle.controller.js";
 // ========================================
 dotenv.config();
 
+import "./instrument.js";
+import * as Sentry from "@sentry/node";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -235,13 +238,14 @@ app.get("/", (req, res) => {
 });
 
 // ========================================
-// 
+//
 app.post("/menu/battles", battleController.handleCreateBattle);
 
 // 방장 확인
 app.get(
-  "/menu/battles/:battleId/is-creator/:nickname",battleController.handleIsCreator);
-
+  "/menu/battles/:battleId/is-creator/:nickname",
+  battleController.handleIsCreator,
+);
 
 // Get battle details
 app.get("/menu/battles/:battleId", battleController.handleGetBattle);
@@ -310,17 +314,11 @@ app.get("/menu/mukburim/date", isLoggedIn, handleGetMukburimByDate);
 app.get("/menu/place/search", optionalAuth, handleSearchRestaurant);
 app.get("/menu/place/suggestions", isLoggedIn, handleSuggestion);
 
-// 에러 처리 미들웨어
+Sentry.setupExpressErrorHandler(app);
+
+// 에러 처리 미들웨어 (유지)
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
-
-  console.error("에러 발생:", {
-    error: err.message,
-    url: req.url,
-    method: req.method,
-    userId: req.user?.id,
-    errorCode: err.errorCode,
-  });
 
   const getStatusCode = (errorCode) => {
     const statusMap = {
@@ -333,6 +331,13 @@ app.use((err, req, res, next) => {
   };
 
   const statusCode = err.statusCode || getStatusCode(err.errorCode) || 500;
+
+  if (statusCode >= 400) {
+    Sentry.captureException(err, {
+      tags: { service: "menu_api", errorCode: err.errorCode ?? "unknown" },
+      extra: { url: req.url, method: req.method, userId: req.user?.id },
+    });
+  }
 
   res.status(statusCode).error({
     errorCode: err.errorCode || "C001",
