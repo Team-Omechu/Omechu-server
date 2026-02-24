@@ -23,6 +23,7 @@ export const findUserMukburimStatistics = async (
         menu: {
           select: {
             name: true,
+            image_link: true,
           },
         },
       },
@@ -38,6 +39,7 @@ export const findUserMukburimStatistics = async (
         menuData[menuName] = {
           count: 0,
           lastEatenAt: item.date,
+          image_link: item.menu.image_link,
         };
       }
 
@@ -52,6 +54,7 @@ export const findUserMukburimStatistics = async (
       ([menu_name, data]) => ({
         menu_name,
         count: data.count,
+        image_link: data.image_link, 
         last_eaten_at: data.lastEatenAt.toISOString(),
         last_eaten_date: data.lastEatenAt.toISOString().split("T")[0],
         last_eaten_display: data.lastEatenAt.toLocaleDateString("ko-KR"),
@@ -87,6 +90,7 @@ export const findUserMukburimByMonth = async (userId, year, month) => {
         menu: {
           select: {
             name: true,
+            image_link: true, 
           },
         },
       },
@@ -96,6 +100,7 @@ export const findUserMukburimByMonth = async (userId, year, month) => {
     return mukburimList.map((item) => ({
       id: item.id.toString(),
       menu_name: item.menu.name,
+      image_link: item.menu.image_link,
       date: item.date,
     }));
   } catch (error) {
@@ -125,6 +130,7 @@ export const findUserMukburimByDate = async (userId, targetDate) => {
         menu: {
           select: {
             name: true,
+            image_link: true,
           },
         },
       },
@@ -134,6 +140,7 @@ export const findUserMukburimByDate = async (userId, targetDate) => {
     return mukburimList.map((item) => ({
       id: item.id.toString(),
       menu_name: item.menu.name,
+      image_link: item.menu.image_link,
       time: item.date.toLocaleTimeString("ko-KR", {
         hour: "2-digit",
         minute: "2-digit",

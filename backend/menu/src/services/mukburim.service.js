@@ -145,7 +145,22 @@ export const getMukburimStatisticsService = async (
     );
 
     if (statistics.totalRecords === 0) {
-      throw new NoMukburimData("해당 기간에 먹부림 기록이 없습니다.");
+      return {
+        period,
+        sortBy,
+        dateRange: {
+          startDate: calculatedStartDate.toISOString().split("T")[0],
+          endDate: calculatedEndDate.toISOString().split("T")[0],
+          displayRange: `${calculatedStartDate.toLocaleDateString("ko-KR")} ~ ${calculatedEndDate.toLocaleDateString("ko-KR")}`,
+        },
+        summary: {
+          totalRecords: 0,
+          uniqueMenus: 0,
+          averagePerDay: 0,
+        },
+        menuStatistics: [],
+        message: "해당 기간에 먹부림 기록이 없습니다.",
+      };
     }
 
     const sorted = sortMenuStatistics(
@@ -216,10 +231,13 @@ export const getMukburimCalendarService = async (userId, year, month) => {
   );
 
   if (records.length === 0) {
-    throw new NoMukburimData("해당 월에 먹부림 기록이 없습니다.", {
+    return {
       year: parsedYear,
       month: parsedMonth,
-    });
+      totalRecords: 0,
+      calendar: {},
+      message: "해당 월에 먹부림 기록이 없습니다.",
+    };
   }
 
   const calendar = {};
@@ -256,12 +274,18 @@ export const getMukburimByDateService = async (userId, date) => {
   if (!date) throw new NoParams("날짜가 필요합니다.");
 
   const records = await findUserMukburimByDate(userId, date);
+  const displayDate = new Date(date).toLocaleDateString("ko-KR");
+  
 
   if (records.length === 0) {
-    throw new NoMukburimData("해당 날짜에 먹부림 기록이 없습니다.");
+    return {
+      date,
+      displayDate,
+      totalRecords: 0,
+      records: [],
+      message: "해당 날짜에 먹부림 기록이 없습니다.",
+    };
   }
-
-  const displayDate = new Date(date).toLocaleDateString("ko-KR");
 
   return {
     date,
