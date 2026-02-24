@@ -1,6 +1,6 @@
 import { InvalidProfileData } from "../errors.js";
 
-// 요청 DTO 
+// 요청 DTO
 export const bodyToProfileUpdate = (body, userId) => {
   const dto = { userId };
 
@@ -11,24 +11,17 @@ export const bodyToProfileUpdate = (body, userId) => {
   if (body.exercise !== undefined) {
     const exerciseEnum = convertExerciseToEnum(body.exercise);
     if (!exerciseEnum) {
-      throw new InvalidProfileData(
-        "잘못된 운동 상태 값입니다.",
-        body.exercise
-      );
+      throw new InvalidProfileData("잘못된 운동 상태 값입니다.", body.exercise);
     }
     dto.exercise = exerciseEnum;
   }
 
   if (Array.isArray(body.prefer)) {
-    dto.prefer = body.prefer
-      .map(convertPreferToEnum)
-      .filter(Boolean);
+    dto.prefer = body.prefer.map(convertPreferToEnum).filter(Boolean);
   }
 
   if (Array.isArray(body.allergy)) {
-    dto.allergy = body.allergy
-      .map(convertAllergyToEnum)
-      .filter(Boolean);
+    dto.allergy = body.allergy.filter(Boolean);
   }
 
   return dto;
@@ -40,29 +33,33 @@ export const responseFromProfile = (user) => ({
   email: user.email,
   nickname: user.nickname,
   exercise: convertExercise(user.exercise),
-  prefer: user.prefer?.map(p => convertPrefer(p.prefer)) ?? [],
-  allergy: user.user_allergy
-    ?.filter(ua => ua.allergy_min)
-    .map(ua => convertAllergy(ua.allergy_min.allergy)) ?? [],
+  prefer: user.prefer?.map((p) => convertPrefer(p.prefer)) ?? [],
+  allergy:
+    user.user_allergy
+      ?.filter((ua) => ua.allergy_min)
+      .map((ua) => convertAllergy(ua.allergy_min.allergy)) ?? [],
 });
 
 // ===== Enum 변환 =====
 function convertExerciseToEnum(v) {
-  return {
-    "다이어트 중": "cutting",
-    "증량 중": "bulking",
-    "유지 중": "maintenance",
-  }[v] ?? null;
+  return (
+    {
+      "다이어트 중": "cutting",
+      "증량 중": "bulking",
+      "유지 중": "maintenance",
+    }[v] ?? null
+  );
 }
 
 function convertExercise(v) {
-  return {
-    cutting: "다이어트 중",
-    bulking: "증량 중",
-    maintenance: "유지 중",
-  }[v] ?? v;
+  return (
+    {
+      cutting: "다이어트 중",
+      bulking: "증량 중",
+      maintenance: "유지 중",
+    }[v] ?? v
+  );
 }
-
 
 function convertPreferToEnum(prefer) {
   const map = {

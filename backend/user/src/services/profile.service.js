@@ -20,14 +20,13 @@ export const getUserProfile = async (userId) => {
 // 수정
 export const updateUserProfileService = async (profileUpdateDto) => {
   const { userId, nickname, exercise, prefer, allergy } = profileUpdateDto;
-
   const existing = await findUserProfile(userId);
   if (!existing) {
     throw new NoProfileData("사용자를 찾을 수 없습니다.", { userId });
   }
 
   const hasUpdateData = [nickname, exercise, prefer, allergy].some(
-    (v) => v !== undefined
+    (v) => v !== undefined,
   );
 
   if (!hasUpdateData) {
