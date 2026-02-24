@@ -31,7 +31,7 @@ export const patchUserProfileService = async (userId, body) => {
 
   if (Array.isArray(body.prefer)) {
     const mapped = body.prefer.map(convertPreferToEnum);
-    if (mapped.some(v => v === null)) {
+    if (mapped.some((v) => v === null)) {
       throw new InvalidProfileData("Invalid prefer value", body.prefer);
     }
     await createUserPreferences(userId, mapped);
@@ -39,15 +39,16 @@ export const patchUserProfileService = async (userId, body) => {
 
   if (Array.isArray(body.allergy)) {
     const mapped = body.allergy.map(convertAllergyToEnum);
-    if (mapped.some(v => v === null)) {
+    if (mapped.some((v) => v === null)) {
       throw new InvalidProfileData("Invalid allergy value", body.allergy);
     }
-    await createUserAllergies(userId, mapped);
+    await createUserAllergies(userId, body.allergy);
   }
 
   const userData = bodyToUserInfo(body);
   await updateUserInfo(userId, userData);
 
   const updatedUser = await findUserById(userId);
+
   return responseFromUser(updatedUser);
 };

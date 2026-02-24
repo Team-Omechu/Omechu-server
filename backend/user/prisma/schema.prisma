@@ -69,7 +69,6 @@ model recommend_except {
   menu_id    BigInt
   bit        Boolean?  @default(true)
   created_at DateTime? @default(now()) @db.DateTime(0)
-  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@unique([user_id, menu_id], map: "uk_user_menu")
   @@index([menu_id], map: "idx_recommend_except_menu")
@@ -93,7 +92,6 @@ model user {
   agreement_consent agreement_consent?
   prefer            prefer[]
   user_allergy      user_allergy[]
-  recommend_except  recommend_except[]
 }
 
 model user_allergy {
