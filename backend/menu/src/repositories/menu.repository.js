@@ -87,7 +87,7 @@ export const addMenuToDatabase = async (menuData) => {
 // }
 const menuList = `메뉴 리스트 : 
 불고기
-리조토
+리조또
 라면
 라멘
 김치볶음밥
