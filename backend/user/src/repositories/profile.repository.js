@@ -15,7 +15,6 @@ export const findUserProfile = async (userId) => {
 // 프로필 수정
 export const updateUserProfile = async (userId, data) => {
   const { prefer, allergy, ...userData } = data;
-
   return prisma.$transaction(async (tx) => {
     await tx.user.update({
       where: { id: userId },
@@ -29,7 +28,7 @@ export const updateUserProfile = async (userId, data) => {
       await tx.prefer.deleteMany({ where: { user_id: userId } });
       if (prefer.length) {
         await tx.prefer.createMany({
-          data: prefer.map(p => ({ user_id: userId, prefer: p })),
+          data: prefer.map((p) => ({ user_id: userId, prefer: p })),
         });
       }
     }
@@ -48,7 +47,7 @@ export const updateUserProfile = async (userId, data) => {
         }
 
         await tx.user_allergy.createMany({
-          data: allergyIds.map(a => ({
+          data: allergyIds.map((a) => ({
             user_id: userId,
             allergy_id: a.id,
           })),
