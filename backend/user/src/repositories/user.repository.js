@@ -28,7 +28,7 @@ export const createUserPreferences = async (userId, preferEnums) => {
   if (!preferEnums.length) return;
 
   await prisma.prefer.createMany({
-    data: preferEnums.map(p => ({
+    data: preferEnums.map((p) => ({
       user_id: BigInt(userId),
       prefer: p,
     })),
@@ -40,7 +40,7 @@ const findAllergyIds = async (allergyEnums) => {
     where: { allergy: { in: allergyEnums } },
     select: { id: true },
   });
-  return rows.map(r => r.id);
+  return rows.map((r) => r.id);
 };
 
 export const createUserAllergies = async (userId, allergyEnums) => {
@@ -53,7 +53,7 @@ export const createUserAllergies = async (userId, allergyEnums) => {
   const allergyIds = await findAllergyIds(allergyEnums);
 
   await prisma.user_allergy.createMany({
-    data: allergyIds.map(allergyId => ({
+    data: allergyIds.map((allergyId) => ({
       user_id: BigInt(userId),
       allergy_id: allergyId,
     })),
