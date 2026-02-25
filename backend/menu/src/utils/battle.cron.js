@@ -2,10 +2,11 @@ import { cleanupExpiredBattlesService } from "../services/battle.service.js";
 
 /**
  * Cron Job for Battle Cleanup
- * Runs every 1 minute to cleanup expired battles
+ * Runs every 15 minutes to cleanup expired battles
  */
 
 let cronInterval = null;
+let isRunning = false; // ← 실행 중 플래그 추가
 
 /**
  * Start cron job
@@ -17,9 +18,17 @@ export const startBattleCleanupCron = (io = null) => {
     return;
   }
 
-  console.log("✅ Starting battle cleanup cron (runs every 1 minute)");
+  console.log("✅ Starting battle cleanup cron (runs every 15 minutes)");
 
   cronInterval = setInterval(async () => {
+    // ← 이전 실행이 완료되지 않았으면 스킵
+    if (isRunning) {
+      console.log("⏭️  [Cron] Previous cleanup still running, skipping...");
+      return;
+    }
+
+    isRunning = true; // ← 실행 시작
+
     try {
       const count = await cleanupExpiredBattlesService();
 
@@ -36,8 +45,10 @@ export const startBattleCleanupCron = (io = null) => {
       }
     } catch (error) {
       console.error("❌ [Cron] Battle cleanup error:", error);
+    } finally {
+      isRunning = false; // ← 실행 완료 (에러 발생해도 해제)
     }
-  }, 60000); // Run every 1 minute (60,000 ms)
+  }, 900000); // ← 15분으로 변경 (15 * 60 * 1000)
 };
 
 /**
