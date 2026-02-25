@@ -68,23 +68,6 @@ export const addMenuToDatabase = async (menuData) => {
   }
 };
 
-//req.body.choice
-
-//request body 예시
-// {
-// "meal_time" : 3,
-// "purpose" : 3,
-// "mood" : 3,
-// "with" : 1,
-// "budget" : 1,
-// "exceptions" : ["중식", "면"],
-// "gender" : 1,
-// "exercise" : 3,
-// "prefer" : ["한식","양식"],
-// "body_type" : 4,
-// "allergy" : ["갑각류"]
-// "weather" : "맑음"
-// }
 const menuList = `메뉴 리스트 : 
 불고기
 리조또
@@ -173,28 +156,161 @@ const menuList = `메뉴 리스트 :
 브런치
 `;
 
-export const findRelatedMenu = async (menuName) => {
-  const openai = new OpenAI({
-    apiKey: key,
-  });
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    store: true,
-    messages: [
+export const recommendMenu = async (choice, userId) => {
+  try {
+    console.log("Received request for GPT processing");
+
+    const openai = new OpenAI({
+      apiKey: key,
+    });
+    console.log("OpenAI client initialized successfully");
+
+    const {
+      meal_time,
+      purpose,
+      mood,
+      with: withWhom,
+      budget,
+      exceptions,
+      exceptions2,
+      gender,
+      exercise,
+      prefer,
+      body_type,
+      allergy,
+    } = choice;
+    console.log("Received choice data:", choice);
+
+    const mealTimeText =
       {
-        role: "user",
-        content: `다음 메뉴와 관련된 메뉴를 추천해줘. 
-                        메뉴 이름: ${menuName}
-                        해당 메뉴 이름은 현재 구글 맵에서 관련된 음식점을 찾을 수 없는 메뉴 이름이야.
-                        따라서 구글맵에 검색했을 때 음식점이 나올만한 메뉴 중 일반적인 메뉴 한개를 응답해주면 돼.
-                        그냥 단어 한개만 응답하면돼.
-                        `,
-      },
-    ],
-  });
-  const rawText = completion.choices[0].message.content.trim();
-  console.log("Raw response from GPT:", rawText);
-  return rawText;
+        1: "아침 식사: 속이 편한 음식, 자극적이지 않고 간단한 조리 가능",
+        2: "점심 식사: 활동을 위한 에너지를 줄 수 있는 먹을거",
+        3: "저녁 식사: 포만감 높은 먹을거",
+        4: "야식: 부담이 적고 간편하거나 입맛 당기는 음식",
+      }[meal_time] || "상관 없음";
+
+    const purposeText =
+      {
+        1: "든든한 한끼 식사: 국, 찌개 혹은 단일 고열량 식사 ",
+        2: "술 안주 겸: 짭조름하거나 자극적인 음식, 소스가 강하거나 튀김류",
+        3: "간식: 양이 적거나 간편식, 디저트류 ",
+        4: "기념일 식사: 예쁘거나 고급진 느낌, 공유하기 좋은 메뉴 ",
+      }[purpose] || "상관 없음";
+
+    const moodText =
+      {
+        1: "들뜨고 신나요 : 새롭거나 특이한 메뉴, 강한 자극을 줄 수 있는 음식",
+        2: "지치고 피곤해요 : 따뜻하거나 국물이 있는 음식, 속 편한 음식",
+        3: "그냥 그래요 : 무난하고 익숙한 음식",
+        4: "우울하거나 스트레스받아요 : 달거나 자극적인 음식, 기분 전환이 되는 메뉴",
+      }[mood] || "상관 없음";
+
+    const withText =
+      {
+        1: "혼자: 1인분, 간편한 음식",
+        2: "친구와 함께: 공유하기 좋은 음식, 다양한 메뉴",
+        3: "연인과 함께: 분위기 좋은 음식, 고급진 메뉴",
+        4: "가족과 함께: 다양한 연령대가 즐길 수 있는 음식",
+      }[withWhom] || "상관 없음";
+
+    const budgetText =
+      {
+        1: "1만원 이하: 저렴한 음식",
+        2: "1만원 ~ 2만원: 중간 가격대",
+        3: "2만원 ~ 3만원: 약간 고급진 음식",
+        4: "3만원 이상: 고급 음식",
+      }[budget] || "상관 없음";
+
+    const exceptionsText =
+      exceptions && exceptions.length > 0 ? exceptions.join(", ") : "없음";
+
+    const exceptions2Text =
+      exceptions2 && exceptions2.length > 0 ? exceptions2.join(", ") : "없음";
+
+    const genderText =
+      {
+        1: "남성",
+        2: "여성",
+        3: "상관 없음",
+      }[gender] || "상관 없음";
+
+    const exerciseText =
+      {
+        1: "다이어트 중: 저칼로리, 저지방 음식 선호",
+        2: "증량 중: 고칼로리, 고단백 음식 선호",
+        3: "유지 중: 균형 잡힌 음식",
+      }[exercise] || "상관 없음";
+
+    const preferText = prefer && prefer.length > 0 ? prefer.join(", ") : "없음";
+
+    const bodyTypeText =
+      {
+        1: "마름",
+        2: "보통",
+        3: "통통",
+        4: "뚱뚱",
+        5: "상관 없음",
+      }[body_type] || "상관 없음";
+
+    const allergyText =
+      allergy && allergy.length > 0 ? allergy.join(", ") : "없음";
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4.1-mini",
+      store: true,
+      messages: [
+        {
+          role: "user",
+          content: `다음 조건에 맞는 메뉴를 추천해줘.
+                    식사 시간: ${mealTimeText}
+                    식사 목적: ${purposeText}
+                    현재 기분: ${moodText}
+                    함께하는 사람: ${withText}
+                    예산: ${budgetText}
+                    제외할 카테고리: ${exceptionsText}
+                    제외할 메뉴: ${exceptions2Text}
+                    성별: ${genderText}
+                    운동 상태: ${exerciseText}
+                    선호 음식: ${preferText}
+                    체형: ${bodyTypeText}
+                    알레르기: ${allergyText}
+
+                    (중요)추천은 다음 목록 안에서 이루어져야해.
+                    (중요)다음 리스트의 메뉴 이름을 그대로 사용해줘.
+                    ${menuList}
+                    추천할 때 아래 형식의 JSON으로 3개의 메뉴를 배열로 답해줘(마크다운 없이):
+                    [
+                      {"menu": "짜장면"},
+                      {"menu": "김치찌개"},
+                      {"menu": "비빔밥"}
+                    ]`,
+        },
+      ],
+    });
+
+    const rawText = completion.choices[0].message.content.trim();
+    const menus = JSON.parse(rawText);
+    console.log("menus in repository : ", menus);
+
+    const menusWithImages = await Promise.all(
+      menus.map(async (item) => {
+        const menuData = await prisma.menu.findFirst({
+          where: { name: item.menu },
+          select: { image_link: true },
+        });
+        return {
+          menu: item.menu,
+          image_link: menuData?.image_link || null,
+        };
+      }),
+    );
+
+    console.log("Menus with images:", menusWithImages);
+    return menusWithImages;
+  } catch (error) {
+    console.error("Error handling GPT request:", error);
+    throw error;
+  }
 };
 
 export const recommendRandom = async (addition) => {
@@ -203,7 +319,6 @@ export const recommendRandom = async (addition) => {
       apiKey: key,
     });
     console.log("OpenAI client initialized successfully");
-    // 사용자 정보 가져오기
 
     const additionString =
       addition && addition.length > 0 ? addition.join(", ") : "없음";
@@ -224,19 +339,16 @@ export const recommendRandom = async (addition) => {
                         ${menuList}
                         추천할 때 아래 형식의 JSON으로 1개의 메뉴를 1개의 json 으로 답해줘(마크다운 없이):
                         {
-                            "menu": "짜장면",
-                        }
-                         
-                            `,
+                            "menu": "짜장면"
+                        }`,
         },
       ],
     });
 
     const rawText = completion.choices[0].message.content.trim();
-
-    // JSON 배열로 파싱
     const menu = JSON.parse(rawText);
     console.log("menu in repository : ", menu);
+
     const menuData = await prisma.menu.findFirst({
       where: { name: menu.menu },
       select: { image_link: true },
@@ -255,31 +367,85 @@ export const recommendRandom = async (addition) => {
   }
 };
 
-export const getMenu = async ({ menuId, limit }) => {
-  const pageSize = Number.parseInt(limit, 10);
-  const take = Number.isFinite(pageSize) ? pageSize + 1 : 16;
+export const getMenuInfo = async (menuName) => {
+  try {
+    console.log("Fetching menu info for:", menuName);
+    const menuInfo = await prisma.menu.findFirst({
+      where: { name: menuName },
+      select: {
+        name: true,
+        description: true,
+        calory: true,
+        carbo: true,
+        protein: true,
+        fat: true,
+        sodium: true,
+        image_link: true,
+      },
+    });
 
-  const cursorId = Number.parseInt(menuId, 10);
+    if (!menuInfo) {
+      console.error(`No menu info found for: ${menuName}`);
+      return null;
+    }
 
-  const isFirstPage =
-    !menuId || menuId === "0" || !Number.isFinite(cursorId) || cursorId === 0;
+    // BigInt → Number 변환
+    for (const key of ["calory", "carbo", "protein", "fat", "sodium"]) {
+      if (menuInfo[key] !== null && menuInfo[key] !== undefined) {
+        menuInfo[key] = Number(menuInfo[key]);
+      }
+    }
 
-  const query = {
-    select: { id: true, name: true, image_link: true },
-    take,
-    ...(isFirstPage
-      ? {}
-      : {
-          cursor: { id: cursorId },
-          skip: 1,
-        }),
-  };
+    console.log("Menu info fetched successfully:", menuInfo);
+    return menuInfo;
+  } catch (error) {
+    console.error(`Error fetching menu info for ${menuName}:`, error);
+    throw error;
+  }
+};
 
-  const menus = await prisma.menu.findMany(query);
-
-  return menus.map((menu) => ({
-    id: menu.id.toString(),
-    name: menu.name,
-    image_link: menu.image_link,
-  }));
+export const getMenu = async () => {
+  try {
+    const menus = await prisma.menu.findMany({
+      select: {
+        id: true, // ← 수정: id 추가
+        name: true,
+        image_link: true,
+      },
+    });
+    if (!menus || menus.length === 0) {
+      console.error("No menus found");
+      return [];
+    }
+    // ← 수정: BigInt id → String 직렬화
+    return menus.map((m) => ({
+      id: m.id.toString(),
+      name: m.name,
+      image_link: m.image_link,
+    }));
+  } catch (error) {
+    console.error("Error fetching menus:", error);
+    throw error;
+  }
+};
+export const getExceptedMenu = async ({ menuIds }) => {
+  try {
+    console.log(menuIds);
+    const exceptedMenuIdsInt = menuIds.map((id) => parseInt(id));
+    const exceptedMenus = await prisma.menu.findMany({
+      where: {
+        id: {
+          in: exceptedMenuIdsInt,
+        },
+      },
+      select: {
+        name: true,
+      },
+    });
+    const exceptedMenuNames = exceptedMenus.map((m) => m.name);
+    return exceptedMenuNames;
+  } catch (error) {
+    console.error("Error fetching excepted menus:", error);
+    throw error;
+  }
 };

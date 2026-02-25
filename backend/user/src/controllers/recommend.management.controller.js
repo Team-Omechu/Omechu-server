@@ -3,7 +3,12 @@ import {
   getRecommendManagementService,
   addMenuToExceptService,
   removeMenuFromExceptService,
+  getUserExceptedMenusService,
 } from "../services/recommendManagement.service.js";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const handleGetRecommendManagement = async (req, res, next) => {
   /*
@@ -338,7 +343,7 @@ export const handleAddMenuToExcept = async (req, res, next) => {
     const result = await addMenuToExceptService(
       parseInt(userId),
       menuId ? parseInt(menuId) : null,
-      menuName
+      menuName,
     );
 
     res.status(StatusCodes.CREATED).success(result);
@@ -522,10 +527,26 @@ export const handleRemoveMenuExcept = async (req, res, next) => {
     const result = await removeMenuFromExceptService(
       parseInt(userId),
       menuId ? parseInt(menuId) : null,
-      menuName
+      menuName,
     );
 
     res.status(StatusCodes.OK).success(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const handleGetExceptMenus = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const exceptedMenuIds = await getUserExceptedMenusService(parseInt(userId));
+
+    console.log("Received exceptedMenuIds:", exceptedMenuIds);
+    const exceptedMenus = await axios.post(
+      `${process.env.MENU_SERVICE_BASE_URL}/menu/except`,
+      { exceptedMenuIds },
+    );
+    res.status(StatusCodes.OK).success(exceptedMenus.data);
   } catch (error) {
     next(error);
   }

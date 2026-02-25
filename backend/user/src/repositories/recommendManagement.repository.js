@@ -6,7 +6,7 @@ import { prisma } from "../db.config.js";
 export const findUserExceptedMenuIds = async (userId) => {
   const rows = await prisma.recommend_except.findMany({
     where: {
-      user_id: BigInt(userId), 
+      user_id: BigInt(userId),
     },
     orderBy: {
       id: "desc",
@@ -19,7 +19,6 @@ export const findUserExceptedMenuIds = async (userId) => {
   }));
 };
 
-
 /**
  * 메뉴를 제외 목록에 추가
  */
@@ -28,7 +27,7 @@ export const addMenuToExceptList = async (userId, menuId) => {
     where: {
       user_id: BigInt(userId),
       menu_id: BigInt(menuId),
-    }
+    },
   });
 
   if (existing) {
@@ -37,8 +36,8 @@ export const addMenuToExceptList = async (userId, menuId) => {
 
   const created = await prisma.recommend_except.create({
     data: {
-      user_id: BigInt(userId),   
-      menu_id: BigInt(menuId),   
+      user_id: BigInt(userId),
+      menu_id: BigInt(menuId),
       bit: true,
     },
   });

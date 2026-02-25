@@ -5,9 +5,7 @@ import {
   removeMenuFromExceptList,
   addMenuToExceptList,
 } from "../repositories/recommendManagement.repository.js";
-import { 
-  getAllMenus, getMenuByName
- } from "../clients/menu.client.js";
+import { getAllMenus, getMenuByName } from "../clients/menu.client.js";
 
 import {
   NoParams,
@@ -32,10 +30,10 @@ export const getRecommendManagementService = async (userId) => {
       findUserExceptedMenuIds(userId),
     ]);
 
-    const exceptedMenuIds = exceptedMenus.map(m => m.menuId);
+    const exceptedMenuIds = exceptedMenus.map((m) => m.menuId);
 
     const recommendMenus = allMenus.filter(
-      menu => !exceptedMenuIds.includes(menu.id.toString())
+      (menu) => !exceptedMenuIds.includes(menu.id.toString()),
     );
 
     console.log("🔥 allMenus:", allMenus);
@@ -47,12 +45,10 @@ export const getRecommendManagementService = async (userId) => {
         exceptedMenus: exceptedMenus.length,
       },
       recommendMenus,
-      exceptedMenus: allMenus.filter(menu =>
-        exceptedMenuIds.includes(menu.id.toString())
+      exceptedMenus: allMenus.filter((menu) =>
+        exceptedMenuIds.includes(menu.id.toString()),
       ),
     };
-
-
   } catch (error) {
     console.error("🔥 getRecommendManagementService REAL ERROR:", error);
     throw new NoRestData("추천 목록 관리 조회 중 오류가 발생했습니다.", {
@@ -61,8 +57,6 @@ export const getRecommendManagementService = async (userId) => {
     });
   }
 };
-
-
 
 /**
  * 메뉴를 제외 목록에 추가 (추천 받지 않기)
@@ -77,7 +71,7 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
   // menuName → menu API 조회
   if (!menuId && menuName) {
     const menus = await getAllMenus();
-    const found = menus.find(m => m.name === menuName);
+    const found = menus.find((m) => m.name === menuName);
 
     if (!found) {
       throw new NoInCorrectData("해당 이름의 메뉴를 찾을 수 없습니다.");
@@ -85,7 +79,6 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
 
     targetMenuId = found.id;
   }
-
 
   if (!targetMenuId) {
     throw new NoInCorrectParmas("메뉴 ID 또는 메뉴 이름이 필요합니다.", {
@@ -128,8 +121,6 @@ export const addMenuToExceptService = async (userId, menuId, menuName) => {
   }
 };
 
-
-
 /**
  * 제외 목록에서 메뉴 제거 (다시 추천 받기)
  */
@@ -162,10 +153,10 @@ export const removeMenuFromExceptService = async (userId, menuId, menuName) => {
     const result = await removeMenuFromExceptList(userId, targetMenuId);
 
     if (!result.success) {
-      throw new NoInCorrectData(
-        "제외 목록에서 해당 메뉴를 찾을 수 없습니다.",
-        { userId, menuId: targetMenuId }
-      );
+      throw new NoInCorrectData("제외 목록에서 해당 메뉴를 찾을 수 없습니다.", {
+        userId,
+        menuId: targetMenuId,
+      });
     }
 
     return {
@@ -185,6 +176,28 @@ export const removeMenuFromExceptService = async (userId, menuId, menuName) => {
     throw new NoRestData("메뉴 제외 해제 처리 중 오류가 발생했습니다.", {
       userId,
       menuId: targetMenuId,
+      error: error.message,
+    });
+  }
+};
+
+export const getUserExceptedMenusService = async (userId) => {
+  try {
+    if (!userId) {
+      throw new NoParams("사용자 ID가 필요합니다.");
+    }
+
+    const exceptedMenus = await findUserExceptedMenuIds(userId);
+
+    const exceptedMenuIds = exceptedMenus.map((m) => m.menuId);
+
+    return {
+      exceptedMenus: exceptedMenuIds,
+    };
+  } catch (error) {
+    console.error("🔥 getRecommendManagementService REAL ERROR:", error);
+    throw new NoRestData("추천 목록 관리 조회 중 오류가 발생했습니다.", {
+      userId,
       error: error.message,
     });
   }

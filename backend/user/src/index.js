@@ -42,6 +42,7 @@ import {
   handleGetRecommendManagement,
   handleAddMenuToExcept,
   handleRemoveMenuExcept,
+  handleGetExceptMenus,
 } from "./controllers/recommend.management.controller.js";
 import { handleWithdraw } from "./controllers/withdraw.controller.js";
 dotenv.config();
@@ -254,6 +255,7 @@ app.post("/user/meal-alerts/toggle", isLoggedIn, handleToggleMealAlerts);
 app.get("/user/recommend/management", isLoggedIn, handleGetRecommendManagement);
 app.post("/user/recommend/except", isLoggedIn, handleAddMenuToExcept);
 app.post("/user/recommend/except/remove", isLoggedIn, handleRemoveMenuExcept);
+app.get("/user/recommend/except", isLoggedIn, handleGetExceptMenus);
 
 app.post("/user/inquiry", isLoggedIn, handleSubmitInquiry);
 
