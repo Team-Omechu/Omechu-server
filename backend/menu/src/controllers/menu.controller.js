@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import {
   recommendRandomService,
   getMenuService,
+  getExceptedMenusService,
 } from "../services/menu.service.js";
 
 export const handleRecommendRandom = async (req, res) => {
@@ -168,4 +169,14 @@ export const handleGetMenu = async (req, res) => {
       }
     }
     */
+};
+
+export const handleGetExceptMenus = async (req, res, next) => {
+  try {
+    const exceptedMenuIds = req.body.exceptedMenuIds.exceptedMenus;
+    const exceptedMenus = await getExceptedMenusService(exceptedMenuIds);
+    res.status(StatusCodes.OK).json(exceptedMenus);
+  } catch (error) {
+    next(error);
+  }
 };

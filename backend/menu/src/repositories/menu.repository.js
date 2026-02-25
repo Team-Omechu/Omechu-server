@@ -57,7 +57,7 @@ export const addMenuToDatabase = async (menuData) => {
         JSON.stringify(vitamins),
         JSON.stringify(allergyInfo),
         sodium,
-      ]
+      ],
     );
 
     console.log("Menu added to database:", menuName);
@@ -222,14 +222,10 @@ export const recommendMenu = async (choice, userId) => {
       }[budget] || "상관 없음";
 
     const exceptionsText =
-      exceptions && exceptions.length > 0
-        ? exceptions.join(", ")
-        : "없음";
+      exceptions && exceptions.length > 0 ? exceptions.join(", ") : "없음";
 
     const exceptions2Text =
-      exceptions2 && exceptions2.length > 0
-        ? exceptions2.join(", ")
-        : "없음";
+      exceptions2 && exceptions2.length > 0 ? exceptions2.join(", ") : "없음";
 
     const genderText =
       {
@@ -245,8 +241,7 @@ export const recommendMenu = async (choice, userId) => {
         3: "유지 중: 균형 잡힌 음식",
       }[exercise] || "상관 없음";
 
-    const preferText =
-      prefer && prefer.length > 0 ? prefer.join(", ") : "없음";
+    const preferText = prefer && prefer.length > 0 ? prefer.join(", ") : "없음";
 
     const bodyTypeText =
       {
@@ -307,7 +302,7 @@ export const recommendMenu = async (choice, userId) => {
           menu: item.menu,
           image_link: menuData?.image_link || null,
         };
-      })
+      }),
     );
 
     console.log("Menus with images:", menusWithImages);
@@ -413,7 +408,7 @@ export const getMenu = async () => {
   try {
     const menus = await prisma.menu.findMany({
       select: {
-        id: true,          // ← 수정: id 추가
+        id: true, // ← 수정: id 추가
         name: true,
         image_link: true,
       },
@@ -430,6 +425,27 @@ export const getMenu = async () => {
     }));
   } catch (error) {
     console.error("Error fetching menus:", error);
+    throw error;
+  }
+};
+export const getExceptedMenu = async ({ menuIds }) => {
+  try {
+    console.log(menuIds);
+    const exceptedMenuIdsInt = menuIds.map((id) => parseInt(id));
+    const exceptedMenus = await prisma.menu.findMany({
+      where: {
+        id: {
+          in: exceptedMenuIdsInt,
+        },
+      },
+      select: {
+        name: true,
+      },
+    });
+    const exceptedMenuNames = exceptedMenus.map((m) => m.name);
+    return exceptedMenuNames;
+  } catch (error) {
+    console.error("Error fetching excepted menus:", error);
     throw error;
   }
 };

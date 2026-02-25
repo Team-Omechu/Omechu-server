@@ -1,4 +1,8 @@
-import { getMenu, recommendRandom } from "../repositories/menu.repository.js";
+import {
+  getMenu,
+  recommendRandom,
+  getExceptedMenu,
+} from "../repositories/menu.repository.js";
 
 export const recommendRandomService = async (addition) => {
   try {
@@ -24,6 +28,20 @@ export const getMenuService = async ({ menuId, limit = 15 }) => {
     return menus;
   } catch (error) {
     console.error("Error fetching menus from service:", error);
+    throw error;
+  }
+};
+
+export const getExceptedMenusService = async (exceptedMenuIds) => {
+  try {
+    const exceptedMenus = await getExceptedMenu({ menuIds: exceptedMenuIds });
+    if (!exceptedMenus || exceptedMenus.length === 0) {
+      console.error("No excepted menus found in service");
+      return [];
+    }
+    return exceptedMenus;
+  } catch (error) {
+    console.error("Error fetching excepted menus from service:", error);
     throw error;
   }
 };
