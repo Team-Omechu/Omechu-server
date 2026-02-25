@@ -23,7 +23,7 @@ import {
 } from "./controllers/mukburim.controller.js";
 import { handleSearchRestaurant } from "./controllers/getSearchRestaurant.controller.js";
 import { handleSuggestion } from "./controllers/suggestions.controller.js";
-
+import { handleGetExceptMenus } from "./controllers/menu.controller.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { setupBattleSocket } from "./websocket/battle.socket.js";
@@ -314,6 +314,8 @@ app.get("/menu/mukburim/date", isLoggedIn, handleGetMukburimByDate);
 // Restaurant & Review routes
 app.get("/menu/place/search", optionalAuth, handleSearchRestaurant);
 app.get("/menu/place/suggestions", isLoggedIn, handleSuggestion);
+
+app.post("/menu/except", handleGetExceptMenus);
 
 Sentry.setupExpressErrorHandler(app);
 
