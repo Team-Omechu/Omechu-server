@@ -101,7 +101,6 @@ export const handleGetMenu = async (req, res) => {
       menuId: req.params.menuId,
       limit: 15,
     });
-    console.log("Fetched menus:", menus);
     if (menus && menus.length > 0) {
       res.status(StatusCodes.OK).json(menus);
     } else {
