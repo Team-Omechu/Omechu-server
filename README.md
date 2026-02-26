@@ -63,10 +63,10 @@ Client (Frontend)
 | Service | Port | Description |
 | :--- | :--- | :--- |
 | **default_container** | 3000 | API Gateway — 클라이언트 요청 라우팅 |
-| **auth_api** | — | 인증/인가 (JWT, 카카오/구글 OAuth, 이메일 인증, 비밀번호 재설정) |
-| **menu_api** | — | 메뉴 추천/검색/필터, 맛집 CRUD, 리뷰, 찜, 메뉴배틀 (WebSocket) |
-| **user_api** | — | 프로필 관리, 온보딩, 먹부림 기록, 식사 알림, 문의 |
-| **imbedding_api** | 5001 | OpenAI 임베딩 기반 메뉴 유사도 추천 (FastAPI + Redis 캐싱) |
+| **auth_api** | 3000 | 인증/인가 (JWT, 카카오/구글 OAuth, 이메일 인증, 비밀번호 재설정) |
+| **menu_api** | 3000 | 메뉴 추천/검색/필터, 맛집 CRUD, 리뷰, 찜, 메뉴배틀 (WebSocket) |
+| **user_api** | 3000 | 프로필 관리, 온보딩, 먹부림 기록, 식사 알림, 문의 |
+| **imbedding_api** | 5001 | BERT 임베딩 기반 메뉴 유사도 추천 (FastAPI + Redis 캐싱) |
 | **omechu_db** | 3306 | MySQL 8.0 (utf8mb4) |
 
 ---
