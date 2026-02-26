@@ -126,21 +126,37 @@ jobs:
   # docker 이미지 빌드 테스트
   docker-build-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        svc:
+          - name: auth
+            context: ./backend/auth
+            dockerfile: ./backend/auth/Dockerfile
+            tag: omechu-auth:test
+
+          - name: user
+            context: ./backend/user
+            dockerfile: ./backend/user/Dockerfile
+            tag: omechu-user:test
+
+          - name: menu
+            context: ./backend/menu
+            dockerfile: ./backend/menu/Dockerfile
+            tag: omechu-menu:test
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set Up Docker Buidx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker Images
+      - name: Build ${{ matrix.svc.name }} Image (test)
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ${{ matrix.svc.context }}
+          file: ${{ matrix.svc.dockerfile }}
           push: false
-          tages: |
-            auth: omechu-auth:test
-            user: omechu-user:test
-            menu: omechu-menu:test
+          tags: ${{ matrix.svc.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
