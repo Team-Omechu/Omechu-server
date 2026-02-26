@@ -1,0 +1,117 @@
+name: CI (changed servies only)
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      auth: ${{ steps.filter.outputs.auth }}
+      user: ${{ steps.filter.outputs.user }}
+      menu: ${{ steps.filter.outputs.menu }}
+      shared: ${{ steps.filter.outputs.shared }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            shared:
+              - '.github/workflows/**'
+              - 'backend/docker-compose*.yml'
+            auth:
+              - 'backend/auth/**'
+            user:
+              - 'backend/user/**'
+            menu:
+              - 'backend/menu/**'
+
+  build-auth:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.auth == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/auth/package-lock.json
+
+      - name: Setup Npm Version
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build auth
+        run: |
+          cd backend/auth
+          npm ci
+          npm run generate
+
+  build-user:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.user == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/user/package-lock.json
+
+      - name: Setup Npm Version
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build user
+        run: |
+          cd backend/user
+          npm ci
+          npm run generate
+
+  build-menu:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.menu == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/menu/package-lock.json
+
+      - name: Setup Npm Version
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build menu
+        run: |
+          cd backend/menu
+          npm ci
+          npm run generate
