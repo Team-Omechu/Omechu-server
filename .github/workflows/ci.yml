@@ -1,0 +1,162 @@
+name: CI (changed servies only)
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      auth: ${{ steps.filter.outputs.auth }}
+      user: ${{ steps.filter.outputs.user }}
+      menu: ${{ steps.filter.outputs.menu }}
+      shared: ${{ steps.filter.outputs.shared }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            shared:
+              - '.github/workflows/**'
+              - 'backend/docker-compose*.yml'
+            auth:
+              - 'backend/auth/**'
+            user:
+              - 'backend/user/**'
+            menu:
+              - 'backend/menu/**'
+
+  build-auth:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.auth == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/auth/package-lock.json
+
+      - name: Setup Npm Version
+
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build auth
+        env:
+          DATABASE_URL: "mysql://root:password@localhost:3306/auth_db"
+        run: |
+          cd backend/auth
+          npm ci
+          npm run generate
+
+  build-user:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.user == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/user/package-lock.json
+
+      - name: Setup Npm Version
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build user
+        env:
+          DATABASE_URL: "mysql://root:password@localhost:3306/user_db"
+        run: |
+          cd backend/user
+          npm ci
+          npm run generate
+
+  build-menu:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.menu == 'true' || needs.detect-changes.outputs.shared == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/menu/package-lock.json
+
+      - name: Setup Npm Version
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
+
+      - name: Build menu
+        env:
+          DATABASE_URL: "mysql://root:password@localhost:3306/menu_db"
+        run: |
+          cd backend/menu
+          npm ci
+          npm run generate
+
+  # docker 이미지 빌드 테스트
+  docker-build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        svc:
+          - name: auth
+            context: ./backend/auth
+            dockerfile: ./backend/auth/Dockerfile
+            tag: omechu-auth:test
+
+          - name: user
+            context: ./backend/user
+            dockerfile: ./backend/user/Dockerfile
+            tag: omechu-user:test
+
+          - name: menu
+            context: ./backend/menu
+            dockerfile: ./backend/menu/Dockerfile
+            tag: omechu-menu:test
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Docker Buidx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.svc.name }} Image (test)
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.svc.context }}
+          file: ${{ matrix.svc.dockerfile }}
+          push: false
+          tags: ${{ matrix.svc.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
