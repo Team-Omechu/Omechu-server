@@ -124,26 +124,10 @@ jobs:
           npm run generate
 
   # docker 이미지 빌드 테스트
-  docker-build-test:
+  docker-build-test-auth:
+    needs: detect-changes
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        svc:
-          - name: auth
-            context: ./backend/auth
-            dockerfile: ./backend/auth/Dockerfile
-            tag: omechu-auth:test
-
-          - name: user
-            context: ./backend/user
-            dockerfile: ./backend/user/Dockerfile
-            tag: omechu-user:test
-
-          - name: menu
-            context: ./backend/menu
-            dockerfile: ./backend/menu/Dockerfile
-            tag: omechu-menu:test
-
+    if: needs.detect-changes.outputs.auth == 'true' || needs.detect-changes.outputs.shared == 'true'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -151,12 +135,54 @@ jobs:
       - name: Set Up Docker Buidx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build ${{ matrix.svc.name }} Image (test)
+      - name: Build auth Image (test)
         uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.svc.context }}
-          file: ${{ matrix.svc.dockerfile }}
+          context: ./backend/auth
+          file: ./backend/auth/Dockerfile
           push: false
-          tags: ${{ matrix.svc.tag }}
+          tags: omechu-auth:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  docker-build-test-user:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: needs.detect-changes.outputs.user == 'true' || needs.detect-changes.outputs.shared == 'true'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Docker Buidx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build user Image (test)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend/user
+          file: ./backend/user/Dockerfile
+          push: false
+          tags: omechu-user:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  docker-build-test-menu:
+    needs: detect-changes
+    runs-on: ubuntu-latest
+    if: needs.detect-changes.outputs.menu == 'true' || needs.detect-changes.outputs.shared == 'true'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Docker Buidx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build menu Image (test)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend/menu
+          file: ./backend/menu/Dockerfile
+          push: false
+          tags: omechu-menu:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
