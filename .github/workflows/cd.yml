@@ -79,7 +79,7 @@ jobs:
           context: ./backend/auth
           file: ./backend/auth/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: |
             ${{ env.DOCKER_IMAGE_AUTH }}:${{ github.sha }}
             ${{ env.DOCKER_IMAGE_AUTH }}:latest
@@ -113,7 +113,7 @@ jobs:
           context: ./backend/user
           file: ./backend/user/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: |
             ${{ env.DOCKER_IMAGE_USER }}:${{ github.sha }}
             ${{ env.DOCKER_IMAGE_USER }}:latest
@@ -147,7 +147,7 @@ jobs:
           context: ./backend/menu
           file: ./backend/menu/Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: |
             ${{ env.DOCKER_IMAGE_MENU }}:${{ github.sha }}
             ${{ env.DOCKER_IMAGE_MENU }}:latest
