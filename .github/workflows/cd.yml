@@ -188,6 +188,26 @@ jobs:
           cd ~/omechu-server/backend
           COMPOSE="docker compose --env-file .env.prod -f docker-compose.yaml"
 
+          set_tag () {
+            local key="$1"
+            local val="$2"
+            if grep -q "^${key}=" .env.prod; then
+              sed -i "s/^${key}=.*/${key}=${val}/" .env.prod
+            else
+              echo "${key}=${val}" >> .env.prod
+            fi
+          }
+
+          if [ "$CHANGED_SHARED" = "true" ]; then
+            set_tag AUTH_TAG "$SHA"
+            set_tag USER_TAG "$SHA"
+            set_tag MENU_TAG "$SHA"
+          else
+            [ "$CHANGED_AUTH" = "true" ] && set_tag AUTH_TAG "$SHA"
+            [ "$CHANGED_USER" = "true" ] && set_tag USER_TAG "$SHA"
+            [ "$CHANGED_MENU" = "true" ] && set_tag MENU_TAG "$SHA"
+          fi
+
           if [ "$CHANGED_AUTH" = "true" ] || [ "$CHANGED_SHARED" = "true" ]; then
             echo "Deploying auth_api..."
             $COMPOSE pull auth_api
