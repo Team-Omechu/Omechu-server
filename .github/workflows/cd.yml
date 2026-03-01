@@ -61,7 +61,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up QEMU
+      - name: Set up QEMU (for arm64)
         uses: docker/setup-qemu-action@v3
 
       - name: Setting Buildx
@@ -96,7 +96,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up QEMU
+      - name: Set up QEMU (for arm64)
         uses: docker/setup-qemu-action@v3
 
       - name: Setting Buildx
@@ -107,6 +107,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
@@ -129,7 +130,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Set up QEMU
+
+      - name: Set up QEMU (for arm64)
         uses: docker/setup-qemu-action@v3
 
       - name: Setting Buildx
@@ -160,7 +162,6 @@ jobs:
       - build-and-push-auth
       - build-and-push-user
       - build-and-push-menu
-    if: always()
     runs-on: self-hosted
     steps:
       - name: Update repo on server
