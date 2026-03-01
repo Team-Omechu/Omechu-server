@@ -10,7 +10,7 @@ services:
       - omechu-net
 
   auth_api:
-    image: ${DOCKER_IMAGE_AUTH}:${AUTH_GREEN_TAG}
+    image: ${DOCKER_IMAGE_AUTH}:${AUTH_TAG}
     container_name: auth_api
     restart: unless-stopped
     networks:
@@ -21,7 +21,7 @@ services:
       - omechu_db
 
   menu_api:
-    image: ${DOCKER_IMAGE_MENU}:${MENU_GREEN_TAG}
+    image: ${DOCKER_IMAGE_MENU}:${MENU_TAG}
     container_name: menu_api
     restart: unless-stopped
     networks:
@@ -32,7 +32,7 @@ services:
       - omechu_db
 
   user_api:
-    image: ${DOCKER_IMAGE_USER}:${USER_GREEN_TAG}
+    image: ${DOCKER_IMAGE_USER}:${USER_TAG}
     container_name: user_api
     restart: unless-stopped
     networks:
