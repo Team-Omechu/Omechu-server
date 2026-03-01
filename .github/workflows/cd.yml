@@ -142,3 +142,69 @@ jobs:
             ${{ env.DOCKER_IMAGE_MENU }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs:
+      - detect-changes
+      - build-and-push-auth
+      - build-and-push-user
+      - build-and-push-menu
+    if: always()
+    runs-on: self-hosted
+    steps:
+      - name: Update repo on server
+        run: |
+          set -euo pipefail
+          cd ~/omechu-server
+          git fetch origin main
+          git reset --hard origin/main
+          echo "Repository updated on server."
+
+      - name: Create env files on server
+        run: |
+          set -euo pipefail
+          cd ~/omechu-server/backend
+
+          printf "%s\n" "${{ secrets.ENV_PROD }}" > .env.prod
+          echo "DOCKER_IMAGE_AUTH=${{ env.DOCKER_IMAGE_AUTH }}" >> .env.prod
+          echo "DOCKER_IMAGE_USER=${{ env.DOCKER_IMAGE_USER }}" >> .env.prod
+          echo "DOCKER_IMAGE_MENU=${{ env.DOCKER_IMAGE_MENU }}" >> .env.prod
+
+          # 서비스별 env_file (compose에 env_file 유지할 때)
+          mkdir -p auth user menu
+          printf "%s\n" "${{ secrets.AUTH_ENV_PROD }}" > auth/.env.production
+          printf "%s\n" "${{ secrets.USER_ENV_PROD }}" > user/.env.production
+          printf "%s\n" "${{ secrets.MENU_ENV_PROD }}" > menu/.env.production
+
+      - name: Rolling deploy only changed services
+        env:
+          CHANGED_AUTH: ${{ needs.detect-changes.outputs.auth }}
+          CHANGED_USER: ${{ needs.detect-changes.outputs.user }}
+          CHANGED_MENU: ${{ needs.detect-changes.outputs.menu }}
+          CHANGED_SHARED: ${{ needs.detect-changes.outputs.shared }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          cd ~/omechu-server/backend
+          COMPOSE="docker compose --env-file .env.prod -f docker-compose.yml"
+
+          if [ "$CHANGED_AUTH" = "true" ] || [ "$CHANGED_SHARED" = "true" ]; then
+            echo "Deploying auth_api..."
+            $COMPOSE pull auth_api
+            $COMPOSE up -d --no-deps --force-recreate auth_api
+          fi
+
+          if [ "$CHANGED_USER" = "true" ] || [ "$CHANGED_SHARED" = "true" ]; then
+            echo "Deploying user_api..."
+            $COMPOSE pull user_api
+            $COMPOSE up -d --no-deps --force-recreate user_api
+          fi
+
+          if [ "$CHANGED_MENU" = "true" ] || [ "$CHANGED_SHARED" = "true" ]; then
+            echo "Deploying menu_api..."
+            $COMPOSE pull menu_api
+            $COMPOSE up -d --no-deps --force-recreate menu_api
+          fi
+
+          echo "Deployment completed for changed services."
+          docker image prune -f || true
