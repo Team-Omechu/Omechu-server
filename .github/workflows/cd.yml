@@ -186,7 +186,7 @@ jobs:
         run: |
           set -euo pipefail
           cd ~/omechu-server/backend
-          COMPOSE="docker compose --env-file .env.prod -f docker-compose.yml"
+          COMPOSE="docker compose --env-file .env.prod -f docker-compose.yaml"
 
           if [ "$CHANGED_AUTH" = "true" ] || [ "$CHANGED_SHARED" = "true" ]; then
             echo "Deploying auth_api..."
